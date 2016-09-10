@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 
 public class MainLaunch extends Application {
-	
+
 	private static Stage primaryStage, newStage;
 	private static FXMLLoader loader;
 	private static AnchorPane APLayout;
@@ -28,7 +28,7 @@ public class MainLaunch extends Application {
 		primaryStage.setScene(new Scene(APLayout));
 		primaryStage.show();
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}

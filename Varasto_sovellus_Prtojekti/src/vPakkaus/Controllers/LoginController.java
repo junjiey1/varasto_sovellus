@@ -1,7 +1,5 @@
 package vPakkaus.Controllers;
 
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,9 +20,8 @@ public class LoginController {
     private PasswordField passwordTxt;
     @FXML
     private CheckBox showpword;
+    
     private Connection conn = null;
-
-
     String uname, pword;
     boolean allGood;
 
@@ -49,7 +46,7 @@ public class LoginController {
     	}
     }
 
-
+    // ei toimi viel√§
     public void showpword(){
     	if (showpword.isSelected()){
     		passwordTxt.setAccessibleRole(AccessibleRole.TEXT_FIELD);
@@ -73,17 +70,13 @@ public class LoginController {
 		String pass="";
 
     	try{
-			 Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e){
-			System.out.println("JDBC-ajurin lataus ep‰onnistui");
-		}
-		try {
-			conn =
-			 DriverManager.getConnection("jdbc:mysql://localhost/varasto", "root", "juliusw");
+			Class.forName("com.mysql.jdbc.Driver");
+			conn =DriverManager.getConnection("jdbc:mysql://localhost/varasto", "root", "passwordi");
 		} catch (SQLException e) {
-			System.out.println("Yhteyden muodostaminen ep‰onnistui");
+			System.out.println("Yhteyden muodostaminen ep√§onnistui");
+	    } catch (ClassNotFoundException e){
+			System.out.println("JDBC-ajurin lataus ep√§onnistui");
 		}
-
 		try{
 			haetiedot = conn.prepareStatement("SELECT * FROM users WHERE user = ?");
 			try {
@@ -100,11 +93,11 @@ public class LoginController {
 					System.out.println("Tulosjuokko suljettu");
 				}
 			}catch(SQLException e){
-				System.out.println("Haku " + uname + " ep‰onnistui!");
+				System.out.println("Haku " + uname + " ep√§onnistui!");
 				e.printStackTrace();
 			}
 		}catch(Exception e){
-			System.out.println("Tietojen haku ep‰onnistui!");
+			System.out.println("Tietojen haku ep√§onnistui!");
 		}finally{
 			try {
 				rs.close();

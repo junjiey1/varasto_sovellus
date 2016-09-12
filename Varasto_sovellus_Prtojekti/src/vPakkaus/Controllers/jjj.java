@@ -17,6 +17,8 @@ public class jjj {
 		System.out.print("Eksponentti : ");
 		power = sc.nextInt();
 		
+		sc.close();
+		
 		System.out.println("Vastaus : "+base+"^"+power+" = "+powerN(base,power));
 	
 	}

@@ -68,10 +68,27 @@ public class LoginController {
     	PreparedStatement haetiedot=null;
 		ResultSet rs = null;
 		String pass="";
+		
+		String passiwordi = null;
+		
+		
+		if (uname.equals("grigorij")){
+			passiwordi = "pass";
+		}
+		else if (uname.equals("julle")){
+			passiwordi = "juu";
+		}
+		else if (uname.equals("teemu")){
+			passiwordi = "teemu";
+		}
+		else if (uname.equals("ben")){
+			passiwordi = "root";
+		}
+		
 
     	try{
 			Class.forName("com.mysql.jdbc.Driver");
-			conn =DriverManager.getConnection("jdbc:mysql://localhost/varasto", "root", "passwordi");
+			conn =DriverManager.getConnection("jdbc:mysql://localhost/varasto", "root", passiwordi);
 		} catch (SQLException e) {
 			System.out.println("Yhteyden muodostaminen epäonnistui");
 	    } catch (ClassNotFoundException e){
@@ -116,17 +133,4 @@ public class LoginController {
 			System.out.println("LOG IN ONNISTUI : " + uname);
     	//user = uname;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

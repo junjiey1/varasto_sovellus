@@ -76,7 +76,7 @@ public class LoginController {
 			passiwordi = "pass";
 		}
 		else if (uname.equals("julle")){
-			passiwordi = "juu";
+			passiwordi = "juliusw";
 		}
 		else if (uname.equals("teemu")){
 			passiwordi = "teemu";

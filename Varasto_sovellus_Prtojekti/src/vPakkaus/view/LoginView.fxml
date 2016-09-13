@@ -8,33 +8,38 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="346.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="305.0" prefWidth="465.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.LoginController">
    <children>
-      <TextField fx:id="usernameTxt" layoutX="73.0" layoutY="80.0" prefHeight="43.0" prefWidth="234.0" promptText="USERNAME">
+      <TextField fx:id="usernameTxt" layoutX="25.0" layoutY="52.0" prefHeight="43.0" prefWidth="234.0" promptText="USERNAME">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <Label fx:id="incorrectLabel" layoutX="73.0" layoutY="214.0" prefHeight="35.0" prefWidth="234.0" text="Incorrect username or password" textFill="RED">
+      <Label fx:id="incorrectLabel" layoutX="25.0" layoutY="186.0" prefHeight="35.0" prefWidth="234.0" text="Incorrect username or password" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="73.0" layoutY="136.0" prefHeight="35.0" prefWidth="107.0" text="PASSWORD">
+      <Label layoutX="25.0" layoutY="108.0" prefHeight="35.0" prefWidth="107.0" text="PASSWORD">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <PasswordField fx:id="passwordTxt" layoutX="73.0" layoutY="171.0" prefHeight="43.0" prefWidth="234.0" promptText="PASSWORD">
+      <PasswordField fx:id="passwordTxt" layoutX="25.0" layoutY="143.0" prefHeight="43.0" prefWidth="234.0" promptText="PASSWORD">
          <font>
             <Font size="18.0" />
          </font>
       </PasswordField>
-      <Button defaultButton="true" layoutX="73.0" layoutY="283.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="107.0" text="LOGIN">
+      <Button defaultButton="true" layoutX="25.0" layoutY="255.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="107.0" text="LOG IN">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <CheckBox fx:id="showpword" layoutX="317.0" layoutY="184.0" mnemonicParsing="false" onAction="#showpword" text="show password" />
+      <CheckBox fx:id="showpword" layoutX="269.0" layoutY="156.0" mnemonicParsing="false" onAction="#showpword" text="show password" />
+      <Label layoutX="25.0" layoutY="17.0" prefHeight="35.0" prefWidth="107.0" text="USERNAME">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

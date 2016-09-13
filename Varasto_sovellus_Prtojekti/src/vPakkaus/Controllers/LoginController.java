@@ -1,17 +1,18 @@
 package vPakkaus.Controllers;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javafx.fxml.FXML;
 import javafx.scene.AccessibleRole;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import vPakkaus.MainLaunch;
 
 public class LoginController {
 
@@ -36,7 +37,7 @@ public class LoginController {
     }
 
 
-    public void login(){
+    public void login() throws IOException{
     	allGood = true;
     	incorrectLabel.setVisible(false);
     	if(usernameTxt.getText().isEmpty()){
@@ -66,7 +67,7 @@ public class LoginController {
     }
 
 
-    public void checkUnamePword(String uname, String pword){
+    public void checkUnamePword(String uname, String pword) throws IOException{
 
     	//Connect to DB and check uname & pword pair.
     	System.out.println(uname);
@@ -140,6 +141,8 @@ public class LoginController {
 
 		if(pass.equalsIgnoreCase(pword)){
 			System.out.println("LOG IN ONNISTUI : " + uname);
+			MainLaunch.windowDestroyer();
+			MainLaunch.windowConstructor("view/MainPageView.fxml", "MAIN");
     	//user = uname;
 		}else{
 			incorrectLabel.setVisible(true);

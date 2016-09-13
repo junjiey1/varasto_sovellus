@@ -13,7 +13,7 @@ public class MainLaunch extends Application {
 	private static Stage primaryStage, newStage;
 	private static FXMLLoader loader;
 	private static AnchorPane APLayout;
-
+//nimi, paino, tilavuus, hyllypaikka, saapumispäivä, lähtöpäivä, hinta(can be null)
 	@Override
 	public void start(Stage primaStage) throws IOException {
 		primaryStage = primaStage;

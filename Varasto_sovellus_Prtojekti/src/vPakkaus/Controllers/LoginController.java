@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.AccessibleRole;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -20,16 +21,24 @@ public class LoginController {
     private PasswordField passwordTxt;
     @FXML
     private CheckBox showpword;
+    @FXML
+    private Label incorrectLabel;
     
     private Connection conn = null;
     String uname, pword;
     boolean allGood;
 
     static String user = null;
+    
+    
+    public void initialize(){
+    	incorrectLabel.setVisible(false);
+    }
 
 
     public void login(){
     	allGood = true;
+    	incorrectLabel.setVisible(false);
     	if(usernameTxt.getText().isEmpty()){
     		allGood = false;
     	}
@@ -73,7 +82,7 @@ public class LoginController {
 		
 		
 		if (uname.equals("grigorij")){
-			passiwordi = "pass";
+			passiwordi = "passwordi";
 		}
 		else if (uname.equals("julle")){
 			passiwordi = "juliusw";
@@ -129,8 +138,13 @@ public class LoginController {
 
     	/////////////////////////////////////
 
-		if(pass.equalsIgnoreCase(pword))
+		if(pass.equalsIgnoreCase(pword)){
 			System.out.println("LOG IN ONNISTUI : " + uname);
     	//user = uname;
+		}else{
+			incorrectLabel.setVisible(true);
+			passwordTxt.setText("");
+			usernameTxt.requestFocus();
+		}
     }
 }

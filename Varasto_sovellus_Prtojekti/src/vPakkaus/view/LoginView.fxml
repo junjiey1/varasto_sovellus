@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="346.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.LoginController">
    <children>
       <TextField fx:id="usernameTxt" layoutX="73.0" layoutY="80.0" prefHeight="43.0" prefWidth="234.0" promptText="USERNAME">
@@ -16,7 +15,7 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <Label layoutX="73.0" layoutY="42.0" prefHeight="35.0" prefWidth="107.0" text="USERNAME">
+      <Label fx:id="incorrectLabel" layoutX="73.0" layoutY="214.0" prefHeight="35.0" prefWidth="234.0" text="Incorrect username or password" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>
@@ -31,7 +30,7 @@
             <Font size="18.0" />
          </font>
       </PasswordField>
-      <Button defaultButton="true" layoutX="73.0" layoutY="248.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="107.0" text="LOGIN">
+      <Button defaultButton="true" layoutX="73.0" layoutY="283.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="107.0" text="LOGIN">
          <font>
             <Font size="14.0" />
          </font>

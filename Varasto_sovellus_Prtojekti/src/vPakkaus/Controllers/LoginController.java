@@ -12,6 +12,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import vPakkaus.DB_AccessObject;
 import vPakkaus.MainLaunch;
 
 public class LoginController {
@@ -24,14 +25,14 @@ public class LoginController {
     private CheckBox showpword;
     @FXML
     private Label incorrectLabel;
-    
+
     private Connection conn = null;
     String uname, pword;
     boolean allGood;
 
     static String user = null;
-    
-    
+
+
     public void initialize(){
     	incorrectLabel.setVisible(false);
     }
@@ -73,77 +74,10 @@ public class LoginController {
     	System.out.println(uname);
     	System.out.println(pword);
 
-    	/////////////////////////////////////
-
-    	PreparedStatement haetiedot=null;
-		ResultSet rs = null;
-		String pass="";
-		
-		String passiwordi = null;
-		
-		
-		if (uname.equals("grigorij")){
-			passiwordi = "passwordi";
-		}
-		else if (uname.equals("julle")){
-			passiwordi = "juliusw";
-		}
-		else if (uname.equals("teemu")){
-			passiwordi = "teemu";
-		}
-		else if (uname.equals("ben")){
-			passiwordi = "root";
-		}
-		
-
-    	try{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn =DriverManager.getConnection("jdbc:mysql://localhost/varasto", "root", passiwordi);
-		} catch (SQLException e) {
-			System.out.println("Yhteyden muodostaminen epäonnistui");
-	    } catch (ClassNotFoundException e){
-			System.out.println("JDBC-ajurin lataus epäonnistui");
-		}
-		try{
-			haetiedot = conn.prepareStatement("SELECT * FROM users WHERE user = ?");
-			try {
-				haetiedot.setString(1, uname);
-				rs = haetiedot.executeQuery();
-				try {
-					while(rs.next()){
-						pass = rs.getString("pass");
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} finally{
-					rs.close();
-					System.out.println("Tulosjuokko suljettu");
-				}
-			}catch(SQLException e){
-				System.out.println("Haku " + uname + " epäonnistui!");
-				e.printStackTrace();
-			}
-		}catch(Exception e){
-			System.out.println("Tietojen haku epäonnistui!");
-		}finally{
-			try {
-				rs.close();
-				haetiedot.close();
-				conn.close();
-				System.out.println("Haku kysely suljettu");
-			} catch (SQLException e) {
-				System.out.println("Yhteyden sulkemisessa vikaa");
-				e.printStackTrace();
-			}
-		}
-
-    	/////////////////////////////////////
-
-		if(pass.equalsIgnoreCase(pword)){
+		if(DB_AccessObject.LogIn(uname, pword)){
 			System.out.println("LOG IN ONNISTUI : " + uname);
 			MainLaunch.windowDestroyer();
 			MainLaunch.windowConstructor("view/MainPageView.fxml", "MAIN");
-    	//user = uname;
 		}else{
 			incorrectLabel.setVisible(true);
 			passwordTxt.setText("");

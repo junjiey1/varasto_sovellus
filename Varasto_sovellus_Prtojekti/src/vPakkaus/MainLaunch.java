@@ -6,6 +6,7 @@ import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -15,38 +16,32 @@ public class MainLaunch extends Application {
 	private static FXMLLoader loader;
 	private static AnchorPane APLayout;
 	private static DB_AccessObject db;
-//nimi, paino, tilavuus, hyllypaikka, saapumispäivä, lähtöpäivä, hinta(can be null)
+
 	@Override
 	public void start(Stage primaStage) throws IOException {
-		primaryStage = primaStage;
-		primaryStage.setTitle("LOGIN");
-		windowConstructor("view/LoginView.fxml", "LOG IN");
+		windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}
 
-//	private void showMainView() throws IOException {
-//		loader = new FXMLLoader();
-//		loader.setLocation(MainLaunch.class.getResource("view/LoginView.fxml"));
-//		APLayout = loader.load();
-//		primaryStage.setScene(new Scene(APLayout));
-//		primaryStage.show();
-//	}
-
-
-
-	public static void windowConstructor(String resource, String title) throws IOException{
+	
+	public static void windowConstructor(String resource, String title, Tab activeTab) throws IOException{
 		loader = new FXMLLoader();
 		loader.setLocation(MainLaunch.class.getResource(resource));
 		APLayout = loader.load();
-		newStage = new Stage();
-		newStage.setTitle(title);
-		newStage.setScene(new Scene(APLayout));
-		newStage.show();
+		
+		if (activeTab != null){
+			activeTab.setContent(APLayout);
+		}else{
+			newStage = new Stage();
+			newStage.setTitle(title);
+			newStage.setScene(new Scene(APLayout));
+			newStage.show();
+		}
 	}
 
+	
 	public static void windowDestroyer(){
 		newStage.close();
 	}
-
 
 
 	public static void main(String[] args) {

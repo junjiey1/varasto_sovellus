@@ -4,44 +4,48 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="299.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MainPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MainPageController">
    <children>
-      <TabPane layoutX="-2.0" layoutY="-2.0" prefHeight="299.0" prefWidth="608.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="100.0" tabMinHeight="25.0" tabMinWidth="100.0">
         <tabs>
           <Tab text="MAIN">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-          <Tab text="ADD PRODUCT">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <content>
+                  <AnchorPane minHeight="460.0" minWidth="700.0" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TextField layoutX="30.0" layoutY="56.0" prefHeight="25.0" prefWidth="175.0" />
-                        <TextField layoutX="227.0" layoutY="56.0" prefHeight="25.0" prefWidth="175.0" />
-                        <TextField layoutX="418.0" layoutY="56.0" prefHeight="25.0" prefWidth="175.0" />
-                        <TextField layoutX="30.0" layoutY="120.0" prefHeight="25.0" prefWidth="175.0" />
-                        <TextField layoutX="227.0" layoutY="120.0" prefHeight="25.0" prefWidth="175.0" />
-                        <TextField layoutX="418.0" layoutY="120.0" prefHeight="25.0" prefWidth="175.0" />
-                        <Label layoutX="30.0" layoutY="39.0" text="NAME" />
-                        <Label layoutX="227.0" layoutY="39.0" text="QUANTITY" />
-                        <Label layoutX="30.0" layoutY="103.0" text="WEIGHT" />
-                        <Label layoutX="227.0" layoutY="103.0" text="VOLUME" />
-                        <Label layoutX="418.0" layoutY="39.0" text="PRICE" />
-                        <Label layoutX="418.0" layoutY="103.0" text="WH LOCATION" />
-                        <Button defaultButton="true" layoutX="350.0" layoutY="191.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="88.0" text="ADD NEW" />
+                        <Label fx:id="currentUserLbl" layoutX="22.0" layoutY="68.0" prefHeight="29.0" prefWidth="276.0" text="CURRENT USER: ">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="22.0" layoutY="217.0" mnemonicParsing="false" onAction="#logOut" prefHeight="35.0" prefWidth="79.0" text="LOG OUT" />
+                        <ImageView fitHeight="318.0" fitWidth="388.0" layoutX="299.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/wh.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="391.0" layoutY="23.0" text="VarastoSovellus">
+                           <font>
+                              <Font name="Arial Bold" size="26.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="276.0" layoutY="426.0" text="Created by: Grigorij Semykin, Teemu Roivas, Julius Koljonen &amp; Junjie Yin">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="ALL PRODUCTS">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
+          <Tab fx:id="addProductTab" onSelectionChanged="#tabChoose" text="ADD PRODUCT" />
+            <Tab fx:id="tab3" onSelectionChanged="#tabChoose" text="TAB3" />
+            <Tab fx:id="tab4" onSelectionChanged="#tabChoose" text="TAB4" />
+            <Tab fx:id="tab5" onSelectionChanged="#tabChoose" text="TAB5" />
         </tabs>
       </TabPane>
    </children>

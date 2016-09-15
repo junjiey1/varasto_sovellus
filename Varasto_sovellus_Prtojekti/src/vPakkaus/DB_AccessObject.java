@@ -13,7 +13,7 @@ public class DB_AccessObject {
 
 	public DB_AccessObject()
 	{
-		/////////////////T‰m‰ osio vain testailua varten
+		/////////////////T√§m√§ osio vain testailua varten
 		Scanner s = new Scanner(System.in);
 		System.out.println("Kenen koneella ollaan?\n1.Julius\n2.Grigor\n3.Teemu\n4.Ben");
 		int i = s.nextInt();
@@ -44,9 +44,9 @@ public class DB_AccessObject {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn =DriverManager.getConnection("jdbc:mysql://localhost/varasto", "root", pass);
 		} catch (SQLException e) {
-			System.out.println("Yhteyden muodostaminen ep‰onnistui");
+			System.out.println("Yhteyden muodostaminen ep√§onnistui");
 	    } catch (ClassNotFoundException e){
-			System.out.println("JDBC-ajurin lataus ep‰onnistui");
+			System.out.println("JDBC-ajurin lataus ep√§onnistui");
 		}
 
 	}
@@ -57,7 +57,7 @@ public class DB_AccessObject {
 
 	public static boolean LogIn(String uname, String pword)
 	{
-		boolean res = false; //Oletetaan, ett‰ login ep‰onnistuu
+		boolean res = false; //Oletetaan, ett√§ login ep√§onnistuu
 
 		PreparedStatement haetiedot=null;
 		ResultSet rs = null;
@@ -69,7 +69,7 @@ public class DB_AccessObject {
 			try {
 				//Asetetaan argumentit sql-kyselyyn
 				haetiedot.setString(1, uname);
-				rs = haetiedot.executeQuery();//Hae annetulla k‰ytt‰j‰nimell‰ tietokanta rivi
+				rs = haetiedot.executeQuery();//Hae annetulla k√§ytt√§j√§nimell√§ tietokanta rivi
 				try {
 					while(rs.next()){
 						pass = rs.getString("pass"); //hae password column ja tallenna muuttujaan
@@ -81,11 +81,11 @@ public class DB_AccessObject {
 					System.out.println("Tulosjuokko suljettu");
 				}
 			}catch(SQLException e){
-				System.out.println("Haku " + uname + " ep‰onnistui!");
+				System.out.println("Haku " + uname + " ep√§onnistui!");
 				e.printStackTrace();
 			}
 		}catch(Exception e){
-			System.out.println("Tietojen haku ep‰onnistui!");
+			System.out.println("Tietojen haku ep√§onnistui!");
 		}finally{
 			try {
 				haetiedot.close();
@@ -100,7 +100,7 @@ public class DB_AccessObject {
 
 		if(pass.equals(pword)){ //tarkistetaan salasanat
 			//True vain jos funktioon tullut salasana
-			//on sama mik‰ lˆytyy tietokannasta
+			//on sama mik√§ l√∂ytyy tietokannasta
 			res = true;
 		}
 		return res;

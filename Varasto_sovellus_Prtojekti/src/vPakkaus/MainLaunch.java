@@ -45,6 +45,7 @@ public class MainLaunch extends Application {
 	public static void main(String[] args) {
 		db = new DB_AccessObject();
 		//DB_AccessObject.Lisaa("testi", 0.5, 1.5, "A-08", new Date(2016-1900, 2, 2), new Date(2, 1, 1995), 3.4f, 1, 1, 2);
+		//addProductController.readFromFile();
 		launch(args);
 	}
 }

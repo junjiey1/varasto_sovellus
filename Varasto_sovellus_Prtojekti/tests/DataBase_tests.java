@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import vPakkaus.DB_AccessObject;
+import vPakkaus.Controllers.LoginController;
 
 public class DataBase_tests {
 
@@ -33,24 +34,38 @@ public class DataBase_tests {
 	public void LogIn_VäärätTunnukset()
 	{
 		System.out.println("\nTest : LogIn_VäärätTunnukset()\n");
-		boolean result = db.LogIn("randomia", "igszsg");
-		assertEquals("LogIn_VäärätTunnukset() testi EPÄONNISTUI!",result,false);
+		int result = db.LogIn("randomia", "igszsg")[0];
+		assertEquals("LogIn_VäärätTunnukset() testi EPÄONNISTUI!",result,0);
+	}
+
+	@Test
+	public void LogIn_KäyttäjänID()
+	{
+		System.out.println("\nTest : LogIn_KäyttäjänID()");
+		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",db.LogIn("testi", "testi")[1],2);
 	}
 
 	@Test
 	public void LogIn_AidotTunnukset()
 	{
 		System.out.println("\nTest : LogIn_AidotTunnukset()\n");
-		boolean result = db.LogIn("testi", "testi");
-		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",result,true);
+		int result = db.LogIn("testi", "testi")[0];
+		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",result,1);
 	}
+
 
 	@Test
 	public void Tavaran_Lisääminen_Oikeilla_Parametreilla()
 	{
 		System.out.println("\nTest : Tavaran_Lisääminen_Oikeilla_Parametreilla()");
-		boolean result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", new Date(2016-1900,2,3), new Date(2016-1900, 5,7), 2.2f, 1, 1, 4);
+		boolean result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", new Date(2016-1900,2,3), new Date(2016-1900, 5,7), 2.2f, 1,4);
 		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",result,true);
+	}
+
+	@Test
+	public void Tavaran_Lisääminen_Väärillä_Parametreilla()
+	{
+		//System.out.println("\nTest : Tavaran_Lisääminen_Väärillä_Parametreilla()");
 	}
 
 }

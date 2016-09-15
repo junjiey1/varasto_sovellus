@@ -2,14 +2,11 @@ package vPakkaus.Controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.Date;
 import java.util.Scanner;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import vPakkaus.DB_AccessObject;
 
 public class addProductController {
 
@@ -25,31 +22,22 @@ public class addProductController {
     private TextField volume;
     @FXML
     private TextField whLocation;
-    
-    
+
+
     boolean allGood;
-    
+
     File file;
     Scanner input;
     String[] oneRowOfData;
     String path;
     
-    
-//    String nimi, double paino, double tilavuus,
-//	String hyllypaikka, Date saapumispaiva, Date lahtopaiva, float hinta,
-//	int lisaaja_id, int poistaja_id, int maara)
-    
+
     public void addNewProduct(){
-    	
-    	DB_AccessObject.Lisaa(productName.getText(), paino, tilavuus, hyllypaikka, saapumispaiva, lahtopaiva, hinta, lisaaja_id, poistaja_id, maara)
-    	
-    	
-    	
-    	
-    	
+
+    	//DB_AccessObject.Lisaa(productName.getText(), paino, tilavuus, hyllypaikka, saapumispaiva, lahtopaiva, hinta, lisaaja_id, poistaja_id, maara)
+
     }
-    
-    
+
     
     @FXML
     public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {

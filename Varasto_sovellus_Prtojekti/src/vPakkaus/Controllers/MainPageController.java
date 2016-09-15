@@ -1,12 +1,9 @@
 package vPakkaus.Controllers;
 
-import java.io.File;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import vPakkaus.MainLaunch;
 
 
@@ -23,20 +20,20 @@ public class MainPageController {
     @FXML
     private  Label currentUserLbl;
 
-   
+
     Tab activeTab;
     String resource;
-    
-    
+
+
     public void initialize(){
-    	currentUserLbl.setText("CURRENT USER :  " + LoginController.user);
+    	currentUserLbl.setText("CURRENT USER :  " + LoginController.getName());
     }
-    
-    
+
+
     public void tabChoose() throws IOException{
-    	
+
     	System.gc(); // CLEAR MEMORY
-    	
+
     	if (addProductTab.isSelected()) {
     		activeTab = addProductTab;
     		resource = "view/addProduct.fxml";
@@ -58,7 +55,6 @@ public class MainPageController {
     
 
 
-    
 	public void logOut() throws IOException{
 		MainLaunch.windowDestroyer();
 		MainLaunch.windowConstructor("view/LoginView.fxml", "LOG IN", null);

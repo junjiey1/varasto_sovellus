@@ -75,13 +75,15 @@ public class LoginController {
 
     public void checkUnamePword(String uname, String pword) throws IOException{
 
+    	int[] list = DB_AccessObject.LogIn(uname, pword);//palauttaa listan[true/false,id]
+
     	//Connect to DB and check uname & pword pair.
     	System.out.println(uname);
     	System.out.println(pword);
-
-		if(DB_AccessObject.LogIn(uname, pword)){
+		if(list[0] == 1){
 			System.out.println("LOG IN ONNISTUI : " + uname);
 			user = uname;
+			userID = list[1];
 			MainLaunch.windowDestroyer();
 			MainLaunch.windowConstructor("view/MainPageView.fxml", "VarastoSovellus 1.01", null);
 		}else{

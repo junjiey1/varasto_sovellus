@@ -56,12 +56,13 @@ public class DB_AccessObject {
 
 	//-----METODIT-----//
 
-	public static boolean LogIn(String uname, String pword){
-		boolean res = false; //Oletetaan, että login epäonnistuu
+	public static int[] LogIn(String uname, String pword){
+		int res = 0; //Oletetaan, että login epäonnistuu
 
 		PreparedStatement haetiedot=null;
 		ResultSet rs = null;
 		String pass="";
+		int id=0;
 
 		try{
 			//Parametrisoitu sql-kysely
@@ -73,6 +74,7 @@ public class DB_AccessObject {
 				try {
 					while(rs.next()){
 						pass = rs.getString("pass"); //hae password column ja tallenna muuttujaan
+						id = rs.getInt("id");
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -101,21 +103,22 @@ public class DB_AccessObject {
 		if(pass.equals(pword)){ //tarkistetaan salasanat
 			//True vain jos funktioon tullut salasana
 			//on sama mikä löytyy tietokannasta
-			res = true;
+			res = 1;
 		}
-		return res;
+		int[] list = {res, id};
+		return list;
 	}
 
 	public static boolean Lisaa(String nimi, double paino, double tilavuus,
 			String hyllypaikka, Date saapumispaiva, Date lahtopaiva, float hinta,
-			int lisaaja_id, int poistaja_id, int maara)
+			int lisaaja_id, int maara)
 	{
 		PreparedStatement LisaaTuote=null;
 		boolean error=false;
 		try {
 			LisaaTuote = conn.prepareStatement("INSERT INTO tuotteet(nimike, paino, tilavuus, hyllypaikka"
-					+ ", saapumispaiva, lahtopaiva, hinta, lisaaja_id, poistaja_id, maara) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?);");
+					+ ", saapumispaiva, lahtopaiva, hinta, lisaaja_id,  maara) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?);");
 		} catch (SQLException e) {
 			System.out.println("Lisäys epäonnistui!");
 			error=true;
@@ -130,8 +133,7 @@ public class DB_AccessObject {
 			LisaaTuote.setDate(6, lahtopaiva);
 			LisaaTuote.setFloat(7, hinta);
 			LisaaTuote.setInt(8, lisaaja_id);
-			LisaaTuote.setInt(9, poistaja_id);
-			LisaaTuote.setInt(10, maara);
+			LisaaTuote.setInt(9, maara);
 			LisaaTuote.executeUpdate();
 			LisaaTuote.close();
 
@@ -142,10 +144,16 @@ public class DB_AccessObject {
 		 }
 
 		 if(!error){
-			 System.out.println("jee!");
 			 return true;
 		 }
 		 return false;
+	}
+
+	public static <E> boolean PaivitaTietue(String taulukon_nimi, String tietueen_nimi,E kriteeri, E arvo)
+	{
+		boolean res = false;
+		//kriteeri.getClass().
+		return res;
 	}
 
 	public static void close() throws SQLException

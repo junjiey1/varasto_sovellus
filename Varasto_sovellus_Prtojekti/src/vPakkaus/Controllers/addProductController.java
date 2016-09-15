@@ -1,9 +1,14 @@
 package vPakkaus.Controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Date;
+import java.util.Scanner;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import vPakkaus.DB_AccessObject;
 
 public class addProductController {
@@ -24,6 +29,11 @@ public class addProductController {
     
     boolean allGood;
     
+    File file;
+    Scanner input;
+    String[] oneRowOfData;
+    String path;
+    
     
 //    String nimi, double paino, double tilavuus,
 //	String hyllypaikka, Date saapumispaiva, Date lahtopaiva, float hinta,
@@ -38,4 +48,34 @@ public class addProductController {
     	
     	
     }
+    
+    
+    
+    @FXML
+    public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
+        Dragboard db = event.getDragboard();
+        if (db.hasFiles()) {
+        	path = db.getFiles().toString();
+        	path = path.substring(1, path.length()-1);
+        	event.consume();
+        	readFromFile(path);
+        }
+    }
+    
+    
+    public void readFromFile(String name) throws FileNotFoundException{
+    	
+    	file = new File(name);
+    	input = new Scanner(file);
+    	
+    	while(input.hasNext()){
+//			oneRowOfData = input.nextLine().split(",");
+    		System.out.println(input.nextLine());
+    	}
+    }
+    
+    
+    
+    
+    
 }

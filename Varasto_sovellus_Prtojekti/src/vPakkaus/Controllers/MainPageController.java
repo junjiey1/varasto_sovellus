@@ -1,9 +1,12 @@
 package vPakkaus.Controllers;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import vPakkaus.MainLaunch;
 
 
@@ -52,8 +55,10 @@ public class MainPageController {
     	}
     	MainLaunch.windowConstructor(resource, "VarastoSovellus 1.01", activeTab);
     }
-   
+    
 
+
+    
 	public void logOut() throws IOException{
 		MainLaunch.windowDestroyer();
 		MainLaunch.windowConstructor("view/LoginView.fxml", "LOG IN", null);

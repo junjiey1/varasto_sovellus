@@ -31,6 +31,7 @@ public class LoginController {
     boolean allGood;
 
     static String user = null;
+    static int userID = 0;
 
     public LoginController()
     {

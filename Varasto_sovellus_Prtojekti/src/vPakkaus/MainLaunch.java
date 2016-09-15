@@ -1,9 +1,6 @@
 package vPakkaus;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,10 +10,11 @@ import javafx.stage.Stage;
 
 public class MainLaunch extends Application {
 
-	private static Stage primaryStage, newStage;
+	private static Stage newStage;
 	private static FXMLLoader loader;
 	private static AnchorPane APLayout;
 	private static DB_AccessObject db;
+	
 	@Override
 	public void start(Stage primaStage) throws IOException {
 		windowConstructor("view/LoginView.fxml", "LOG IN", null);
@@ -38,7 +36,7 @@ public class MainLaunch extends Application {
 		}
 	}
 
-
+	
 	public static void windowDestroyer(){
 		newStage.close();
 	}

@@ -149,11 +149,14 @@ public class DB_AccessObject {
 		 return false;
 	}
 
-	public static <E> boolean PaivitaTietue(String taulukon_nimi, String tietueen_nimi,E kriteeri, E arvo)
+	public static <E> boolean PaivitaTietueByID(String taulukon_nimi, int id, E[] arvot, int[] tietueet)
 	{
-		boolean res = false;
-		//kriteeri.getClass().
-		return res;
+		boolean error=false;
+		for(int i =0; i<tietueet.length;i++)
+		{
+
+		}
+		return error;
 	}
 
 	public static void close() throws SQLException

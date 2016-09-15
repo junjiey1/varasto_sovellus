@@ -30,7 +30,7 @@ public class addProductController {
     Scanner input;
     String[] oneRowOfData;
     String path;
-    
+
 
     public void addNewProduct(){
 
@@ -38,7 +38,7 @@ public class addProductController {
 
     }
 
-    
+
     @FXML
     public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
         Dragboard db = event.getDragboard();
@@ -49,21 +49,21 @@ public class addProductController {
         	readFromFile(path);
         }
     }
-    
-    
+
+
     public void readFromFile(String name) throws FileNotFoundException{
-    	
+
     	file = new File(name);
     	input = new Scanner(file);
-    	
+
     	while(input.hasNext()){
 //			oneRowOfData = input.nextLine().split(",");
     		System.out.println(input.nextLine());
     	}
     }
-    
-    
-    
-    
-    
+
+
+
+
+
 }

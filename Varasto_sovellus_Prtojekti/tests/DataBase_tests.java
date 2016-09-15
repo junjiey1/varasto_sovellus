@@ -3,29 +3,45 @@ import static org.junit.Assert.*;
 import java.sql.Connection;
 
 import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import vPakkaus.DB_AccessObject;
 
 public class DataBase_tests {
 
 	private Connection conn = null;
+	private static DB_AccessObject db;
 
-	@After
-	public void sh()
+	@AfterClass
+	public static void sh()
 	{
-		try{conn.close();}catch(Exception e){}
+		System.out.println("------SULJETAAN TIETOKANTAYHTEYS------");
+		try{db.close();}catch(Exception e){}
+	}
+
+	@BeforeClass
+	public static void Valmistelut()
+	{
+		System.out.println("------ESIVALMISTELUT-------");
+		db = new DB_AccessObject();
 	}
 
 	@Test
-	public void test() {
-		System.out.println("Yhdistä tietokantaan...");
-		boolean error = false;
-		try{
-			 Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e){
-			error = true;
-			System.out.println("JDBC-ajurin lataus epäonnistui");
-		}
-		assertEquals("Tietokantaan yhdistäminen ei toimi!",error,false);
+	public void LogIn_VäärätTunnukset()
+	{
+		System.out.println("\nTest : LogIn_VäärätTunnukset()\n");
+		boolean result = db.LogIn("randomia", "igszsg");
+		assertEquals("LogIn_VäärätTunnukset() testi EPÄONNISTUI!",result,false);
+	}
+
+	@Test
+	public void LogIn_AidotTunnukset()
+	{
+		System.out.println("\nTest : LogIn_AidotTunnukset()\n");
+		boolean result = db.LogIn("julle", "juu");
+		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",result,true);
 	}
 
 }

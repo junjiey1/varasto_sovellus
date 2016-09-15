@@ -1,6 +1,8 @@
 package vPakkaus;
 
 import java.io.IOException;
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,7 +14,8 @@ public class MainLaunch extends Application {
 	private static Stage primaryStage, newStage;
 	private static FXMLLoader loader;
 	private static AnchorPane APLayout;
-
+	private static DB_AccessObject db;
+//nimi, paino, tilavuus, hyllypaikka, saapumispäivä, lähtöpäivä, hinta(can be null)
 	@Override
 	public void start(Stage primaStage) throws IOException {
 		primaryStage = primaStage;
@@ -27,8 +30,8 @@ public class MainLaunch extends Application {
 //		primaryStage.setScene(new Scene(APLayout));
 //		primaryStage.show();
 //	}
-	
-	
+
+
 
 	public static void windowConstructor(String resource, String title) throws IOException{
 		loader = new FXMLLoader();
@@ -39,17 +42,15 @@ public class MainLaunch extends Application {
 		newStage.setScene(new Scene(APLayout));
 		newStage.show();
 	}
-	
+
 	public static void windowDestroyer(){
 		newStage.close();
 	}
-	
-	
-	
-	
-	
+
+
 
 	public static void main(String[] args) {
+		db = new DB_AccessObject();
 		launch(args);
 	}
 }

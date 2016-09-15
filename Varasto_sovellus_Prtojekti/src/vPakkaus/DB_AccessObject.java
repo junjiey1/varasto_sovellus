@@ -56,9 +56,8 @@ public class DB_AccessObject {
 
 	//-----METODIT-----//
 
-	public static boolean LogIn(String uname, String pword)
-	{
-		boolean res = false; //Oletetaan, ett� login ep�onnistuu
+	public static boolean LogIn(String uname, String pword){
+		boolean res = false; //Oletetaan, että login epäonnistuu
 
 		PreparedStatement haetiedot=null;
 		ResultSet rs = null;
@@ -70,7 +69,7 @@ public class DB_AccessObject {
 			try {
 				//Asetetaan argumentit sql-kyselyyn
 				haetiedot.setString(1, uname);
-				rs = haetiedot.executeQuery();//Hae annetulla k�ytt�j�nimell� tietokanta rivi
+				rs = haetiedot.executeQuery();//Hae annetulla käyttäjänimellä tietokanta rivi
 				try {
 					while(rs.next()){
 						pass = rs.getString("pass"); //hae password column ja tallenna muuttujaan
@@ -101,7 +100,7 @@ public class DB_AccessObject {
 
 		if(pass.equals(pword)){ //tarkistetaan salasanat
 			//True vain jos funktioon tullut salasana
-			//on sama mik� l�ytyy tietokannasta
+			//on sama mikä löytyy tietokannasta
 			res = true;
 		}
 		return res;
@@ -134,7 +133,7 @@ public class DB_AccessObject {
 			LisaaTuote.setInt(9, poistaja_id);
 			LisaaTuote.setInt(10, maara);
 			LisaaTuote.executeUpdate();
-			//LisaaTuote.close();
+			LisaaTuote.close();
 
 		 } catch (SQLException e) {
 			System.out.println("Lisäys epäonnistui!");

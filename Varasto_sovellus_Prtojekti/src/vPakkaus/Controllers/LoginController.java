@@ -80,8 +80,9 @@ public class LoginController {
 
 		if(DB_AccessObject.LogIn(uname, pword)){
 			System.out.println("LOG IN ONNISTUI : " + uname);
+			user = uname;
 			MainLaunch.windowDestroyer();
-			MainLaunch.windowConstructor("view/MainPageView.fxml", "MAIN");
+			MainLaunch.windowConstructor("view/MainPageView.fxml", "VarastoSovellus 1.01", null);
 		}else{
 			incorrectLabel.setVisible(true);
 			passwordTxt.setText("");

@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="299.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MainPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MainPageController">
    <children>
-      <Button fx:id="addProduct" layoutX="27.0" layoutY="32.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="64.0" prefWidth="138.0" text="ADD NEW PRODUCT" textAlignment="CENTER" AnchorPane.leftAnchor="31.0" />
-      <Button fx:id="removeProduct" layoutX="235.0" layoutY="32.0" mnemonicParsing="false" onAction="#removeProduct" prefHeight="64.0" prefWidth="138.0" text="REMOVE PRODUCT" textAlignment="CENTER" />
-      <Button fx:id="moveProduct" layoutX="439.0" layoutY="32.0" mnemonicParsing="false" onAction="#moveProduct" prefHeight="64.0" prefWidth="138.0" text="MOVE PRODUCT TO OTHER WAREHOUSE" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="31.0" />
-      <Button fx:id="logOut" layoutX="464.0" layoutY="225.0" mnemonicParsing="false" onAction="#logOut" prefHeight="40.0" prefWidth="89.0" text="LOG OUT" />
-      <Button fx:id="warehouseHistory" layoutX="31.0" layoutY="128.0" mnemonicParsing="false" onAction="#warehouseHistory" prefHeight="64.0" prefWidth="138.0" text="WAREHOUSE HISTORY" textAlignment="CENTER" />
-      <Button fx:id="showGraphs" layoutX="235.0" layoutY="128.0" mnemonicParsing="false" onAction="#showGraphs" prefHeight="64.0" prefWidth="138.0" text="GRAPHS" textAlignment="CENTER" />
-      <Button fx:id="addUser" layoutX="439.0" layoutY="128.0" mnemonicParsing="false" onAction="#addUser" prefHeight="64.0" prefWidth="138.0" text="ADD NEW USER" textAlignment="CENTER" wrapText="true" />
+      <TabPane minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="100.0" tabMinHeight="25.0" tabMinWidth="100.0">
+        <tabs>
+          <Tab text="MAIN">
+               <content>
+                  <AnchorPane minHeight="460.0" minWidth="700.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="currentUserLbl" layoutX="22.0" layoutY="68.0" prefHeight="29.0" prefWidth="276.0" text="CURRENT USER: ">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="22.0" layoutY="217.0" mnemonicParsing="false" onAction="#logOut" prefHeight="35.0" prefWidth="79.0" text="LOG OUT" />
+                        <ImageView fitHeight="318.0" fitWidth="388.0" layoutX="299.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/wh.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="391.0" layoutY="23.0" text="VarastoSovellus">
+                           <font>
+                              <Font name="Arial Bold" size="26.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="276.0" layoutY="426.0" text="Created by: Grigorij Semykin, Teemu Roivas, Julius Koljonen &amp; Junjie Yin">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+          <Tab fx:id="addProductTab" onSelectionChanged="#tabChoose" text="ADD PRODUCT" />
+            <Tab fx:id="tab3" onSelectionChanged="#tabChoose" text="TAB3" />
+            <Tab fx:id="tab4" onSelectionChanged="#tabChoose" text="TAB4" />
+            <Tab fx:id="tab5" onSelectionChanged="#tabChoose" text="TAB5" />
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

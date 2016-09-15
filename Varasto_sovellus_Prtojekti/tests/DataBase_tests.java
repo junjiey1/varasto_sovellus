@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.sql.Connection;
+import java.sql.Date;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -41,6 +42,14 @@ public class DataBase_tests {
 	{
 		System.out.println("\nTest : LogIn_AidotTunnukset()\n");
 		boolean result = db.LogIn("testi", "testi");
+		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",result,true);
+	}
+
+	@Test
+	public void Tavaran_Lisääminen_Oikeilla_Parametreilla()
+	{
+		System.out.println("\nTest : Tavaran_Lisääminen_Oikeilla_Parametreilla()");
+		boolean result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", new Date(2016-1900,2,3), new Date(2016-1900, 5,7), 2.2f, 1, 1, 4);
 		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",result,true);
 	}
 

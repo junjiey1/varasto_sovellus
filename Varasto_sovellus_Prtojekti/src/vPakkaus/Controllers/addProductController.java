@@ -55,19 +55,19 @@ public class addProductController {
 
     		Date saapumispaiva = new Date(year-1900, month-1, day);
     		Date lahtopaiva = null;
-    		int add_user_id = 1;
+    		int lisaajan_id = LoginController.getID();
 
     		Product product = new Product(productName.getText(), whLocation.getText(), Double.parseDouble(weight.getText()), Double.parseDouble(volume.getText()), Float.parseFloat(price.getText()));
-    		AddProducts add = new AddProducts(product, Integer.parseInt(quantity.getText()), add_user_id, saapumispaiva, lahtopaiva);
+    		AddProducts add = new AddProducts(product, Integer.parseInt(quantity.getText()), lisaajan_id, saapumispaiva, lahtopaiva);
     		System.out.println(add.getProduct().getProduct_name());
     		System.out.println(saapumispaiva);
-    		addNewProduct(add.getProduct().getProduct_name(), add.getProduct().getProduct_weight(), add.getProduct().getProduct_volume(), add.getProduct().getProduct_location(), add.getSaapumispaiva(), add.getLahtopaiva(), add.getProduct().getProduct_price(), add_user_id, add.getProduct_quantity());
+    		addNewProduct(add.getProduct().getProduct_name(), add.getProduct().getProduct_weight(), add.getProduct().getProduct_volume(), add.getProduct().getProduct_location(), add.getSaapumispaiva(), add.getLahtopaiva(), add.getProduct().getProduct_price(), add.getAdd_user_id(), add.getProduct_quantity());
     	}
     }
 
-    public void addNewProduct(String nimi, double paino, double tilavuus, String hyllypaikka, Date saapumispaiva, Date lahtopaiva, float hinta, int lisaaja_id, int maara){
+    public void addNewProduct(String nimi, double paino, double tilavuus, String hyllypaikka, Date saapumispaiva, Date lahtopaiva, float hinta, int lisaajan_id, int maara){
 
-    	DB_AccessObject.Lisaa(nimi, paino, tilavuus, hyllypaikka, saapumispaiva, lahtopaiva, hinta, lisaaja_id, maara);
+    	DB_AccessObject.Lisaa(nimi, paino, tilavuus, hyllypaikka, saapumispaiva, lahtopaiva, hinta, lisaajan_id, maara);
 
     }
 

@@ -19,20 +19,20 @@ public class MainPageController {
     private Tab tab5;
     @FXML
     private  Label currentUserLbl;
-   
+
     Tab activeTab;
     String resource;
-    
-    
+
+
     public void initialize(){
-    	currentUserLbl.setText("CURRENT USER :  " + LoginController.user);
+    	currentUserLbl.setText("CURRENT USER :  " + LoginController.getName());
     }
-    
-    
+
+
     public void tabChoose() throws IOException{
-    	
+
     	System.gc(); // CLEAR MEMORY
-    	
+
     	if (addProductTab.isSelected()) {
     		activeTab = addProductTab;
     		resource = "view/addProduct.fxml";
@@ -52,7 +52,7 @@ public class MainPageController {
     	MainLaunch.windowConstructor(resource, "VarastoSovellus 1.01", activeTab);
     }
 
-	
+
 	public void logOut() throws IOException{
 		MainLaunch.windowDestroyer();
 		MainLaunch.windowConstructor("view/LoginView.fxml", "LOG IN", null);

@@ -30,8 +30,8 @@ public class LoginController {
     String uname, pword;
     boolean allGood;
 
-    static String user = null;
-    static int userID = 0;
+    private static String user = null;
+    private static int userID = 0;
 
     public LoginController()
     {
@@ -96,5 +96,10 @@ public class LoginController {
     public static int getID()
     {
     	return userID;
+    }
+
+    public static String getName()
+    {
+    	return user;
     }
 }

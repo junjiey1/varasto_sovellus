@@ -33,7 +33,7 @@ public class DataBase_tests {
 	{
 		System.out.println("\nTest : LogIn_VäärätTunnukset()\n");
 		boolean result = db.LogIn("randomia", "igszsg");
-		assertEquals("LogIn_VäärätTunnukset() testi EPäONNISTUI!",result,false);
+		assertEquals("LogIn_VäärätTunnukset() testi EPÄONNISTUI!",result,false);
 	}
 
 	@Test

@@ -55,8 +55,7 @@ public class DB_AccessObject {
 
 	//-----METODIT-----//
 
-	public static boolean LogIn(String uname, String pword)
-	{
+	public static boolean LogIn(String uname, String pword){
 		boolean res = false; //Oletetaan, että login epäonnistuu
 
 		PreparedStatement haetiedot=null;

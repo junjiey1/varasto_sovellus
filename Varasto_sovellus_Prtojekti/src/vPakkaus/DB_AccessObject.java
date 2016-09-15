@@ -1,6 +1,7 @@
 package vPakkaus;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -105,8 +106,52 @@ public class DB_AccessObject {
 		return res;
 	}
 
-	public void close() throws SQLException
+	public static boolean Lisaa(String nimi, double paino, double tilavuus,
+			String hyllypaikka, Date saapumispaiva, Date lahtopaiva, float hinta,
+			int lisaaja_id, int poistaja_id, int maara)
+	{
+		PreparedStatement LisaaTuote=null;
+		boolean error=false;
+		try {
+			LisaaTuote = conn.prepareStatement("INSERT INTO tuotteet(nimike, paino, tilavuus, hyllypaikka"
+					+ ", saapumispaiva, lahtopaiva, hinta, lisaaja_id, poistaja_id, maara) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?);");
+		} catch (SQLException e) {
+			System.out.println("Lisäys epäonnistui!");
+			error=true;
+			e.printStackTrace();
+		}
+		 try {
+			LisaaTuote.setString(1, nimi);
+			LisaaTuote.setDouble(2, paino);
+			LisaaTuote.setDouble(3, tilavuus);
+			LisaaTuote.setString(4, hyllypaikka);
+			LisaaTuote.setDate(5, saapumispaiva);
+			LisaaTuote.setDate(6, lahtopaiva);
+			LisaaTuote.setFloat(7, hinta);
+			LisaaTuote.setInt(8, lisaaja_id);
+			LisaaTuote.setInt(9, poistaja_id);
+			LisaaTuote.setInt(10, maara);
+			LisaaTuote.executeUpdate();
+			LisaaTuote.close();
+
+		 } catch (SQLException e) {
+			System.out.println("Lisäys epäonnistui!");
+			error=true;
+			e.printStackTrace();
+		 }
+
+		 if(!error){
+			 System.out.println("jee!");
+			 return true;
+		 }
+		 return false;
+	}
+
+	public static void close() throws SQLException
 	{
 		conn.close();
 	}
+
+
 }

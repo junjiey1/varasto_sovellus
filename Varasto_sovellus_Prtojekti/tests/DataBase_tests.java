@@ -29,11 +29,11 @@ public class DataBase_tests {
 	}
 
 	@Test
-	public void LogIn_V‰‰r‰tTunnukset()
+	public void LogIn_V√§√§r√§tTunnukset()
 	{
-		System.out.println("\nTest : LogIn_V‰‰r‰tTunnukset()\n");
+		System.out.println("\nTest : LogIn_V√§√§r√§tTunnukset()\n");
 		boolean result = db.LogIn("randomia", "igszsg");
-		assertEquals("LogIn_V‰‰r‰tTunnukset() testi EPƒONNISTUI!",result,false);
+		assertEquals("LogIn_V√§√§r√§tTunnukset() testi EP√ÑONNISTUI!",result,false);
 	}
 
 	@Test
@@ -41,7 +41,7 @@ public class DataBase_tests {
 	{
 		System.out.println("\nTest : LogIn_AidotTunnukset()\n");
 		boolean result = db.LogIn("julle", "juu");
-		assertEquals("LogIn_AidotTunnukset() testi EPƒONNISTUI!",result,true);
+		assertEquals("LogIn_AidotTunnukset() testi EP√ÑONNISTUI!",result,true);
 	}
 
 }

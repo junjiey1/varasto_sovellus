@@ -2,6 +2,7 @@ package vPakkaus.Controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -37,17 +38,35 @@ public class addProductController {
     	//DB_AccessObject.Lisaa(productName.getText(), paino, tilavuus, hyllypaikka, saapumispaiva, lahtopaiva, hinta, lisaaja_id, poistaja_id, maara)
 
     }
-
     
     @FXML
     public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
         Dragboard db = event.getDragboard();
+        
+        System.out.println(db.getFiles().size());
+        
         if (db.hasFiles()) {
-        	path = db.getFiles().toString();
-        	path = path.substring(1, path.length()-1);
-        	event.consume();
-        	readFromFile(path);
+        	if (db.getFiles().size() > 1){
+        		
+        		path = db.getFiles().toString();
+        		oneRowOfData = path.split(",");
+        		
+        		for (int i = 0; i < oneRowOfData.length; i++){
+        			
+        			if (i == oneRowOfData.length-1){
+        				oneRowOfData[i] = oneRowOfData[i].substring(1, oneRowOfData[i].length()-1);
+        			}else{
+        				oneRowOfData[i] = oneRowOfData[i].substring(1, oneRowOfData[i].length());
+        			}
+        			
+        			readFromFile(oneRowOfData[i]);
+        		}
+        		
+        	}else{
+        		System.out.println("1 tiedosto");
+        	}
         }
+        event.consume();
     }
     
     

@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import vPakkaus.DB_AccessObject;
+import vPakkaus.Controllers.LoginController;
 
 public class DataBase_tests {
 
@@ -38,12 +39,20 @@ public class DataBase_tests {
 	}
 
 	@Test
+	public void LogIn_KäyttäjänID()
+	{
+		System.out.println("\nTest : LogIn_KäyttäjänID()");
+		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",db.LogIn("testi", "testi")[1],2);
+	}
+
+	@Test
 	public void LogIn_AidotTunnukset()
 	{
 		System.out.println("\nTest : LogIn_AidotTunnukset()\n");
 		int result = db.LogIn("testi", "testi")[0];
 		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",result,1);
 	}
+
 
 	@Test
 	public void Tavaran_Lisääminen_Oikeilla_Parametreilla()

@@ -92,4 +92,9 @@ public class LoginController {
 			usernameTxt.requestFocus();
 		}
     }
+
+    public static int getID()
+    {
+    	return userID;
+    }
 }

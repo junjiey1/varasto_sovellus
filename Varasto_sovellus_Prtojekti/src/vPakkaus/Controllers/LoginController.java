@@ -32,6 +32,10 @@ public class LoginController {
 
     static String user = null;
 
+    public LoginController()
+    {
+    	System.out.println("LOG IN CONTROLLER");
+    }
 
     public void initialize(){
     	incorrectLabel.setVisible(false);

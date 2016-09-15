@@ -1,6 +1,7 @@
 package vPakkaus;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.Scanner;
 
 import javafx.application.Application;
@@ -15,7 +16,7 @@ public class MainLaunch extends Application {
 	private static FXMLLoader loader;
 	private static AnchorPane APLayout;
 	private static DB_AccessObject db;
-//nimi, paino, tilavuus, hyllypaikka, saapumispäivä, lähtöpäivä, hinta(can be null)
+//nimi, paino, tilavuus, hyllypaikka, saapumispï¿½ivï¿½, lï¿½htï¿½pï¿½ivï¿½, hinta(can be null)
 	@Override
 	public void start(Stage primaStage) throws IOException {
 		primaryStage = primaStage;
@@ -51,6 +52,7 @@ public class MainLaunch extends Application {
 
 	public static void main(String[] args) {
 		db = new DB_AccessObject();
+		//DB_AccessObject.Lisaa("testi", 0.5, 1.5, "A-08", new Date(2016-1900, 2, 2), new Date(2, 1, 1995), 3.4f, 1, 1, 2);
 		launch(args);
 	}
 }

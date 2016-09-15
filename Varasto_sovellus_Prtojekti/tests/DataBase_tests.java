@@ -40,7 +40,7 @@ public class DataBase_tests {
 	public void LogIn_AidotTunnukset()
 	{
 		System.out.println("\nTest : LogIn_AidotTunnukset()\n");
-		boolean result = db.LogIn("julle", "juu");
+		boolean result = db.LogIn("testi", "testi");
 		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",result,true);
 	}
 

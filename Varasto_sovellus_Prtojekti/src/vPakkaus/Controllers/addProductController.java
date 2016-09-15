@@ -38,10 +38,19 @@ public class addProductController {
     String[] oneRowOfData;
     String path;
 
-    public void fieldChecksAddProduct() throws IOException{
+    public void AddProductManually() throws IOException{
     	allGood = true;
 
     	if(productName.getText().isEmpty() || quantity.getText().isEmpty() || price.getText().isEmpty() || weight.getText().isEmpty() || volume.getText().isEmpty() || whLocation.getText().isEmpty()){
+    		allGood = false;
+    	}
+
+    	try{
+    	    Integer.parseInt(quantity.getText());
+    	    Double.parseDouble(volume.getText());
+    	    Double.parseDouble(weight.getText());
+    	    Float.parseFloat(price.getText());
+    	}catch (NumberFormatException ex) {
     		allGood = false;
     	}
 
@@ -59,9 +68,10 @@ public class addProductController {
 
     		Product product = new Product(productName.getText(), whLocation.getText(), Double.parseDouble(weight.getText()), Double.parseDouble(volume.getText()), Float.parseFloat(price.getText()));
     		AddProducts add = new AddProducts(product, Integer.parseInt(quantity.getText()), lisaajan_id, saapumispaiva, lahtopaiva);
-    		System.out.println(add.getProduct().getProduct_name());
-    		System.out.println(saapumispaiva);
+
     		addNewProduct(add.getProduct().getProduct_name(), add.getProduct().getProduct_weight(), add.getProduct().getProduct_volume(), add.getProduct().getProduct_location(), add.getSaapumispaiva(), add.getLahtopaiva(), add.getProduct().getProduct_price(), add.getAdd_user_id(), add.getProduct_quantity());
+    	} else {
+    		System.out.println("joku kenttä on tyhjä tai väärin täytetty");
     	}
     }
 

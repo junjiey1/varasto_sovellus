@@ -14,7 +14,7 @@ public class MainLaunch extends Application {
 	private static FXMLLoader loader;
 	private static AnchorPane APLayout;
 	private static DB_AccessObject db;
-	
+
 	@Override
 	public void start(Stage primaStage) throws IOException {
 		windowConstructor("view/LoginView.fxml", "LOG IN", null);
@@ -36,7 +36,7 @@ public class MainLaunch extends Application {
 		}
 	}
 
-	
+
 	public static void windowDestroyer(){
 		newStage.close();
 	}

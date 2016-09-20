@@ -2,12 +2,18 @@ package vPakkaus.Controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import vPakkaus.AddProducts;
+import vPakkaus.CurrentDate;
+import vPakkaus.DB_AccessObject;
+import vPakkaus.Product;
 
 public class addProductController {
 
@@ -32,10 +38,46 @@ public class addProductController {
     String[] oneRowOfData;
     String path;
 
+    public void AddProductManually() throws IOException{
+    	allGood = true;
 
-    public void addNewProduct(){
+    	if(productName.getText().isEmpty() || quantity.getText().isEmpty() || price.getText().isEmpty() || weight.getText().isEmpty() || volume.getText().isEmpty() || whLocation.getText().isEmpty()){
+    		allGood = false;
+    	}
 
-    	//DB_AccessObject.Lisaa(productName.getText(), paino, tilavuus, hyllypaikka, saapumispaiva, lahtopaiva, hinta, lisaaja_id, poistaja_id, maara)
+    	try{
+    	    Integer.parseInt(quantity.getText());
+    	    Double.parseDouble(volume.getText());
+    	    Double.parseDouble(weight.getText());
+    	    Float.parseFloat(price.getText());
+    	}catch (NumberFormatException ex) {
+    		allGood = false;
+    	}
+
+    	if (allGood){
+
+    		CurrentDate curdate = new CurrentDate();
+    		String[] split = curdate.getCurrentDate();
+    		int year = Integer.parseInt(split[2]);
+    		int month = Integer.parseInt(split[1]);
+    		int day = Integer.parseInt(split[0]);
+
+    		Date saapumispaiva = new Date(year-1900, month-1, day);
+    		Date lahtopaiva = null;
+    		int lisaajan_id = LoginController.getID();
+
+    		Product product = new Product(productName.getText(), whLocation.getText(), Double.parseDouble(weight.getText()), Double.parseDouble(volume.getText()), Float.parseFloat(price.getText()));
+    		AddProducts add = new AddProducts(product, Integer.parseInt(quantity.getText()), lisaajan_id, saapumispaiva, lahtopaiva);
+
+    		addNewProduct(add.getProduct().getProduct_name(), add.getProduct().getProduct_weight(), add.getProduct().getProduct_volume(), add.getProduct().getProduct_location(), add.getSaapumispaiva(), add.getLahtopaiva(), add.getProduct().getProduct_price(), add.getAdd_user_id(), add.getProduct_quantity());
+    	} else {
+    		System.out.println("joku kenttä on tyhjä tai väärin täytetty");
+    	}
+    }
+
+    public boolean addNewProduct(String nimi, double paino, double tilavuus, String hyllypaikka, Date saapumispaiva, Date lahtopaiva, float hinta, int lisaajan_id, int maara){
+
+    	return DB_AccessObject.Lisaa(nimi, paino, tilavuus, hyllypaikka, saapumispaiva, lahtopaiva, hinta, lisaajan_id, maara);
 
     }
 

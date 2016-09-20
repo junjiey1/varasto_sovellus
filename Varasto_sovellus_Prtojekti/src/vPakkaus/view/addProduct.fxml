@@ -19,6 +19,6 @@
       <Label layoutX="227.0" layoutY="103.0" text="VOLUME" />
       <Label layoutX="418.0" layoutY="39.0" text="PRICE" />
       <Label layoutX="418.0" layoutY="103.0" text="WH LOCATION" />
-      <Button defaultButton="true" layoutX="350.0" layoutY="191.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="88.0" text="ADD NEW" />
+      <Button defaultButton="true" layoutX="350.0" layoutY="191.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="88.0" text="ADD NEW" onAction="#AddProductManually"/>
    </children>
 </AnchorPane>

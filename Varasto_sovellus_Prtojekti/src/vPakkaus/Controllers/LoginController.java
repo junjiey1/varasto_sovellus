@@ -25,6 +25,7 @@ public class LoginController {
     private CheckBox showpword;
     @FXML
     private Label incorrectLabel;
+    private ViewController tc;
 
     private Connection conn = null;
     String uname, pword;
@@ -42,6 +43,10 @@ public class LoginController {
     	incorrectLabel.setVisible(false);
     }
 
+    public void settc(ViewController test)
+    {
+    	tc = test;
+    }
 
     public void login() throws IOException{
     	allGood = true;

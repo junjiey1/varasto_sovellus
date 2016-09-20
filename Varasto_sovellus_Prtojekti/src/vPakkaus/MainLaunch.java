@@ -9,20 +9,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import vPakkaus.Controllers.LoginController;
 import vPakkaus.Controllers.MainController;
+import vPakkaus.Controllers.MainPageController;
 import vPakkaus.Controllers.ViewController;
+import vPakkaus.Controllers.addProductController;
 
 public class MainLaunch extends Application {
 
 	private static Stage newStage;
 	private static FXMLLoader loader;
 	private static AnchorPane APLayout;
-	private static DB_AccessObject db;
-	private static ViewController v;
 	private static MainController mc;
 
 	@Override
 	public void start(Stage primaStage) throws IOException {
-		windowConstructor("view/LoginView.fxml", "LOG IN", null);//v.
+		mc = new MainController();
+		windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}
 
 
@@ -43,7 +44,17 @@ public class MainLaunch extends Application {
 		if(loader.getController() instanceof LoginController)
 		{
 			LoginController c = (LoginController)loader.getController();
-			c.settc(new ViewController());
+			c.setMainController(mc);
+		}
+		else if(loader.getController() instanceof MainPageController)
+		{
+			MainPageController c = (MainPageController)loader.getController();
+			c.setMainController(mc);
+		}
+		else if(loader.getController() instanceof addProductController)
+		{
+			addProductController c = (addProductController)loader.getController();
+			c.setMainController(mc);
 		}
 	}
 
@@ -53,10 +64,6 @@ public class MainLaunch extends Application {
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("main");
-		db = new DB_AccessObject();
-		mc = new MainController();
-		v = new ViewController();
-		v.setMainController(mc);
 		launch(args);
 	}
 }

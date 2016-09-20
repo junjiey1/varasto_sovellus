@@ -29,6 +29,7 @@ public class addProductController {
     private TextField volume;
     @FXML
     private TextField whLocation;
+    private MainController mc;
 
 
     boolean allGood;
@@ -37,6 +38,11 @@ public class addProductController {
     Scanner input;
     String[] oneRowOfData;
     String path;
+
+    public void setMainController(MainController m)
+    {
+    	mc = m;
+    }
 
     public void AddProductManually() throws IOException{
     	allGood = true;
@@ -64,20 +70,19 @@ public class addProductController {
 
     		Date saapumispaiva = new Date(year-1900, month-1, day);
     		Date lahtopaiva = null;
-    		int lisaajan_id = LoginController.getID();
+    		int lisaajan_id = mc.getID();
 
     		Product product = new Product(productName.getText(), whLocation.getText(), Double.parseDouble(weight.getText()), Double.parseDouble(volume.getText()), Float.parseFloat(price.getText()));
     		AddProducts add = new AddProducts(product, Integer.parseInt(quantity.getText()), lisaajan_id, saapumispaiva, lahtopaiva);
 
-    		addNewProduct(add.getProduct().getProduct_name(), add.getProduct().getProduct_weight(), add.getProduct().getProduct_volume(), add.getProduct().getProduct_location(), add.getSaapumispaiva(), add.getLahtopaiva(), add.getProduct().getProduct_price(), add.getAdd_user_id(), add.getProduct_quantity());
+    		addNewProduct(add);
     	} else {
     		System.out.println("joku kenttä on tyhjä tai väärin täytetty");
     	}
     }
 
-    public boolean addNewProduct(String nimi, double paino, double tilavuus, String hyllypaikka, Date saapumispaiva, Date lahtopaiva, float hinta, int lisaajan_id, int maara){
-
-    	return DB_AccessObject.Lisaa(nimi, paino, tilavuus, hyllypaikka, saapumispaiva, lahtopaiva, hinta, lisaajan_id, maara);
+    public boolean addNewProduct(AddProducts add){
+    	return mc.AddProduct(add.getProduct().getProduct_name(), add.getProduct().getProduct_weight(), add.getProduct().getProduct_volume(), add.getProduct().getProduct_location(), add.getSaapumispaiva(), add.getLahtopaiva(), add.getProduct().getProduct_price(), add.getAdd_user_id(), add.getProduct_quantity());
 
     }
 

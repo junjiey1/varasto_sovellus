@@ -19,6 +19,7 @@ public class MainPageController {
     private Tab tab5;
     @FXML
     private  Label currentUserLbl;
+    MainController mc;
 
 
     Tab activeTab;
@@ -26,9 +27,13 @@ public class MainPageController {
 
 
     public void initialize(){
-    	currentUserLbl.setText("CURRENT USER :  " + LoginController.getName());
     }
 
+    public void setMainController(MainController m)
+    {
+    	mc = m;
+    	currentUserLbl.setText("CURRENT USER :  " + mc.getName());
+    }
 
     public void tabChoose() throws IOException{
 
@@ -52,10 +57,11 @@ public class MainPageController {
     	}
     	MainLaunch.windowConstructor(resource, "VarastoSovellus 1.01", activeTab);
     }
-    
+
 
 
 	public void logOut() throws IOException{
+		mc.LogOut(); //Poistaa tallennetut käyttäjän nimen ja ID:n
 		MainLaunch.windowDestroyer();
 		MainLaunch.windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}

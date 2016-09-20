@@ -56,7 +56,7 @@ public class DB_AccessObject {
 
 	//-----METODIT-----//
 
-	public static int[] LogIn(String uname, String pword){
+	public int[] LogIn(String uname, String pword){
 		int res = 0; //Oletetaan, että login epäonnistuu
 
 		PreparedStatement haetiedot=null;
@@ -109,7 +109,7 @@ public class DB_AccessObject {
 		return list;
 	}
 
-	public static boolean Lisaa(String nimi, double paino, double tilavuus,
+	public boolean Lisaa(String nimi, double paino, double tilavuus,
 			String hyllypaikka, Date saapumispaiva, Date lahtopaiva, float hinta,
 			int lisaaja_id, int maara)
 	{

@@ -53,7 +53,6 @@ public class DataBase_tests {
 		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",result,1);
 	}
 
-
 	@Test
 	public void Tavaran_Lisääminen_Oikeilla_Parametreilla()
 	{

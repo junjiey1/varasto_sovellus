@@ -25,14 +25,9 @@ public class LoginController {
     private CheckBox showpword;
     @FXML
     private Label incorrectLabel;
-    private ViewController tc;
-
-    private Connection conn = null;
     String uname, pword;
+    private MainController mc;
     boolean allGood;
-
-    private static String user = null;
-    private static int userID = 0;
 
     public LoginController()
     {
@@ -43,9 +38,9 @@ public class LoginController {
     	incorrectLabel.setVisible(false);
     }
 
-    public void settc(ViewController test)
+    public void setMainController(MainController m)
     {
-    	tc = test;
+    	mc = m;
     }
 
     public void login() throws IOException{
@@ -79,16 +74,9 @@ public class LoginController {
 
 
     public void checkUnamePword(String uname, String pword) throws IOException{
-
-    	int[] list = DB_AccessObject.LogIn(uname, pword);//palauttaa listan[true/false,id]
-
-    	//Connect to DB and check uname & pword pair.
-    	System.out.println(uname);
-    	System.out.println(pword);
-		if(list[0] == 1){
+    	if(mc.LogIn(uname, pword))
+    	{
 			System.out.println("LOG IN ONNISTUI : " + uname);
-			user = uname;
-			userID = list[1];
 			MainLaunch.windowDestroyer();
 			MainLaunch.windowConstructor("view/MainPageView.fxml", "VarastoSovellus 1.01", null);
 		}else{
@@ -96,15 +84,5 @@ public class LoginController {
 			passwordTxt.setText("");
 			usernameTxt.requestFocus();
 		}
-    }
-
-    public static int getID()
-    {
-    	return userID;
-    }
-
-    public static String getName()
-    {
-    	return user;
     }
 }

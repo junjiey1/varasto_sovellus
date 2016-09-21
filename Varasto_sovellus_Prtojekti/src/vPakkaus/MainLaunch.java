@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import vPakkaus.Controllers.LoginController;
 import vPakkaus.Controllers.MainController;
 import vPakkaus.Controllers.MainPageController;
-import vPakkaus.Controllers.ViewController;
 import vPakkaus.Controllers.addProductController;
 
 public class MainLaunch extends Application {

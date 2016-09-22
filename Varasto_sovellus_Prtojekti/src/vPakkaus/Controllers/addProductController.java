@@ -29,9 +29,8 @@ public class addProductController {
     private TextField volume;
     @FXML
     private TextField whLocation;
+    
     private MainController mc;
-
-
     boolean allGood;
 
     File file;

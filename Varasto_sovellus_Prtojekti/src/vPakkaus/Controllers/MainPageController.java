@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import vPakkaus.MainLaunch;
 
-
 public class MainPageController {
 
     @FXML
@@ -21,47 +20,42 @@ public class MainPageController {
     private  Label currentUserLbl;
     private MainController mc;
 
+	Tab activeTab;
+	String resource;
 
-    Tab activeTab;
-    String resource;
+	public void initialize() {
+	}
 
+	public void setMainController(MainController m) {
+		mc = m;
+		currentUserLbl.setText("CURRENT USER :  " + mc.getName());
+	}
 
-    public void initialize(){
-    }
+	public void tabChoose() throws IOException {
 
-    public void setMainController(MainController m)
-    {
-    	mc = m;
-    	currentUserLbl.setText("CURRENT USER :  " + mc.getName());
-    }
+		System.gc(); // CLEAR MEMORY
 
-    public void tabChoose() throws IOException{
+		if (addProductTab.isSelected()) {
+			activeTab = addProductTab;
+			resource = "view/addProduct.fxml";
+		}
+		if (tab3.isSelected()) {
+			activeTab = tab3;
+			resource = "view/addProduct.fxml";
+		}
+		if (tab4.isSelected()) {
+			activeTab = tab4;
+			resource = "view/addProduct.fxml";
+		}
+		if (tab5.isSelected()) {
+			activeTab = tab5;
+			resource = "view/addProduct.fxml";
+		}
+		MainLaunch.windowConstructor(resource, "VarastoSovellus 1.01", activeTab);
+	}
 
-    	System.gc(); // CLEAR MEMORY
-
-    	if (addProductTab.isSelected()) {
-    		activeTab = addProductTab;
-    		resource = "view/addProduct.fxml";
-    	}
-    	if (tab3.isSelected()) {
-    		activeTab = tab3;
-    		resource = "view/addProduct.fxml";
-    	}
-    	if (tab4.isSelected()) {
-    		activeTab = tab4;
-    		resource = "view/addProduct.fxml";
-    	}
-    	if (tab5.isSelected()) {
-    		activeTab = tab5;
-    		resource = "view/addProduct.fxml";
-    	}
-    	MainLaunch.windowConstructor(resource, "VarastoSovellus 1.01", activeTab);
-    }
-
-
-
-	public void logOut() throws IOException{
-		mc.LogOut(); //Poistaa tallennetut käyttäjän nimen ja ID:n
+	public void logOut() throws IOException {
+		mc.LogOut(); // Poistaa tallennetut käyttäjän nimen ja ID:n
 		MainLaunch.windowDestroyer();
 		MainLaunch.windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}

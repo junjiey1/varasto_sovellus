@@ -5,31 +5,35 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="Varasto_sovellus_Prtojekti">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../../../ecplise/eclipse-SDK-4.5.1-win32-x86_64-distro-2.1.0/eclipse/"/>
+    <property name="ECLIPSE_HOME" value="../../../../../Program Files/Eclipse/eclipse/"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
     <path id="JUnit 4.libraryclasspath">
-        <pathelement location="./Varasto_sovellus_Prtojekti/Junit/junit.jar"/>
-        <pathelement location="./Varasto_sovellus_Prtojekti/Junit/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
     </path>
     <path id="Varasto_sovellus_Prtojekti.classpath">
         <pathelement location="bin"/>
         <path refid="JUnit 4.libraryclasspath"/>
         <pathelement location="sql_connector/mysql-connector-java-5.1.38-bin.jar"/>
-        <pathelement location="../../../../Grigorij Semykin/git/Varasto_Sovellus/Varasto_sovellus_Prtojekti/Junit/junit.jar"/>
-        <pathelement location="../../../../Grigorij Semykin/git/Varasto_Sovellus/Varasto_sovellus_Prtojekti/Junit/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+        <pathelement location="Junit/junit.jar"/>
+        <pathelement location="Junit/org.hamcrest.core_1.3.0.v201303031735.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="tests">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -67,14 +71,16 @@
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
             <test name="DataBase_tests" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
             <classpath refid="Varasto_sovellus_Prtojekti.classpath"/>
         </junit>
     </target>
-    <target name="DataBase_tests.LogIn_AidotTunnukset">
+    <target name="DataBase_tests.Valmistelut">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
             <test name="DataBase_tests" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
             <classpath refid="Varasto_sovellus_Prtojekti.classpath"/>
         </junit>
     </target>

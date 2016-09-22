@@ -75,7 +75,8 @@ public class addProductController {
     		Product product = new Product(productName.getText(), whLocation.getText(), Double.parseDouble(weight.getText()), Double.parseDouble(volume.getText()), Float.parseFloat(price.getText()));
     		AddProducts add = new AddProducts(product, Integer.parseInt(quantity.getText()), lisaajan_id, saapumispaiva, lahtopaiva);
 
-    		addNewProduct(add);
+    		addNewProduct(add);//if -> ilmoitus, että onnistui
+
     	} else {
     		System.out.println("joku kenttä on tyhjä tai väärin täytetty");
     	}

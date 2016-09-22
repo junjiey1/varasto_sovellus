@@ -25,39 +25,33 @@ public class MainLaunch extends Application {
 		windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}
 
-
-	public static void windowConstructor(String resource, String title, Tab activeTab) throws IOException{
+	public static void windowConstructor(String resource, String title, Tab activeTab) throws IOException {
 		System.out.println(resource);
 		loader = new FXMLLoader();
 		loader.setLocation(MainLaunch.class.getResource(resource));
 		APLayout = loader.load();
 
-		if (activeTab != null){
+		if (activeTab != null) {
 			activeTab.setContent(APLayout);
-		}else{
+		} else {
 			newStage = new Stage();
 			newStage.setTitle(title);
 			newStage.setScene(new Scene(APLayout));
 			newStage.show();
 		}
-		if(loader.getController() instanceof LoginController)
-		{
-			LoginController c = (LoginController)loader.getController();
+		if (loader.getController() instanceof LoginController) {
+			LoginController c = (LoginController) loader.getController();
 			c.setMainController(mc);
-		}
-		else if(loader.getController() instanceof MainPageController)
-		{
-			MainPageController c = (MainPageController)loader.getController();
+		} else if (loader.getController() instanceof MainPageController) {
+			MainPageController c = (MainPageController) loader.getController();
 			c.setMainController(mc);
-		}
-		else if(loader.getController() instanceof addProductController)
-		{
-			addProductController c = (addProductController)loader.getController();
+		} else if (loader.getController() instanceof addProductController) {
+			addProductController c = (addProductController) loader.getController();
 			c.setMainController(mc);
 		}
 	}
 
-	public static void windowDestroyer(){
+	public static void windowDestroyer() {
 		newStage.close();
 	}
 

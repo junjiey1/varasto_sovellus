@@ -9,20 +9,17 @@ public class MainController {
 	private int UserID;
 	private String username;
 
-	public MainController()
-	{
+	public MainController() {
 		System.out.println("Constructing Main Controller");
 		db = new DB_AccessObject();
 		username = "undefined";
 		UserID = -1;
 	}
 
-	public boolean LogIn(String username, String password)
-	{
+	public boolean LogIn(String username, String password) {
 		boolean res = false;
 		int[] tulos = db.LogIn(username, password);
-		if(tulos[0] == 1)
-		{
+		if (tulos[0] == 1) {
 			res = true;
 			UserID = tulos[1];
 			this.username = username;
@@ -30,27 +27,21 @@ public class MainController {
 		return res;
 	}
 
-	public boolean AddProduct(String nimi, double paino, double tilavuus,
-			String hyllypaikka, Date saapumispaiva, Date lahtopaiva, float hinta,
-			int lisaaja_id, int maara)
-	{
-		boolean res = db.Lisaa(nimi, paino, tilavuus, hyllypaikka, saapumispaiva,
-		lahtopaiva, hinta, lisaaja_id, maara);
+	public boolean AddProduct(String nimi, double paino, double tilavuus, String hyllypaikka, Date saapumispaiva,
+			Date lahtopaiva, float hinta, int lisaaja_id, int maara) {
+		boolean res = db.Lisaa(nimi, paino, tilavuus, hyllypaikka, saapumispaiva, lahtopaiva, hinta, lisaaja_id, maara);
 		return res;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return username;
 	}
 
-	public int getID()
-	{
+	public int getID() {
 		return UserID;
 	}
 
-	public void LogOut()
-	{
+	public void LogOut() {
 		System.out.println("logged out. Deleting saved user information...");
 		UserID = -1;
 		username = "undefined";

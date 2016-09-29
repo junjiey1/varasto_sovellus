@@ -37,7 +37,10 @@ public class addProductController {
 	File file;
 	Scanner input;
 	String[] oneRowOfData;
-	String path, pName;
+	String path, pName, pShelf, clientName, clientAddress;
+	double pWeight, pVolume;
+	int pQuantity;
+	float pPrice;
 
 	public void setMainController(MainController m) {
 		mc = m;
@@ -121,8 +124,21 @@ public class addProductController {
 		input = new Scanner(file);
 
 		while (input.hasNext()) {
-			// oneRowOfData = input.nextLine().split(",");
-			System.out.println(input.nextLine());
+			oneRowOfData = input.nextLine().split(",");
+			if (oneRowOfData.length == 2){
+				clientName = oneRowOfData[0];
+				clientAddress = oneRowOfData[1];
+			}else{
+				pName = oneRowOfData[0];
+				pWeight = Double.parseDouble(oneRowOfData[1]);
+				pVolume = Double.parseDouble(oneRowOfData[2]);
+				pShelf = oneRowOfData[3];
+				pPrice = Float.parseFloat(oneRowOfData[4]);
+				pQuantity = Integer.parseInt(oneRowOfData[5]);
+				
+				mc.AddProduct(pName, pWeight, pVolume, pShelf, pPrice, pQuantity);
+			}
+			System.out.println(clientName+" "+clientAddress+" "+pName+" "+pWeight+" "+pVolume+" "+pShelf+" "+pPrice+" "+pQuantity);
 		}
 		input.close();
 	}

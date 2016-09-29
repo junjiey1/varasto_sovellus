@@ -17,35 +17,9 @@ public class DB_AccessObject {
 	private static Connection conn = null;
 
 	public DB_AccessObject() {
-		///////////////// Tämä osio vain testailua varten
-		Scanner s = new Scanner(System.in);
-		System.out.println("Kenen koneella ollaan?\n1.Julius\n2.Grigor\n3.Teemu\n4.Ben");
-		int i = s.nextInt();
-		String pass = "";
-		switch (i) {
-		case (1):
-			System.out.println("Julius valittu");
-		pass = "juliusw";
-		break;
-		case (2):
-			System.out.println("Grigor valittu");
-		pass = "passwordi";
-		break;
-		case (3):
-			System.out.println("Teemu valittu");
-		pass = "teemu";
-		break;
-		case (4):
-			System.out.println("Ben valittu");
-		pass = "root";
-		break;
-		}
-
-		//////////////////////////
-
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/varasto", "root", pass);
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:9000/varasto", "toimi", "toimi");
 		} catch (SQLException e) {
 			System.out.println("Yhteyden muodostaminen epäonnistui");
 		} catch (ClassNotFoundException e) {
@@ -111,28 +85,28 @@ public class DB_AccessObject {
 		return list;
 	}
 
-	public boolean Lisaa(String nimi, double paino, double tilavuus,
-			String hyllypaikka, float hinta, int maara)
-	{
+	public boolean Lisaa(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
 
-		PreparedStatement haeID=null;
-		PreparedStatement LisaaTuote=null;
+		PreparedStatement haeID = null;
+		PreparedStatement LisaaTuote = null;
 
 		ResultSet rs = null;
 
 		boolean löytyy = false;
-		boolean error=false;
+		boolean error = false;
 
 		Integer id = null;
 
 		try {
 			haeID = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?");
 
-			//Asetetaan argumentit sql-kyselyyn
+			// Asetetaan argumentit sql-kyselyyn
 			haeID.setString(1, nimi);
-			rs = haeID.executeQuery();//Hae annetulla käyttäjänimellä tietokanta rivi
+			rs = haeID.executeQuery();// Hae annetulla käyttäjänimellä
+										// tietokanta rivi
 
-			if (!rs.isBeforeFirst() ) { //jos tuotettta ei löydy voidaan lisätä uusi
+			if (!rs.isBeforeFirst()) { // jos tuotettta ei löydy voidaan lisätä
+										// uusi
 				System.out.println("Tuotetta ei löydy, voidaan lisätä uusi");
 				löytyy = true;
 			}
@@ -143,36 +117,36 @@ public class DB_AccessObject {
 
 		if (löytyy) {
 
-		try {
-			LisaaTuote = conn.prepareStatement("INSERT INTO tuote(nimi, hinta, paino, tilavuus)"
-					+ "VALUES (?,?,?,?);");
+			try {
+				LisaaTuote = conn
+						.prepareStatement("INSERT INTO tuote(nimi, hinta, paino, tilavuus)" + "VALUES (?,?,?,?);");
 
+			}
+
+			catch (SQLException e) {
+
+				System.out.println("Lisäys epäonnistui!");
+				error = true;
+				e.printStackTrace();
+
+			}
+			try {
+				LisaaTuote.setString(1, nimi);
+				LisaaTuote.setFloat(2, hinta);
+				LisaaTuote.setDouble(3, paino);
+				LisaaTuote.setDouble(4, tilavuus);
+
+				LisaaTuote.executeUpdate();
+				LisaaTuote.close();
+
+			} catch (SQLException e) {
+				System.out.println("Lisäys epäonnistui!");
+				error = true;
+				e.printStackTrace();
+			}
 		}
 
-		catch (SQLException e) {
-
-			System.out.println("Lisäys epäonnistui!");
-			error=true;
-			e.printStackTrace();
-
-		}
-		try {
-			LisaaTuote.setString(1, nimi);
-			LisaaTuote.setFloat(2, hinta);
-			LisaaTuote.setDouble(3, paino);
-			LisaaTuote.setDouble(4, tilavuus);
-
-			LisaaTuote.executeUpdate();
-			LisaaTuote.close();
-
-		} catch (SQLException e) {
-			System.out.println("Lisäys epäonnistui!");
-			error=true;
-			e.printStackTrace();
-		}
-		}
-
-		if(!error){
+		if (!error) {
 			return true;
 		}
 		return false;

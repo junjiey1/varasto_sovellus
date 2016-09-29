@@ -23,19 +23,23 @@ public class DB_AccessObject {
 		{
 			case(1):
 				System.out.println("Julius valittu");
-				pass = "juliusw";
+//				pass = "juliusw";
+				pass = "";
 				break;
 			case(2):
 				System.out.println("Grigor valittu");
-				pass = "passwordi";
+//				pass = "passwordi";
+				pass = "";
 				break;
 			case(3):
 				System.out.println("Teemu valittu");
-				pass = "teemu";
+//				pass = "teemu";
+				pass = "";
 				break;
 			case(4):
 				System.out.println("Ben valittu");
-				pass = "root";
+//				pass = "root";
+				pass = "";
 				break;
 		}
 

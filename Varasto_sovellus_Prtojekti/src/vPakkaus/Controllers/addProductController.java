@@ -1,5 +1,6 @@
 package vPakkaus.Controllers;
 
+import java.awt.datatransfer.Clipboard;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import vPakkaus.CurrentDate;
@@ -35,7 +37,7 @@ public class addProductController {
 	File file;
 	Scanner input;
 	String[] oneRowOfData;
-	String path;
+	String path, pName;
 
 	public void setMainController(MainController m) {
 		mc = m;
@@ -84,31 +86,33 @@ public class addProductController {
 	@FXML
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
 		Dragboard db = event.getDragboard();
-
 		System.out.println(db.getFiles().size());
-
+		
 		if (db.hasFiles()) {
+			path = db.getFiles().toString();
+			
+			// MULTIPLE FILES DRAGGED
 			if (db.getFiles().size() > 1) {
-
-				path = db.getFiles().toString();
 				oneRowOfData = path.split(",");
-
+				
 				for (int i = 0; i < oneRowOfData.length; i++) {
-
 					if (i == oneRowOfData.length - 1) {
 						oneRowOfData[i] = oneRowOfData[i].substring(1, oneRowOfData[i].length() - 1);
 					} else {
 						oneRowOfData[i] = oneRowOfData[i].substring(1, oneRowOfData[i].length());
 					}
-
 					readFromFile(oneRowOfData[i]);
 				}
 
-			} else {
-				System.out.println("1 tiedosto");
+			// ONLY 1 FILE DRAGGED
+			} else { 
+				path = path.substring(1, path.length()-1);
+				readFromFile(path);
 			}
+			db.clear();
 		}
 		event.consume();
+		db = null;
 	}
 
 	public void readFromFile(String name) throws FileNotFoundException {
@@ -120,6 +124,7 @@ public class addProductController {
 			// oneRowOfData = input.nextLine().split(",");
 			System.out.println(input.nextLine());
 		}
+		input.close();
 	}
 
 }

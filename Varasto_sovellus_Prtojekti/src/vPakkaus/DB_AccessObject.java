@@ -17,35 +17,10 @@ public class DB_AccessObject {
 	private static Connection conn = null;
 
 	public DB_AccessObject() {
-		///////////////// Tämä osio vain testailua varten
-		Scanner s = new Scanner(System.in);
-		System.out.println("Kenen koneella ollaan?\n1.Julius\n2.Grigor\n3.Teemu\n4.Ben");
-		int i = s.nextInt();
-		String pass = "";
-		switch (i) {
-		case (1):
-			System.out.println("Julius valittu");
-		pass = "juliusw";
-		break;
-		case (2):
-			System.out.println("Grigor valittu");
-		pass = "passwordi";
-		break;
-		case (3):
-			System.out.println("Teemu valittu");
-		pass = "teemu";
-		break;
-		case (4):
-			System.out.println("Ben valittu");
-		pass = "root";
-		break;
-		}
-
-		//////////////////////////
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/varasto", "root", pass);
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:9000/varasto", "toimi", "toimi");
 		} catch (SQLException e) {
 			System.out.println("Yhteyden muodostaminen epäonnistui");
 		} catch (ClassNotFoundException e) {

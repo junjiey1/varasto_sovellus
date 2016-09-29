@@ -57,7 +57,7 @@ public class DataBase_tests {
 	public void Tavaran_Lisääminen_Oikeilla_Parametreilla()
 	{
 		System.out.println("\nTest : Tavaran_Lisääminen_Oikeilla_Parametreilla()");
-		boolean result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", new Date(2016-1900,2,3), new Date(2016-1900, 5,7), 2.2f, 1,4);
+		boolean result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", 2.2f, 1);
 		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!",result,true);
 	}
 

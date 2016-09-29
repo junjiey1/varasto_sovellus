@@ -117,6 +117,7 @@ public class DB_AccessObject {
 
 		PreparedStatement haeID=null;
 		PreparedStatement LisaaTuote=null;
+		PreparedStatement ps=null;
 
 		ResultSet rs = null;
 
@@ -147,16 +148,6 @@ public class DB_AccessObject {
 			LisaaTuote = conn.prepareStatement("INSERT INTO tuote(nimi, hinta, paino, tilavuus)"
 					+ "VALUES (?,?,?,?);");
 
-		}
-
-		catch (SQLException e) {
-
-			System.out.println("Lisäys epäonnistui!");
-			error=true;
-			e.printStackTrace();
-
-		}
-		try {
 			LisaaTuote.setString(1, nimi);
 			LisaaTuote.setFloat(2, hinta);
 			LisaaTuote.setDouble(3, paino);
@@ -170,6 +161,22 @@ public class DB_AccessObject {
 			error=true;
 			e.printStackTrace();
 		}
+
+		try {
+		ps = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?");
+
+		//Asetetaan argumentit sql-kyselyyn
+		ps.setString(1, nimi);
+		rs = ps.executeQuery();//Hae annetulla käyttäjänimellä tietokanta rivi
+
+		while (rs.next()) {
+			id = rs.getInt("tuoteID");
+		}
+
+		} catch (SQLException e){
+
+		}
+		System.out.println(id);
 		}
 
 		if(!error){

@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import vPakkaus.AddProducts;
 import vPakkaus.CurrentDate;
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
@@ -29,7 +28,7 @@ public class addProductController {
     private TextField volume;
     @FXML
     private TextField whLocation;
-    
+
     private MainController mc;
     boolean allGood;
 
@@ -61,30 +60,22 @@ public class addProductController {
 
     	if (allGood){
 
-    		CurrentDate curdate = new CurrentDate();
-    		String[] split = curdate.getCurrentDate();
-    		int year = Integer.parseInt(split[2]);
-    		int month = Integer.parseInt(split[1]);
-    		int day = Integer.parseInt(split[0]);
-
-    		Date saapumispaiva = new Date(year-1900, month-1, day);
-    		Date lahtopaiva = null;
     		int lisaajan_id = mc.getID();
 
     		Product product = new Product(productName.getText(), whLocation.getText(), Double.parseDouble(weight.getText()), Double.parseDouble(volume.getText()), Float.parseFloat(price.getText()));
-    		AddProducts add = new AddProducts(product, Integer.parseInt(quantity.getText()), lisaajan_id, saapumispaiva, lahtopaiva);
 
-    		addNewProduct(add);//if -> ilmoitus, että onnistui
+    		mc.AddProduct(product.getProduct_name(), product.getProduct_weight(), product.getProduct_volume(), product.getProduct_location(), product.getProduct_price(), Integer.parseInt(quantity.getText()));
+
 
     	} else {
     		System.out.println("joku kenttä on tyhjä tai väärin täytetty");
     	}
     }
 
-    public boolean addNewProduct(AddProducts add){
-    	return mc.AddProduct(add.getProduct().getProduct_name(), add.getProduct().getProduct_weight(), add.getProduct().getProduct_volume(), add.getProduct().getProduct_location(), add.getSaapumispaiva(), add.getLahtopaiva(), add.getProduct().getProduct_price(), add.getAdd_user_id(), add.getProduct_quantity());
-
-    }
+//    public boolean addNewProduct(Product product){
+//    	Lisaa(product.getProduct_name(), product.getProduct_weight(), product.getProduct_volume(), product.getProduct_location(), product.getProduct_price());
+//
+//    }
 
     @FXML
     public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {

@@ -27,9 +27,8 @@ public class MainController {
 		return res;
 	}
 
-	public boolean AddProduct(String nimi, double paino, double tilavuus, String hyllypaikka, Date saapumispaiva,
-			Date lahtopaiva, float hinta, int lisaaja_id, int maara) {
-		boolean res = db.Lisaa(nimi, paino, tilavuus, hyllypaikka, saapumispaiva, lahtopaiva, hinta, lisaaja_id, maara);
+	public boolean AddProduct(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
+		boolean res = db.Lisaa(nimi, paino, tilavuus, hyllypaikka, hinta, maara);
 		return res;
 	}
 

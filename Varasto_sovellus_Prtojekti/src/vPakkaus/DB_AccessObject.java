@@ -17,7 +17,6 @@ public class DB_AccessObject {
 	private static Connection conn = null;
 
 	public DB_AccessObject() {
-
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:9000/varasto", "toimi", "toimi");

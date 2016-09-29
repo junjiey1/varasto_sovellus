@@ -37,7 +37,7 @@ public class addProductController {
 	File file;
 	Scanner input;
 	String[] oneRowOfData;
-	String path;
+	String path, pName;
 
 	public void setMainController(MainController m) {
 		mc = m;

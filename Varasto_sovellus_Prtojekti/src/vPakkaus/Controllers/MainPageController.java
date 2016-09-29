@@ -8,17 +8,17 @@ import vPakkaus.MainLaunch;
 
 public class MainPageController {
 
-    @FXML
-    private Tab addProductTab;
-    @FXML
-    private Tab tab3;
-    @FXML
-    private Tab tab4;
-    @FXML
-    private Tab tab5;
-    @FXML
-    private  Label currentUserLbl;
-    private MainController mc;
+	@FXML
+	private Tab addProductTab;
+	@FXML
+	private Tab tab3;
+	@FXML
+	private Tab tab4;
+	@FXML
+	private Tab tab5;
+	@FXML
+	private Label currentUserLbl;
+	private MainController mc;
 
 	Tab activeTab;
 	String resource;

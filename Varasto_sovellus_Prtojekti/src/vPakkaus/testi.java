@@ -10,9 +10,9 @@ public class testi {
 
 	public static void main(String[] args) {
 		Connection conn = null;
-		try{//toimi, toimi
+		try {// toimi, toimi
 			Class.forName("com.mysql.jdbc.Driver");
-			conn =DriverManager.getConnection("jdbc:mysql://localhost:9000/test", "toimi", "toimi");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:9000/test", "toimi", "toimi");
 			System.out.println(conn.getNetworkTimeout());
 		} catch (SQLException e) {
 			do {
@@ -21,33 +21,35 @@ public class testi {
 				System.err.println("SQL-tilakoodi: " + e.getSQLState());
 			} while (e.getNextException() != null);
 
-	    } catch (ClassNotFoundException e){
+		} catch (ClassNotFoundException e) {
 			System.out.println("JDBC-ajurin lataus epäonnistui");
 		}
 
-		PreparedStatement haetiedot=null;
+		PreparedStatement haetiedot = null;
 		ResultSet rs = null;
-		String pass="";
+		String pass = "";
 
-		try{
-			//Parametrisoitu sql-kysely
+		try {
+			// Parametrisoitu sql-kysely
 			haetiedot = conn.prepareStatement("SELECT * FROM testi");
 			try {
-				//Asetetaan argumentit sql-kyselyyn
-				rs = haetiedot.executeQuery();//Hae annetulla käyttäjänimellä tietokanta rivi
+				// Asetetaan argumentit sql-kyselyyn
+				rs = haetiedot.executeQuery();// Hae annetulla käyttäjänimellä
+												// tietokanta rivi
 				try {
-					while(rs.next()){
-						pass = rs.getString("nimi"); //hae password column ja tallenna muuttujaan
+					while (rs.next()) {
+						pass = rs.getString("nimi"); // hae password column ja
+														// tallenna muuttujaan
 						System.out.println(pass);
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-			}catch(SQLException e){
-				//System.out.println("Haku " + uname + " epäonnistui!");
+			} catch (SQLException e) {
+				// System.out.println("Haku " + uname + " epäonnistui!");
 				e.printStackTrace();
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			System.out.println("Tietojen haku epäonnistui!");
 		}
 

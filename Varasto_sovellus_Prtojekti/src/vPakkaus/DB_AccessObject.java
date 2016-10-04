@@ -85,14 +85,14 @@ public class DB_AccessObject {
 
 	public boolean Lisaa(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
 
-		ArrayList<Boolean> errors = new ArrayList();
+		ArrayList<Boolean> errors = new ArrayList(); //virheet kerätään listaan, false = ei virhettä
 		Integer id = null;
 
-		boolean löytyy = tarkistaLoytyykoTuote(nimi);
-		//tuotetta ei löydy vielä tietokannasta lisätään uusi
+		boolean löytyy = tarkistaLoytyykoTuote(nimi); //tarkistetaan löytyykö tuotetta jo samalla nimellä
+
 		if (!löytyy) { //!löytyy tarkoittaa että tuotetta ei löydy ja voidaan lisätä uusi
 
-			errors.add(lisaaTuote(nimi, hinta, paino, tilavuus));
+			errors.add(lisaaTuote(nimi, hinta, paino, tilavuus)); // lisätään tuote tuotetaulukkoon
 			id = haeTuotteenIDNimella(nimi);
 			System.out.println("id: "+id);
 			if (id == null) {
@@ -157,7 +157,7 @@ public class DB_AccessObject {
 	}
 
 	public boolean tarkistaLoytyykoTuote(String nimi) {
-		boolean error = false;
+		boolean error = true;
 
 		try {
 			ps = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?"); //haetaan tuote ja tarkistetaan löytyykö tuote jo nimellä tietokannasta
@@ -169,11 +169,11 @@ public class DB_AccessObject {
 
 			if (!rs.isBeforeFirst()) { // jos tuotetta ei löydy voidaan lisätä uusi tietokantaab
 				// uusi
+				error = false;
 				System.out.println("Tuotetta ei löydy kyseisellä nimellä, voidaan lisätä uusi");
 			}
 
 		} catch (SQLException e) {
-			System.out.println("Lisäys epäonnistui!");
 			e.printStackTrace();
 			error = true;
 		}

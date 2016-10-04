@@ -35,7 +35,7 @@ public class DataBase_tests {
 	@Test
 	public void LogIn_KäyttäjänID() {
 		System.out.println("\nTest : LogIn_KäyttäjänID()");
-		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!", db.LogIn("testi", "testi")[1], 2);
+		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!", db.LogIn("testi", "testi")[1], 7);
 	}
 
 	@Test

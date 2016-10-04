@@ -141,7 +141,7 @@ public class addProductController {
 				
 				product_error = mc.AddProduct(pName, pWeight, pVolume, pShelf, pPrice, pQuantity);
 				if(!product_error){
-					//
+					//lol
 					break;
 				}
 					

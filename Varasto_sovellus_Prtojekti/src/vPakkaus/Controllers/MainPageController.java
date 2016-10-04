@@ -41,7 +41,7 @@ public class MainPageController {
 		}
 		if (tab3.isSelected()) {
 			activeTab = tab3;
-			resource = "view/addProduct.fxml";
+			resource = "view/SearchProduct.fxml";
 		}
 		if (tab4.isSelected()) {
 			activeTab = tab4;

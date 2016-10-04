@@ -124,6 +124,7 @@ public class addProductController {
 		file = new File(name);
 		//SSKANKDKFAQBFBQAFOB
 		input = new Scanner(file);
+		boolean product_error = true;
 
 		while (input.hasNext()) {
 			oneRowOfData = input.nextLine().split(",");
@@ -138,7 +139,12 @@ public class addProductController {
 				pPrice = Float.parseFloat(oneRowOfData[4]);
 				pQuantity = Integer.parseInt(oneRowOfData[5]);
 				
-				mc.AddProduct(pName, pWeight, pVolume, pShelf, pPrice, pQuantity);
+				product_error = mc.AddProduct(pName, pWeight, pVolume, pShelf, pPrice, pQuantity);
+				if(!product_error){
+					//
+					break;
+				}
+					
 				
 			}
 			System.out.println(clientName+" "+clientAddress+" "+pName+" "+pWeight+" "+pVolume+" "+pShelf+" "+pPrice+" "+pQuantity);

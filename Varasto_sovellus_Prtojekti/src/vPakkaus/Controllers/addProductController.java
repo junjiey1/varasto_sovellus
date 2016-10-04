@@ -105,7 +105,7 @@ public class addProductController {
 				}
 
 			// ONLY 1 FILE DRAGGED
-			} else { 
+			} else {
 				path = path.substring(1, path.length()-1);
 				readFromFile(path);
 			}

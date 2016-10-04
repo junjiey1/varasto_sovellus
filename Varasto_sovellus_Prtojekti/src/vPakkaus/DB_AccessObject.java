@@ -43,6 +43,7 @@ public class DB_AccessObject {
 				// Asetetaan argumentit sql-kyselyyn
 				haetiedot.setString(1, uname);
 				rs = haetiedot.executeQuery();// Hae annetulla käyttäjänimellä
+
 				// tietokanta rivi
 				try {
 					while (rs.next()) {
@@ -86,18 +87,16 @@ public class DB_AccessObject {
 	public boolean Lisaa(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
 
 		ArrayList<Boolean> errors = new ArrayList(); //virheet kerätään listaan, false = ei virhettä
-		Integer id = null;
+
 
 		boolean löytyy = tarkistaLoytyykoTuote(nimi); //tarkistetaan löytyykö tuotetta jo samalla nimellä
 
 		if (!löytyy) { //!löytyy tarkoittaa että tuotetta ei löydy ja voidaan lisätä uusi
 
 			errors.add(lisaaTuote(nimi, hinta, paino, tilavuus)); // lisätään tuote tuotetaulukkoon
-			id = haeTuotteenIDNimella(nimi);
+			Integer id = haeTuotteenIDNimella(nimi);
+
 			System.out.println("id: "+id);
-			if (id == null) {
-				errors.add(false);
-			}
 
 			errors.add(lisaaTuoteidHyllypaikkaan(hyllypaikka, id));
 			errors.add(lisaaTuoteidVarastoon(maara, id));
@@ -108,7 +107,7 @@ public class DB_AccessObject {
 		}
 
 		if (errors.contains(true)) {
-		    System.out.println("Virhe tapahtunut lisäämisessä");
+		    System.out.println("Joku virhe tapahtunut lisäämisessä");
 		} else {
 		    System.out.println("Onnistunut lisääminen");
 		    return true;

@@ -8,7 +8,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
@@ -31,15 +35,20 @@ public class addProductController {
 	private TextField volume;
 	@FXML
 	private TextField whLocation;
+	@FXML
+    private ListView<String> productList;
 
 	private MainController mc;
 	boolean allGood, product_error;
+	
+	
+	ObservableList<String> productTextFiles = FXCollections.observableArrayList();
 
 
 	File file;
 	Scanner input;
 	String[] oneRowOfData;
-	String path, pName, pShelf, clientName, clientAddress;
+	String path, pName, pShelf, clientName, clientAddress, fileName;
 	double pWeight, pVolume;
 	int pQuantity;
 	float pPrice;
@@ -92,17 +101,37 @@ public class addProductController {
 	// product.getProduct_price());
 	//
 	// }
+	
+	
+	public void removeProduct(){
+		System.out.println(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
+		productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
+		productList.setItems(productTextFiles);
+	}
+	
+	public void removeAllProducts(){
+		
+		for (int i = 0; i < 1; i++){
+			
+		}
+		productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
+		productList.setItems(productTextFiles);
+	}
+	
+	
 
 	@FXML
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
 		Dragboard db = event.getDragboard();
-		System.out.println(db.getFiles().size());
+		int index = 0;
+//		System.out.println(db.getFiles().size());
 		
 		if (db.hasFiles()) {
 			path = db.getFiles().toString();
 			
 			// MULTIPLE FILES DRAGGED
 			if (db.getFiles().size() > 1) {
+				
 				oneRowOfData = path.split(",");
 				
 				for (int i = 0; i < oneRowOfData.length; i++) {
@@ -111,13 +140,26 @@ public class addProductController {
 					} else {
 						oneRowOfData[i] = oneRowOfData[i].substring(1, oneRowOfData[i].length());
 					}
-					readFromFile(oneRowOfData[i]);
+					path = oneRowOfData[i];
+					index = path.lastIndexOf("\\");
+					path = path.substring(index+1, path.length());
+					productTextFiles.add(path);
+					productList.setItems(productTextFiles);
+					
+//					readFromFile(oneRowOfData[i]);
 				}
 
 			// ONLY 1 FILE DRAGGED
 			} else { 
 				path = path.substring(1, path.length()-1);
-				readFromFile(path);
+				System.out.println(path);
+				index = path.lastIndexOf("\\");
+				fileName = path.substring(index+1, path.length());
+				System.out.println(fileName);
+				productTextFiles.add(fileName);
+				productList.setItems(productTextFiles);
+				
+//				readFromFile(path);
 			}
 			db.clear();
 		}

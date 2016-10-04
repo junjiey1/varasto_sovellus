@@ -104,18 +104,11 @@ public class addProductController {
 	
 	
 	public void removeProduct(){
-		System.out.println(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
 		productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
-		productList.setItems(productTextFiles);
 	}
 	
 	public void removeAllProducts(){
-		
-		for (int i = 0; i < 1; i++){
-			
-		}
-		productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
-		productList.setItems(productTextFiles);
+		productTextFiles.clear();
 	}
 	
 	

@@ -22,6 +22,7 @@ public class DataBase_tests {
 	@BeforeClass
 	public static void Valmistelut() {
 		System.out.println("------ESIVALMISTELUT-------");
+		System.out.println("------ESIVALMISTELUT22-------");
 		db = new DB_AccessObject();
 	}
 

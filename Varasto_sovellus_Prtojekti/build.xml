@@ -25,15 +25,11 @@
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="tests">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -91,6 +87,11 @@
     </target>
     <target name="MainLaunch">
         <java classname="vPakkaus.MainLaunch" failonerror="true" fork="yes">
+            <classpath refid="Varasto_sovellus_Prtojekti.classpath"/>
+        </java>
+    </target>
+    <target name="testi">
+        <java classname="vPakkaus.testi" failonerror="true" fork="yes">
             <classpath refid="Varasto_sovellus_Prtojekti.classpath"/>
         </java>
     </target>

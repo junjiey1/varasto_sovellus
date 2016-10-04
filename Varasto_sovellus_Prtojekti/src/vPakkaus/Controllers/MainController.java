@@ -29,6 +29,7 @@ public class MainController {
 
 	public boolean AddProduct(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
 		boolean res = db.Lisaa(nimi, paino, tilavuus, hyllypaikka, hinta, maara);
+		
 		return res;
 	}
 

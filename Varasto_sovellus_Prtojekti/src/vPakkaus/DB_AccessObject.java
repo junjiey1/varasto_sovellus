@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -87,29 +88,26 @@ public class DB_AccessObject {
 	public boolean Lisaa(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
 
 		ArrayList<Boolean> errors = new ArrayList(); //virheet kerätään listaan, false = ei virhettä
+		Integer id = null;
+		Product product = findProduct(nimi); //tarkistetaan löytyykö tuotetta jo samalla nimellä
 
+		if (product == null) { //!löytyy tarkoittaa että tuotetta ei löydy ja voidaan lisätä uusi
 
-		boolean löytyy = tarkistaLoytyykoTuote(nimi); //tarkistetaan löytyykö tuotetta jo samalla nimellä
+			addProductToDB(nimi, hinta, paino, tilavuus); // lisätään tuote tuotetaulukkoon
+			id = getProductID(nimi);
+			System.out.println("id = "+id);
 
-		if (!löytyy) { //!löytyy tarkoittaa että tuotetta ei löydy ja voidaan lisätä uusi
-
-			errors.add(lisaaTuote(nimi, hinta, paino, tilavuus)); // lisätään tuote tuotetaulukkoon
-			Integer id = haeTuotteenIDNimella(nimi);
-
-			System.out.println("id: "+id);
-
-			errors.add(lisaaTuoteidHyllypaikkaan(hyllypaikka, id));
-			errors.add(lisaaTuoteidVarastoon(maara, id));
+			addProductLocation(hyllypaikka, id);
+			addProductToWarehouse(maara, id);
 
 		} else {
-			System.out.println("nimi löytyy jo tietokannasta, anna toinen nimi");
-			errors.add(löytyy);
+			System.out.println("Tuotetta ei voida lisätä tällä nimellä, tuote löytyy jo "+product);
 		}
 
 		if (errors.contains(true)) {
-		    System.out.println("Joku virhe tapahtunut lisäämisessä");
+		    System.out.println("Virhe tapahtunut Prosessissa");
 		} else {
-		    System.out.println("Onnistunut lisääminen");
+		    System.out.println(nimi+" lisätty onnistuneesti");
 		    return true;
 		}
 
@@ -124,21 +122,14 @@ public class DB_AccessObject {
 		return error;
 	}
 
-	public boolean lisaaTuote(String nimi, float hinta, double paino, double tilavuus) {
+	public boolean addProductToDB(String nimi, float hinta, double paino, double tilavuus) {
+
 		boolean error = false;
+
 		try {
 			ps = conn.prepareStatement("INSERT INTO tuote(nimi, hinta, paino, tilavuus)" + "VALUES (?,?,?,?);");
 			//haetaan tuotteen id tietokannasta
-		}
 
-		catch (SQLException e) {
-
-			System.out.println("Lisäys epäonnistui!");
-			error = true;
-			e.printStackTrace();
-
-		}
-		try {
 			ps.setString(1, nimi);
 			ps.setFloat(2, hinta);
 			ps.setDouble(3, paino);
@@ -148,38 +139,14 @@ public class DB_AccessObject {
 			ps.close();
 
 		} catch (SQLException e) {
-			System.out.println("Lisäys epäonnistui!");
 			error = true;
+			System.out.println("Lisäys epäonnistui tuotetaulukkoon!");
 			e.printStackTrace();
 		}
 		return error;
 	}
 
-	public boolean tarkistaLoytyykoTuote(String nimi) {
-		boolean error = true;
-
-		try {
-			ps = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?"); //haetaan tuote ja tarkistetaan löytyykö tuote jo nimellä tietokannasta
-
-			// Asetetaan yksi argumentti nimi
-			ps.setString(1, nimi);
-			rs = ps.executeQuery();// Hae annetulla tuotteen nimellä
-			// tietokanta rivi
-
-			if (!rs.isBeforeFirst()) { // jos tuotetta ei löydy voidaan lisätä uusi tietokantaab
-				// uusi
-				error = false;
-				System.out.println("Tuotetta ei löydy kyseisellä nimellä, voidaan lisätä uusi");
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			error = true;
-		}
-		return error;
-	}
-
-	public int haeTuotteenIDNimella(String nimi) {
+	public int getProductID(String nimi) {
 		Integer id = null;
 
 		try {
@@ -200,7 +167,37 @@ public class DB_AccessObject {
 		return id;
 	}
 
-	public boolean lisaaTuoteidHyllypaikkaan(String hyllypaikka, int id){
+	public Product findProduct(String nimi) {
+		Product product = null;
+
+		try {
+			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus FROM tuote, hyllypaikka WHERE tuote.nimi = ? AND tuote.tuoteID = hyllypaikka.tuoteID");
+
+			// Asetetaan argumentit sql-kyselyyn
+			ps.setString(1, nimi);
+			rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
+			// tietokanta rivi
+
+			while (rs.next()) {
+
+				String name = rs.getString("nimi");
+				String hyllypaikka = rs.getString("tunnus");
+				double paino = rs.getDouble("paino");
+				double tilavuus = rs.getDouble("tilavuus");
+				float hinta = rs.getFloat("hinta");
+				System.out.println(name+ " "+ hyllypaikka+ " "+ paino+ " "+ tilavuus+ " "+ hinta);
+
+				product = new Product(name, hyllypaikka, paino, tilavuus, hinta);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return product;
+	}
+
+	public boolean addProductLocation(String hyllypaikka, int id){
 		boolean error = false;
 
 		try {
@@ -229,7 +226,7 @@ public class DB_AccessObject {
 		return error;
 	}
 
-	public boolean lisaaTuoteidVarastoon(int maara, int id) {
+	public boolean addProductToWarehouse(int maara, int id) {
 		boolean error = false;
 		try {
 			ps= conn.prepareStatement("INSERT INTO varasto(varastoID, maara, tuoteID)" + "VALUES (?,?,?);");
@@ -258,6 +255,26 @@ public class DB_AccessObject {
 		}
 		return error;
 	}
+
+//	public boolean updateProduct() {
+//		boolean error = false;
+//		Statement stmt = null;
+//		try {
+//			stmt = myCon.createStatement();
+//			String sql = "Update valuutta set vaihtokurssi = "+valuutta.getVaihtokurssi()+" WHERE tunnus = '"+valuutta.getTunnus()+"' AND nimi = '"+valuutta.getNimi()+"'";
+//			int palautus = stmt.executeUpdate(sql);
+//
+//			if (palautus == 0) {
+//				System.out.println("Tietuetta ei löytynyt");
+//			}
+//		} catch (SQLException se) {
+//			bool = false;
+//			System.out.println("Virhe tapahtui, päivitystä ei tehty");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return bool;
+//	}
 
 	public static void close() throws SQLException {
 		conn.close();

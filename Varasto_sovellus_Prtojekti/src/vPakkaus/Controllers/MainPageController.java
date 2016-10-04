@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import vPakkaus.MainLaunch;
 
-public class MainPageController {
+public class MainPageController implements SetMainController{
 
 	@FXML
 	private Tab addProductTab;

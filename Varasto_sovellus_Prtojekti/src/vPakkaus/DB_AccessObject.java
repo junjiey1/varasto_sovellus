@@ -23,7 +23,6 @@ public class DB_AccessObject {
 		} catch (ClassNotFoundException e) {
 			System.out.println("JDBC-ajurin lataus epäonnistui");
 		}
-
 	}
 
 	// -----METODIT-----//

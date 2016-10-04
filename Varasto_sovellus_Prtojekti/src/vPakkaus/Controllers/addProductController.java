@@ -16,7 +16,7 @@ import vPakkaus.CurrentDate;
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
 
-public class addProductController {
+public class addProductController implements SetMainController{
 
 	@FXML
 	private TextField productName;
@@ -74,7 +74,7 @@ public class addProductController {
 			mc.AddProduct(product.getProduct_name(), product.getProduct_weight(), product.getProduct_volume(),
 					product.getProduct_location(), product.getProduct_price(), Integer.parseInt(quantity.getText()));
 
-			
+
 		} else {
 			System.out.println("joku kenttä on tyhjä tai väärin täytetty");
 		}
@@ -91,14 +91,14 @@ public class addProductController {
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
 		Dragboard db = event.getDragboard();
 		System.out.println(db.getFiles().size());
-		
+
 		if (db.hasFiles()) {
 			path = db.getFiles().toString();
-			
+
 			// MULTIPLE FILES DRAGGED
 			if (db.getFiles().size() > 1) {
 				oneRowOfData = path.split(",");
-				
+
 				for (int i = 0; i < oneRowOfData.length; i++) {
 					if (i == oneRowOfData.length - 1) {
 						oneRowOfData[i] = oneRowOfData[i].substring(1, oneRowOfData[i].length() - 1);
@@ -109,7 +109,7 @@ public class addProductController {
 				}
 
 			// ONLY 1 FILE DRAGGED
-			} else { 
+			} else {
 				path = path.substring(1, path.length()-1);
 				readFromFile(path);
 			}
@@ -138,14 +138,14 @@ public class addProductController {
 				pShelf = oneRowOfData[3];
 				pPrice = Float.parseFloat(oneRowOfData[4]);
 				pQuantity = Integer.parseInt(oneRowOfData[5]);
-				
+
 				product_error = mc.AddProduct(pName, pWeight, pVolume, pShelf, pPrice, pQuantity);
 				if(!product_error){
 					//lol
 					break;
 				}
-					
-				
+
+
 			}
 			System.out.println(clientName+" "+clientAddress+" "+pName+" "+pWeight+" "+pVolume+" "+pShelf+" "+pPrice+" "+pQuantity);
 		}

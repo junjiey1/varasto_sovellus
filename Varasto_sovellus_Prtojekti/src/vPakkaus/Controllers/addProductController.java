@@ -121,7 +121,7 @@ public class addProductController implements SetMainController{
 
 	public void addAllFromFile(){
 		for(String s : productTextFiles){
-			System.out.println(s);
+			System.out.println(hm.get(s));
 		}
 	}
 

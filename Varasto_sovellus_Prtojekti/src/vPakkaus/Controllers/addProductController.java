@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -21,7 +22,7 @@ import vPakkaus.CurrentDate;
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
 
-public class addProductController {
+public class addProductController implements SetMainController{
 
 	@FXML
 	private TextField productName;
@@ -40,8 +41,8 @@ public class addProductController {
 
 	private MainController mc;
 	boolean allGood, product_error;
-	
-	
+
+
 	ObservableList<String> productTextFiles = FXCollections.observableArrayList();
 
 
@@ -52,6 +53,7 @@ public class addProductController {
 	double pWeight, pVolume;
 	int pQuantity;
 	float pPrice;
+	private HashMap<String, String> hm;
 
 	public void setMainController(MainController m) {
 		mc = m;
@@ -89,7 +91,6 @@ public class addProductController {
 			if(!product_error){
 				product_error_handler();
 			}
-			
 		} else {
 			System.out.println("joku kenttä on tyhjä tai väärin täytetty");
 		}
@@ -101,39 +102,45 @@ public class addProductController {
 	// product.getProduct_price());
 	//
 	// }
-	
-	
+
+
 	public void removeProduct(){
 		System.out.println(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
 		productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
 		productList.setItems(productTextFiles);
 	}
-	
+
 	public void removeAllProducts(){
-		
+
 		for (int i = 0; i < 1; i++){
-			
+
 		}
 		productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
 		productList.setItems(productTextFiles);
 	}
-	
-	
+
+	public void addAllFromFile(){
+		for(String s : productTextFiles){
+			System.out.println(hm.get(s));
+		}
+	}
 
 	@FXML
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
+		hm = new HashMap();
 		Dragboard db = event.getDragboard();
+		System.out.println(db.getFiles().size());
+
 		int index = 0;
 //		System.out.println(db.getFiles().size());
-		
 		if (db.hasFiles()) {
 			path = db.getFiles().toString();
-			
+
 			// MULTIPLE FILES DRAGGED
 			if (db.getFiles().size() > 1) {
-				
+
 				oneRowOfData = path.split(",");
-				
+
 				for (int i = 0; i < oneRowOfData.length; i++) {
 					if (i == oneRowOfData.length - 1) {
 						oneRowOfData[i] = oneRowOfData[i].substring(1, oneRowOfData[i].length() - 1);
@@ -142,23 +149,27 @@ public class addProductController {
 					}
 					path = oneRowOfData[i];
 					index = path.lastIndexOf("\\");
-					path = path.substring(index+1, path.length());
-					productTextFiles.add(path);
+					fileName = path.substring(index+1, path.length());
+					hm.put(new String(fileName), new String(path));
+					productTextFiles.add(fileName);
 					productList.setItems(productTextFiles);
-					
+
 //					readFromFile(oneRowOfData[i]);
 				}
 
 			// ONLY 1 FILE DRAGGED
-			} else { 
+			} else {
+
 				path = path.substring(1, path.length()-1);
+
 				System.out.println(path);
 				index = path.lastIndexOf("\\");
 				fileName = path.substring(index+1, path.length());
 				System.out.println(fileName);
 				productTextFiles.add(fileName);
+				hm.put(new String(fileName), new String(path));
 				productList.setItems(productTextFiles);
-				
+
 //				readFromFile(path);
 			}
 			db.clear();
@@ -173,7 +184,7 @@ public class addProductController {
 		file = new File(name);
 		//SSKANKDKFAQBFBQAFOB
 		input = new Scanner(file);
-		
+
 
 		while (input.hasNext()) {
 			oneRowOfData = input.nextLine().split(",");
@@ -187,19 +198,19 @@ public class addProductController {
 				pShelf = oneRowOfData[3];
 				pPrice = Float.parseFloat(oneRowOfData[4]);
 				pQuantity = Integer.parseInt(oneRowOfData[5]);
-				
+
 				product_error = mc.AddProduct(pName, pWeight, pVolume, pShelf, pPrice, pQuantity);
 				if(!product_error){
 					product_error_handler();
 					break;
 				}
-			}
 			System.out.println(clientName+" "+clientAddress+" "+pName+" "+pWeight+" "+pVolume+" "+pShelf+" "+pPrice+" "+pQuantity);
 		}
 		input.close();
+		}
 	}
-	
-	
+
+
 	public void product_error_handler(){
 		JOptionPane.showMessageDialog(null, "Error occured while adding product, please check product information.");
 	}

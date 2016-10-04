@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import vPakkaus.Controllers.LoginController;
 import vPakkaus.Controllers.MainController;
 import vPakkaus.Controllers.MainPageController;
+import vPakkaus.Controllers.MuokkaaProductController;
+import vPakkaus.Controllers.SetMainController;
 import vPakkaus.Controllers.addProductController;
 
 public class MainLaunch extends Application {
@@ -39,14 +41,8 @@ public class MainLaunch extends Application {
 			newStage.setScene(new Scene(APLayout));
 			newStage.show();
 		}
-		if (loader.getController() instanceof LoginController) {
-			LoginController c = (LoginController) loader.getController();
-			c.setMainController(mc);
-		} else if (loader.getController() instanceof MainPageController) {
-			MainPageController c = (MainPageController) loader.getController();
-			c.setMainController(mc);
-		} else if (loader.getController() instanceof addProductController) {
-			addProductController c = (addProductController) loader.getController();
+		if (loader.getController() instanceof SetMainController) {
+			SetMainController c = (SetMainController) loader.getController();
 			c.setMainController(mc);
 		}
 	}

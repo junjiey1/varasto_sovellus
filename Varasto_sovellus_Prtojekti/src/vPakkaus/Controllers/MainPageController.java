@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import vPakkaus.MainLaunch;
 
-public class MainPageController {
+public class MainPageController implements SetMainController{
 
 	@FXML
 	private Tab addProductTab;
@@ -41,7 +41,7 @@ public class MainPageController {
 		}
 		if (tab3.isSelected()) {
 			activeTab = tab3;
-			resource = "view/addProduct.fxml";
+			resource = "view/SearchProduct.fxml";
 		}
 		if (tab4.isSelected()) {
 			activeTab = tab4;

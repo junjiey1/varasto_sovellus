@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DataFormat;
@@ -32,7 +33,8 @@ public class addProductController {
 	private TextField whLocation;
 
 	private MainController mc;
-	boolean allGood;
+	boolean allGood, product_error;
+
 
 	File file;
 	Scanner input;
@@ -47,6 +49,7 @@ public class addProductController {
 	}
 
 	public void AddProductManually() throws IOException {
+		product_error = true;
 		allGood = true;
 
 		if (productName.getText().isEmpty() || quantity.getText().isEmpty() || price.getText().isEmpty()
@@ -71,9 +74,12 @@ public class addProductController {
 					Double.parseDouble(weight.getText()), Double.parseDouble(volume.getText()),
 					Float.parseFloat(price.getText()));
 
-			mc.AddProduct(product.getProduct_name(), product.getProduct_weight(), product.getProduct_volume(),
+			product_error = mc.AddProduct(product.getProduct_name(), product.getProduct_weight(), product.getProduct_volume(),
 					product.getProduct_location(), product.getProduct_price(), Integer.parseInt(quantity.getText()));
 
+			if(!product_error){
+				product_error_handler();
+			}
 			
 		} else {
 			System.out.println("joku kenttä on tyhjä tai väärin täytetty");
@@ -121,10 +127,11 @@ public class addProductController {
 
 	public void readFromFile(String name) throws FileNotFoundException {
 
+		product_error = true;
 		file = new File(name);
 		//SSKANKDKFAQBFBQAFOB
 		input = new Scanner(file);
-		boolean product_error = true;
+		
 
 		while (input.hasNext()) {
 			oneRowOfData = input.nextLine().split(",");
@@ -141,15 +148,18 @@ public class addProductController {
 				
 				product_error = mc.AddProduct(pName, pWeight, pVolume, pShelf, pPrice, pQuantity);
 				if(!product_error){
-					//lol
+					product_error_handler();
 					break;
 				}
-					
-				
 			}
 			System.out.println(clientName+" "+clientAddress+" "+pName+" "+pWeight+" "+pVolume+" "+pShelf+" "+pPrice+" "+pQuantity);
 		}
 		input.close();
+	}
+	
+	
+	public void product_error_handler(){
+		JOptionPane.showMessageDialog(null, "Error occured while adding product, please check product information.");
 	}
 
 }

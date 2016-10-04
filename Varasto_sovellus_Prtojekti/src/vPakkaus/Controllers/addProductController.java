@@ -74,6 +74,7 @@ public class addProductController {
 			mc.AddProduct(product.getProduct_name(), product.getProduct_weight(), product.getProduct_volume(),
 					product.getProduct_location(), product.getProduct_price(), Integer.parseInt(quantity.getText()));
 
+			
 		} else {
 			System.out.println("joku kenttä on tyhjä tai väärin täytetty");
 		}
@@ -121,6 +122,7 @@ public class addProductController {
 	public void readFromFile(String name) throws FileNotFoundException {
 
 		file = new File(name);
+		//SSKANKDKFAQBFBQAFOB
 		input = new Scanner(file);
 
 		while (input.hasNext()) {
@@ -137,6 +139,7 @@ public class addProductController {
 				pQuantity = Integer.parseInt(oneRowOfData[5]);
 				
 				mc.AddProduct(pName, pWeight, pVolume, pShelf, pPrice, pQuantity);
+				
 			}
 			System.out.println(clientName+" "+clientAddress+" "+pName+" "+pWeight+" "+pVolume+" "+pShelf+" "+pPrice+" "+pQuantity);
 		}

@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import vPakkaus.DB_AccessObject;
 import vPakkaus.MainLaunch;
 
-public class LoginController {
+public class LoginController implements SetMainController{
 
 	@FXML
 	private TextField usernameTxt;

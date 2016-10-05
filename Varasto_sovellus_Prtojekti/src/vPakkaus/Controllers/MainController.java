@@ -2,6 +2,7 @@ package vPakkaus.Controllers;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
@@ -32,14 +33,15 @@ public class MainController {
 
 	public boolean AddProduct(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
 		boolean res = db.Lisaa(nimi, paino, tilavuus, hyllypaikka, hinta, maara);
-		
+
 		return res;
 	}
 
 	public Product haeTuote(String nimi){
-		Product res = null;
+		ArrayList<Product> res = null;
+		//res = db.findProduct(nimi);
 		//Hae mallista tuotteen nimellä tiedot ja palauta tähän metodiin product-olio
-		return res;
+		return null;
 	}
 
 	public boolean DeleteProduct(String nimi){

@@ -135,7 +135,7 @@ public class addProductController implements SetMainController {
 					productList.setItems(productTextFiles);
 				}
 
-			// ONLY 1 FILE DRAGGED
+				// ONLY 1 FILE DRAGGED
 			} else {
 				path = path.substring(1, path.length() - 1);
 				index = path.lastIndexOf("\\");

@@ -9,7 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import vPakkaus.MainLaunch;
 
-public class LoginController implements SetMainController{
+public class LoginController implements SetMainController {
 
 	@FXML
 	private TextField usernameTxt;

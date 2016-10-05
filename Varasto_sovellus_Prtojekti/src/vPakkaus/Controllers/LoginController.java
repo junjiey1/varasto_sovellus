@@ -1,21 +1,14 @@
 package vPakkaus.Controllers;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javafx.fxml.FXML;
-import javafx.scene.AccessibleRole;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import vPakkaus.DB_AccessObject;
 import vPakkaus.MainLaunch;
 
-public class LoginController implements SetMainController{
+public class LoginController implements SetMainController {
 
 	@FXML
 	private TextField usernameTxt;
@@ -25,6 +18,9 @@ public class LoginController implements SetMainController{
 	private CheckBox showpword;
 	@FXML
 	private Label incorrectLabel;
+	@FXML
+    private TextField visiblePasswordTxt;
+
 	String uname, pword;
 	private MainController mc;
 	boolean allGood;
@@ -35,6 +31,7 @@ public class LoginController implements SetMainController{
 
 	public void initialize() {
 		incorrectLabel.setVisible(false);
+		visiblePasswordTxt.setFocusTraversable(false);
 	}
 
 	public void setMainController(MainController m) {
@@ -60,16 +57,26 @@ public class LoginController implements SetMainController{
 		}
 	}
 
-	// ei toimi vielä
 	public void showpword() {
 		if (showpword.isSelected()) {
-			passwordTxt.setAccessibleRole(AccessibleRole.TEXT_FIELD);
+			passwordTxt.toBack();
+			visiblePasswordTxt.toFront();
+			visiblePasswordTxt.setText(passwordTxt.getText());
+			passwordTxt.setFocusTraversable(false);
+			visiblePasswordTxt.setFocusTraversable(true);
 		} else {
-			passwordTxt.setAccessibleRole(AccessibleRole.PASSWORD_FIELD);
+			visiblePasswordTxt.toBack();
+			passwordTxt.toFront();
+			passwordTxt.setText(visiblePasswordTxt.getText());
+			visiblePasswordTxt.setFocusTraversable(false);
+			passwordTxt.setFocusTraversable(true);
 		}
 	}
 
 	public void checkUnamePword(String uname, String pword) throws IOException {
+		if (showpword.isSelected()) {
+			passwordTxt.setText(visiblePasswordTxt.getText());
+		}
 		if (mc.LogIn(uname, pword)) {
 			System.out.println("LOG IN ONNISTUI : " + uname);
 			MainLaunch.windowDestroyer();

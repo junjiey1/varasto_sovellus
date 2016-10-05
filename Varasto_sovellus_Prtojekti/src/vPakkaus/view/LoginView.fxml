@@ -15,6 +15,16 @@
             <Font size="18.0" />
          </font>
       </TextField>
+      <TextField fx:id="visiblePasswordTxt" layoutX="25.0" layoutY="143.0" prefHeight="43.0" prefWidth="234.0" promptText="vis">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="passwordTxt" layoutX="25.0" layoutY="143.0" prefHeight="43.0" prefWidth="234.0" promptText="PASSWORD">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </PasswordField>
       <Label fx:id="incorrectLabel" layoutX="25.0" layoutY="186.0" prefHeight="35.0" prefWidth="234.0" text="Incorrect username or password" textFill="RED">
          <font>
             <Font size="14.0" />
@@ -25,21 +35,16 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <PasswordField fx:id="passwordTxt" layoutX="25.0" layoutY="143.0" prefHeight="43.0" prefWidth="234.0" promptText="PASSWORD">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </PasswordField>
-      <Button defaultButton="true" layoutX="25.0" layoutY="255.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="107.0" text="LOG IN">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
       <CheckBox fx:id="showpword" layoutX="269.0" layoutY="156.0" mnemonicParsing="false" onAction="#showpword" text="show password" />
       <Label layoutX="25.0" layoutY="17.0" prefHeight="35.0" prefWidth="107.0" text="USERNAME">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Button defaultButton="true" layoutX="25.0" layoutY="255.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="107.0" text="LOG IN">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

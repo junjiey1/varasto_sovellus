@@ -43,7 +43,7 @@
                </content>
             </Tab>
           <Tab fx:id="addProductTab" onSelectionChanged="#tabChoose" text="ADD PRODUCT" />
-            <Tab fx:id="tab3" onSelectionChanged="#tabChoose" text="TAB3" />
+            <Tab fx:id="tab3" onSelectionChanged="#tabChoose" text="Search" />
             <Tab fx:id="tab4" onSelectionChanged="#tabChoose" text="TAB4" />
             <Tab fx:id="tab5" onSelectionChanged="#tabChoose" text="TAB5" />
         </tabs>

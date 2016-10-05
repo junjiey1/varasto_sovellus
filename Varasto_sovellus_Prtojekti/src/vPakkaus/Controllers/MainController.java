@@ -16,7 +16,6 @@ public class MainController {
 		db = new DB_AccessObject();
 		username = "undefined";
 		UserID = -1;
-		db.findProduct("julius");
 	}
 
 	public boolean LogIn(String username, String password) {

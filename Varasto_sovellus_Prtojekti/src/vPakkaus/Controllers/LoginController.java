@@ -1,18 +1,12 @@
 package vPakkaus.Controllers;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.AccessibleRole;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import vPakkaus.DB_AccessObject;
 import vPakkaus.MainLaunch;
 
 public class LoginController implements SetMainController{

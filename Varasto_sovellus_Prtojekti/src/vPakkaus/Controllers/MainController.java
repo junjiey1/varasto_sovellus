@@ -1,8 +1,6 @@
 package vPakkaus.Controllers;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
-
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
 

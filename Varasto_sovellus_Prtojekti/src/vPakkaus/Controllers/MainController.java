@@ -36,7 +36,6 @@ public class MainController {
 
 		return res;
 	}
-
 	public ArrayList<Product> haeTuote(String nimi){
 		ArrayList<Product> res = null;
 		//res = db.findProducts(nimi);

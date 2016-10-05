@@ -24,6 +24,7 @@ public class MainLaunch extends Application {
 	@Override
 	public void start(Stage primaStage) throws IOException {
 		mc = new MainController();
+
 		windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}
 

@@ -236,8 +236,6 @@ public class DB_AccessObject {
 		}
 		return error;
 	}
-	
-	
 
 //	public boolean updateProduct() {
 //		boolean error = false;

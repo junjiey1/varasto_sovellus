@@ -2,7 +2,6 @@ package vPakkaus.Controllers;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.scene.AccessibleRole;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;

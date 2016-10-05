@@ -92,24 +92,24 @@ public class DB_AccessObject {
 
 		if (product == null) { //!löytyy tarkoittaa että tuotetta ei löydy ja voidaan lisätä uusi
 
-			addProductToDB(nimi, hinta, paino, tilavuus); // lisätään tuote tuotetaulukkoon
+			errors.add(addProductToDB(nimi, hinta, paino, tilavuus)); // lisätään tuote tuotetaulukkoon
 			id = getProductID(nimi);
 			System.out.println("id = "+id);
 
-			addProductLocation(hyllypaikka, id);
-			addProductToWarehouse(maara, id);
+			errors.add(addProductLocation(hyllypaikka, id));
+			errors.add(addProductToWarehouse(maara, id));
+
+			if (errors.contains(true)) {
+			    System.out.println("Virhe tapahtunut Prosessissa");
+			} else {
+			    System.out.println(nimi+" lisätty onnistuneesti");
+			    return true;
+			}
 
 		} else {
 			System.out.println("Tuotetta ei voida lisätä tällä nimellä, tuote löytyy jo "+product);
 		}
-
-		if (errors.contains(true)) {
-		    System.out.println("Virhe tapahtunut Prosessissa");
-		} else {
-		    System.out.println(nimi+" lisätty onnistuneesti");
-		    return true;
-		}
-
+		System.out.println("Virhe tapahtunut Prosessissa");
 		return false;
 	}
 
@@ -201,16 +201,7 @@ public class DB_AccessObject {
 
 		try {
 			ps = conn.prepareStatement("INSERT INTO hyllypaikka(tunnus, tuoteID)" + "VALUES (?,?);");
-		}
 
-		catch (SQLException e) {
-
-			System.out.println("Lisäys epäonnistui!");
-			error = true;
-			e.printStackTrace();
-		}
-
-		try {
 			ps.setString(1, hyllypaikka);
 			ps.setInt(2, id);
 
@@ -218,7 +209,7 @@ public class DB_AccessObject {
 			ps.close();
 
 		} catch (SQLException e) {
-			System.out.println("Lisäys epäonnistui!");
+			System.out.println("Lisäys epäonnistui hyllypaikkataulukkoon!");
 			e.printStackTrace();
 			error = true;
 		}
@@ -229,16 +220,7 @@ public class DB_AccessObject {
 		boolean error = false;
 		try {
 			ps= conn.prepareStatement("INSERT INTO varasto(varastoID, maara, tuoteID)" + "VALUES (?,?,?);");
-		}
 
-		catch (SQLException e) {
-
-			System.out.println("Lisäys epäonnistui!");
-			error = true;
-			e.printStackTrace();
-
-		}
-		try {
 			int varastoID = 1;
 			ps.setInt(1, varastoID);
 			ps.setInt(2, maara);
@@ -248,12 +230,14 @@ public class DB_AccessObject {
 			ps.close();
 
 		} catch (SQLException e) {
-			System.out.println("Lisäys epäonnistui!");
+			System.out.println("Lisäys epäonnistui varastotaulukkoon!");
 			e.printStackTrace();
 			error = true;
 		}
 		return error;
 	}
+	
+	
 
 //	public boolean updateProduct() {
 //		boolean error = false;

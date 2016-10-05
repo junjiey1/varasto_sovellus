@@ -236,8 +236,44 @@ public class DB_AccessObject {
 		}
 		return error;
 	}
-	
-	
+
+	public ArrayList<Product> findProducts(String nimi) {
+		ArrayList<Product> products = new ArrayList();
+		Product product;
+
+		try {
+			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus FROM tuote, hyllypaikka WHERE tuote.nimi LIKE '%?%' AND tuote.tuoteID = hyllypaikka.tuoteID;");
+
+			// Asetetaan argumentit sql-kyselyyn
+			ps.setString(1, nimi);
+			rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
+			// tietokanta rivi
+
+			while (rs.next()) {
+
+				String name = rs.getString("nimi");
+				String hyllypaikka = rs.getString("tunnus");
+				double paino = rs.getDouble("paino");
+				double tilavuus = rs.getDouble("tilavuus");
+				float hinta = rs.getFloat("hinta");
+				System.out.println(name+ " "+ hyllypaikka+ " "+ paino+ " "+ tilavuus+ " "+ hinta);
+
+				product = new Product(name, hyllypaikka, paino, tilavuus, hinta);
+				products.add(product);
+			}
+
+			for (Product pro : products) {
+			    System.out.println(pro.getProduct_name());
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return products;
+	}
+
+
 
 //	public boolean updateProduct() {
 //		boolean error = false;

@@ -170,7 +170,7 @@ public class DB_AccessObject {
 		Product product = null;
 
 		try {
-			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus FROM tuote, hyllypaikka WHERE tuote.nimi = ? AND tuote.tuoteID = hyllypaikka.tuoteID");
+			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus, varasto.maara FROM tuote, hyllypaikka, varasto WHERE tuote.nimi = ? AND tuote.tuoteID = hyllypaikka.tuoteID AND varasto.tuoteID = tuote.tuoteID");
 
 			// Asetetaan argumentit sql-kyselyyn
 			ps.setString(1, nimi);
@@ -184,9 +184,10 @@ public class DB_AccessObject {
 				double paino = rs.getDouble("paino");
 				double tilavuus = rs.getDouble("tilavuus");
 				float hinta = rs.getFloat("hinta");
-				System.out.println(name+ " "+ hyllypaikka+ " "+ paino+ " "+ tilavuus+ " "+ hinta);
+				int maara = rs.getInt("maara");
+				System.out.println(name+ " "+ hyllypaikka+ " "+ paino+ " "+ tilavuus+ " "+ hinta + " " +maara);
 
-				product = new Product(name, hyllypaikka, paino, tilavuus, hinta);
+				product = new Product(name, hyllypaikka, paino, tilavuus, hinta, maara);
 			}
 
 		} catch (SQLException e) {
@@ -259,6 +260,22 @@ public class DB_AccessObject {
 
 	public static void close() throws SQLException {
 		conn.close();
+	}
+
+	public void dropTuotteet(){
+		ps = null;
+		try {
+			ps = conn.prepareStatement("DELETE FROM hyllypaikka");
+			ps.executeUpdate();
+			ps = conn.prepareStatement("DELETE FROM varasto");
+			ps.executeUpdate();
+			ps = conn.prepareStatement("DELETE FROM tuote");
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

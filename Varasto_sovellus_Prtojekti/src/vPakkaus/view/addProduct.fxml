@@ -5,26 +5,31 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane minHeight="460.0" minWidth="700.0" prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.addProductController">
    <children>
-      <TextField fx:id="productName" layoutX="30.0" layoutY="56.0" prefHeight="25.0" prefWidth="175.0" />
-      <TextField fx:id="quantity" layoutX="227.0" layoutY="56.0" prefHeight="25.0" prefWidth="175.0" />
-      <TextField fx:id="price" layoutX="418.0" layoutY="56.0" prefHeight="25.0" prefWidth="175.0" />
-      <TextField fx:id="weight" layoutX="30.0" layoutY="120.0" prefHeight="25.0" prefWidth="175.0" />
-      <TextField fx:id="volume" layoutX="227.0" layoutY="120.0" prefHeight="25.0" prefWidth="175.0" />
-      <TextField fx:id="whLocation" layoutX="418.0" layoutY="120.0" prefHeight="25.0" prefWidth="175.0" />
-      <Label layoutX="30.0" layoutY="39.0" text="NAME" />
-      <Label layoutX="227.0" layoutY="39.0" text="QUANTITY" />
-      <Label layoutX="30.0" layoutY="103.0" text="WEIGHT" />
-      <Label layoutX="227.0" layoutY="103.0" text="VOLUME" />
-      <Label layoutX="418.0" layoutY="39.0" text="PRICE" />
-      <Label layoutX="418.0" layoutY="103.0" text="WH LOCATION" />
-      <Button defaultButton="true" layoutX="350.0" layoutY="191.0" mnemonicParsing="false" onAction="#AddProductManually" prefHeight="34.0" prefWidth="88.0" text="ADD NEW" />
-      <ListView fx:id="productList" layoutX="18.0" layoutY="275.0" onDragEntered="#handleFilesDragDropped" prefHeight="171.0" prefWidth="203.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="258.0" prefHeight="17.0" prefWidth="203.0" text="Drag text files here" />
-      <Button layoutX="234.0" layoutY="323.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="ADD ALL" />
-      <Button layoutX="234.0" layoutY="421.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="CLEAR" />
-      <Button layoutX="234.0" layoutY="372.0" mnemonicParsing="false" onAction="#removeProduct" prefHeight="25.0" prefWidth="67.0" text="REMOVE" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="432.0" layoutX="8.0" layoutY="17.0" stroke="BLACK" strokeType="INSIDE" width="309.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="432.0" layoutX="378.0" layoutY="17.0" stroke="BLACK" strokeType="INSIDE" width="309.0" />
+      <TextField fx:id="productName" layoutX="392.0" layoutY="110.0" prefHeight="25.0" prefWidth="175.0" />
+      <TextField fx:id="quantity" layoutX="600.0" layoutY="110.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField fx:id="weight" layoutX="446.0" layoutY="173.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField fx:id="whLocation" layoutX="560.0" layoutY="173.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField fx:id="volume" layoutX="446.0" layoutY="227.0" prefHeight="25.0" prefWidth="67.0" />
+      <TextField fx:id="price" layoutX="560.0" layoutY="227.0" prefHeight="25.0" prefWidth="67.0" />
+      <Button defaultButton="true" layoutX="474.0" layoutY="280.0" mnemonicParsing="false" onAction="#AddProductManually" prefHeight="34.0" prefWidth="139.0" text="ADD NEW PRODUCT" />
+      <Label layoutX="463.0" layoutY="93.0" text="NAME" />
+      <Label layoutX="605.0" layoutY="93.0" text="QUANTITY" />
+      <Label layoutX="458.0" layoutY="156.0" text="WEIGHT" />
+      <Label layoutX="456.0" layoutY="210.0" text="VOLUME" />
+      <Label layoutX="578.0" layoutY="210.0" text="PRICE" />
+      <Label layoutX="553.0" layoutY="156.0" text="WH LOCATION" />
+      <ListView fx:id="productList" layoutX="18.0" layoutY="125.0" onDragEntered="#handleFilesDragDropped" prefHeight="310.0" prefWidth="203.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="102.0" prefHeight="17.0" prefWidth="203.0" text="Drag text files here" />
+      <Button layoutX="231.0" layoutY="216.0" mnemonicParsing="false" onAction="#addAllFromFile" prefHeight="30.0" prefWidth="67.0" text="ADD ALL" />
+      <Button layoutX="231.0" layoutY="265.0" mnemonicParsing="false" onAction="#removeProduct" prefHeight="30.0" prefWidth="67.0" text="REMOVE" />
+      <Button layoutX="231.0" layoutY="314.0" mnemonicParsing="false" onAction="#removeAllProducts" prefHeight="30.0" prefWidth="67.0" text="CLEAR" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="28.0" prefHeight="17.0" prefWidth="203.0" text="ADD PRODUCTS AUTOMATICALLY" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="28.0" prefHeight="17.0" prefWidth="203.0" text="ADD PRODUCTS MANUALLY" />
    </children>
 </AnchorPane>

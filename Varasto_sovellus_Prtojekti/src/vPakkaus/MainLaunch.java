@@ -26,15 +26,15 @@ public class MainLaunch extends Application {
 	@Override
 	public void start(Stage primaStage) throws IOException {
 		mc = new MainController();
-//		mc.haeTuote("tav");
-		Product pro1 = new Product("julius", "ab", 1.0, 2.0, 3);
-		Product pro2 = new Product("jeeejeee", "abcd", 1.0, 2.0, 3);
-		pro1.setID(56);
-		pro2.setID(55);
-		ArrayList<Product> prod = new ArrayList<>();
-		prod.add(pro1);
-		prod.add(pro2);
-		mc.paivitaTuotteet(prod);
+		mc.haeTuote("ju");
+//		Product pro1 = new Product("julius", "ab", 1.0, 2.0, 3);
+//		Product pro2 = new Product("jeeejeee", "abcd", 1.0, 2.0, 3);
+//		pro1.setID(56);
+//		pro2.setID(55);
+//		ArrayList<Product> prod = new ArrayList<>();
+//		prod.add(pro1);
+//		prod.add(pro2);
+//		mc.paivitaTuotteet(prod);
 		windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}
 

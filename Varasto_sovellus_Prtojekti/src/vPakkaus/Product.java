@@ -4,13 +4,13 @@ import java.sql.Date;
 
 public class Product {
 
-	String product_name, product_location;
-	Double product_weight, product_volume;
-	float product_price;
-	private int ID;
+	private String product_name, product_location;
+	private Double product_weight, product_volume;
+	private float product_price;
+	private int ID, maara;
 
 public Product(String product_name, String product_location, Double product_weight, Double product_volume,
-			float product_price) {
+			float product_price, int maara) {
 
 		this.product_name = product_name;
 		this.product_location = product_location;
@@ -18,6 +18,7 @@ public Product(String product_name, String product_location, Double product_weig
 		this.product_volume = product_volume;
 		this.product_price = product_price;
 		ID=0;
+		this.maara = maara;
 	}
 
 public String getProduct_name() {
@@ -55,6 +56,14 @@ public void setID(int id){
 }
 public int getID(){
 	return ID;
+}
+
+public int getMaara() {
+	return maara;
+}
+
+public void setMaara(int maara) {
+	this.maara = maara;
 }
 
 }

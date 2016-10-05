@@ -1,9 +1,12 @@
 import static org.junit.Assert.*;
 import java.sql.Connection;
+import java.sql.SQLException;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import vPakkaus.DB_AccessObject;
+import vPakkaus.Product;
 
 public class DataBase_tests {
 
@@ -22,8 +25,8 @@ public class DataBase_tests {
 	@BeforeClass
 	public static void Valmistelut() {
 		System.out.println("------ESIVALMISTELUT-------");
-		System.out.println("------ESIVALMISTELUT22-------");
 		db = new DB_AccessObject();
+		db.dropTuotteet();
 	}
 
 	@Test
@@ -50,14 +53,21 @@ public class DataBase_tests {
 	public void Tavaran_Lisääminen_Oikeilla_Parametreilla() {
 		System.out.println("\nTest : Tavaran_Lisääminen_Oikeilla_Parametreilla()");
 		boolean result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", 2.2f, 1);
-		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!", result, true);
+		assertEquals("Tavaran lisääminen EPÄONNISTUI!", result, true);
+		result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", 2.2f, 1);
+		assertEquals("Duplicate tuote lisättiin tietokantaan eli testi EPÄONNISTUI!", result, false);
 	}
 	
 
 	@Test
-	public void Tavaran_Lisääminen_Väärillä_Parametreilla() {
-		// System.out.println("\nTest :
-		// Tavaran_Lisääminen_Väärillä_Parametreilla()");
+	public void Tavaran_Etsiminen() {
+		System.out.println("\nTest : Tavaran_Lisääminen_Oikeilla_Parametreilla()");
+		boolean result = db.Lisaa("PRODUT_JUNIT", 1.2, 3.6, "JUNIT_ETSI", 2.2f, 1);
+		assertEquals("Tavaran lisääminen EPÄONNISTUI!", result, true);
+		Product p = db.findProduct("PRODUT_JUNIT");
+		assertEquals("Tavaran lisääminen EPÄONNISTUI!", 2.2f, p.getProduct_price(), 0.0);
+		assertEquals("Tavaran lisääminen EPÄONNISTUI!", 1.2, p.getProduct_weight(), 0.0);
+		assertEquals("Tavaran lisääminen EPÄONNISTUI!", p.getProduct_name(), "PRODUT_JUNIT");
 	}
 
 }

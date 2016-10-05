@@ -1,9 +1,7 @@
 package vPakkaus.Controllers;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
 
@@ -33,19 +31,20 @@ public class MainController {
 
 	public boolean AddProduct(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
 		boolean res = db.Lisaa(nimi, paino, tilavuus, hyllypaikka, hinta, maara);
+		return res;
+	}
+	public ArrayList<Product> haeTuote(String nimi) {
+		ArrayList<Product> res = null;
+		res = db.findProducts(nimi);
 
+		for (Product p : res) {
+			System.out.println(p.getProduct_name() + p.getMaara());
+		}
+		// Hae mallista tuotteen nimellä tiedot ja palauta tähän metodiin
+		// product-olio
 		return res;
 	}
 
-	public ArrayList<Product> haeTuote(String nimi){
-		ArrayList<Product> res = null;
-		res = db.findProducts(nimi);
-		for(Product p : res){
-			System.out.println(p.getProduct_name() + " id: "+p.getID());
-		}
-		//Hae mallista tuotteen nimellä tiedot ja palauta tähän metodiin product-olio
-		return null;
-	}
 
 	public boolean paivitaTuotteet(ArrayList<Product> products){
 
@@ -54,12 +53,12 @@ public class MainController {
 		return res;
 	}
 
-	public boolean tallennaMuutokset(ArrayList<Product> lista){
+	public boolean tallennaMuutokset(ArrayList<Product> lista) {
 		boolean res = false;
 		return res;
 	}
 
-	public boolean DeleteProduct(String nimi){
+	public boolean DeleteProduct(String nimi) {
 		boolean res = false;
 		return res;
 	}

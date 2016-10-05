@@ -7,6 +7,7 @@ public class Product {
 	String product_name, product_location;
 	Double product_weight, product_volume;
 	float product_price;
+	private int ID;
 
 public Product(String product_name, String product_location, Double product_weight, Double product_volume,
 			float product_price) {
@@ -16,7 +17,7 @@ public Product(String product_name, String product_location, Double product_weig
 		this.product_weight = product_weight;
 		this.product_volume = product_volume;
 		this.product_price = product_price;
-
+		ID=0;
 	}
 
 public String getProduct_name() {
@@ -48,6 +49,12 @@ public float getProduct_price() {
 }
 public void setProduct_price(float product_price) {
 	this.product_price = product_price;
+}
+public void setID(int id){
+	ID = id;
+}
+public int getID(){
+	return ID;
 }
 
 }

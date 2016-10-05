@@ -237,12 +237,14 @@ public class DB_AccessObject {
 		return error;
 	}
 
+
 	public ArrayList<Product> findProducts(String nimi) {
 		ArrayList<Product> products = new ArrayList();
 		Product product;
 
 		try {
-			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus FROM tuote, hyllypaikka WHERE tuote.nimi LIKE '%?%' AND tuote.tuoteID = hyllypaikka.tuoteID;");
+			nimi = "%"+nimi+"%";
+			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus FROM tuote, hyllypaikka WHERE tuote.nimi LIKE ? AND tuote.tuoteID = hyllypaikka.tuoteID;");
 
 			// Asetetaan argumentit sql-kyselyyn
 			ps.setString(1, nimi);
@@ -251,20 +253,18 @@ public class DB_AccessObject {
 
 			while (rs.next()) {
 
+				int id = rs.getInt("tuoteID");
 				String name = rs.getString("nimi");
 				String hyllypaikka = rs.getString("tunnus");
 				double paino = rs.getDouble("paino");
 				double tilavuus = rs.getDouble("tilavuus");
 				float hinta = rs.getFloat("hinta");
-				System.out.println(name+ " "+ hyllypaikka+ " "+ paino+ " "+ tilavuus+ " "+ hinta);
 
 				product = new Product(name, hyllypaikka, paino, tilavuus, hinta);
+				product.setID(id);
 				products.add(product);
 			}
 
-			for (Product pro : products) {
-			    System.out.println(pro.getProduct_name());
-			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -273,6 +273,35 @@ public class DB_AccessObject {
 		return products;
 	}
 
+	public boolean updateProducts(ArrayList<Product> products) {
+		boolean error = false;
+
+		for(Product p : products){
+
+			try {
+				ps= conn.prepareStatement("UPDATE tuote, varasto, hyllypaikka SET tuote.nimi = ?,tuote.hinta = ?, tuote.paino = ?, tuote.tilavuus = ?, hyllypaikka.tunnus = ?, varasto.maara = ? WHERE tuote.tuoteID = hyllypaikka.tuoteID AND tuote.tuoteID = varasto.tuoteID AND tuote.tuoteID = ?;");
+
+				ps.setString(1, p.getProduct_name());
+				ps.setFloat(2, p.getProduct_price());
+				ps.setDouble(3, p.getProduct_weight());
+				ps.setDouble(4, p.getProduct_volume());
+				ps.setString(5, p.getProduct_location());
+//				ps.setInt(5, p.getMaara());
+				ps.setInt(6, p.getID());
+
+				ps.executeUpdate();
+				ps.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				error = true;
+			}
+
+		}
+
+
+		return error;
+	}
 
 
 //	public boolean updateProduct() {

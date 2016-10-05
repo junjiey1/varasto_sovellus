@@ -52,6 +52,7 @@ public class DataBase_tests {
 		boolean result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", 2.2f, 1);
 		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!", result, true);
 	}
+	
 
 	@Test
 	public void Tavaran_Lisääminen_Väärillä_Parametreilla() {

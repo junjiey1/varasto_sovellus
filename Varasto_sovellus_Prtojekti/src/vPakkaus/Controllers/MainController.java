@@ -37,11 +37,19 @@ public class MainController {
 		return res;
 	}
 
-	public Product haeTuote(String nimi){
+	public ArrayList<Product> haeTuote(String nimi){
 		ArrayList<Product> res = null;
-		//res = db.findProduct(nimi);
+		//res = db.findProducts(nimi);
+		for(Product p : res){
+			System.out.println(p.getProduct_name());
+		}
 		//Hae mallista tuotteen nimellä tiedot ja palauta tähän metodiin product-olio
 		return null;
+	}
+
+	public boolean tallennaMuutokset(ArrayList<Product> lista){
+		boolean res = false;
+		return res;
 	}
 
 	public boolean DeleteProduct(String nimi){

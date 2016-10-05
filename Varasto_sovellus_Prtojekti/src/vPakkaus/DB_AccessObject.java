@@ -238,6 +238,74 @@ public class DB_AccessObject {
 		return error;
 	}
 
+
+	public ArrayList<Product> findProducts(String nimi) {
+		ArrayList<Product> products = new ArrayList();
+		Product product;
+
+		try {
+			nimi = "%"+nimi+"%";
+			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus, varasto.maara FROM tuote, hyllypaikka, varasto WHERE tuote.nimi LIKE ? AND tuote.tuoteID = hyllypaikka.tuoteID AND tuote.tuoteID = varasto.tuoteID;");
+
+			// Asetetaan argumentit sql-kyselyyn
+			ps.setString(1, nimi);
+			rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
+			// tietokanta rivi
+
+			while (rs.next()) {
+
+				int id = rs.getInt("tuoteID");
+				String name = rs.getString("nimi");
+				String hyllypaikka = rs.getString("tunnus");
+				double paino = rs.getDouble("paino");
+				double tilavuus = rs.getDouble("tilavuus");
+				float hinta = rs.getFloat("hinta");
+				int maara = rs.getInt("maara");
+
+				product = new Product(name, hyllypaikka, paino, tilavuus, hinta, maara);
+				product.setID(id);
+				products.add(product);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return products;
+	}
+
+	public boolean updateProducts(ArrayList<Product> products) {
+		boolean error = false;
+
+		for(Product p : products){
+
+			try {
+				ps= conn.prepareStatement("UPDATE tuote, varasto, hyllypaikka SET tuote.nimi = ?,tuote.hinta = ?, tuote.paino = ?, tuote.tilavuus = ?, hyllypaikka.tunnus = ?, varasto.maara = ? WHERE tuote.tuoteID = hyllypaikka.tuoteID AND tuote.tuoteID = varasto.tuoteID AND tuote.tuoteID = ?;");
+
+				ps.setString(1, p.getProduct_name());
+				ps.setFloat(2, p.getProduct_price());
+				ps.setDouble(3, p.getProduct_weight());
+				ps.setDouble(4, p.getProduct_volume());
+				ps.setString(5, p.getProduct_location());
+//				ps.setInt(5, p.getMaara());
+				ps.setInt(6, p.getID());
+
+				ps.executeUpdate();
+				ps.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				error = true;
+			}
+
+		}
+
+
+		return error;
+	}
+
+
 //	public boolean updateProduct() {
 //		boolean error = false;
 //		Statement stmt = null;

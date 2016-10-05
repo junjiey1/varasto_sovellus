@@ -57,6 +57,7 @@ public class DataBase_tests {
 		result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", 2.2f, 1);
 		assertEquals("Duplicate tuote lisättiin tietokantaan eli testi EPÄONNISTUI!", result, false);
 	}
+	
 
 	@Test
 	public void Tavaran_Etsiminen() {

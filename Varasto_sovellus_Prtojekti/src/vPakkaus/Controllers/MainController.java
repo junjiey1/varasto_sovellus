@@ -35,13 +35,22 @@ public class MainController {
 	}
 	public ArrayList<Product> haeTuote(String nimi) {
 		ArrayList<Product> res = null;
-		// res = db.findProducts(nimi);
+		res = db.findProducts(nimi);
+
 		for (Product p : res) {
-			System.out.println(p.getProduct_name());
+			System.out.println(p.getProduct_name() + p.getMaara());
 		}
 		// Hae mallista tuotteen nimellä tiedot ja palauta tähän metodiin
 		// product-olio
-		return null;
+		return res;
+	}
+
+
+	public boolean paivitaTuotteet(ArrayList<Product> products){
+
+		boolean res = db.updateProducts(products);
+		//Hae mallista tuotteen nimellä tiedot ja palauta tähän metodiin product-olio
+		return res;
 	}
 
 	public boolean tallennaMuutokset(ArrayList<Product> lista) {

@@ -58,4 +58,12 @@ public int getID(){
 	return ID;
 }
 
+public int getMaara() {
+	return maara;
+}
+
+public void setMaara(int maara) {
+	this.maara = maara;
+}
+
 }

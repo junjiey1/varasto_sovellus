@@ -99,15 +99,13 @@ public class DB_AccessObject {
 			errors.add(addProductLocation(hyllypaikka, id));
 			errors.add(addProductToWarehouse(maara, id));
 
-			if (errors.contains(true)) {
-			    System.out.println("Virhe tapahtunut Prosessissa");
-			} else {
+			if (errors.contains(!false)) {
 			    System.out.println(nimi+" lisätty onnistuneesti");
 			    return true;
 			}
 
 		} else {
-			System.out.println("Tuotetta ei voida lisätä tällä nimellä, tuote löytyy jo "+product);
+			System.out.println("Tuotetta ei voida lisätä tällä nimellä, tuote löytyy jo "+product.getProduct_name());
 		}
 		System.out.println("Virhe tapahtunut Prosessissa");
 		return false;
@@ -123,7 +121,7 @@ public class DB_AccessObject {
 
 	public boolean addProductToDB(String nimi, float hinta, double paino, double tilavuus) {
 
-		boolean error = false;
+		boolean error = true;
 
 		try {
 			ps = conn.prepareStatement("INSERT INTO tuote(nimi, hinta, paino, tilavuus)" + "VALUES (?,?,?,?);");
@@ -138,7 +136,7 @@ public class DB_AccessObject {
 			ps.close();
 
 		} catch (SQLException e) {
-			error = true;
+			error = false;
 			System.out.println("Lisäys epäonnistui tuotetaulukkoon!");
 			e.printStackTrace();
 		}
@@ -198,7 +196,7 @@ public class DB_AccessObject {
 	}
 
 	public boolean addProductLocation(String hyllypaikka, int id){
-		boolean error = false;
+		boolean error = true;
 
 		try {
 			ps = conn.prepareStatement("INSERT INTO hyllypaikka(tunnus, tuoteID)" + "VALUES (?,?);");
@@ -212,13 +210,13 @@ public class DB_AccessObject {
 		} catch (SQLException e) {
 			System.out.println("Lisäys epäonnistui hyllypaikkataulukkoon!");
 			e.printStackTrace();
-			error = true;
+			error = false;
 		}
 		return error;
 	}
 
 	public boolean addProductToWarehouse(int maara, int id) {
-		boolean error = false;
+		boolean error = true;
 		try {
 			ps= conn.prepareStatement("INSERT INTO varasto(varastoID, maara, tuoteID)" + "VALUES (?,?,?);");
 
@@ -233,7 +231,7 @@ public class DB_AccessObject {
 		} catch (SQLException e) {
 			System.out.println("Lisäys epäonnistui varastotaulukkoon!");
 			e.printStackTrace();
-			error = true;
+			error = false;
 		}
 		return error;
 	}
@@ -276,7 +274,7 @@ public class DB_AccessObject {
 	}
 
 	public boolean updateProducts(ArrayList<Product> products) {
-		boolean error = false;
+		boolean error = true;
 
 		for(Product p : products){
 
@@ -288,7 +286,7 @@ public class DB_AccessObject {
 				ps.setDouble(3, p.getProduct_weight());
 				ps.setDouble(4, p.getProduct_volume());
 				ps.setString(5, p.getProduct_location());
-//				ps.setInt(5, p.getMaara());
+				ps.setInt(5, p.getMaara());
 				ps.setInt(6, p.getID());
 
 				ps.executeUpdate();
@@ -296,38 +294,35 @@ public class DB_AccessObject {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				error = true;
+				error = false;
 			}
 
 		}
 
-
 		return error;
 	}
 
-
-//	public boolean updateProduct() {
-//		boolean error = false;
-//		Statement stmt = null;
-//		try {
-//			stmt = myCon.createStatement();
-//			String sql = "Update valuutta set vaihtokurssi = "+valuutta.getVaihtokurssi()+" WHERE tunnus = '"+valuutta.getTunnus()+"' AND nimi = '"+valuutta.getNimi()+"'";
-//			int palautus = stmt.executeUpdate(sql);
-//
-//			if (palautus == 0) {
-//				System.out.println("Tietuetta ei löytynyt");
-//			}
-//		} catch (SQLException se) {
-//			bool = false;
-//			System.out.println("Virhe tapahtui, päivitystä ei tehty");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return bool;
-//	}
-
 	public static void close() throws SQLException {
 		conn.close();
+	}
+
+	public void deleteProduct(int id){ //kesken
+		ps = null;
+		try {
+			ps = conn.prepareStatement("DELETE FROM tuote WHERE tuoteID = ?");
+			ps.setInt(1, id);
+			ps.executeUpdate();
+			ps = conn.prepareStatement("DELETE FROM hyllypaikka WHERE tuoteID = ?");
+			ps.setInt(1, id);
+			ps.executeUpdate();
+			ps = conn.prepareStatement("DELETE FROM varasto WHERE tuoteID = ?");
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void dropTuotteet(){

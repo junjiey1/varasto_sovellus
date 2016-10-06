@@ -38,7 +38,7 @@ public class MainController {
 		res = db.findProducts(nimi);
 
 		for (Product p : res) {
-			System.out.println(p.getProduct_name() + p.getMaara());
+			System.out.println(p.getProduct_name() + p.getID());
 		}
 		// Hae mallista tuotteen nimellä tiedot ja palauta tähän metodiin
 		// product-olio

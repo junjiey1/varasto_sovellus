@@ -26,7 +26,8 @@ public class MainLaunch extends Application {
 	@Override
 	public void start(Stage primaStage) throws IOException {
 		mc = new MainController();
-		mc.haeTuote("ju");
+//		mc.haeTuote("ju");
+//		mc.AddProduct("TEST-ITEM", 1.0, 2.0, "AB", 2, 3);
 //		Product pro1 = new Product("julius", "ab", 1.0, 2.0, 3);
 //		Product pro2 = new Product("jeeejeee", "abcd", 1.0, 2.0, 3);
 //		pro1.setID(56);

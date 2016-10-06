@@ -10,16 +10,16 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="460.0" minWidth="700.0" prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="35.0" layoutY="36.0" text="Name" />
-      <TextField layoutX="35.0" layoutY="57.0" />
-      <Button layoutX="157.0" layoutY="108.0" mnemonicParsing="false" text="Search" />
+      <TextField fx:id="productName" layoutX="35.0" layoutY="57.0" />
+      <Button layoutX="157.0" layoutY="108.0" mnemonicParsing="false" onAction="#SearchManually" text="Search" />
       <Label layoutX="279.0" layoutY="36.0" text="Details:" />
-      <TableView layoutX="279.0" layoutY="57.0" prefHeight="369.0" prefWidth="386.0">
+      <TableView fx:id="tuoteTable" layoutX="279.0" layoutY="57.0" prefHeight="369.0" prefWidth="386.0">
         <columns>
-            <TableColumn prefWidth="55.0" text="ID" />
-          <TableColumn prefWidth="115.0" text="Name" />
-          <TableColumn prefWidth="82.0" text="Weight" />
-            <TableColumn prefWidth="68.0" text="Volume" />
-            <TableColumn prefWidth="64.0" text="Price" />
+            <TableColumn fx:id="idCol" prefWidth="55.0" text="ID" />
+          <TableColumn fx:id="nameCol" prefWidth="115.0" text="Name" />
+          <TableColumn fx:id="weightCol" prefWidth="82.0" text="Weight" />
+            <TableColumn fx:id="volumeCol" prefWidth="68.0" text="Volume" />
+            <TableColumn fx:id="priceCol" prefWidth="64.0" text="Price" />
         </columns>
       </TableView>
    </children>

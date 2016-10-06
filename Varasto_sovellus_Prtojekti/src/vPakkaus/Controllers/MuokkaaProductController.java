@@ -2,41 +2,35 @@ package vPakkaus.Controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.Callback;
 import vPakkaus.Product;
 
 public class MuokkaaProductController implements SetMainController{
 
 	@FXML
 	private TextField productName;
-
 	@FXML
 	private TableView<Product> tuoteTable;
-
 	@FXML
-	private TableColumn<Product, Integer> idCol;
-
+	private TableColumn<Product, Double> idCol;
 	@FXML
-	private TableColumn<Product,String> nameCol;
-
+	private TableColumn<Product, String> nameCol;
 	@FXML
 	private TableColumn<Product, Double > weightCol;
-
 	@FXML
-	private TableColumn<Product,Float> priceCol;
-
+	private TableColumn<Product, Float> priceCol;
 	@FXML
-	private TableColumn<Product,Double> volumeCol;
+	private TableColumn<Product, Double> volumeCol;
 
 
 	private MainController mc;
@@ -46,11 +40,36 @@ public class MuokkaaProductController implements SetMainController{
 	boolean hae;
 
 	public void initialize(){
-		System.out.println("menee");
-		idCol = new TableColumn<Product, Integer>("ID");
+
 		tuoteTable.setEditable(true);
-		idCol.setEditable(true);
-		nameCol.setEditable(true);
+        Callback<TableColumn<Product, Double>, TableCell<Product, Double>> cellFactory = new Callback<TableColumn<Product, Double>, TableCell<Product, Double>>() {
+                 public TableCell call(TableColumn p) {
+                    return new EditingCell();
+                 }
+             };
+             
+	    idCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("rowNumber"));
+	    idCol.setCellFactory(cellFactory);
+	    idCol.setOnEditCommit(new EventHandler<CellEditEvent<Product, Double>>() {
+	            public void handle(CellEditEvent<Product, Double> t) {
+	                ((Product) t.getTableView().getItems().get(
+	                    t.getTablePosition().getRow())
+	                    ).setID(t.getNewValue().intValue());
+	            }
+	         });
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	public void SearchManually()throws IOException {
@@ -65,14 +84,7 @@ public class MuokkaaProductController implements SetMainController{
 				return; //error viesti tänne ku ei löytynyt mitään
 			try{
 				for(Product pro : p){
-					idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-					//idCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
-//					idCol.setOnEditCommit(
-//			            (CellEditEvent<Product, Integer> t) -> {
-//			                ((Product) t.getTableView().getItems().get(
-//			                        t.getTablePosition().getRow())
-//			                        ).setID(t.getNewValue());
-//			        });
+
 					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
 					weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
 					priceCol.setCellValueFactory(new PropertyValueFactory<Product,Float>("product_price"));

@@ -13,7 +13,7 @@
       <TextField fx:id="productName" layoutX="28.0" layoutY="67.0" />
       <Button layoutX="150.0" layoutY="108.0" mnemonicParsing="false" onAction="#SearchManually" text="Search" />
       <Label layoutX="307.0" layoutY="6.0" text="Details:" />
-      <TableView fx:id="tuoteTable" layoutX="307.0" layoutY="23.0" prefHeight="430.0" prefWidth="385.0">
+      <TableView fx:id="tuoteTable" editable="true" layoutX="307.0" layoutY="23.0" prefHeight="430.0" prefWidth="385.0">
         <columns>
             <TableColumn fx:id="idCol" prefWidth="55.0" text="ID" />
           <TableColumn fx:id="nameCol" prefWidth="115.0" text="Name" />

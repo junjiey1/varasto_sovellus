@@ -17,7 +17,8 @@ public class DB_AccessObject {
 	public DB_AccessObject() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://10.114.32.19:3306/varasto", "jenkins", "jenkins");
+			//conn = DriverManager.getConnection("jdbc:mysql://10.114.32.19:3306/varasto", "jenkins", "jenkins");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:9000/varasto", "jenkins", "jenkins");
 		} catch (SQLException e) {
 			System.out.println("Yhteyden muodostaminen epäonnistui");
 		} catch (ClassNotFoundException e) {

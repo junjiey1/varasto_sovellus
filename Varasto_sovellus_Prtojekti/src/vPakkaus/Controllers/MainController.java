@@ -36,10 +36,7 @@ public class MainController {
 		res = db.findProducts(nimi);
 		if(res==null)
 			return null;
-		for (Product p : res) {
-			System.out.println(p.getProduct_name() + p.getMaara());
-		}
-		// Hae mallista tuotteen nimellÃ¤ tiedot ja palauta tÃ¤hÃ¤n metodiin
+
 		// product-olio
 		return res;
 	}

@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -18,6 +17,7 @@ public class DB_AccessObject {
 	public DB_AccessObject() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			//conn = DriverManager.getConnection("jdbc:mysql://10.114.32.19:3306/varasto", "jenkins", "jenkins");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:9000/varasto", "toimi", "toimi");
 		} catch (SQLException e) {
 			System.out.println("Yhteyden muodostaminen epäonnistui");
@@ -176,7 +176,7 @@ public class DB_AccessObject {
 			// tietokanta rivi
 
 			while (rs.next()) {
-
+				int id = rs.getInt("tuoteID");
 				String name = rs.getString("nimi");
 				String hyllypaikka = rs.getString("tunnus");
 				double paino = rs.getDouble("paino");
@@ -186,6 +186,7 @@ public class DB_AccessObject {
 				System.out.println(name+ " "+ hyllypaikka+ " "+ paino+ " "+ tilavuus+ " "+ hinta + " " +maara);
 
 				product = new Product(name, hyllypaikka, paino, tilavuus, hinta, maara);
+				product.setID(id);
 			}
 
 		} catch (SQLException e) {
@@ -306,23 +307,25 @@ public class DB_AccessObject {
 		conn.close();
 	}
 
-	public void deleteProduct(int id){ //kesken
+	public boolean deleteProduct(int id){
+		boolean error = true;
 		ps = null;
 		try {
-			ps = conn.prepareStatement("DELETE FROM tuote WHERE tuoteID = ?");
-			ps.setInt(1, id);
-			ps.executeUpdate();
 			ps = conn.prepareStatement("DELETE FROM hyllypaikka WHERE tuoteID = ?");
 			ps.setInt(1, id);
 			ps.executeUpdate();
 			ps = conn.prepareStatement("DELETE FROM varasto WHERE tuoteID = ?");
 			ps.setInt(1, id);
 			ps.executeUpdate();
+			ps = conn.prepareStatement("DELETE FROM tuote WHERE tuoteID = ?");
+			ps.setInt(1, id);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			error = false;
 			e.printStackTrace();
 		}
-
+		return error;
 	}
 
 	public void dropTuotteet(){

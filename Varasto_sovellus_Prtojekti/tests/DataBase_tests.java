@@ -25,17 +25,28 @@ public class DataBase_tests {
 		}
 	}
 
-	@BeforeClass
-	public static void Valmistelut() {
-		System.out.println("------ESIVALMISTELUT-------");
-		db = new DB_AccessObject();
-		db.dropTuotteet();
-	}
+//	@BeforeClass
+//	public static void Valmistelut() {
+//		System.out.println("------ESIVALMISTELUT-------");
+//		db = new DB_AccessObject();
+//		db.dropTuotteet();
+//	}
 
 	@Before
-	public void PoistaTuotteet() {
+	public void PoistaTestituotteet() {
+		System.out.println("\npoistetaan testituotteet");
 		db = new DB_AccessObject();
-		db.dropTuotteet();
+		ArrayList<Product> productlist = db.findProducts("TEST");
+		if (productlist.size() > 0) {
+			for (Product p : productlist) {
+				db.deleteProduct(p.getID());
+			}
+		}
+
+//		db.findProducts("TEST")
+//		db.deleteProduct(db.findProduct("TEST-ITEM").getID());
+//		db.deleteProduct(db.findProduct("TEST-ITEM1").getID());
+//		db.deleteProduct(db.findProduct("TEST-ITEM2").getID());
 	}
 
 	@Test
@@ -67,6 +78,7 @@ public class DataBase_tests {
 
 		Product product = db.findProduct("TEST-ITEM");
 		Product product_test = new Product("TEST-ITEM", "testipaikka", 1.2, 3.6, 2.2f, 1);
+		product_test.setID(product.getID());
 		assertEquals("Tavaran etsiminen ONNISTUI!", product.toString(), product_test.toString());
 	}
 
@@ -99,15 +111,36 @@ public class DataBase_tests {
 			i++;
 		}
 	}
-	
-	
+
+	@Test
+	public void Poista_tavara() {
+
+		System.out.println("Test : Poista_tavara");
+		System.out.println("Lisätään tavara");
+		boolean result = db.Lisaa("TEST-ITEM", 1.2, 3.6, "testipaikka", 2.2f, 1);
+		assertEquals("Tavaran lisääminen ONNISTUI!", result, true);
+
+		System.out.println("Etsitään tavara");
+		Product product = db.findProduct("TEST-ITEM");
+		assertEquals("Tavaran haku ONNISTUI!", product.getProduct_name() , "TEST-ITEM");
+
+		System.out.println("Poistetaan tavara "+product.getProduct_name() +" "+ product.getID());
+		result = db.deleteProduct(product.getID());
+		db.deleteProduct(product.getID());
+		assertEquals("Tavaran poisto ONNISTUI!", result , true);
+
+		System.out.println("Etsitään tavara");
+		product = db.findProduct("TEST-ITEM");
+		assertEquals("Tavaran haku ONNISTUI!", product , null);
+
+	}
 
 	@Test
 	public void Tavaran_Lisääminen_Oikeilla_Parametreilla() {
 		System.out.println("\nTest : Tavaran_Lisääminen_Oikeilla_Parametreilla()");
-		boolean result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", 2.2f, 1);
+		boolean result = db.Lisaa("JUNIT-TEST-ITEM_JENKINS", 1.2, 3.6, "JUNIT", 2.2f, 1);
 		assertEquals("Tavaran lisääminen EPÄONNISTUI!", result, true);
-		result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", 2.2f, 1);
+		result = db.Lisaa("JUNIT-TEST-ITEM_JENKINS", 1.2, 3.6, "JUNIT", 2.2f, 1);
 		assertEquals("Duplicate tuote lisättiin tietokantaan eli testi EPÄONNISTUI!", result, false);
 	}
 
@@ -116,12 +149,12 @@ public class DataBase_tests {
 	public void Tavaran_Etsiminen() {
 		System.out.println("\nTavaran etsiminen");
 		System.out.println("\nTest : Tavaran_Lisääminen_Oikeilla_Parametreilla()");
-		boolean result = db.Lisaa("PRODUT_JUNIT", 1.2, 3.6, "JUNIT_ETSI", 2.2f, 1);
+		boolean result = db.Lisaa("TEST-ITEM", 1.2, 3.6, "JUNIT_ETSI", 2.2f, 1);
 		assertEquals("Tavaran lisääminen EPÄONNISTUI!", result, true);
-		Product p = db.findProduct("PRODUT_JUNIT");
+		Product p = db.findProduct("TEST-ITEM");
 		assertEquals("Tavaran lisääminen EPÄONNISTUI!", 2.2f, p.getProduct_price(), 0.0);
 		assertEquals("Tavaran lisääminen EPÄONNISTUI!", 1.2, p.getProduct_weight(), 0.0);
-		assertEquals("Tavaran lisääminen EPÄONNISTUI!", p.getProduct_name(), "PRODUT_JUNIT");
+		assertEquals("Tavaran lisääminen EPÄONNISTUI!", p.getProduct_name(), "TEST-ITEM");
 	}
 
 

@@ -1,6 +1,5 @@
 package vPakkaus.Controllers;
 
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
@@ -9,7 +8,6 @@ public class MainController {
 	private DB_AccessObject db;
 	private int UserID;
 	private String username;
-	private PreparedStatement ps = null;
 
 	public MainController() {
 		System.out.println("Constructing Main Controller");
@@ -37,9 +35,14 @@ public class MainController {
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
 
+
 		for (Product p : res) {
 			System.out.println(p.getProduct_name() + p.getID());
 		}
+
+		if(res==null)
+			return null;
+
 		// Hae mallista tuotteen nimellä tiedot ja palauta tähän metodiin
 		// product-olio
 		return res;

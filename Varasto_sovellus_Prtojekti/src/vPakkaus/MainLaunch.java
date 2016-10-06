@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +27,7 @@ public class MainLaunch extends Application {
 	@Override
 	public void start(Stage primaStage) throws IOException {
 		mc = new MainController();
+
 //		mc.haeTuote("ju");
 //		mc.AddProduct("TEST-ITEM", 1.0, 2.0, "AB", 2, 3);
 //		Product pro1 = new Product("julius", "ab", 1.0, 2.0, 3);
@@ -36,6 +38,7 @@ public class MainLaunch extends Application {
 //		prod.add(pro1);
 //		prod.add(pro2);
 //		mc.paivitaTuotteet(prod);
+
 		windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}
 

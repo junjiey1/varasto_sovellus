@@ -1,6 +1,5 @@
 package vPakkaus.Controllers;
 
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
@@ -9,7 +8,6 @@ public class MainController {
 	private DB_AccessObject db;
 	private int UserID;
 	private String username;
-	private PreparedStatement ps = null;
 
 	public MainController() {
 		System.out.println("Constructing Main Controller");

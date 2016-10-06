@@ -66,7 +66,7 @@ public class MuokkaaProductController implements SetMainController{
 			try{
 				for(Product pro : p){
 					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
-					idCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
+					//idCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
 //					idCol.setOnEditCommit(
 //			            (CellEditEvent<Product, Integer> t) -> {
 //			                ((Product) t.getTableView().getItems().get(

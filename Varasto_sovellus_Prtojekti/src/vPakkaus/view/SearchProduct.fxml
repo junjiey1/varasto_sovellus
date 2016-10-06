@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="460.0" minWidth="700.0" prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="35.0" layoutY="36.0" text="Name" />
@@ -16,11 +15,11 @@
       <Label layoutX="279.0" layoutY="36.0" text="Details:" />
       <TableView layoutX="279.0" layoutY="57.0" prefHeight="369.0" prefWidth="386.0">
         <columns>
-            <TableColumn prefWidth="65.0" text="ID" />
-          <TableColumn prefWidth="79.0" text="Name" />
-          <TableColumn prefWidth="68.0" text="Quantity" />
-            <TableColumn prefWidth="59.0" text="Price" />
-            <TableColumn prefWidth="113.0" text="WH Location" />
+            <TableColumn prefWidth="55.0" text="ID" />
+          <TableColumn prefWidth="115.0" text="Name" />
+          <TableColumn prefWidth="82.0" text="Weight" />
+            <TableColumn prefWidth="68.0" text="Volume" />
+            <TableColumn prefWidth="64.0" text="Price" />
         </columns>
       </TableView>
    </children>

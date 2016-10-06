@@ -306,6 +306,7 @@ public class DB_AccessObject {
 	}
 
 
+
 //	public boolean updateProduct() {
 //		boolean error = false;
 //		Statement stmt = null;

@@ -21,7 +21,7 @@ public class LoginController implements SetMainController {
 	@FXML
     private TextField visiblePasswordTxt;
 
-	String uname, pword;
+	private String uname, pword;
 	private MainController mc;
 	boolean allGood;
 

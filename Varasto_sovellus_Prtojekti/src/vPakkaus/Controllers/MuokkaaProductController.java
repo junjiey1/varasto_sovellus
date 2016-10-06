@@ -56,18 +56,18 @@ public class MuokkaaProductController implements SetMainController{
 				return; //error viesti tänne ku ei löytynyt mitään
 			try{
 				for(Product pro : p){
-					idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-					nameCol.setCellValueFactory(new PropertyValueFactory<>("nimi"));
-					weightCol.setCellValueFactory(new PropertyValueFactory<>("paino"));
-					priceCol.setCellValueFactory(new PropertyValueFactory<>("hinta"));
-					volumeCol.setCellValueFactory(new PropertyValueFactory<>("tilavuus"));
+					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
+					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
+					weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
+					priceCol.setCellValueFactory(new PropertyValueFactory<Product,Float>("product_price"));
+					volumeCol.setCellValueFactory(new PropertyValueFactory<Product,Double>("product_volume"));
+					tuoteTable.getItems().add(pro);
 				}
 			}catch(Exception e){
 
 			}
 
 		}else {
-
 			System.out.println("Kenttä on täytetty väärällä tavalla");
 		}
 	}

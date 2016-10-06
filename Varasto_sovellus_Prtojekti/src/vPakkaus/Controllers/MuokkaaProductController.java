@@ -5,11 +5,14 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import vPakkaus.Product;
 
 public class MuokkaaProductController implements SetMainController{
@@ -42,7 +45,13 @@ public class MuokkaaProductController implements SetMainController{
 	ObservableList<Product> tuote = FXCollections.observableArrayList();
 	boolean hae;
 
-
+	public void initialize(){
+		System.out.println("menee");
+		idCol = new TableColumn("ID");
+		tuoteTable.setEditable(true);
+		idCol.setEditable(true);
+		nameCol.setEditable(true);
+	}
 
 	public void SearchManually()throws IOException {
 		hae= true;
@@ -57,6 +66,13 @@ public class MuokkaaProductController implements SetMainController{
 			try{
 				for(Product pro : p){
 					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
+					//idCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
+//					idCol.setOnEditCommit(
+//			            (CellEditEvent<Product, Integer> t) -> {
+//			                ((Product) t.getTableView().getItems().get(
+//			                        t.getTablePosition().getRow())
+//			                        ).setID(t.getNewValue());
+//			        });
 					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
 					weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
 					priceCol.setCellValueFactory(new PropertyValueFactory<Product,Float>("product_price"));

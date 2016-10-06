@@ -47,7 +47,7 @@ public class MuokkaaProductController implements SetMainController{
 
 	public void initialize(){
 		System.out.println("menee");
-		idCol = new TableColumn("ID");
+		idCol = new TableColumn<Product, Integer>("ID");
 		tuoteTable.setEditable(true);
 		idCol.setEditable(true);
 		nameCol.setEditable(true);
@@ -65,7 +65,7 @@ public class MuokkaaProductController implements SetMainController{
 				return; //error viesti tänne ku ei löytynyt mitään
 			try{
 				for(Product pro : p){
-					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
+					idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 					//idCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
 //					idCol.setOnEditCommit(
 //			            (CellEditEvent<Product, Integer> t) -> {

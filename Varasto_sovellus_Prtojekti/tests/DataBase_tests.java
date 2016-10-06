@@ -52,9 +52,9 @@ public class DataBase_tests {
 	@Test
 	public void Tavaran_Lisääminen_Oikeilla_Parametreilla() {
 		System.out.println("\nTest : Tavaran_Lisääminen_Oikeilla_Parametreilla()");
-		boolean result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", 2.2f, 1);
+		boolean result = db.Lisaa("JUNIT-TEST-ITEM_JENKINS", 1.2, 3.6, "JUNIT", 2.2f, 1);
 		assertEquals("Tavaran lisääminen EPÄONNISTUI!", result, true);
-		result = db.Lisaa("JUNIT-TEST-ITEM", 1.2, 3.6, "JUNIT", 2.2f, 1);
+		result = db.Lisaa("JUNIT-TEST-ITEM_JENKINS", 1.2, 3.6, "JUNIT", 2.2f, 1);
 		assertEquals("Duplicate tuote lisättiin tietokantaan eli testi EPÄONNISTUI!", result, false);
 	}
 

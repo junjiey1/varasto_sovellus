@@ -7,9 +7,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import vPakkaus.Product;
 
 public class MuokkaaProductController implements SetMainController{
@@ -43,6 +45,14 @@ public class MuokkaaProductController implements SetMainController{
 	boolean hae;
 
 
+	public void initialize(){
+		System.out.println("menee");
+		idCol = new TableColumn<Product, Integer>("ID");
+		tuoteTable.setEditable(true);
+		idCol.setEditable(true);
+		nameCol.setEditable(true);
+	}
+
 
 	public void SearchManually()throws IOException {
 		hae= true;
@@ -57,12 +67,21 @@ public class MuokkaaProductController implements SetMainController{
 				return; //error viesti tÃ¤nne ku ei lÃ¶ytynyt mitÃ¤Ã¤n
 
 			try{
+				tuoteTable.getItems().clear();
+				tuoteTable.setEditable(true);
+
 				for(Product pro : p){
-					idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-					nameCol.setCellValueFactory(new PropertyValueFactory<>("nimi"));
-					weightCol.setCellValueFactory(new PropertyValueFactory<>("paino"));
-					priceCol.setCellValueFactory(new PropertyValueFactory<>("hinta"));
-					volumeCol.setCellValueFactory(new PropertyValueFactory<>("tilavuus"));
+
+					idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
+
+
+					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
+					weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
+					priceCol.setCellValueFactory(new PropertyValueFactory<Product,Float>("product_price"));
+					volumeCol.setCellValueFactory(new PropertyValueFactory<Product,Double>("product_volume"));
+					tuoteTable.getItems().add(pro);
+
+
 				}
 			}catch(Exception e){
 

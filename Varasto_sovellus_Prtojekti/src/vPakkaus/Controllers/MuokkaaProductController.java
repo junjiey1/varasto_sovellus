@@ -53,7 +53,7 @@ public class MuokkaaProductController implements SetMainController{
 		if(hae){
 			HaeTuote();
 			if(p==null)
-				return; //error viesti tÃ¤nne ku ei lÃ¶ytynyt mitÃ¤Ã¤n
+
 			try{
 				for(Product pro : p){
 					idCol.setCellValueFactory(new PropertyValueFactory<>("id"));

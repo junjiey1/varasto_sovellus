@@ -7,11 +7,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="460.0" minWidth="700.0" prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="460.0" minWidth="700.0" prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MuokkaaProductController">
    <children>
-      <Label layoutX="128.0" layoutY="48.0" text="Name" />
-      <TextField fx:id="productName" layoutX="128.0" layoutY="69.0" />
-      <Button layoutX="225.0" layoutY="110.0" mnemonicParsing="false" onAction="#SearchManually" text="Search" />
+      <Label layoutX="28.0" layoutY="38.0" text="Name" />
+      <TextField fx:id="productName" layoutX="28.0" layoutY="67.0" />
+      <Button layoutX="150.0" layoutY="108.0" mnemonicParsing="false" onAction="#SearchManually" text="Search" />
       <Label layoutX="307.0" layoutY="6.0" text="Details:" />
       <TableView fx:id="tuoteTable" layoutX="307.0" layoutY="23.0" prefHeight="430.0" prefWidth="385.0">
         <columns>
@@ -22,6 +22,6 @@
             <TableColumn fx:id="priceCol" prefWidth="64.0" text="Price" />
         </columns>
       </TableView>
-      <Label layoutX="173.0" layoutY="15.0" text="Filter Table" />
+      <Label layoutX="28.0" layoutY="17.0" text="Filter Table" />
    </children>
 </AnchorPane>

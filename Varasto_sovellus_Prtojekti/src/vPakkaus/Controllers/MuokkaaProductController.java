@@ -1,6 +1,7 @@
 package vPakkaus.Controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +37,7 @@ public class MuokkaaProductController implements SetMainController{
 
 
 	private MainController mc;
+	private ArrayList<Product> p;
 	ObservableList<String> productTextFiles = FXCollections.observableArrayList();
 	ObservableList<Product> tuote = FXCollections.observableArrayList();
 	boolean hae;
@@ -50,20 +52,23 @@ public class MuokkaaProductController implements SetMainController{
 
 		if(hae){
 			HaeTuote();
+			if(p==null)
+				return; //error viesti tÃ¤nne ku ei lÃ¶ytynyt mitÃ¤Ã¤n
 			try{
-			idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-			nameCol.setCellValueFactory(new PropertyValueFactory<>("nimi"));
-			weightCol.setCellValueFactory(new PropertyValueFactory<>("paino"));
-			priceCol.setCellValueFactory(new PropertyValueFactory<>("hinta"));
-			volumeCol.setCellValueFactory(new PropertyValueFactory<>("tilavuus"));
-
+				for(Product pro : p){
+					idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+					nameCol.setCellValueFactory(new PropertyValueFactory<>("nimi"));
+					weightCol.setCellValueFactory(new PropertyValueFactory<>("paino"));
+					priceCol.setCellValueFactory(new PropertyValueFactory<>("hinta"));
+					volumeCol.setCellValueFactory(new PropertyValueFactory<>("tilavuus"));
+				}
 			}catch(Exception e){
 
 			}
 
 		}else {
 
-			System.out.println("Kenttä on täytetty väärällä tavalla");
+			System.out.println("KenttÃ¤ on tÃ¤ytetty vÃ¤Ã¤rÃ¤llÃ¤ tavalla");
 		}
 	}
 
@@ -75,9 +80,7 @@ public class MuokkaaProductController implements SetMainController{
 	}
 
 	public void HaeTuote(){
-		String nimi=null;
-		//Hae tekstikentän arvo
-		mc.haeTuote(nimi);
+		p = mc.haeTuote(productName.getText());
 	}
 
 }

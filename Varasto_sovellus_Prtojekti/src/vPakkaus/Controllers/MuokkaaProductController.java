@@ -15,7 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import vPakkaus.Product;
 
-public class MuokkaaProductController implements SetMainController{
+public class MuokkaaProductController implements SetMainController {
 
 	@FXML
 	private TextField productName;
@@ -26,12 +26,11 @@ public class MuokkaaProductController implements SetMainController{
 	@FXML
 	private TableColumn<Product, String> nameCol;
 	@FXML
-	private TableColumn<Product, Double > weightCol;
+	private TableColumn<Product, Double> weightCol;
 	@FXML
 	private TableColumn<Product, Float> priceCol;
 	@FXML
 	private TableColumn<Product, Double> volumeCol;
-
 
 	private MainController mc;
 	private ArrayList<Product> p;
@@ -134,46 +133,76 @@ public class MuokkaaProductController implements SetMainController{
             	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
             }
          });
-
 	}
 
-	public void SearchManually()throws IOException {
-		hae= true;
-		if(productName.getText().isEmpty()){
-			hae=false;
+	public void SearchManually() throws IOException {
+		hae = true;
+		if (productName.getText().isEmpty()) {
+			hae = false;
 		}
 
-		if(hae){
+		if (hae) {
 			HaeTuote();
-			if(p==null)
-				return; //error viesti tänne ku ei löytynyt mitään
-			try{
-				for(Product pro : p){
+//			if(p==null)
+//				return; //error viesti tänne ku ei löytynyt mitään
+//			try{
+//				for(Product pro : p){
+//					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
+//					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
+//				}
+			if (p == null)
+
+				return; // error viesti tÃ¤nne ku ei lÃ¶ytynyt mitÃ¤Ã¤n
+
+			try {
+				//tuoteTable = new TableView<Product>();
+				//tuoteTable.setEditable(true);
+//				tuoteTable.getItems()
+//				.stream()
+//				.forEach(row -> tuote.remove(row));
+//				tuoteTable.getColumns()
+//				.stream()
+//				.forEach( column -> column.setStyle(null));
+//				tuoteTable.getColumns()
+//				.stream()
+//				.forEach( column -> column.setVisible(false));
+				tuoteTable.getItems().clear();
+				tuoteTable.getItems()
+				.stream()
+				.forEach(row -> row.getProduct_name());
+				//tuote.removeAll(tuote);
+				//System.out.println(tuoteTable.getColumns().get(0).getStyle());
+				//System.out.println(tuoteTable.getColumns().get(1).getStyle());
+				//tuoteTable.getColumns().get(1).setStyle(null);
+				//tuoteTable.setStyle(value);
+				//tuoteTable.getItems();
+				tuoteTable.setEditable(true);
+
+				for (Product pro : p) {
 					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
-					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
+					nameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("product_name"));
 					weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
-					priceCol.setCellValueFactory(new PropertyValueFactory<Product,Float>("product_price"));
-					volumeCol.setCellValueFactory(new PropertyValueFactory<Product,Double>("product_volume"));
+					priceCol.setCellValueFactory(new PropertyValueFactory<Product, Float>("product_price"));
+					volumeCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_volume"));
 					tuoteTable.getItems().add(pro);
 					System.out.println(tuoteTable.getItems().get(0).getID());
 				}
-			}catch(Exception e){
+			} catch (Exception e) {
 
 			}
 
-		}else {
-			System.out.println("Kenttä on täytetty väärällä tavalla");
+		} else {
+
+			System.out.println("KenttÃ¤ on tÃ¤ytetty vÃ¤Ã¤rÃ¤llÃ¤ tavalla");
 		}
 	}
-
-
 
 	@Override
 	public void setMainController(MainController m) {
 		mc = m;
 	}
 
-	public void HaeTuote(){
+	public void HaeTuote() {
 		p = mc.haeTuote(productName.getText());
 	}
 

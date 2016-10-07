@@ -10,21 +10,19 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
 
     private TextField textField;
     private int datatyyppi;//1 Int,2 String,3 double,5 float
-    private Product muokattava;
-    private int columnNumber;
-    private String columnName;
+    private Product muokattava;//Olio jota muokataan
+    private String columnName; //Product olion atribuutin nimi eli taulukon kolumnin nimi
+    private boolean valChangedByUser;//Boolean, joka asetetaan aina true kun käyttäjä tekee muutoksia taulukkoon
 
     public EditingCell(int n) {
     	datatyyppi = n;
-    }
-
-    public void ColumnNumber(int n){
-    	columnNumber = n;
+    	valChangedByUser = false;
     }
 
     @Override
     public void startEdit() {
         if (!isEmpty()) {
+        	valChangedByUser = false;
             super.startEdit();
             //System.out.println(getTableView().getColumns().get(this.getIndex()));
             //System.out.println(getTableRow().getIndex());
@@ -39,83 +37,96 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
 
     @Override
     public void cancelEdit() {
+    	//Tänne muutoksia jos se yks bugi halutaan korjaa
+    	//eli kun klikkaa toiselle riville niin muutokset ei tallennu
         super.cancelEdit();
-        super.isItemChanged(this, this);
-        System.out.println("Stopped");
-        //setText(Integer.toString(muokattava.getID()));
         setGraphic(null);
     }
 
     @Override
     public void updateItem(Object item, boolean empty) {
-        super.updateItem(item, empty);
+    	System.out.println("Up");
+    	if(valChangedByUser){ //Jos käyttäjä tehnyt muutoksen merkitään se rivi näkymässä
+    		this.getTableRow().setStyle("-fx-background-color:lightcoral");//Muutetaan rivin väriä
+    		valChangedByUser = false;
+    		System.out.println("UPDATE 3 CALLED");
+    	}
+    	super.updateItem(item, empty);
         if (empty) {
             //setText(null);
+        	System.out.println("UPDATE 1 CALLED");
             setGraphic(null);
         } else {
             if (isEditing()) {
                 if (textField != null) {
+                	System.out.println("UPDATE 2 CALLED");
                     textField.setText(getString());
                 }
+                System.out.println("UPDATE 2.1 CALLED");
                 //setText(null);
                 setGraphic(textField);
             } else {
-                setText(getString());
+            	setText(getString());
                 setGraphic(null);
             }
         }
     }
 
+    private void setValChanged(boolean b){
+    	valChangedByUser = b;
+    }
+
     private void createTextField() {
         textField = new TextField(getString());
         textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
-        textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+        textField.focusedProperty().addListener(new ChangeListener<Boolean>(){ //Tässä määritellään uusi sisäluokka
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0,
                 Boolean arg1, Boolean arg2) {
             	System.out.println(arg1 +" "+ arg2);
                     if (!arg2) {
                     	String s = textField.getText();
-                    	boolean valChanged = false;
                     	try{
-	                    	switch(datatyyppi){
-	                    		case(1):
+	                    	switch(datatyyppi){ //säilötyn luvun avulla voidaan päätellä mitä datatyyppiä pitää tallentaa
+	                    		case(1): //Int
 	                    			Integer i = isInt(s);
 	                    			if(i!=null && i.intValue()!=muokattava.getID()){
+	                    				setValChanged(true);
+	                    				System.out.println("muuttui true:");
 	                    				commitEdit(i);
-	                    				valChanged = true;
 	                    			}
 	                    			break;
-	                    		case(2):
+	                    		case(2): //String
 	                    			if(columnName.equals("Name") && !s.equals(muokattava.getProduct_name())){
+	                    				setValChanged(true);
+	                    				System.out.println("muuttui true:");
 	                    				commitEdit(s);
-	                    				valChanged = true;
 	                    			}
 	                    			break;
-	                    		case(3):
+	                    		case(3)://Double
 	                    			Double d = isNumeric(s) ? Double.parseDouble(s) : null;
 	                    			if(d != null){
-
+	                    				//Meillä atm. kaksi riviä, jotka käyttää Double arvoa. Paino ja tilavuus
 	                    				if(columnName.equals("Weight") && d.doubleValue()!=muokattava.getProduct_weight()){ //Muokataan weight solua
+	                    					setValChanged(true);
+	                    					System.out.println("muuttui true:");
 	                    					commitEdit(Double.parseDouble(s));
-		                    				valChanged = true;
 	                    				}else if(columnName.equals("Volume") && d.doubleValue()!=muokattava.getProduct_volume()){ //Muokataan volume solua
+	                    					setValChanged(true);
+	                    					System.out.println("muuttui true:");
 	                    					commitEdit(Double.parseDouble(s));
-		                    				valChanged = true;
 	                    				}
 	                    			}
 	                    			break;
-	                    		case(4):
+	                    		case(4)://Float
 	                    			Float f = isNumeric(s) ? Float.parseFloat(s) : null;
 	                    			System.out.println("Float = " + Float.compare(f, muokattava.getProduct_price()));
 	                    			if(f!=null && columnName.equals("Price") && Float.compare(f, muokattava.getProduct_price()) != 0){
+	                    				setValChanged(true);
+	                    				System.out.println("muuttui true:");
 	                    				commitEdit(Float.parseFloat(s));
-	                    				valChanged = true;
 	                    			}
 	                    			break;
-	                    	}
-	                    	if(valChanged){
-	                    		getTableRow().setStyle("-fx-background-color:lightcoral");
 	                    	}
                     	}catch(Exception e){System.out.println("VIRHE HAVAITTU!!!");}
                     }

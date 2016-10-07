@@ -54,7 +54,6 @@ public class MuokkaaProductController implements SetMainController {
          Callback<TableColumn<Product, Double>, TableCell<Product, Double>> cellFactory3 = new Callback<TableColumn<Product, Double>, TableCell<Product, Double>>() {
              public TableCell call(TableColumn p) {
             	 EditingCell e = new EditingCell(3);
-            	 e.ColumnNumber(3);
                 return e;
              }
          };
@@ -143,41 +142,20 @@ public class MuokkaaProductController implements SetMainController {
 
 		if (hae) {
 			HaeTuote();
-//			if(p==null)
-//				return; //error viesti tänne ku ei löytynyt mitään
-//			try{
-//				for(Product pro : p){
-//					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
-//					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
-//				}
-			if (p == null)
+			if (p == null) //Saatu tuote lista on null eli tyhjä
 
 				return; // error viesti tÃ¤nne ku ei lÃ¶ytynyt mitÃ¤Ã¤n
 
 			try {
-				//tuoteTable = new TableView<Product>();
-				//tuoteTable.setEditable(true);
-//				tuoteTable.getItems()
-//				.stream()
-//				.forEach(row -> tuote.remove(row));
-//				tuoteTable.getColumns()
-//				.stream()
-//				.forEach( column -> column.setStyle(null));
-//				tuoteTable.getColumns()
-//				.stream()
-//				.forEach( column -> column.setVisible(false));
-				tuoteTable.getItems().clear();
-				tuoteTable.getItems()
-				.stream()
-				.forEach(row -> row.getProduct_name());
-				//tuote.removeAll(tuote);
-				//System.out.println(tuoteTable.getColumns().get(0).getStyle());
-				//System.out.println(tuoteTable.getColumns().get(1).getStyle());
-				//tuoteTable.getColumns().get(1).setStyle(null);
-				//tuoteTable.setStyle(value);
-				//tuoteTable.getItems();
-				tuoteTable.setEditable(true);
-
+				int length = tuoteTable.getItems().size(); //Hae taulun rivien määrä
+				if(length>0){//Jos on rivejä
+					for(;0<length;){//Poistetaan yksi kerrallaan
+						System.out.println("Deleting");
+						tuoteTable.getItems().remove(0);
+						length--;
+					}
+				}
+				tuoteTable.refresh(); //Varmuuden vuoksi päivitetään TableView
 				for (Product pro : p) {
 					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
 					nameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("product_name"));
@@ -185,14 +163,13 @@ public class MuokkaaProductController implements SetMainController {
 					priceCol.setCellValueFactory(new PropertyValueFactory<Product, Float>("product_price"));
 					volumeCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_volume"));
 					tuoteTable.getItems().add(pro);
-					System.out.println(tuoteTable.getItems().get(0).getID());
 				}
 			} catch (Exception e) {
-
+				System.out.println("virhe tuotteiden lisäyksessä");
+				e.printStackTrace();
 			}
 
 		} else {
-
 			System.out.println("KenttÃ¤ on tÃ¤ytetty vÃ¤Ã¤rÃ¤llÃ¤ tavalla");
 		}
 	}

@@ -2,21 +2,16 @@ package vPakkaus.Controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 import vPakkaus.Product;
 
@@ -24,25 +19,18 @@ public class MuokkaaProductController implements SetMainController{
 
 	@FXML
 	private TextField productName;
-
 	@FXML
 	private TableView<Product> tuoteTable;
-
 	@FXML
 	private TableColumn<Product, Integer> idCol;
-
 	@FXML
-	private TableColumn<Product,String> nameCol;
-
+	private TableColumn<Product, String> nameCol;
 	@FXML
 	private TableColumn<Product, Double > weightCol;
-
 	@FXML
-	private TableColumn<Product,Float> priceCol;
-
+	private TableColumn<Product, Float> priceCol;
 	@FXML
-	private TableColumn<Product,Double> volumeCol;
-	private Callback<TableColumn, TableCell> cellFactory;
+	private TableColumn<Product, Double> volumeCol;
 
 
 	private MainController mc;
@@ -51,49 +39,102 @@ public class MuokkaaProductController implements SetMainController{
 	ObservableList<Product> tuote = FXCollections.observableArrayList();
 	boolean hae;
 
-
-
-
-
-//	private class RowSelectChangeListener implements ChangeListener {
-//			        @Override
-//			        public void changed(ObservableValue ov,Number oldVal, Number newVal) {
-//			            int ix = newVal.intValue();
-//			            if ((ix = tuote.size())) {
-//			                return; // invalid data
-//			            }
-//			            Product p = tuote.get(ix);
-//			            actionStatus.setText(p.toString());
-//			        }
-//
-//					@Override
-//					public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-//						// TODO Auto-generated method stub
-//
-//					}
-//			    }
-
-
-
-
 	public void initialize(){
-		tuoteTable = new TableView<>();
+		p = new ArrayList();
 		tuoteTable.setEditable(true);
-		System.out.println("menee");
+        Callback<TableColumn<Product, Integer>, TableCell<Product, Integer>> cellFactory = new Callback<TableColumn<Product, Integer>, TableCell<Product, Integer>>() {
+             public TableCell call(TableColumn p) {
+                return new EditingCell(1);
+             }
+         };
+         Callback<TableColumn<Product, String>, TableCell<Product, String>> cellFactory2 = new Callback<TableColumn<Product, String>, TableCell<Product, String>>() {
+             public TableCell call(TableColumn p) {
+                return new EditingCell(2);
+             }
+         };
+         Callback<TableColumn<Product, Double>, TableCell<Product, Double>> cellFactory3 = new Callback<TableColumn<Product, Double>, TableCell<Product, Double>>() {
+             public TableCell call(TableColumn p) {
+            	 EditingCell e = new EditingCell(3);
+            	 e.ColumnNumber(3);
+                return e;
+             }
+         };
 
-		idCol = new TableColumn<Product, Integer>("id");
-		nameCol = new TableColumn<Product, String>("nimi");
-		weightCol = new TableColumn<Product, Double>("weight");
-		priceCol = new TableColumn<Product, Float>("hinta");
-		volumeCol = new TableColumn<Product, Double>("tilavuus");
+         Callback<TableColumn<Product, Float>, TableCell<Product, Float>> cellFactory4 = new Callback<TableColumn<Product, Float>, TableCell<Product, Float>>() {
+             public TableCell call(TableColumn p) {
+                return new EditingCell(4);
+             }
+         };
 
-		idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-		nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
-		weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
-		priceCol.setCellValueFactory(new PropertyValueFactory<Product,Float>("product_price"));
-		volumeCol.setCellValueFactory(new PropertyValueFactory<Product,Double>("product_volume"));
+	    idCol.setCellFactory(cellFactory);
+	    idCol.setOnEditCommit(new EventHandler<CellEditEvent<Product, Integer>>() {
 
-		//tuoteTable.getSelectionModel().selectedIndexProperty().addListener(new RowSelectChangeListener());
+            public void handle(CellEditEvent<Product, Integer> t) {
+            	Integer i = t.getTableView().getItems().get(t.getTablePosition().getRow()).getID();
+                Product p = ((Product) t.getTableView().getItems().get(
+                    t.getTablePosition().getRow())
+                    );
+                System.out.println(t.getNewValue().intValue() + " " + p.getID());
+                if(t.getNewValue().intValue() != p.getID()){
+                	p.setID(t.getNewValue().intValue());
+                	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
+
+                	//t.getTableView().setStyle("-fx-background-color:lightcoral"); //taulukon reuna
+                	//t.getTableColumn().setStyle("-fx-background-color:lightcoral"); //kolumni ei rivi
+                	//getTableRow().setStyle("-fx-background-color:lightcoral");
+                }
+            }
+         });
+
+	    nameCol.setCellFactory(cellFactory2);
+	    nameCol.setOnEditCommit(new EventHandler<CellEditEvent<Product, String>>() {
+            public void handle(CellEditEvent<Product, String> t) {
+            	Integer i = t.getTableView().getItems().get(t.getTablePosition().getRow()).getID();
+            	Product p = ((Product) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                        );
+            	p.setProduct_name(t.getNewValue());
+            	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
+            }
+         });
+
+	    weightCol.setCellFactory(cellFactory3);
+	    weightCol.setOnEditCommit(new EventHandler<CellEditEvent<Product, Double>>() {
+            public void handle(CellEditEvent<Product, Double> t) {
+            	System.out.println("LOL" + t.getTableColumn().getText());
+            	Integer i = t.getTableView().getItems().get(t.getTablePosition().getRow()).getID();
+            	Product p = ((Product) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                        );
+            	p.setProduct_weight(t.getNewValue().doubleValue());
+                System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
+            }
+         });
+
+	    volumeCol.setCellFactory(cellFactory3);
+	    volumeCol.setOnEditCommit(new EventHandler<CellEditEvent<Product, Double>>() {
+            public void handle(CellEditEvent<Product, Double> t) {
+            	Integer i = t.getTableView().getItems().get(t.getTablePosition().getRow()).getID();
+            	Product p = ((Product) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                        );
+            	p.setProduct_volume(t.getNewValue().doubleValue());
+            	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
+            }
+         });
+
+	    priceCol.setCellFactory(cellFactory4);
+	    priceCol.setOnEditCommit(new EventHandler<CellEditEvent<Product, Float>>() {
+            public void handle(CellEditEvent<Product, Float> t) {
+            	Integer i = t.getTableView().getItems().get(t.getTablePosition().getRow()).getID();
+            	Product p = ((Product) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                        );
+            	p.setProduct_price(t.getNewValue().floatValue());
+            	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
+            }
+         });
+
 	}
 
 	public void SearchManually()throws IOException {
@@ -108,43 +149,16 @@ public class MuokkaaProductController implements SetMainController{
 				return; //error viesti tänne ku ei löytynyt mitään
 			try{
 				for(Product pro : p){
-					tuote.add(pro);
-					System.out.println(pro.getID());
-//					idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-//					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
-//					weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
-//					priceCol.setCellValueFactory(new PropertyValueFactory<Product,Float>("product_price"));
-//					volumeCol.setCellValueFactory(new PropertyValueFactory<Product,Double>("product_volume"));
-//					idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-//					idCol.setEditable(true);
-					//idCol.setCellFactory(cellFactory);
-					//idCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
-
-//					idCol.setOnEditStart(
-//			            (CellEditEvent<Product, Integer> t) -> {
-//			                ((Product) t.getTableView().getItems().get(
-//			                        t.getTablePosition().getRow())
-//			                        ).setID(1);
-//			        });
-//					idCol.setCellValueFactory(cellData -> {
-//			            Product rowIndex = cellData.getValue();
-//			            return new ReadOnlyIntegerWrapper(pro.getID());
-//			        });
-//					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
-//					weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
-//					priceCol.setCellValueFactory(new PropertyValueFactory<Product,Float>("product_price"));
-//					volumeCol.setCellValueFactory(new PropertyValueFactory<Product,Double>("product_volume"));
-					//tuoteTable.getItems().add(pro);
-
+					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
+					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
+					weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
+					priceCol.setCellValueFactory(new PropertyValueFactory<Product,Float>("product_price"));
+					volumeCol.setCellValueFactory(new PropertyValueFactory<Product,Double>("product_volume"));
+					tuoteTable.getItems().add(pro);
+					System.out.println(tuoteTable.getItems().get(0).getID());
 				}
-
-				for(Product p : tuote){
-					System.out.println("-"+p.getID());
-				}
-				tuoteTable.setItems(tuote);
-				//tuoteTable.getColumns().addAll(idCol, nameCol, weightCol, priceCol, volumeCol);
 			}catch(Exception e){
-				System.out.println("lol");
+
 			}
 
 		}else {

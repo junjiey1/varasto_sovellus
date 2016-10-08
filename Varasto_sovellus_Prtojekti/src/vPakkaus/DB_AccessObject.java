@@ -295,8 +295,8 @@ public class DB_AccessObject {
 				ps.setDouble(3, p.getProduct_weight());
 				ps.setDouble(4, p.getProduct_volume());
 				ps.setString(5, p.getProduct_location());
-				ps.setInt(5, p.getMaara());
-				ps.setInt(6, p.getID());
+				ps.setInt(6, p.getMaara());
+				ps.setInt(7, p.getID());
 
 				ps.executeUpdate();
 				ps.close();

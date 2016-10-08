@@ -22,7 +22,7 @@ public class MuokkaaProductController implements SetMainController {
 	@FXML
 	private TableView<Product> tuoteTable;
 	@FXML
-	private TableColumn<Product, Integer> idCol;
+	private TableColumn<Product, Integer> maaraCol;
 	@FXML
 	private TableColumn<Product, String> nameCol;
 	@FXML
@@ -65,17 +65,17 @@ public class MuokkaaProductController implements SetMainController {
              }
          };
 
-	    idCol.setCellFactory(cellFactory);
-	    idCol.setOnEditCommit(new EventHandler<CellEditEvent<Product, Integer>>() {
+	    maaraCol.setCellFactory(cellFactory);
+	    maaraCol.setOnEditCommit(new EventHandler<CellEditEvent<Product, Integer>>() {
 
             public void handle(CellEditEvent<Product, Integer> t) {
-            	Integer i = t.getTableView().getItems().get(t.getTablePosition().getRow()).getID();
+            	Integer i = t.getTableView().getItems().get(t.getTablePosition().getRow()).getMaara();
                 Product p = ((Product) t.getTableView().getItems().get(
                     t.getTablePosition().getRow())
                     );
                 System.out.println(t.getNewValue().intValue() + " " + p.getID());
-                if(t.getNewValue().intValue() != p.getID()){
-                	p.setID(t.getNewValue().intValue());
+                if(t.getNewValue().intValue() != p.getMaara()){
+                	p.setMaara(t.getNewValue().intValue());
                 	PaivitettavatTuotteet.add(t.getTablePosition().getRow(), p);
                 	System.out.println("Lisättiin tuote listaan. Indeksi : " + t.getTablePosition().getRow() + " " + p.getProduct_name());
                 	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
@@ -143,7 +143,6 @@ public class MuokkaaProductController implements SetMainController {
 	}
 
 	public void Reset(){
-		PaivitettavatTuotteet = new ArrayList();
 		int length = tuoteTable.getItems().size(); //Hae taulun rivien määrä
 		if(length>0){//Jos on rivejä
 			for(;0<length;){//Poistetaan yksi kerrallaan
@@ -155,7 +154,26 @@ public class MuokkaaProductController implements SetMainController {
 		tuoteTable.refresh(); //Varmuuden vuoksi päivitetään TableView
 	}
 
+	public void täytäTaulukko(ArrayList<Product> lista){
+		try {
+			for (Product pro : p) {
+				if(p==null)
+					continue;
+				maaraCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("maara"));
+				nameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("product_name"));
+				weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
+				priceCol.setCellValueFactory(new PropertyValueFactory<Product, Float>("product_price"));
+				volumeCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_volume"));
+				tuoteTable.getItems().add(pro);
+			}
+		} catch (Exception e) {
+			System.out.println("virhe taulukon täytössä");
+			e.printStackTrace();
+		}
+	}
+
 	public void SearchManually() throws IOException {
+		PaivitettavatTuotteet = new ArrayList();
 		hae = true;
 		if (productName.getText().isEmpty()) {
 			hae = false;
@@ -166,21 +184,7 @@ public class MuokkaaProductController implements SetMainController {
 			if (p == null) //Saatu tuote lista on null eli tyhjä
 
 				return; // error viesti tÃ¤nne ku ei lÃ¶ytynyt mitÃ¤Ã¤n
-
-			try {
-				for (Product pro : p) {
-					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
-					nameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("product_name"));
-					weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
-					priceCol.setCellValueFactory(new PropertyValueFactory<Product, Float>("product_price"));
-					volumeCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_volume"));
-					tuoteTable.getItems().add(pro);
-				}
-			} catch (Exception e) {
-				System.out.println("virhe tuotteiden lisäyksessä");
-				e.printStackTrace();
-			}
-
+			täytäTaulukko(p);
 		} else {
 			System.out.println("KenttÃ¤ on tÃ¤ytetty vÃ¤Ã¤rÃ¤llÃ¤ tavalla");
 		}
@@ -196,7 +200,11 @@ public class MuokkaaProductController implements SetMainController {
 	}
 
 	public void paivitaTuotteet(){
-
+		if(PaivitettavatTuotteet == null || PaivitettavatTuotteet.isEmpty()) //Tuote lista on tyhjä = käyttäjä ei oo muokannut tuotteita
+			return;
+		System.out.println("Onnistuiko päivitys? " + mc.paivitaTuotteet(PaivitettavatTuotteet));
+		Reset();
+		täytäTaulukko(p);
 	}
 
 }

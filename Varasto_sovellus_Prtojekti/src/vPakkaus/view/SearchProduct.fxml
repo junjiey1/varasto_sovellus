@@ -15,7 +15,7 @@
       <Label layoutX="307.0" layoutY="6.0" text="Details:" />
       <TableView fx:id="tuoteTable" editable="true" layoutX="307.0" layoutY="23.0" prefHeight="430.0" prefWidth="385.0">
         <columns>
-            <TableColumn fx:id="idCol" prefWidth="55.0" text="ID" />
+            <TableColumn fx:id="maaraCol" prefWidth="55.0" text="Maara" />
           <TableColumn fx:id="nameCol" prefWidth="115.0" text="Name" />
           <TableColumn fx:id="weightCol" prefWidth="82.0" text="Weight" />
             <TableColumn fx:id="volumeCol" prefWidth="68.0" text="Volume" />

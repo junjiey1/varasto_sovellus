@@ -90,7 +90,7 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
 	                    	switch(datatyyppi){ //säilötyn luvun avulla voidaan päätellä mitä datatyyppiä pitää tallentaa
 	                    		case(1): //Int
 	                    			Integer i = isInt(s);
-	                    			if(i!=null && i.intValue()!=muokattava.getID()){
+	                    			if(i!=null && i.intValue()!=muokattava.getMaara()){
 	                    				setValChanged(true);
 	                    				System.out.println("muuttui true:");
 	                    				commitEdit(i);

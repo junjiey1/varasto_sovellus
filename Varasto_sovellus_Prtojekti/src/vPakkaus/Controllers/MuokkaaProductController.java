@@ -183,4 +183,8 @@ public class MuokkaaProductController implements SetMainController {
 		p = mc.haeTuote(productName.getText());
 	}
 
+	public void paivitaTuotteet(){
+
+	}
+
 }

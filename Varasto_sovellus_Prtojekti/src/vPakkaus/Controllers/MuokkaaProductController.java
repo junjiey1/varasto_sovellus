@@ -58,18 +58,7 @@ public class MuokkaaProductController implements SetMainController{
 	            }
 	         });
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 	}
 
 	public void SearchManually()throws IOException {

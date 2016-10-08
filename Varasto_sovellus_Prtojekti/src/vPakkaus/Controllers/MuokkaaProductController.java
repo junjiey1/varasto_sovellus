@@ -37,6 +37,7 @@ public class MuokkaaProductController implements SetMainController {
 	ObservableList<String> productTextFiles = FXCollections.observableArrayList();
 	ObservableList<Product> tuote = FXCollections.observableArrayList();
 	boolean hae;
+	private ArrayList<Product> PaivitettavatTuotteet;
 
 	public void initialize(){
 		p = new ArrayList();
@@ -75,8 +76,9 @@ public class MuokkaaProductController implements SetMainController {
                 System.out.println(t.getNewValue().intValue() + " " + p.getID());
                 if(t.getNewValue().intValue() != p.getID()){
                 	p.setID(t.getNewValue().intValue());
+                	PaivitettavatTuotteet.add(t.getTablePosition().getRow(), p);
+                	System.out.println("Lisättiin tuote listaan. Indeksi : " + t.getTablePosition().getRow() + " " + p.getProduct_name());
                 	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
-
                 	//t.getTableView().setStyle("-fx-background-color:lightcoral"); //taulukon reuna
                 	//t.getTableColumn().setStyle("-fx-background-color:lightcoral"); //kolumni ei rivi
                 	//getTableRow().setStyle("-fx-background-color:lightcoral");
@@ -92,6 +94,8 @@ public class MuokkaaProductController implements SetMainController {
                         t.getTablePosition().getRow())
                         );
             	p.setProduct_name(t.getNewValue());
+            	PaivitettavatTuotteet.add(t.getTablePosition().getRow(), p);
+            	System.out.println("Lisättiin tuote listaan. Indeksi : " + t.getTablePosition().getRow() + " " + p.getProduct_name());
             	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
             }
          });
@@ -104,6 +108,8 @@ public class MuokkaaProductController implements SetMainController {
             	Product p = ((Product) t.getTableView().getItems().get(
                         t.getTablePosition().getRow())
                         );
+            	PaivitettavatTuotteet.add(t.getTablePosition().getRow(), p);
+            	System.out.println("Lisättiin tuote listaan. Indeksi : " + t.getTablePosition().getRow() + " " + p.getProduct_name());
             	p.setProduct_weight(t.getNewValue().doubleValue());
                 System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
             }
@@ -117,6 +123,8 @@ public class MuokkaaProductController implements SetMainController {
                         t.getTablePosition().getRow())
                         );
             	p.setProduct_volume(t.getNewValue().doubleValue());
+            	PaivitettavatTuotteet.add(t.getTablePosition().getRow(), p);
+            	System.out.println("Lisättiin tuote listaan. Indeksi : " + t.getTablePosition().getRow() + " " + p.getProduct_name());
             	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
             }
          });
@@ -134,28 +142,32 @@ public class MuokkaaProductController implements SetMainController {
          });
 	}
 
+	public void Reset(){
+		PaivitettavatTuotteet = new ArrayList();
+		int length = tuoteTable.getItems().size(); //Hae taulun rivien määrä
+		if(length>0){//Jos on rivejä
+			for(;0<length;){//Poistetaan yksi kerrallaan
+				System.out.println("Deleting");
+				tuoteTable.getItems().remove(0);
+				length--;
+			}
+		}
+		tuoteTable.refresh(); //Varmuuden vuoksi päivitetään TableView
+	}
+
 	public void SearchManually() throws IOException {
 		hae = true;
 		if (productName.getText().isEmpty()) {
 			hae = false;
 		}
-
 		if (hae) {
-			HaeTuote();
+			HaeTuoteet();
+			Reset();
 			if (p == null) //Saatu tuote lista on null eli tyhjä
 
 				return; // error viesti tÃ¤nne ku ei lÃ¶ytynyt mitÃ¤Ã¤n
 
 			try {
-				int length = tuoteTable.getItems().size(); //Hae taulun rivien määrä
-				if(length>0){//Jos on rivejä
-					for(;0<length;){//Poistetaan yksi kerrallaan
-						System.out.println("Deleting");
-						tuoteTable.getItems().remove(0);
-						length--;
-					}
-				}
-				tuoteTable.refresh(); //Varmuuden vuoksi päivitetään TableView
 				for (Product pro : p) {
 					idCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("ID"));
 					nameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("product_name"));
@@ -179,7 +191,7 @@ public class MuokkaaProductController implements SetMainController {
 		mc = m;
 	}
 
-	public void HaeTuote() {
+	public void HaeTuoteet() {
 		p = mc.haeTuote(productName.getText());
 	}
 

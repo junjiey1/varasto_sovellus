@@ -2,6 +2,9 @@ package vPakkaus.Controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -37,7 +40,7 @@ public class MuokkaaProductController implements SetMainController {
 	ObservableList<String> productTextFiles = FXCollections.observableArrayList();
 	ObservableList<Product> tuote = FXCollections.observableArrayList();
 	boolean hae;
-	private ArrayList<Product> PaivitettavatTuotteet;
+	private Product[] PaivitettavatTuotteet;
 
 	public void initialize(){
 		p = new ArrayList();
@@ -76,7 +79,8 @@ public class MuokkaaProductController implements SetMainController {
                 System.out.println(t.getNewValue().intValue() + " " + p.getID());
                 if(t.getNewValue().intValue() != p.getMaara()){
                 	p.setMaara(t.getNewValue().intValue());
-                	PaivitettavatTuotteet.add(t.getTablePosition().getRow(), p);
+                	System.out.println(t.getTablePosition().getRow());
+                	PaivitettavatTuotteet[t.getTablePosition().getRow()]=p;
                 	System.out.println("Lisättiin tuote listaan. Indeksi : " + t.getTablePosition().getRow() + " " + p.getProduct_name());
                 	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
                 	//t.getTableView().setStyle("-fx-background-color:lightcoral"); //taulukon reuna
@@ -94,9 +98,7 @@ public class MuokkaaProductController implements SetMainController {
                         t.getTablePosition().getRow())
                         );
             	p.setProduct_name(t.getNewValue());
-            	PaivitettavatTuotteet.add(t.getTablePosition().getRow(), p);
-            	System.out.println("Lisättiin tuote listaan. Indeksi : " + t.getTablePosition().getRow() + " " + p.getProduct_name());
-            	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
+            	PaivitettavatTuotteet[t.getTablePosition().getRow()]=p;
             }
          });
 
@@ -108,10 +110,8 @@ public class MuokkaaProductController implements SetMainController {
             	Product p = ((Product) t.getTableView().getItems().get(
                         t.getTablePosition().getRow())
                         );
-            	PaivitettavatTuotteet.add(t.getTablePosition().getRow(), p);
-            	System.out.println("Lisättiin tuote listaan. Indeksi : " + t.getTablePosition().getRow() + " " + p.getProduct_name());
+            	PaivitettavatTuotteet[t.getTablePosition().getRow()]=p;
             	p.setProduct_weight(t.getNewValue().doubleValue());
-                System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
             }
          });
 
@@ -123,9 +123,7 @@ public class MuokkaaProductController implements SetMainController {
                         t.getTablePosition().getRow())
                         );
             	p.setProduct_volume(t.getNewValue().doubleValue());
-            	PaivitettavatTuotteet.add(t.getTablePosition().getRow(), p);
-            	System.out.println("Lisättiin tuote listaan. Indeksi : " + t.getTablePosition().getRow() + " " + p.getProduct_name());
-            	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
+            	PaivitettavatTuotteet[t.getTablePosition().getRow()]=p;
             }
          });
 
@@ -137,7 +135,7 @@ public class MuokkaaProductController implements SetMainController {
                         t.getTablePosition().getRow())
                         );
             	p.setProduct_price(t.getNewValue().floatValue());
-            	System.out.println("Arvoja muutettu Productin arvot nyt : " + p.getID() + p.getProduct_name() + p.getProduct_volume() + p.getProduct_weight() + p.getProduct_price());
+            	PaivitettavatTuotteet[t.getTablePosition().getRow()]=p;
             }
          });
 	}
@@ -173,13 +171,14 @@ public class MuokkaaProductController implements SetMainController {
 	}
 
 	public void SearchManually() throws IOException {
-		PaivitettavatTuotteet = new ArrayList();
 		hae = true;
 		if (productName.getText().isEmpty()) {
 			hae = false;
 		}
 		if (hae) {
 			HaeTuoteet();
+			System.out.println("P " + p.size());
+			PaivitettavatTuotteet = new Product[p.size()]; //Luo uusi lista jonne voidaan tallentaa muokattuja tuotteita
 			Reset();
 			if (p == null) //Saatu tuote lista on null eli tyhjä
 
@@ -199,12 +198,36 @@ public class MuokkaaProductController implements SetMainController {
 		p = mc.haeTuote(productName.getText());
 	}
 
+	private boolean isEmpty(){
+		for(Product p : PaivitettavatTuotteet){
+			if(p!=null)
+				return false;
+		}
+		return true;
+	}
+
+	private ArrayList<Product> convertToArrayList(){
+		ArrayList<Product> res = new ArrayList<Product>();
+		for(Product p : PaivitettavatTuotteet){
+			if(p!=null)
+				res.add(p);
+		}
+		return res;
+	}
+
 	public void paivitaTuotteet(){
-		if(PaivitettavatTuotteet == null || PaivitettavatTuotteet.isEmpty()) //Tuote lista on tyhjä = käyttäjä ei oo muokannut tuotteita
+		if(PaivitettavatTuotteet == null || isEmpty()) //Tuote lista on tyhjä = käyttäjä ei oo muokannut tuotteita
 			return;
-		System.out.println("Onnistuiko päivitys? " + mc.paivitaTuotteet(PaivitettavatTuotteet));
-		Reset();
-		täytäTaulukko(p);
+		System.out.println("Tyhjä? " + isEmpty());
+		if(0==JOptionPane.showConfirmDialog(null, "Punaisella merkityt rivit tallenetaan pysyvästi\njatketaanko?")){
+			if(mc.paivitaTuotteet(convertToArrayList())){
+				JOptionPane.showMessageDialog(null, "Tiedot päivitetty onnistuneesti", "Päivitys onnistui", JOptionPane.INFORMATION_MESSAGE);
+				PaivitettavatTuotteet = new Product[p.size()]; //Luodaan uusi tyhjä päivitys lista edellisen päälle
+			}else
+				JOptionPane.showMessageDialog(null, "Tietokantaa ei voitu päivittää!", "Virhe havaittu tietokannan päivityksessä", JOptionPane.ERROR_MESSAGE);
+			Reset();
+			täytäTaulukko(p);
+		}
 	}
 
 }

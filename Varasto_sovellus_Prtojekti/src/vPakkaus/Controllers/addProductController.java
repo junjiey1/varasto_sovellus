@@ -82,7 +82,8 @@ public class addProductController implements SetMainController {
 
 			if (!product_error) {
 				product_error_handler();
-			}
+			}else
+				JOptionPane.showMessageDialog(null, "uusi tuote lisättiin onnistuneesti", "Lisäys onnistui", JOptionPane.INFORMATION_MESSAGE);
 		} else {
 			System.out.println("joku kenttä on tyhjä tai väärin täytetty");
 		}

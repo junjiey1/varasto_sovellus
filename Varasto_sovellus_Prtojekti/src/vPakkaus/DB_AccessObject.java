@@ -21,6 +21,13 @@ public class DB_AccessObject {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:9000/varasto", "toimi", "toimi");
 		} catch (SQLException e) {
 			System.out.println("Yhteyden muodostaminen epäonnistui");
+			try {
+				System.out.println("Yritetään muodostaa yhteys Jenkinsillä");
+				conn = DriverManager.getConnection("jdbc:mysql://10.114.32.19:3306/varasto", "jenkins", "jenkins");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} catch (ClassNotFoundException e) {
 			System.out.println("JDBC-ajurin lataus epäonnistui");
 		}
@@ -287,8 +294,8 @@ public class DB_AccessObject {
 				ps.setDouble(3, p.getProduct_weight());
 				ps.setDouble(4, p.getProduct_volume());
 				ps.setString(5, p.getProduct_location());
-				ps.setInt(5, p.getMaara());
-				ps.setInt(6, p.getID());
+				ps.setInt(6, p.getMaara());
+				ps.setInt(7, p.getID());
 
 				ps.executeUpdate();
 				ps.close();

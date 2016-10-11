@@ -50,8 +50,7 @@ public class MainController {
 
 	public boolean paivitaTuotteet(ArrayList<Product> products){
 
-		boolean res = db.updateProducts(products);
-		//Hae mallista tuotteen nimellÃ¤ tiedot ja palauta tÃ¤hÃ¤n metodiin product-olio
+		boolean res = !db.updateProducts(products);
 		return res;
 	}
 

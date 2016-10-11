@@ -34,6 +34,12 @@ public class MainController {
 	public ArrayList<Product> haeTuote(String nimi) {
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
+
+
+		for (Product p : res) {
+			System.out.println(p.getProduct_name() + p.getID());
+		}
+
 		if(res==null)
 			return null;
 

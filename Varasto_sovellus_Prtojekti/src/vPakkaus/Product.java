@@ -66,4 +66,12 @@ public void setMaara(int maara) {
 	this.maara = maara;
 }
 
+@Override
+public String toString() {
+	return "Product [product_name=" + product_name + ", product_location=" + product_location + ", product_weight="
+			+ product_weight + ", product_volume=" + product_volume + ", product_price=" + product_price + ", ID=" + ID
+			+ ", maara=" + maara + "]";
+}
+
+
 }

@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import vPakkaus.MainLaunch;
 
-public class MainPageController implements SetMainController{
+public class MainPageController implements SetMainController {
 
 	@FXML
 	private Tab addProductTab;
@@ -18,8 +18,8 @@ public class MainPageController implements SetMainController{
 	private Tab tab5;
 	@FXML
 	private Label currentUserLbl;
-	private MainController mc;
 
+	private MainController mc;
 	Tab activeTab;
 	String resource;
 

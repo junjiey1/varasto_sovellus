@@ -45,24 +45,19 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
 
     @Override
     public void updateItem(Object item, boolean empty) {
-    	System.out.println("Up");
     	if(valChangedByUser){ //Jos käyttäjä tehnyt muutoksen merkitään se rivi näkymässä
     		this.getTableRow().setStyle("-fx-background-color:lightcoral");//Muutetaan rivin väriä
     		valChangedByUser = false;
-    		System.out.println("UPDATE 3 CALLED");
     	}
     	super.updateItem(item, empty);
         if (empty) {
             //setText(null);
-        	System.out.println("UPDATE 1 CALLED");
             setGraphic(null);
         } else {
             if (isEditing()) {
                 if (textField != null) {
-                	System.out.println("UPDATE 2 CALLED");
                     textField.setText(getString());
                 }
-                System.out.println("UPDATE 2.1 CALLED");
                 //setText(null);
                 setGraphic(textField);
             } else {
@@ -92,14 +87,12 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
 	                    			Integer i = isInt(s);
 	                    			if(i!=null && i.intValue()!=muokattava.getMaara()){
 	                    				setValChanged(true);
-	                    				System.out.println("muuttui true:");
 	                    				commitEdit(i);
 	                    			}
 	                    			break;
 	                    		case(2): //String
 	                    			if(columnName.equals("Name") && !s.equals(muokattava.getProduct_name())){
 	                    				setValChanged(true);
-	                    				System.out.println("muuttui true:");
 	                    				commitEdit(s);
 	                    			}
 	                    			break;
@@ -109,26 +102,22 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
 	                    				//Meillä atm. kaksi riviä, jotka käyttää Double arvoa. Paino ja tilavuus
 	                    				if(columnName.equals("Weight") && d.doubleValue()!=muokattava.getProduct_weight()){ //Muokataan weight solua
 	                    					setValChanged(true);
-	                    					System.out.println("muuttui true:");
 	                    					commitEdit(Double.parseDouble(s));
 	                    				}else if(columnName.equals("Volume") && d.doubleValue()!=muokattava.getProduct_volume()){ //Muokataan volume solua
 	                    					setValChanged(true);
-	                    					System.out.println("muuttui true:");
 	                    					commitEdit(Double.parseDouble(s));
 	                    				}
 	                    			}
 	                    			break;
 	                    		case(4)://Float
 	                    			Float f = isNumeric(s) ? Float.parseFloat(s) : null;
-	                    			System.out.println("Float = " + Float.compare(f, muokattava.getProduct_price()));
 	                    			if(f!=null && columnName.equals("Price") && Float.compare(f, muokattava.getProduct_price()) != 0){
 	                    				setValChanged(true);
-	                    				System.out.println("muuttui true:");
 	                    				commitEdit(Float.parseFloat(s));
 	                    			}
 	                    			break;
 	                    	}
-                    	}catch(Exception e){System.out.println("VIRHE HAVAITTU!!!");}
+                    	}catch(Exception e){ e.printStackTrace();System.out.println("VIRHE HAVAITTU!!!");}
                     }
             }
         });

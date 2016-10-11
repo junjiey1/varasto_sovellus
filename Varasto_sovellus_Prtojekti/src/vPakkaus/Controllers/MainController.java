@@ -50,7 +50,7 @@ public class MainController {
 
 	public boolean paivitaTuotteet(ArrayList<Product> products){
 
-		boolean res = !db.updateProducts(products);
+		boolean res = db.updateProducts(products);
 		return res;
 	}
 

@@ -18,8 +18,8 @@ public class MainPageController{
 	private Tab tab5;
 	@FXML
 	private Label currentUserLbl;
-	private MainController mc;
 
+	private MainController mc;
 	Tab activeTab;
 	String resource;
 

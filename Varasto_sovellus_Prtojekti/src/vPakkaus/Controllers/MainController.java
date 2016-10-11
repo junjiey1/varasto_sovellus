@@ -43,7 +43,6 @@ public class MainController {
 		if(res==null)
 			return null;
 
-		// Hae mallista tuotteen nimellä tiedot ja palauta tähän metodiin
 		// product-olio
 		return res;
 	}
@@ -52,7 +51,7 @@ public class MainController {
 	public boolean paivitaTuotteet(ArrayList<Product> products){
 
 		boolean res = db.updateProducts(products);
-		//Hae mallista tuotteen nimellä tiedot ja palauta tähän metodiin product-olio
+		//Hae mallista tuotteen nimellÃ¤ tiedot ja palauta tÃ¤hÃ¤n metodiin product-olio
 		return res;
 	}
 

@@ -15,7 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import vPakkaus.Product;
 
-public class MuokkaaProductController implements SetMainController{
+public class MuokkaaProductController implements SetMainController {
 
 	@FXML
 	private TextField productName;
@@ -26,12 +26,11 @@ public class MuokkaaProductController implements SetMainController{
 	@FXML
 	private TableColumn<Product, String> nameCol;
 	@FXML
-	private TableColumn<Product, Double > weightCol;
+	private TableColumn<Product, Double> weightCol;
 	@FXML
 	private TableColumn<Product, Float> priceCol;
 	@FXML
 	private TableColumn<Product, Double> volumeCol;
-
 
 	private MainController mc;
 	private ArrayList<Product> p;
@@ -39,75 +38,67 @@ public class MuokkaaProductController implements SetMainController{
 	ObservableList<Product> tuote = FXCollections.observableArrayList();
 	boolean hae;
 
-	public void initialize(){
+	public void initialize() {
 
 		tuoteTable.setEditable(true);
-        Callback<TableColumn<Product, Double>, TableCell<Product, Double>> cellFactory = new Callback<TableColumn<Product, Double>, TableCell<Product, Double>>() {
-                 public TableCell call(TableColumn p) {
-                    return new EditingCell();
-                 }
-             };
-             
-	    idCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("rowNumber"));
-	    idCol.setCellFactory(cellFactory);
-	    idCol.setOnEditCommit(new EventHandler<CellEditEvent<Product, Double>>() {
-	            public void handle(CellEditEvent<Product, Double> t) {
-	                ((Product) t.getTableView().getItems().get(
-	                    t.getTablePosition().getRow())
-	                    ).setID(t.getNewValue().intValue());
-	            }
-	         });
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		Callback<TableColumn<Product, Double>, TableCell<Product, Double>> cellFactory = new Callback<TableColumn<Product, Double>, TableCell<Product, Double>>() {
+			public TableCell call(TableColumn p) {
+				return new EditingCell();
+			}
+		};
+
+		idCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("rowNumber"));
+		idCol.setCellFactory(cellFactory);
+		idCol.setOnEditCommit(new EventHandler<CellEditEvent<Product, Double>>() {
+			public void handle(CellEditEvent<Product, Double> t) {
+				((Product) t.getTableView().getItems().get(t.getTablePosition().getRow()))
+						.setID(t.getNewValue().intValue());
+			}
+		});
+
 	}
 
-	public void SearchManually()throws IOException {
-		hae= true;
-		if(productName.getText().isEmpty()){
-			hae=false;
+	public void SearchManually() throws IOException {
+		hae = true;
+		if (productName.getText().isEmpty()) {
+			hae = false;
 		}
 
-		if(hae){
+		if (hae) {
 			HaeTuote();
-			if(p==null)
-				return; //error viesti tänne ku ei löytynyt mitään
-			try{
-				for(Product pro : p){
+			if (p == null)
 
-					nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("product_name"));
+				return; // error viesti tÃ¤nne ku ei lÃ¶ytynyt mitÃ¤Ã¤n
+
+			try {
+				tuoteTable.getItems().clear();
+				tuoteTable.setEditable(true);
+
+				for (Product pro : p) {
+
+					nameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("product_name"));
 					weightCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_weight"));
-					priceCol.setCellValueFactory(new PropertyValueFactory<Product,Float>("product_price"));
-					volumeCol.setCellValueFactory(new PropertyValueFactory<Product,Double>("product_volume"));
+					priceCol.setCellValueFactory(new PropertyValueFactory<Product, Float>("product_price"));
+					volumeCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("product_volume"));
 					tuoteTable.getItems().add(pro);
+
 				}
-			}catch(Exception e){
+			} catch (Exception e) {
 
 			}
 
-		}else {
-			System.out.println("Kenttä on täytetty väärällä tavalla");
+		} else {
+
+			System.out.println("KenttÃ¤ on tÃ¤ytetty vÃ¤Ã¤rÃ¤llÃ¤ tavalla");
 		}
 	}
-
-
 
 	@Override
 	public void setMainController(MainController m) {
 		mc = m;
 	}
 
-	public void HaeTuote(){
+	public void HaeTuote() {
 		p = mc.haeTuote(productName.getText());
 	}
 

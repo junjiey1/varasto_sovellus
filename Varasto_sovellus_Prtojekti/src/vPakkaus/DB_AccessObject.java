@@ -7,13 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+/**
+ * Luokka vastaa tietokanta yhteydesta ja kyselysta.
+ *
+ */
 public class DB_AccessObject {
 	// ACCESS SQL_DB_OBJ.
 	private static Connection conn = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
-
+	/**
+	 * Luodaan yhteys vituaalikoneeseen ja tietokantaan.
+	 *
+	 */
 	public DB_AccessObject() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -34,6 +40,14 @@ public class DB_AccessObject {
 	}
 
 	// -----METODIT-----//
+
+	/**
+	 * Tassa toimi sisaankirjautuminen.
+	 *
+	 * @param uname kayttajatunnus
+	 * @param pword salasana
+	 * @return
+	 */
 
 	public int[] LogIn(String uname, String pword) {
 		int res = 0; // Oletetaan, että login epäonnistuu
@@ -91,6 +105,17 @@ public class DB_AccessObject {
 		return list;
 	}
 
+	/**
+	 * Uusien tavaroiden lisaaminen
+	 *
+	 * @param nimi Tavaran nimi(String)
+	 * @param paino Tavaran paino (double)
+	 * @param tilavuus Tavaran tilavuus (double)
+	 * @param hyllypaikka missä hyllypaikassa tavara sijaitsee (String)
+	 * @param hinta Tavaran hinta (float)
+	 * @param maara Tavaran maara (int)
+	 * @return Onnistuuko tavaran lisaaminen (boolean)
+	 */
 	public boolean Lisaa(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
 
 		ArrayList<Boolean> errors = new ArrayList(); //virheet kerätään listaan, false = ei virhettä
@@ -120,6 +145,16 @@ public class DB_AccessObject {
 		return false;
 	}
 
+	/**
+	 * Paivita tietue tiedot ID avulla.
+	 *
+	 * @param taulukon_nimi
+	 * @param id
+	 * @param arvot
+	 * @param tietueet
+	 * @return
+	 */
+
 	public static <E> boolean PaivitaTietueByID(String taulukon_nimi, int id, E[] arvot, int[] tietueet) {
 		boolean error = false;
 		for (int i = 0; i < tietueet.length; i++) {
@@ -128,6 +163,15 @@ public class DB_AccessObject {
 		return error;
 	}
 
+	/**
+	 * Lisataan lisatty tavara tietokantaan.
+	 *
+	 * @param nimi Tavaran nimi
+	 * @param hinta Tavaran hinta
+	 * @param paino Tavaran paino
+	 * @param tilavuus Tavaran tilavuus
+	 * @return jos jotain error tapahtuu lisaamisessa
+	 */
 	public boolean addProductToDB(String nimi, float hinta, double paino, double tilavuus) {
 
 		boolean error = false;
@@ -152,6 +196,13 @@ public class DB_AccessObject {
 		return error;
 	}
 
+	/**
+	 *Hakee tavaran ID nimen perusteella.
+	 *
+	 * @param nimi Tavaran nimi
+	 * @return Tavaran ID
+	 */
+
 	public int getProductID(String nimi) {
 		Integer id = null;
 
@@ -173,6 +224,12 @@ public class DB_AccessObject {
 		return id;
 	}
 
+	/**
+	 * Etsi tavara nimen perusteella.
+	 *
+	 * @param nimi Tavaran nimi
+	 * @return palauttaa tavaran kaikki tietueet nimen perusteella.(palauttaa null, jos tavara ei löyty.)
+	 */
 	public Product findProduct(String nimi) {
 		Product product = null;
 
@@ -204,6 +261,13 @@ public class DB_AccessObject {
 		return product;
 	}
 
+	/**
+	 * Lisaa tavaralle hyllypaikka.
+	 *
+	 * @param hyllypaikka varaston hyllypaikat
+	 * @param id tavaran ID
+	 * @return
+	 */
 	public boolean addProductLocation(String hyllypaikka, int id){
 		boolean error = false;
 
@@ -224,6 +288,13 @@ public class DB_AccessObject {
 		return error;
 	}
 
+	/**
+	 * Lisaa tavara varastoon
+	 *
+	 * @param maara Tavaran maara
+	 * @param id Tavaran ID
+ 	 * @return
+	 */
 	public boolean addProductToWarehouse(int maara, int id) {
 		boolean error = false;
 		try {
@@ -245,7 +316,12 @@ public class DB_AccessObject {
 		return error;
 	}
 
-
+	/**
+	 *Hakee useamman tavaran tietueet. Hakuehto on osa tavaran nimestä.
+	 *
+	 * @param nimi Tavaran nimi.
+	 * @return Palauttaa ArrayList, mika sisaltaa product olioita.
+	 */
 	public ArrayList<Product> findProducts(String nimi) {
 		ArrayList<Product> products = new ArrayList();
 		Product product;
@@ -282,6 +358,12 @@ public class DB_AccessObject {
 		return products;
 	}
 
+	/**
+	 * Paivita tavaran tiedot
+	 *
+	 * @param products tavaran tietue
+	 * @return Return error, jos tavaran lisaaminen epäonnistuu.
+	 */
 	public boolean updateProducts(ArrayList<Product> products) {
 		boolean error = false;
 
@@ -334,10 +416,20 @@ public class DB_AccessObject {
 //		return bool;
 //	}
 
+	/**
+	 * Sulje yhteys.
+	 *
+	 * @throws SQLException
+	 */
 	public static void close() throws SQLException {
 		conn.close();
 	}
 
+	/**
+	 * Tavaran poistaminen.
+	 *
+	 *
+	 */
 	public void dropTuotteet(){
 		ps = null;
 		try {

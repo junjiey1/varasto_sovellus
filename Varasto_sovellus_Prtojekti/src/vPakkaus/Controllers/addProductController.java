@@ -174,11 +174,11 @@ public class addProductController implements SetMainController {
 					product_error_handler();
 					break;
 				}
-				System.out.println(clientName + " " + clientAddress + " " + pName + " " + pWeight + " " + pVolume + " "
+				System.out.println(clientName + "  " + clientAddress + " " + pName + " " + pWeight + " " + pVolume + " "
 						+ pShelf + " " + pPrice + " " + pQuantity);
 			}
-			input.close();
 		}
+		input.close();
 	}
 
 	public void product_error_handler() {

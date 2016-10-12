@@ -310,7 +310,7 @@ public class DB_AccessObject {
 		return error;
 	}
 
-	public static void close() throws SQLException {
+	public void close() throws SQLException {
 		conn.close();
 	}
 

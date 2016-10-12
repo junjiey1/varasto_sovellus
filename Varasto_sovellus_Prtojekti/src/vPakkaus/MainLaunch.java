@@ -49,12 +49,14 @@ public class MainLaunch extends Application {
 		APLayout = loader.load();
 
 		if (activeTab != null) {
+			System.out.println("jotain");
 			activeTab.setContent(APLayout);
 		} else {
 			newStage = new Stage();
 			newStage.setTitle(title);
 			newStage.setScene(new Scene(APLayout));
 			newStage.show();
+			System.out.println("jotain2");
 		}
 		if (loader.getController() instanceof SetMainController) {
 			SetMainController c = (SetMainController) loader.getController();

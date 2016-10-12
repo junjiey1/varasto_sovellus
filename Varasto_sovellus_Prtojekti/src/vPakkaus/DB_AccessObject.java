@@ -46,7 +46,7 @@ public class DB_AccessObject {
 	 *
 	 * @param uname kayttajatunnus
 	 * @param pword salasana
-	 * @return
+	 * @return palautta listana.
 	 */
 
 	public int[] LogIn(String uname, String pword) {
@@ -143,23 +143,7 @@ public class DB_AccessObject {
 		return false;
 	}
 
-	/**
-	 * Paivita tietue tiedot ID avulla.
-	 *
-	 * @param taulukon_nimi
-	 * @param id
-	 * @param arvot
-	 * @param tietueet
-	 * @return
-	 */
 
-	public static <E> boolean PaivitaTietueByID(String taulukon_nimi, int id, E[] arvot, int[] tietueet) {
-		boolean error = false;
-		for (int i = 0; i < tietueet.length; i++) {
-
-		}
-		return error;
-	}
 
 	/**
 	 * Lisataan lisatty tavara tietokantaan.
@@ -265,7 +249,7 @@ public class DB_AccessObject {
 	 *
 	 * @param hyllypaikka varaston hyllypaikat
 	 * @param id tavaran ID
-	 * @return
+	 * @return Palauta booleana, onko lisaaminen onnistunut
 	 */
 	public boolean addProductLocation(String hyllypaikka, int id){
 		boolean error = true;
@@ -292,7 +276,7 @@ public class DB_AccessObject {
 	 *
 	 * @param maara Tavaran maara
 	 * @param id Tavaran ID
- 	 * @return
+ 	 * @return Palauta booleana, onko lisaaminen onnistunut
 	 */
 	public boolean addProductToWarehouse(int maara, int id) {
 		boolean error = true;
@@ -395,7 +379,7 @@ public class DB_AccessObject {
 	/**
 	 * Sulje yhteys.
 	 *
-	 * @throws SQLException
+	 * @throws SQLException Heittää error, jos jostain syystä sulkeminen epäonnistuu
 	 */
 	public static void close() throws SQLException {
 		conn.close();
@@ -403,9 +387,10 @@ public class DB_AccessObject {
 
 
 	/**
-	 * Tavaran poistaminen.
+	 * Tavaran tiedot postaminen.
 	 *
-	 *
+	 * @param id Tavaran ID
+	 * @return Palauta booleana, onko poistaminen onnistunut.
 	 */
 
 	public boolean deleteProduct(int id){
@@ -429,6 +414,9 @@ public class DB_AccessObject {
 		return error;
 	}
 
+	/**
+	 * Poista tuote Hyllypaikka, varasto ja tuote tietokannasta.
+	 */
 
 	public void dropTuotteet(){
 		ps = null;

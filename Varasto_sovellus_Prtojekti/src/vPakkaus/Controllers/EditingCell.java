@@ -1,22 +1,29 @@
 package vPakkaus.Controllers;
 
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import vPakkaus.Product;
 
-class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> list
+class EditingCell extends TableCell<Product, Object >{ //List<? extends Foo> list
 
     private TextField textField;
+    private Product[] PaivitettavatTuotteet;
     private int datatyyppi;//1 Int,2 String,3 double,5 float
     private Product muokattava;//Olio jota muokataan
     private String columnName; //Product olion atribuutin nimi eli taulukon kolumnin nimi
     private boolean valChangedByUser;//Boolean, joka asetetaan aina true kun käyttäjä tekee muutoksia taulukkoon
+    private boolean escPressed=false;//Boolean, joka muuttu true vain jos käyttäjä painaa esc kun on editoimassa solua
 
-    public EditingCell(int n) {
+    public EditingCell(int n, Product[] PaivitettavatTuotteet) {
+    	this.PaivitettavatTuotteet=PaivitettavatTuotteet;
     	datatyyppi = n;
     	valChangedByUser = false;
+    	escPressed=false;
     }
 
     @Override
@@ -24,12 +31,9 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
         if (!isEmpty()) {
         	valChangedByUser = false;
             super.startEdit();
-            //System.out.println(getTableView().getColumns().get(this.getIndex()));
-            //System.out.println(getTableRow().getIndex());
             muokattava = (Product)getTableRow().getItem();
             columnName = this.getTableColumn().getText();
             createTextField();
-            //setText(null);
             setGraphic(textField);
             textField.selectAll();
         }
@@ -37,10 +41,9 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
 
     @Override
     public void cancelEdit() {
-    	//Tänne muutoksia jos se yks bugi halutaan korjaa
-    	//eli kun klikkaa toiselle riville niin muutokset ei tallennu
         super.cancelEdit();
         setGraphic(null);
+
     }
 
     @Override
@@ -73,27 +76,46 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
 
     private void createTextField() {
         textField = new TextField(getString());
+        EventHandler<KeyEvent> Keylistener = new EventHandler<KeyEvent>(){
+        	//Luodaan nappi kuuntelija aina kun solun muokkaus alkaa.
+        	//Kuuntelija asettaa escPressed-boolean arvon=>true jos käyttäjä painaa esc
+        	//jos ko. boolean arvo on true solun editointi lopetetaan.
+			@Override
+			public void handle(KeyEvent event) {
+				System.out.println(event.getCode().getName());
+				if(event.getCode().getName().equals("Esc"))
+					escPressed=true;
+			}
+        };
+        textField.setOnKeyPressed(Keylistener);
         textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
-        textField.focusedProperty().addListener(new ChangeListener<Boolean>(){ //Tässä määritellään uusi sisäluokka
-            @Override
+        textField.focusedProperty().addListener(new ChangeListener<Boolean> (){ //Tässä määritellään uusi sisäluokka
+        	@Override
             public void changed(ObservableValue<? extends Boolean> arg0,
                 Boolean arg1, Boolean arg2) {
             	System.out.println(arg1 +" "+ arg2);
+            	if(escPressed){
+            		escPressed=false;
+            		cancelEdit();
+            		return;
+            	}
                     if (!arg2) {
                     	String s = textField.getText();
+                    	System.out.println(s +" " + datatyyppi + " indeksi " + getIndex());
                     	try{
 	                    	switch(datatyyppi){ //säilötyn luvun avulla voidaan päätellä mitä datatyyppiä pitää tallentaa
 	                    		case(1): //Int
 	                    			Integer i = isInt(s);
 	                    			if(i!=null && i.intValue()!=muokattava.getMaara()){
+	                    				System.out.println("yritän");
 	                    				setValChanged(true);
-	                    				commitEdit(i);
+	                    				paivitaSoluJaTuote(i, getIndex());
 	                    			}
 	                    			break;
 	                    		case(2): //String
 	                    			if(columnName.equals("Name") && !s.equals(muokattava.getProduct_name())){
 	                    				setValChanged(true);
-	                    				commitEdit(s);
+	                    				paivitaSoluJaTuote(s, getIndex());
 	                    			}
 	                    			break;
 	                    		case(3)://Double
@@ -102,10 +124,10 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
 	                    				//Meillä atm. kaksi riviä, jotka käyttää Double arvoa. Paino ja tilavuus
 	                    				if(columnName.equals("Weight") && d.doubleValue()!=muokattava.getProduct_weight()){ //Muokataan weight solua
 	                    					setValChanged(true);
-	                    					commitEdit(Double.parseDouble(s));
+	                    					paivitaSoluJaTuote(d, getIndex());
 	                    				}else if(columnName.equals("Volume") && d.doubleValue()!=muokattava.getProduct_volume()){ //Muokataan volume solua
 	                    					setValChanged(true);
-	                    					commitEdit(Double.parseDouble(s));
+	                    					paivitaSoluJaTuote(d, getIndex());
 	                    				}
 	                    			}
 	                    			break;
@@ -113,14 +135,46 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
 	                    			Float f = isNumeric(s) ? Float.parseFloat(s) : null;
 	                    			if(f!=null && columnName.equals("Price") && Float.compare(f, muokattava.getProduct_price()) != 0){
 	                    				setValChanged(true);
-	                    				commitEdit(Float.parseFloat(s));
+	                    				paivitaSoluJaTuote(Float.parseFloat(s), getIndex());
 	                    			}
 	                    			break;
+	                    	}
+	                    	if(valChangedByUser){
+	                    		merkitseRivi();
+	                    		valChangedByUser=false;
 	                    	}
                     	}catch(Exception e){ e.printStackTrace();System.out.println("VIRHE HAVAITTU!!!");}
                     }
             }
         });
+    }
+
+    private void paivitaSoluJaTuote(Object newValue, int i){
+    	setText(newValue.toString());
+    	Product p = super.getTableView().getItems().get(i);
+    	switch(datatyyppi){
+    		case(1):
+    			p.setMaara(((Integer) newValue).intValue());
+    			break;
+    		case(2):
+    			p.setProduct_name(newValue.toString());
+    			break;
+    		case(3):
+    			if(columnName.equals("Weight")){
+    				p.setProduct_weight(((Double) newValue).doubleValue());
+    			}else{
+    				p.setProduct_volume(((Double) newValue).doubleValue());
+    			}
+    			break;
+    		case(4):
+    			p.setProduct_price(((Float) newValue).floatValue());
+    	}
+    	PaivitettavatTuotteet[i]=p;
+    	this.cancelEdit();
+    }
+
+    private void merkitseRivi(){
+    	this.getTableRow().setStyle("-fx-background-color:lightcoral");
     }
 
     private boolean isNumeric(String s) {
@@ -135,8 +189,6 @@ class EditingCell extends TableCell<Product, Object > { //List<? extends Foo> li
     		return null;
     	}
     }
-
-
 
     private String getString() {
         return getItem() == null ? "" : getItem().toString();

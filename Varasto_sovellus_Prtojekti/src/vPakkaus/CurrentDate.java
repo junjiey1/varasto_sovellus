@@ -3,6 +3,11 @@ package vPakkaus;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ *
+ * Hakea taman paivan paivamaarat
+ *
+ */
 public class CurrentDate {
 
 	public String[] getCurrentDate(){

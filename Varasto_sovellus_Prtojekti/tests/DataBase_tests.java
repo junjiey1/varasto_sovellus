@@ -92,13 +92,14 @@ public class DataBase_tests {
 		assertEquals("Tavaran lisääminen ONNISTUI!", result, true);
 
 		ArrayList<Product> productlist_handmade = new ArrayList();
-		ArrayList<Product> productlist = db.findProducts("TES");
+		ArrayList<Product> productlist = db.findProducts("TEST-ITEM");
 
 		Product product_test1 = new Product("TEST-ITEM1", "testipaikka", 1.2, 3.6, 2.2f, 1);
 		Product product_test2 = new Product("TEST-ITEM2", "testipaikka", 1.2, 3.6, 2.2f, 1);
 
 		productlist_handmade.add(product_test1);
 		productlist_handmade.add(product_test2);
+		assertEquals("Tavaroiden haku EPÄONNISTUI!\nListat eri suuret!", productlist_handmade.size(), productlist.size());
 
 		int i = 0;
 		for (Product p : productlist) {

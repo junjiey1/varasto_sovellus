@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import vPakkaus.MainLaunch;
 
-public class MainPageController{
+public class MainPageController implements SetMainController{
 
 	@FXML
 	private Tab addProductTab;
@@ -51,5 +51,11 @@ public class MainPageController{
 		mc.LogOut(); // Poistaa tallennetut käyttäjän nimen ja ID:n
 		MainLaunch.windowDestroyer();
 		MainLaunch.windowConstructor("view/LoginView.fxml", "LOG IN", null);
+	}
+
+	@Override
+	public void setMainController(MainController m) {
+		// TODO Auto-generated method stub
+		mc = m;
 	}
 }

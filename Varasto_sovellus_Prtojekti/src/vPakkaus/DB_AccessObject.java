@@ -376,12 +376,14 @@ public class DB_AccessObject {
 		return error;
 	}
 
+
 	/**
 	 * Sulje yhteys.
 	 *
 	 * @throws SQLException Heittää error, jos jostain syystä sulkeminen epäonnistuu
 	 */
-	public static void close() throws SQLException {
+
+	public void close() throws SQLException {
 		conn.close();
 	}
 

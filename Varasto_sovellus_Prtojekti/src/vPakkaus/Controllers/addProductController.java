@@ -15,6 +15,11 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import vPakkaus.Product;
 
+/**
+ *
+ *Kontrolleri tavaran lisaamiselle.
+ *
+ */
 public class addProductController implements SetMainController {
 
 	@FXML
@@ -49,7 +54,11 @@ public class addProductController implements SetMainController {
 	public void setMainController(MainController m) {
 		mc = m;
 	}
-
+	/**
+	 * Tavara lisaaminen manuaalisesti
+	 *
+	 * @throws IOException Jos lisaaminen epaonnistunut
+	 */
 	public void AddProductManually() throws IOException {
 		product_error = true;
 		allGood = true;
@@ -96,20 +105,36 @@ public class addProductController implements SetMainController {
 	//
 	// }
 
+	/**
+	 * Poista valittu teksti tiedosto.
+	 */
 	public void removeProduct() {
 		productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
 	}
-
+	/**
+	 * Poista kaikki teksti tiedostot
+	 */
 	public void removeAllProducts() {
 		productTextFiles.clear();
 	}
-
+	/**
+	 * Lisaa tiedosto oleva tavarat tiedot.
+	 *
+	 * @throws FileNotFoundException Jos lisaaminen epaonnistuu.
+	 */
 	public void addAllFromFile() throws FileNotFoundException {
 		for (String s : productTextFiles) {
 			readFromFile(hm.get(s));
 		}
 	}
 
+	/**
+	 *
+	 * Kuuntelee, onko tiedostoja siirtamassa automaattinen lisays taulukkoon.
+	 *
+	 * @param event Kuuntelija
+	 * @throws FileNotFoundException Jos tiedosto ei loydy
+	 */
 	@FXML
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
 		hm = new HashMap<String, String>();
@@ -151,6 +176,12 @@ public class addProductController implements SetMainController {
 		db = null;
 	}
 
+	/**
+	 * Lukee kaikki teksti tiedot tiedostosta.
+	 *
+	 * @param name Tiedosto nimi
+	 * @throws FileNotFoundException ilmoittaa error, jos on epaonnistunut.
+	 */
 	public void readFromFile(String name) throws FileNotFoundException {
 		product_error = true;
 		file = new File(name);

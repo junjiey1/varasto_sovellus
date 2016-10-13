@@ -4,11 +4,18 @@ import java.util.ArrayList;
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
 
+/**
+ * Paa kontrolleri meidan nakymalle.
+ *
+ */
 public class MainController {
 	private DB_AccessObject db;
 	private int UserID;
 	private String username;
 
+	/**
+	 * Yhdistaa virtuaalikoneeseen
+	 */
 	public MainController() {
 		System.out.println("Constructing Main Controller");
 		db = new DB_AccessObject();
@@ -16,6 +23,13 @@ public class MainController {
 		UserID = -1;
 	}
 
+	/**
+	 * Sisaankirjautuminen
+	 *
+	 * @param username kayttajatunnus
+	 * @param password Salasana
+	 * @return Palauta booleana, onko sisaankirjautuminen onnistunut.
+	 */
 	public boolean LogIn(String username, String password) {
 		boolean res = false;
 		int[] tulos = db.LogIn(username, password);
@@ -27,10 +41,28 @@ public class MainController {
 		return res;
 	}
 
+	/**
+	 * Tavaran lisaaminen
+	 *
+	 * @param nimi Tavaran nimi
+	 * @param paino Tavaran paino
+	 * @param tilavuus Tavaran tilavuus
+	 * @param hyllypaikka Tavaran hyllypaikka
+	 * @param hinta Tavaran hinta
+	 * @param maara Tavaran maara
+	 * @return Palauta booleana, onko lisaaminen onnistunut.
+	 */
 	public boolean AddProduct(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
 		boolean res = db.Lisaa(nimi, paino, tilavuus, hyllypaikka, hinta, maara);
 		return res;
 	}
+
+	/**
+	 * Hae tavara
+	 *
+	 * @param nimi Tavaran nimi
+	 * @return Palauta nullina, jos tavara ei loydy. Muuten palauta sen tavaran tietueet.
+	 */
 	public ArrayList<Product> haeTuote(String nimi) {
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
@@ -47,30 +79,63 @@ public class MainController {
 		return res;
 	}
 
-
+	/**
+	 * Paivita tavarat
+	 *
+	 * @param products Tavara tietueet
+	 *
+	 * @return palauta paivitetty tiedot
+	 */
 	public boolean paivitaTuotteet(ArrayList<Product> products){
 
 		boolean res = db.updateProducts(products);
 		return res;
 	}
 
+	/**
+	 * Tallenna muutokset
+	 *
+	 * @param lista Tavaran lista
+	 *
+	 * @return onko tellenus onnistunut.
+	 */
 	public boolean tallennaMuutokset(ArrayList<Product> lista) {
 		boolean res = false;
 		return res;
 	}
-
+	/**
+	 * Poista tavara
+	 *
+	 * @param nimi tavaran nimi
+	 *
+	 * @return Paluta booleana.
+	 */
 	public boolean DeleteProduct(String nimi) {
 		boolean res = false;
 		return res;
 	}
 
+	/**
+	 * Hakea kayttajatunnus
+	 *
+	 * @return Palauta kayttajatunnus
+	 */
 	public String getName() {
 		return username;
 	}
+	/**
+	 * Hakee Kayttaja ID
+	 *
+	 * @return Paluta kayttaja ID
+	 */
 
 	public int getID() {
 		return UserID;
 	}
+	/**
+	 * Uloskirjautuminen eli poistetaan edellisen kayttajan tiedot.
+	 *
+	 */
 
 	public void LogOut() {
 		System.out.println("logged out. Deleting saved user information...");

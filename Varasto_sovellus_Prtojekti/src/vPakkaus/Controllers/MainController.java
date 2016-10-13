@@ -31,24 +31,23 @@ public class MainController {
 		boolean res = db.Lisaa(nimi, paino, tilavuus, hyllypaikka, hinta, maara);
 		return res;
 	}
+
 	public ArrayList<Product> haeTuote(String nimi) {
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
-
 
 		for (Product p : res) {
 			System.out.println(p.getProduct_name() + p.getID());
 		}
 
-		if(res==null)
+		if (res == null)
 			return null;
 
 		// product-olio
 		return res;
 	}
 
-
-	public boolean paivitaTuotteet(ArrayList<Product> products){
+	public boolean paivitaTuotteet(ArrayList<Product> products) {
 
 		boolean res = db.updateProducts(products);
 		return res;

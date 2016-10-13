@@ -8,6 +8,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import vPakkaus.MainLaunch;
 
+/**
+ * Kontrolleri sisaankirjautumiselle.
+ *
+ */
 public class LoginController implements SetMainController {
 
 	@FXML

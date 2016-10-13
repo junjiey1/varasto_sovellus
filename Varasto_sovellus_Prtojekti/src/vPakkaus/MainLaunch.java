@@ -10,12 +10,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import vPakkaus.Controllers.LoginController;
 import vPakkaus.Controllers.MainController;
-import vPakkaus.Controllers.MainPageController;
-import vPakkaus.Controllers.MuokkaaProductController;
 import vPakkaus.Controllers.SetMainController;
-import vPakkaus.Controllers.addProductController;
+
+/**
+ * Paaohjelma alku eli taman luokka aloittaa ohjelma suoritukset. Sisaltaa myos
+ * nakymarakentajaa.
+ *
+ */
 
 public class MainLaunch extends Application {
 
@@ -24,12 +26,30 @@ public class MainLaunch extends Application {
 	private static AnchorPane APLayout;
 	private static MainController mc;
 
+	/**
+	 * Paaohjelma alku. Sisaankirjautumis nakyma
+	 */
 	@Override
 	public void start(Stage primaStage) throws IOException {
+
+		mc = new MainController();
+
 		mc = new MainController();
 		windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}
 
+	/**
+	 * Medodi, joka vastaa uusien nakymien luonnista.
+	 *
+	 * @param resource
+	 *            resursoidaan
+	 * @param title
+	 *            Tabin title.
+	 * @param activeTab
+	 *            Painike olio
+	 * @throws IOException
+	 *             Heittaa error,jos jotain on epaonnistunut.
+	 */
 	public static void windowConstructor(String resource, String title, Tab activeTab) throws IOException {
 		System.out.println(resource);
 		loader = new FXMLLoader();
@@ -52,10 +72,21 @@ public class MainLaunch extends Application {
 		}
 	}
 
+	/**
+	 * Tuhoa koko nakyma
+	 */
 	public static void windowDestroyer() {
 		newStage.close();
 	}
 
+	/**
+	 * Kaynnistaa ohjema
+	 *
+	 * @param args
+	 *            sisältää toimitettu komentorivin argumentteja
+	 * @throws IOException
+	 *             Jos kaynnistaminen epaonnistuu.
+	 */
 	public static void main(String[] args) throws IOException {
 		System.out.println("main");
 		launch(args);

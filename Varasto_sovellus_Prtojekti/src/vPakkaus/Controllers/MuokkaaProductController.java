@@ -16,6 +16,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import vPakkaus.Product;
 
+/**
+*Tuoteen muokkaus tabi ikkunan kontrolleri. Vastaa taulukon luonnista.
+*/
 public class MuokkaaProductController implements SetMainController {
 
 	@FXML
@@ -66,13 +69,9 @@ public class MuokkaaProductController implements SetMainController {
 			}
 		};
 		maaraCol.setCellFactory(cellFactory);
-
 		nameCol.setCellFactory(cellFactory2);
-
 		weightCol.setCellFactory(cellFactory3);
-
 		volumeCol.setCellFactory(cellFactory3);
-
 		priceCol.setCellFactory(cellFactory4);
 	}
 

@@ -8,6 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import vPakkaus.Product;
 
+
+/**
+ * Tämä luokka vastaa tuotteiden taulukon solujen muokkauksesta
+ *
+ */
 class EditingCell extends TableCell<Product, Object> { // List<? extends Foo>
 														// list
 
@@ -23,6 +28,11 @@ class EditingCell extends TableCell<Product, Object> { // List<? extends Foo>
 										// käyttäjä painaa esc kun on
 										// editoimassa solua
 
+	/**
+	 * Tämän luokan konstruktori. Int arvo viittaa solun kapseloivaan tietotyyppiin eli 1.int, 2.string
+	 *, 3.double, 4.float. Lista parametri viittaa listaan, joka säilyttää viittaukset muokattuihin tuotteisiin
+	 * @param int tietotyyppiNumero, Product[] PaivitettavatTuotteet
+	 */
 	public EditingCell(int n, Product[] PaivitettavatTuotteet) {
 		this.PaivitettavatTuotteet = PaivitettavatTuotteet;
 		datatyyppi = n;
@@ -30,6 +40,10 @@ class EditingCell extends TableCell<Product, Object> { // List<? extends Foo>
 		escPressed = false;
 	}
 
+	/**
+	*Tämä metodi käynnistyy kun käyttäjä tuplaklikkaa taulukossa olevaa solua.
+	* Luo tekstikentän josta voidaan muokata tuotteen atribuuttia.
+	*/
 	@Override
 	public void startEdit() {
 		if (!isEmpty()) {
@@ -43,13 +57,18 @@ class EditingCell extends TableCell<Product, Object> { // List<? extends Foo>
 		}
 	}
 
+	/**
+	*Tämä metodi käynnistyy kun käyttäjä peruuttaa solun editoinnin.
+	*/
 	@Override
 	public void cancelEdit() {
 		super.cancelEdit();
 		setGraphic(null);
-
 	}
 
+	/**
+	*TableCellin oma metodi.
+	*/
 	@Override
 	public void updateItem(Object item, boolean empty) {
 		if (valChangedByUser) { // Jos käyttäjä tehnyt muutoksen merkitään se
@@ -81,6 +100,10 @@ class EditingCell extends TableCell<Product, Object> { // List<? extends Foo>
 		valChangedByUser = b;
 	}
 
+	/**
+	*Kun editointi käynnistyy tämä metodi luo tekstikentän johon käyttäjän on tarkoitus kirjoittaa solulle uusiarvo.
+	*
+	*/
 	private void createTextField() {
 		textField = new TextField(getString());
 		EventHandler<KeyEvent> Keylistener = new EventHandler<KeyEvent>() {
@@ -171,6 +194,10 @@ class EditingCell extends TableCell<Product, Object> { // List<? extends Foo>
 		});
 	}
 
+	/**
+	*Tätä metodia kutsutaan kun käyttäjä on lopettanut editoinnin ja tekstiarvon arvo on eri kuin alkuperäinen arvo.
+	* Solun tekstiarvo päivitetään jos ja vain jos alkuperäinen arvo!=solunarvo.
+	*/
 	private void paivitaSoluJaTuote(Object newValue, int i) {
 		setText(newValue.toString());
 		Product p = super.getTableView().getItems().get(i);
@@ -195,14 +222,27 @@ class EditingCell extends TableCell<Product, Object> { // List<? extends Foo>
 		this.cancelEdit();
 	}
 
+	/**
+	*Merkitsee muokatun solun rivin punaiseksi. Kutsutaan vain jos käyttäjä on muokannut solun arvoa
+	*/
 	private void merkitseRivi() {
 		this.getTableRow().setStyle("-fx-background-color:lightcoral");
 	}
 
+	/**
+	*Onko String numeerinen
+	*@param String s
+	*@return true = on numeerinen, false = ei ole numeerinen
+	*/
 	private boolean isNumeric(String s) {
 		return s.matches("[-+]?\\d*\\.?\\d+");
 	}
 
+	/**
+	*Onko String int
+	*@param String s
+	*@return Integer
+	*/
 	private Integer isInt(String s) {
 		try {
 			Integer i = Integer.parseInt(s);

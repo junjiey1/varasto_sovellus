@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Luokka vastaa tietokanta yhteydesta ja kyselysta.
+ * Luokka vastaa tietokantayhteydesta ja kyselyista.
  *
  */
 public class DB_AccessObject {
@@ -17,7 +17,7 @@ public class DB_AccessObject {
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 	/**
-	 * Luodaan yhteys vituaalikoneeseen ja tietokantaan.
+	 * Luodaan yhteys virtuaalikoneeseen ja tietokantaan.
 	 *
 	 */
 	public DB_AccessObject() {
@@ -42,7 +42,7 @@ public class DB_AccessObject {
 	// -----METODIT-----//
 
 	/**
-	 * Tassa toimi sisaankirjautuminen.
+	 * Sisaankirjaantuminen. Tarkistaa loytyyko kayttaja ja salasana tietokannasta.
 	 *
 	 * @param uname kayttajatunnus
 	 * @param pword salasana
@@ -106,7 +106,7 @@ public class DB_AccessObject {
 	}
 
 	/**
-	 * Uusien tavaroiden lisaaminen
+	 * Lisaa tavara tietokantaan. Kutsuu metodeita, jolla saadaan arvot syotettya oikeisiin tietokantatauluihin.
 	 *
 	 * @param nimi Tavaran nimi(String)
 	 * @param paino Tavaran paino (double)
@@ -146,7 +146,7 @@ public class DB_AccessObject {
 
 
 	/**
-	 * Lisataan lisatty tavara tietokantaan.
+	 * Lisaa tiedot tavara-tauluun tietokannassa.
 	 *
 	 * @param nimi Tavaran nimi
 	 * @param hinta Tavaran hinta
@@ -179,7 +179,7 @@ public class DB_AccessObject {
 	}
 
 	/**
-	 *Hakee tavaran ID nimen perusteella.
+	 *Hakee tavaran ID:n nimen perusteella.
 	 *
 	 * @param nimi Tavaran nimi
 	 * @return Tavaran ID
@@ -207,7 +207,7 @@ public class DB_AccessObject {
 	}
 
 	/**
-	 * Etsi tavara nimen perusteella.
+	 * Etsii tavaran nimen perusteella.
 	 *
 	 * @param nimi Tavaran nimi
 	 * @return palauttaa tavaran kaikki tietueet nimen perusteella.(palauttaa null, jos tavara ei löyty.)
@@ -245,7 +245,7 @@ public class DB_AccessObject {
 	}
 
 	/**
-	 * Lisaa tavaralle hyllypaikka.
+	 * Lisaa tavaralle hyllypaikka tietokantaan.
 	 *
 	 * @param hyllypaikka varaston hyllypaikat
 	 * @param id tavaran ID
@@ -272,7 +272,7 @@ public class DB_AccessObject {
 	}
 
 	/**
-	 * Lisaa tavara varastoon
+	 * Lisaa tietokantaan tuotteelle oikean varaston.
 	 *
 	 * @param maara Tavaran maara
 	 * @param id Tavaran ID
@@ -342,7 +342,7 @@ public class DB_AccessObject {
 	}
 
 	/**
-	 * Paivita tavaran tiedot
+	 * Paivittaa tavaran tiedot tietokantaan.
 	 *
 	 * @param products tavaran tietue
 	 * @return Return error, jos tavaran lisaaminen epäonnistuu.
@@ -389,7 +389,7 @@ public class DB_AccessObject {
 
 
 	/**
-	 * Tavaran tiedot postaminen.
+	 * Poistaa tavaran tietokannasta.
 	 *
 	 * @param id Tavaran ID
 	 * @return Palauta booleana, onko poistaminen onnistunut.
@@ -417,7 +417,7 @@ public class DB_AccessObject {
 	}
 
 	/**
-	 * Poista tuote Hyllypaikka, varasto ja tuote tietokannasta.
+	 * Poistaa kaiken tietokannasta.
 	 */
 
 	public void dropTuotteet(){

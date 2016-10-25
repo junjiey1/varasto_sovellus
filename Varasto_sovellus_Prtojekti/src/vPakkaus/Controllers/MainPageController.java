@@ -57,5 +57,6 @@ public class MainPageController implements SetMainController{
 	public void setMainController(MainController m) {
 		// TODO Auto-generated method stub
 		mc = m;
+		currentUserLbl.setText("Current user : " + m.getName());
 	}
 }

@@ -118,9 +118,9 @@ public class addProductController implements SetMainController {
 		productTextFiles.clear();
 	}
 	/**
-	 * Lisaa tiedosto oleva tavarat tiedot.
+	 * Lisaa tiedostoissa olevat tavarat tietokantaan.
 	 *
-	 * @throws FileNotFoundException Jos lisaaminen epaonnistuu.
+	 * @throws FileNotFoundException Jos tiedosto ei löydy.
 	 */
 	public void addAllFromFile() throws FileNotFoundException {
 		for (String s : productTextFiles) {
@@ -137,6 +137,7 @@ public class addProductController implements SetMainController {
 	 */
 	@FXML
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
+		System.out.println("in");
 		hm = new HashMap<String, String>();
 		Dragboard db = event.getDragboard();
 

@@ -53,6 +53,12 @@ public class MainPageController implements SetMainController{
 		MainLaunch.windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}
 
+	public void whManagement(){
+		
+	}
+	
+	
+	
 	@Override
 	public void setMainController(MainController m) {
 		// TODO Auto-generated method stub

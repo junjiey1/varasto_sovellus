@@ -17,23 +17,13 @@ import vPakkaus.Product;
 
 /**
  *
- *Kontrolleri tavaran lisaamiselle.
+ * Kontrolleri tavaran lisaamiselle.
  *
  */
 public class addProductController implements SetMainController {
 
 	@FXML
-	private TextField productName;
-	@FXML
-	private TextField quantity;
-	@FXML
-	private TextField price;
-	@FXML
-	private TextField weight;
-	@FXML
-	private TextField volume;
-	@FXML
-	private TextField whLocation;
+	private TextField productName, quantity, price, weight, volume, whLocation, length, width, height;
 	@FXML
 	private ListView<String> productList;
 
@@ -54,10 +44,12 @@ public class addProductController implements SetMainController {
 	public void setMainController(MainController m) {
 		mc = m;
 	}
+
 	/**
 	 * Tavara lisaaminen manuaalisesti
 	 *
-	 * @throws IOException Jos lisaaminen epaonnistunut
+	 * @throws IOException
+	 *             Jos lisaaminen epaonnistunut
 	 */
 	public void AddProductManually() throws IOException {
 		product_error = true;
@@ -91,8 +83,9 @@ public class addProductController implements SetMainController {
 
 			if (!product_error) {
 				product_error_handler();
-			}else
-				JOptionPane.showMessageDialog(null, "uusi tuote lisättiin onnistuneesti", "Lisäys onnistui", JOptionPane.INFORMATION_MESSAGE);
+			} else
+				JOptionPane.showMessageDialog(null, "uusi tuote lisättiin onnistuneesti", "Lisäys onnistui",
+						JOptionPane.INFORMATION_MESSAGE);
 		} else {
 			System.out.println("joku kenttä on tyhjä tai väärin täytetty");
 		}
@@ -111,16 +104,19 @@ public class addProductController implements SetMainController {
 	public void removeProduct() {
 		productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
 	}
+
 	/**
 	 * Poista kaikki teksti tiedostot
 	 */
 	public void removeAllProducts() {
 		productTextFiles.clear();
 	}
+
 	/**
 	 * Lisaa tiedostoissa olevat tavarat tietokantaan.
 	 *
-	 * @throws FileNotFoundException Jos tiedosto ei löydy.
+	 * @throws FileNotFoundException
+	 *             Jos tiedosto ei löydy.
 	 */
 	public void addAllFromFile() throws FileNotFoundException {
 		for (String s : productTextFiles) {
@@ -132,8 +128,10 @@ public class addProductController implements SetMainController {
 	 *
 	 * Kuuntelee, onko tiedostoja siirtamassa automaattinen lisays taulukkoon.
 	 *
-	 * @param event Kuuntelija
-	 * @throws FileNotFoundException Jos tiedosto ei loydy
+	 * @param event
+	 *            Kuuntelija
+	 * @throws FileNotFoundException
+	 *             Jos tiedosto ei loydy
 	 */
 	@FXML
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
@@ -179,8 +177,10 @@ public class addProductController implements SetMainController {
 	/**
 	 * Lukee kaikki teksti tiedot tiedostosta.
 	 *
-	 * @param name Tiedosto nimi
-	 * @throws FileNotFoundException ilmoittaa error, jos on epaonnistunut.
+	 * @param name
+	 *            Tiedosto nimi
+	 * @throws FileNotFoundException
+	 *             ilmoittaa error, jos on epaonnistunut.
 	 */
 	public void readFromFile(String name) throws FileNotFoundException {
 		product_error = true;

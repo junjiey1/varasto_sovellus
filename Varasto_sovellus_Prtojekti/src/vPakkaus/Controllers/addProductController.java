@@ -211,6 +211,10 @@ public class addProductController implements SetMainController {
 		}
 		input.close();
 	}
+	
+	public void clearAll(){
+		
+	}
 
 	public void product_error_handler() {
 		JOptionPane.showMessageDialog(null, "Error occured while adding product, please check product information.");

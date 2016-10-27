@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MainPageController">
    <children>
-      <TabPane minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="100.0" tabMinHeight="25.0" tabMinWidth="100.0">
+      <TabPane minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="100.0" tabMinHeight="25.0" tabMinWidth="124.0">
         <tabs>
           <Tab text="MAIN">
                <content>
@@ -22,7 +22,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button layoutX="22.0" layoutY="217.0" mnemonicParsing="false" onAction="#logOut" prefHeight="35.0" prefWidth="79.0" text="LOG OUT" />
+                        <Button layoutX="22.0" layoutY="107.0" mnemonicParsing="false" onAction="#logOut" prefHeight="28.0" prefWidth="96.0" text="LOG OUT" />
                         <ImageView fitHeight="318.0" fitWidth="388.0" layoutX="299.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/wh.jpg" />
@@ -38,12 +38,13 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
+                        <Button layoutX="22.0" layoutY="228.0" mnemonicParsing="false" onAction="#whManagement" prefHeight="28.0" text="WAREHOUSE MANAGEMENT" />
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
           <Tab fx:id="addProductTab" onSelectionChanged="#tabChoose" text="ADD PRODUCT" />
-            <Tab fx:id="tab3" onSelectionChanged="#tabChoose" text="Search" />
+            <Tab fx:id="tab3" onSelectionChanged="#tabChoose" text="SEARCH" />
             <Tab fx:id="tab4" onSelectionChanged="#tabChoose" text="TAB4" />
             <Tab fx:id="tab5" onSelectionChanged="#tabChoose" text="TAB5" />
         </tabs>

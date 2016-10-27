@@ -137,7 +137,6 @@ public class addProductController implements SetMainController {
 	 */
 	@FXML
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
-		System.out.println("in");
 		hm = new HashMap<String, String>();
 		Dragboard db = event.getDragboard();
 

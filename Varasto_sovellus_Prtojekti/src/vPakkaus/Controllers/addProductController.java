@@ -74,7 +74,8 @@ public class addProductController implements SetMainController {
 			int lisaajan_id = mc.getID();
 
 			Product product = new Product(productName.getText(), whLocation.getText(),
-					Double.parseDouble(weight.getText()), Double.parseDouble(volume.getText()),
+					Double.parseDouble(weight.getText()), Double.parseDouble(width.getText()),
+					Double.parseDouble(height.getText()), Double.parseDouble(length.getText()),
 					Float.parseFloat(price.getText()), Integer.parseInt(quantity.getText()));
 
 			product_error = mc.AddProduct(product.getProduct_name(), product.getProduct_weight(),
@@ -211,9 +212,9 @@ public class addProductController implements SetMainController {
 		}
 		input.close();
 	}
-	
+
 	public void clearAll(){
-		
+
 	}
 
 	public void product_error_handler() {

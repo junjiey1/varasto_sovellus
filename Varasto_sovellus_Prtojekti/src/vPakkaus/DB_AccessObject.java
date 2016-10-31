@@ -239,7 +239,7 @@ public class DB_AccessObject {
 		Product product = null;
 
 		try {
-			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus, varasto.maara FROM tuote, hyllypaikka, varasto WHERE tuote.nimi = ? AND tuote.tuoteID = hyllypaikka.tuoteID AND varasto.tuoteID = tuote.tuoteID");
+			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus FROM tuote WHERE tuote.nimi = ?");
 
 			// Asetetaan argumentit sql-kyselyyn
 			ps.setString(1, nimi);
@@ -251,12 +251,14 @@ public class DB_AccessObject {
 				String name = rs.getString("nimi");
 				String hyllypaikka = rs.getString("tunnus");
 				double paino = rs.getDouble("paino");
-				double tilavuus = rs.getDouble("tilavuus");
+				double pituus = rs.getDouble("pituus");
+				double leveys = rs.getDouble("leveys");
+				double syvyys = rs.getDouble("syvyys");
 				float hinta = rs.getFloat("hinta");
 				int maara = rs.getInt("maara");
-				System.out.println(name+ " "+ hyllypaikka+ " "+ paino+ " "+ tilavuus+ " "+ hinta + " " +maara);
+				System.out.println(name+ " "+ hyllypaikka+ " "+ paino+ " "+ pituus+ " "+ hinta + " " +maara);
 
-				product = new Product(name, hyllypaikka, paino, tilavuus, hinta, maara);
+				product = new Product(name, hyllypaikka, paino, syvyys,pituus,leveys, hinta, maara);
 				product.setID(id);
 			}
 

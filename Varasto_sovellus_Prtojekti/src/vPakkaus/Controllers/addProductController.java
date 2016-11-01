@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
@@ -23,9 +24,12 @@ import vPakkaus.Product;
 public class addProductController implements SetMainController {
 
 	@FXML
-	private TextField productName, quantity, price, weight, volume, whLocation, length, width, height;
+	private TextField productName, quantity, price, weight, volume, whLocation, length, width, height, minTempT, maxTempT;
 	@FXML
 	private ListView<String> productList;
+    @FXML
+    private Label minTempL, maxTempL;
+
 
 	private MainController mc;
 	boolean allGood, product_error;
@@ -203,7 +207,7 @@ public class addProductController implements SetMainController {
 				pPrice = Float.parseFloat(oneRowOfData[6]);
 				pQuantity = Integer.parseInt(oneRowOfData[7]);
 
-				product_error = mc.AddProduct(pName, pWeight, pLength, pWidth, pHeight, pShelf, pPrice, pQuantity);
+//				product_error = mc.AddProduct(pName, pWeight, pLength, pWidth, pHeight, pShelf, pPrice, pQuantity);
 				if (!product_error) {
 					product_error_handler();
 					break;
@@ -213,6 +217,20 @@ public class addProductController implements SetMainController {
 			}
 		}
 		input.close();
+	}
+	
+	public void showTemperatures(){
+		if (minTempL.isVisible()){
+			minTempL.setVisible(false);
+			maxTempL.setVisible(false);
+			minTempT.setVisible(false);
+			maxTempT.setVisible(false);
+		}else{
+			minTempL.setVisible(true);
+			maxTempL.setVisible(true);
+			minTempT.setVisible(true);
+			maxTempT.setVisible(true);
+		}
 	}
 
 	public void clearAll(){

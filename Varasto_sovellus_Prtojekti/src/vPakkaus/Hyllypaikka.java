@@ -1,23 +1,38 @@
 package vPakkaus;
 
 public class Hyllypaikka {
-	public Hyllypaikka(double pituus, double leveys, double syvyys, int maara, int tuotteenID){
+	public Hyllypaikka(String nimi){
+		this.nimi=nimi;
+	}
+
+	public Hyllypaikka(String nimi, double pituus, double leveys, double syvyys, double lampotila){
 		this.pituus = pituus;
 		this.leveys = leveys;
 		this.syvyys = syvyys;
-		this.maara = maara;
-		this.tuoteID = tuotteenID;
+		this.lämpötila = lampotila;
+		this.nimi = nimi;
 	}
 
-	private int tuoteID;
+	private String nimi;
 
-	public int getTuoteID() {
-		return tuoteID;
+	public String getNimi() {
+		return nimi;
 	}
 
-	public void setTuoteID(int tuoteID) {
-		this.tuoteID = tuoteID;
+	public void setNimi(String nimi) {
+		this.nimi = nimi;
 	}
+
+	private double lämpötila;
+
+	public double getLämpötila() {
+		return lämpötila;
+	}
+
+	public void setLämpötila(double lämpötila) {
+		this.lämpötila = lämpötila;
+	}
+
 
 	private double pituus;
 	public double getPituus() {
@@ -44,15 +59,6 @@ public class Hyllypaikka {
 		this.syvyys = syvyys;
 	}
 
-	public int getMaara() {
-		return maara;
-	}
-
-	public void setMaara(int maara) {
-		this.maara = maara;
-	}
-
 	private double leveys;
 	private double syvyys;
-	private int maara;
 }

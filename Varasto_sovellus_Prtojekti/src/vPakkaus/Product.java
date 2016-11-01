@@ -9,10 +9,10 @@ import java.sql.Date;
  */
 public class Product {
 
-	private String product_name, product_location;
+	private String product_name;
 	private Double product_weight, product_volume, product_length, product_height, product_width;
 	private float product_price;
-	private int ID, maara;
+	private int ID;
 
 	/**
 	 * Tavaran konstruktori,missä on kaikki tavaran liittyvät tiedot.
@@ -30,22 +30,10 @@ public class Product {
 	 * @param maara
 	 *            Tavaran maara
 	 */
-	public Product(String product_name, String product_location, Double product_weight, Double product_volume,
-			float product_price, int maara) {
 
+	public Product(String product_name, Double product_weight, Double product_width,
+	Double product_height, Double product_length,float product_price){
 		this.product_name = product_name;
-		this.product_location = product_location;
-		this.product_weight = product_weight;
-		this.product_volume = product_volume;
-		this.product_price = product_price;
-		ID = 0;
-		this.maara = maara;
-	}
-
-	public Product(String product_name, String product_location, Double product_weight, Double product_width,
-	Double product_height, Double product_length,float product_price, int maara){
-		this.product_name = product_name;
-		this.product_location = product_location;
 		this.product_weight = product_weight;
 		this.product_volume = product_height * product_length * product_width;
 		this.product_price = product_price;
@@ -53,7 +41,6 @@ public class Product {
 		this.product_width = product_width;
 		this.product_length = product_length;
 		ID = 0;
-		this.maara = maara;
 	}
 
 	public Double getProduct_length() {
@@ -99,24 +86,7 @@ public class Product {
 		this.product_name = product_name;
 	}
 
-	/**
-	 * Getteri tavaran sijainnille
-	 *
-	 * @return Tavaran sijainti
-	 */
-	public String getProduct_location() {
-		return product_location;
-	}
 
-	/**
-	 * setteri tavaran sijainnille
-	 *
-	 * @param product_location
-	 *            Tavaran sijainti
-	 */
-	public void setProduct_location(String product_location) {
-		this.product_location = product_location;
-	}
 
 	/**
 	 * Getteri tavaran painolle
@@ -201,9 +171,6 @@ public class Product {
 	 *
 	 * @return Tavaran maara
 	 */
-	public int getMaara() {
-		return maara;
-	}
 
 	/**
 	 * Setteri tavaran maaralle.
@@ -211,18 +178,15 @@ public class Product {
 	 * @param maara
 	 *            Tavaran maara
 	 */
-	public void setMaara(int maara) {
-		this.maara = maara;
-	}
 
 	/**
 	 * Palauttaa kaikki tiedot String muodoksi.
 	 */
 	@Override
 	public String toString() {
-		return "Product [product_name=" + product_name + ", product_location=" + product_location + ", product_weight="
+		return "Product [product_name=" + product_name + ", product_location=" + ", product_weight="
 				+ product_weight + ", product_volume=" + product_volume + ", product_price=" + product_price + ", ID="
-				+ ID + ", maara=" + maara + "]";
+				+ ID + ", maara=" + "]";
 	}
 
 }

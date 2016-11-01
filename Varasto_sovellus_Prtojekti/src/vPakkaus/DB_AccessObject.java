@@ -119,7 +119,7 @@ public class DB_AccessObject {
 	public boolean Lisaa(String nimi, double paino,double width, double height, double length, String hyllypaikka, float hinta, int maara) {
 
 		Hyllypaikka h = HaeHylly("a-1");
-		System.out.println(h.getTuoteID());
+		System.out.println(h.getPituus());
 		ArrayList<Boolean> errors = new ArrayList(); //virheet kerätään listaan, false = ei virhettä
 		Integer id = null;
 		Product product = findProduct(nimi); //tarkistetaan löytyykö tuotetta jo samalla nimellä
@@ -211,16 +211,16 @@ public class DB_AccessObject {
 	public Hyllypaikka HaeHylly(String tunnus){
 		Hyllypaikka hyl = null;
 		try {
-			ps = conn.prepareStatement("select hyllypaikka.pituus, hyllypaikka.leveys, hyllypaikka.syvyys, tuoterivi.maara, tuoterivi.tuoteID from hyllypaikka, tuoterivi where hyllypaikka.tunnus=? and tuoterivi.hyllypaikka=hyllypaikka.tunnus;");
+			ps = conn.prepareStatement("select hyllypaikka.nimi , hyllypaikka.pituus, hyllypaikka.leveys, hyllypaikka.syvyys, hyllypaikka.lampotila from hyllypaikka where hyllypaikka.tunnus=?");
 			ps.setString(1, tunnus);
 			rs = ps.executeQuery();
 			while(rs.next()){
+				String nimi = rs.getString("nimi");
 				double leveys = rs.getDouble("leveys");
 				double pituus = rs.getDouble("pituus");
 				double syvyys = rs.getDouble("syvyys");
-				int maara = rs.getInt("maara");
-				int tuoteID = rs.getInt("tuoteID");
-				hyl = new Hyllypaikka(pituus, leveys, syvyys, maara, tuoteID);
+				double lampotila = rs.getDouble("lampotila");
+				hyl = new Hyllypaikka(nimi, pituus, leveys, syvyys, lampotila);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

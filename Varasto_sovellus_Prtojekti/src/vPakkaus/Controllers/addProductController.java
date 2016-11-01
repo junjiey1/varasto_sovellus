@@ -73,14 +73,16 @@ public class addProductController implements SetMainController {
 
 			int lisaajan_id = mc.getID();
 
-			Product product = new Product(productName.getText(), whLocation.getText(),
-					Double.parseDouble(weight.getText()), Double.parseDouble(width.getText()),
-					Double.parseDouble(height.getText()), Double.parseDouble(length.getText()),
-					Float.parseFloat(price.getText()), Integer.parseInt(quantity.getText()));
+//			Product product = new Product(productName.getText(), whLocation.getText(),
+//					Double.parseDouble(weight.getText()), Double.parseDouble(width.getText()),
+//					Double.parseDouble(height.getText()), Double.parseDouble(length.getText()),
+//					Float.parseFloat(price.getText()), Integer.parseInt(quantity.getText()));
 
-			product_error = mc.AddProduct(product.getProduct_name(), product.getProduct_weight(),
-					product.getProduct_width(), product.getProduct_height(), product.getProduct_length(), product.getProduct_location(), product.getProduct_price(),
-					Integer.parseInt(quantity.getText()));
+			product_error = mc.AddProduct(productName.getText(),
+				Double.parseDouble(weight.getText()), Double.parseDouble(width.getText()),
+				Double.parseDouble(height.getText()), Double.parseDouble(length.getText()),
+				whLocation.getText(), Float.parseFloat(price.getText()), Integer.parseInt(quantity.getText())
+			);
 
 			if (!product_error) {
 				product_error_handler();

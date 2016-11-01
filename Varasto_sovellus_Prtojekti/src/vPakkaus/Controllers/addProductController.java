@@ -230,6 +230,7 @@ public class addProductController implements SetMainController {
 			maxTempL.setVisible(true);
 			minTempT.setVisible(true);
 			maxTempT.setVisible(true);
+			
 		}
 	}
 

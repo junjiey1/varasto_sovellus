@@ -118,6 +118,8 @@ public class DB_AccessObject {
 	 */
 	public boolean Lisaa(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
 
+		Hyllypaikka h = HaeHylly("a-1");
+		System.out.println(h.getTuoteID());
 		ArrayList<Boolean> errors = new ArrayList(); //virheet kerätään listaan, false = ei virhettä
 		Integer id = null;
 		Product product = findProduct(nimi); //tarkistetaan löytyykö tuotetta jo samalla nimellä
@@ -157,7 +159,6 @@ public class DB_AccessObject {
 	public boolean addProductToDB(String nimi, float hinta, double paino, double tilavuus) {
 
 		boolean error = true;
-
 		try {
 			ps = conn.prepareStatement("INSERT INTO tuote(nimi, hinta, paino, tilavuus)" + "VALUES (?,?,?,?);");
 			//haetaan tuotteen id tietokannasta
@@ -177,6 +178,7 @@ public class DB_AccessObject {
 		}
 		return error;
 	}
+
 
 	/**
 	 *Hakee tavaran ID:n nimen perusteella.
@@ -206,6 +208,27 @@ public class DB_AccessObject {
 		return id;
 	}
 
+	public Hyllypaikka HaeHylly(String tunnus){
+		Hyllypaikka hyl = null;
+		try {
+			ps = conn.prepareStatement("select hyllypaikka.pituus, hyllypaikka.leveys, hyllypaikka.syvyys, tuoterivi.maara, tuoterivi.tuoteID from hyllypaikka, tuoterivi where hyllypaikka.tunnus=? and tuoterivi.hyllypaikka=hyllypaikka.tunnus;");
+			ps.setString(1, tunnus);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				double leveys = rs.getDouble("leveys");
+				double pituus = rs.getDouble("pituus");
+				double syvyys = rs.getDouble("syvyys");
+				int maara = rs.getInt("maara");
+				int tuoteID = rs.getInt("tuoteID");
+				hyl = new Hyllypaikka(pituus, leveys, syvyys, maara, tuoteID);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return hyl;
+	}
+
 	/**
 	 * Etsii tavaran nimen perusteella.
 	 *
@@ -216,7 +239,7 @@ public class DB_AccessObject {
 		Product product = null;
 
 		try {
-			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus, varasto.maara FROM tuote, hyllypaikka, varasto WHERE tuote.nimi = ? AND tuote.tuoteID = hyllypaikka.tuoteID AND varasto.tuoteID = tuote.tuoteID");
+			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.tilavuus FROM tuote WHERE tuote.nimi = ?");
 
 			// Asetetaan argumentit sql-kyselyyn
 			ps.setString(1, nimi);
@@ -228,12 +251,14 @@ public class DB_AccessObject {
 				String name = rs.getString("nimi");
 				String hyllypaikka = rs.getString("tunnus");
 				double paino = rs.getDouble("paino");
-				double tilavuus = rs.getDouble("tilavuus");
+				double pituus = rs.getDouble("pituus");
+				double leveys = rs.getDouble("leveys");
+				double syvyys = rs.getDouble("syvyys");
 				float hinta = rs.getFloat("hinta");
 				int maara = rs.getInt("maara");
-				System.out.println(name+ " "+ hyllypaikka+ " "+ paino+ " "+ tilavuus+ " "+ hinta + " " +maara);
+				System.out.println(name+ " "+ hyllypaikka+ " "+ paino+ " "+ pituus+ " "+ hinta + " " +maara);
 
-				product = new Product(name, hyllypaikka, paino, tilavuus, hinta, maara);
+				product = new Product(name, hyllypaikka, paino, syvyys,pituus,leveys, hinta, maara);
 				product.setID(id);
 			}
 

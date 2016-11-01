@@ -133,7 +133,7 @@ public class MainController {
 	 */
 
 	public void LogOut() {
-		System.out.println("logged out. Deleting saved user information...");
+		System.out.println("logged  out. Deleting saved user information...");
 		UserID = -1;
 		username = "undefined";
 	}

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
@@ -23,9 +24,12 @@ import vPakkaus.Product;
 public class addProductController implements SetMainController {
 
 	@FXML
-	private TextField productName, quantity, price, weight, volume, whLocation, length, width, height;
+	private TextField productName, quantity, price, weight, volume, whLocation, length, width, height, minTempT, maxTempT;
 	@FXML
 	private ListView<String> productList;
+    @FXML
+    private Label minTempL, maxTempL;
+
 
 	private MainController mc;
 	boolean allGood, product_error;
@@ -36,7 +40,7 @@ public class addProductController implements SetMainController {
 	Scanner input;
 	String[] oneRowOfData;
 	String path, pName, pShelf, clientName, clientAddress, fileName;
-	double pWeight, pVolume ,pLength, pWidth, pHeight;
+	double pWeight, pVolume, pLength, pWidth, pHeight;
 	int pQuantity;
 	float pPrice;
 	private HashMap<String, String> hm;
@@ -196,14 +200,14 @@ public class addProductController implements SetMainController {
 				clientName = oneRowOfData[0];
 				clientAddress = oneRowOfData[1];
 			} else {
-				 pName = oneRowOfData[0];
-				 pWeight = Double.parseDouble(oneRowOfData[1]);
-				 pLength = Double.parseDouble(oneRowOfData[2]);
-				 pWidth = Double.parseDouble(oneRowOfData[3]);
-				 pHeight = Double.parseDouble(oneRowOfData[4]);
-				 pShelf = oneRowOfData[5];
-				 pPrice = Float.parseFloat(oneRowOfData[6]);
-				 pQuantity = Integer.parseInt(oneRowOfData[7]);
+				pName = oneRowOfData[0];
+				pWeight = Double.parseDouble(oneRowOfData[1]);
+				pLength = Double.parseDouble(oneRowOfData[2]);
+				pWidth = Double.parseDouble(oneRowOfData[3]);
+				pHeight = Double.parseDouble(oneRowOfData[4]);
+				pShelf = oneRowOfData[5];
+				pPrice = Float.parseFloat(oneRowOfData[6]);
+				pQuantity = Integer.parseInt(oneRowOfData[7]);
 
 				product_error = mc.AddProduct(pName, pWeight, pWidth, pHeight, pLength, pShelf, pPrice, pQuantity);
 				if (!product_error) {
@@ -215,6 +219,21 @@ public class addProductController implements SetMainController {
 			}
 		}
 		input.close();
+	}
+	
+	public void showTemperatures(){
+		if (minTempL.isVisible()){
+			minTempL.setVisible(false);
+			maxTempL.setVisible(false);
+			minTempT.setVisible(false);
+			maxTempT.setVisible(false);
+		}else{
+			minTempL.setVisible(true);
+			maxTempL.setVisible(true);
+			minTempT.setVisible(true);
+			maxTempT.setVisible(true);
+			
+		}
 	}
 
 	public void clearAll(){

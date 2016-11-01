@@ -54,8 +54,8 @@ public class MainController {
 	 * @param maara Tavaran maara
 	 * @return Palauta booleana, onko lisaaminen onnistunut.
 	 */
-	public boolean AddProduct(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
-		boolean res = db.Lisaa(nimi, paino, tilavuus, hyllypaikka, hinta, maara);
+	public boolean AddProduct(String nimi, double paino, double width, double height, double length, String hyllypaikka, float hinta, int maara) {
+		boolean res = db.Lisaa(nimi, paino, width, height, length, hyllypaikka, hinta, maara);
 		return res;
 	}
 

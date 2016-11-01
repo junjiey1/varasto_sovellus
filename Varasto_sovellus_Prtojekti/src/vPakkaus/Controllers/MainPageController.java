@@ -2,11 +2,15 @@ package vPakkaus.Controllers;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import vPakkaus.MainLaunch;
 
 public class MainPageController implements SetMainController{
+
 
 	@FXML
 	private Tab addProductTab;
@@ -19,9 +23,16 @@ public class MainPageController implements SetMainController{
 	@FXML
 	private Label currentUserLbl;
 
+	private Stage newStage;
+	private FXMLLoader loader;
+	private AnchorPane APLayout;
 	private MainController mc;
-	Tab activeTab;
-	String resource;
+	private Tab activeTab;
+	private String resource;
+
+	public MainPageController(){
+
+	}
 
 
 	public void tabChoose() throws IOException {
@@ -54,11 +65,11 @@ public class MainPageController implements SetMainController{
 	}
 
 	public void whManagement(){
-		
+
 	}
-	
-	
-	
+
+
+
 	@Override
 	public void setMainController(MainController m) {
 		// TODO Auto-generated method stub

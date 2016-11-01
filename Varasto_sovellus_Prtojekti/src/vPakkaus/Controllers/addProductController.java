@@ -83,7 +83,7 @@ public class addProductController implements SetMainController {
 					Float.parseFloat(price.getText()), Integer.parseInt(quantity.getText()));
 
 			product_error = mc.AddProduct(product.getProduct_name(), product.getProduct_weight(),
-					product.getProduct_volume(), product.getProduct_location(), product.getProduct_price(),
+					product.getProduct_width(), product.getProduct_height(), product.getProduct_length(), product.getProduct_location(), product.getProduct_price(),
 					Integer.parseInt(quantity.getText()));
 
 			if (!product_error) {
@@ -207,7 +207,7 @@ public class addProductController implements SetMainController {
 				pPrice = Float.parseFloat(oneRowOfData[6]);
 				pQuantity = Integer.parseInt(oneRowOfData[7]);
 
-//				product_error = mc.AddProduct(pName, pWeight, pLength, pWidth, pHeight, pShelf, pPrice, pQuantity);
+				product_error = mc.AddProduct(pName, pWeight, pWidth, pHeight, pLength, pShelf, pPrice, pQuantity);
 				if (!product_error) {
 					product_error_handler();
 					break;

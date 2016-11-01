@@ -220,7 +220,7 @@ public class addProductController implements SetMainController {
 		}
 		input.close();
 	}
-	
+
 	public void showTemperatures(){
 		if (minTempL.isVisible()){
 			minTempL.setVisible(false);
@@ -232,7 +232,7 @@ public class addProductController implements SetMainController {
 			maxTempL.setVisible(true);
 			minTempT.setVisible(true);
 			maxTempT.setVisible(true);
-			
+
 		}
 	}
 

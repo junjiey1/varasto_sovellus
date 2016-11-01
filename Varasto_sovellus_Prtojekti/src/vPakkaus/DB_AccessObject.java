@@ -116,7 +116,7 @@ public class DB_AccessObject {
 	 * @param maara Tavaran maara (int)
 	 * @return Onnistuuko tavaran lisaaminen (boolean)
 	 */
-	public boolean Lisaa(String nimi, double paino, double tilavuus, String hyllypaikka, float hinta, int maara) {
+	public boolean Lisaa(String nimi, double paino,double width, double height, double length, String hyllypaikka, float hinta, int maara) {
 
 		Hyllypaikka h = HaeHylly("a-1");
 		System.out.println(h.getTuoteID());
@@ -126,7 +126,7 @@ public class DB_AccessObject {
 
 		if (product == null) { //!löytyy tarkoittaa että tuotetta ei löydy ja voidaan lisätä uusi
 
-			errors.add(addProductToDB(nimi, hinta, paino, tilavuus)); // lisätään tuote tuotetaulukkoon
+			//errors.add(addProductToDB(nimi, hinta, paino, tilavuus)); // lisätään tuote tuotetaulukkoon
 			id = getProductID(nimi);
 			System.out.println("id = "+id);
 

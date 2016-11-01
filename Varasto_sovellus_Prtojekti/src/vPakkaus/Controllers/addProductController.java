@@ -36,7 +36,7 @@ public class addProductController implements SetMainController {
 	Scanner input;
 	String[] oneRowOfData;
 	String path, pName, pShelf, clientName, clientAddress, fileName;
-	double pWeight, pVolume;
+	double pWeight, pVolume ,pLength, pWidth, pHeight;
 	int pQuantity;
 	float pPrice;
 	private HashMap<String, String> hm;
@@ -194,14 +194,16 @@ public class addProductController implements SetMainController {
 				clientName = oneRowOfData[0];
 				clientAddress = oneRowOfData[1];
 			} else {
-				pName = oneRowOfData[0];
-				pWeight = Double.parseDouble(oneRowOfData[1]);
-				pVolume = Double.parseDouble(oneRowOfData[2]);
-				pShelf = oneRowOfData[3];
-				pPrice = Float.parseFloat(oneRowOfData[4]);
-				pQuantity = Integer.parseInt(oneRowOfData[5]);
+				 pName = oneRowOfData[0];
+				 pWeight = Double.parseDouble(oneRowOfData[1]);
+				 pLength = Double.parseDouble(oneRowOfData[2]);
+				 pWidth = Double.parseDouble(oneRowOfData[3]);
+				 pHeight = Double.parseDouble(oneRowOfData[4]);
+				 pShelf = oneRowOfData[5];
+				 pPrice = Float.parseFloat(oneRowOfData[6]);
+				 pQuantity = Integer.parseInt(oneRowOfData[7]);
 
-				product_error = mc.AddProduct(pName, pWeight, pVolume, pShelf, pPrice, pQuantity);
+				product_error = mc.AddProduct(pName, pWeight, pWidth, pHeight, pLength, pShelf, pPrice, pQuantity);
 				if (!product_error) {
 					product_error_handler();
 					break;

@@ -252,6 +252,17 @@ public class addProductController implements SetMainController {
 	}
 
 	public void clearAll(){
+		productName.setText(""); 
+		quantity.setText("");
+		price.setText(""); 
+		weight.setText("");  
+		volume.setText("");  
+		whLocation.setText(""); 
+		length.setText(""); 
+		width.setText(""); 
+		height.setText(""); 
+		minTempT.setText("");  
+		maxTempT.setText(""); 
 	}
 
 	public void product_error_handler() {

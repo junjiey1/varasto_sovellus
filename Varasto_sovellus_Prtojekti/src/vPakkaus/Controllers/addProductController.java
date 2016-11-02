@@ -14,7 +14,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
+import vPakkaus.Tuotejoukko;
 
 /**
  *
@@ -42,8 +44,13 @@ public class addProductController implements SetMainController {
 	String path, pName, pShelf, clientName, clientAddress, fileName;
 	double pWeight, pVolume, pLength, pWidth, pHeight;
 	int pQuantity;
+	Integer pMinTemp, pMaxTemp;
 	float pPrice;
 	private HashMap<String, String> hm;
+
+	public addProductController(){
+		pMinTemp=pMaxTemp=null;
+	}
 
 	public void setMainController(MainController m) {
 		mc = m;
@@ -65,10 +72,21 @@ public class addProductController implements SetMainController {
 		}
 
 		try {
-			Integer.parseInt(quantity.getText());
-			Double.parseDouble(volume.getText());
-			Double.parseDouble(weight.getText());
-			Float.parseFloat(price.getText());
+			pName = productName.getText();
+			pWeight = Double.parseDouble(weight.getText());
+			pWidth = Double.parseDouble(width.getText());
+			pHeight = Double.parseDouble(height.getText());
+			pQuantity = Integer.parseInt(quantity.getText());
+			pPrice = Float.parseFloat(price.getText());
+			pShelf = whLocation.getText();
+			if(minTempT.getText().equals("") || maxTempT.getText().equals("")){
+				//jompikumpi lämpötila tyhjä ei hyväksytä
+				pMinTemp=pMaxTemp=null;
+			}else{
+				pMinTemp = Integer.parseInt(minTempT.getText());
+				pMaxTemp = Integer.parseInt(maxTempT.getText());
+			}
+
 		} catch (NumberFormatException ex) {
 			allGood = false;
 		}
@@ -76,18 +94,8 @@ public class addProductController implements SetMainController {
 		if (allGood) {
 
 			int lisaajan_id = mc.getID();
-
-//			Product product = new Product(productName.getText(), whLocation.getText(),
-//					Double.parseDouble(weight.getText()), Double.parseDouble(width.getText()),
-//					Double.parseDouble(height.getText()), Double.parseDouble(length.getText()),
-//					Float.parseFloat(price.getText()), Integer.parseInt(quantity.getText()));
-
-			product_error = mc.AddProduct(productName.getText(),
-				Double.parseDouble(weight.getText()), Double.parseDouble(width.getText()),
-				Double.parseDouble(height.getText()), Double.parseDouble(length.getText()),
-				whLocation.getText(), Float.parseFloat(price.getText()), Integer.parseInt(quantity.getText())
-			);
-
+			Tuotejoukko joukko = rakennaTuotejoukko();
+			product_error = mc.AddProduct(joukko);
 			if (!product_error) {
 				product_error_handler();
 			} else
@@ -97,13 +105,6 @@ public class addProductController implements SetMainController {
 			System.out.println("joku kenttä on tyhjä tai väärin täytetty");
 		}
 	}
-
-	// public boolean addNewProduct(Product product){
-	// Lisaa(product.getProduct_name(), product.getProduct_weight(),
-	// product.getProduct_volume(), product.getProduct_location(),
-	// product.getProduct_price());
-	//
-	// }
 
 	/**
 	 * Poista valittu teksti tiedosto.
@@ -208,8 +209,9 @@ public class addProductController implements SetMainController {
 				pShelf = oneRowOfData[5];
 				pPrice = Float.parseFloat(oneRowOfData[6]);
 				pQuantity = Integer.parseInt(oneRowOfData[7]);
-
-				product_error = mc.AddProduct(pName, pWeight, pWidth, pHeight, pLength, pShelf, pPrice, pQuantity);
+				pMinTemp = Integer.parseInt(oneRowOfData[8]);
+				pMaxTemp = Integer.parseInt(oneRowOfData[9]);
+				product_error = mc.AddProduct(rakennaTuotejoukko());
 				if (!product_error) {
 					product_error_handler();
 					break;
@@ -232,12 +234,24 @@ public class addProductController implements SetMainController {
 			maxTempL.setVisible(true);
 			minTempT.setVisible(true);
 			maxTempT.setVisible(true);
-
 		}
 	}
 
-	public void clearAll(){
+	public Tuotejoukko rakennaTuotejoukko(){
+		Product product = new Product(pName, pWeight,
+			pWidth, pHeight,
+			pLength, pPrice
+		);
+		if(pMinTemp!=null && pMaxTemp!=null){
+			product.setMin_temperature(pMinTemp);
+			product.setMax_temperature(pMaxTemp);
+			pMinTemp=pMaxTemp=null;
+		}
+		Hyllypaikka hylly = new Hyllypaikka(pShelf);
+		return new Tuotejoukko(product, hylly, pQuantity);
+	}
 
+	public void clearAll(){
 	}
 
 	public void product_error_handler() {

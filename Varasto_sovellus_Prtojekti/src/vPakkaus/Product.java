@@ -10,7 +10,8 @@ import java.sql.Date;
 public class Product {
 
 	private String product_name;
-	private Double product_weight, product_volume, product_length, product_height, product_width, min_temperature, max_temperature;
+	private Integer min_temperature, max_temperature;
+	private Double product_weight, product_volume, product_length, product_height, product_width;
 	private float product_price;
 	private int ID;
 
@@ -187,24 +188,24 @@ public class Product {
 	 */
 	@Override
 	public String toString() {
-		return "Product [product_name=" + product_name + ", product_location=" + ", product_weight="
+		return "Product [product_name=" + product_name + ", product_weight="
 				+ product_weight + ", product_volume=" + product_volume + ", product_price=" + product_price + ", ID="
-				+ ID + ", maara=" + "]";
+				+ ID + ", MinTemp=" + min_temperature + ", max_temperature=" +  max_temperature +"]";
 	}
 
-	public Double getMin_temperature() {
+	public Integer getMin_temperature() {
 		return min_temperature;
 	}
 
-	public void setMin_temperature(Double min_temperature) {
+	public void setMin_temperature(Integer min_temperature) {
 		this.min_temperature = min_temperature;
 	}
 
-	public Double getMax_temperature() {
+	public Integer getMax_temperature() {
 		return max_temperature;
 	}
 
-	public void setMax_temperature(Double max_temperature) {
+	public void setMax_temperature(Integer max_temperature) {
 		this.max_temperature = max_temperature;
 	}
 

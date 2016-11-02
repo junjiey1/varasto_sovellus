@@ -3,6 +3,7 @@ package vPakkaus.Controllers;
 import java.util.ArrayList;
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
+import vPakkaus.Tuotejoukko;
 
 /**
  * Ohjelman pääkontrolleri. Vastaa tiedon välityksestä Näytön ja mallin välillä
@@ -54,8 +55,9 @@ public class MainController {
 	 * @param maara Tavaran maara
 	 * @return Palauta booleana, onko lisaaminen onnistunut.
 	 */
-	public boolean AddProduct(String nimi, double paino, double width, double height, double length, String hyllypaikka, float hinta, int maara) {
-		boolean res = db.Lisaa(nimi, paino, width, height, length, hyllypaikka, hinta, maara);
+	public boolean AddProduct(Tuotejoukko joukko) {
+		System.out.println(joukko.getProduct().toString());
+		boolean res = db.Lisaa(joukko);
 		return res;
 	}
 

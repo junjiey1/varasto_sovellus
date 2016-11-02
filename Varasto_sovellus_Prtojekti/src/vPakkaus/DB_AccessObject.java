@@ -128,9 +128,7 @@ public class DB_AccessObject {
 	 *            Tavaran maara (int)
 	 * @return Onnistuuko tavaran lisaaminen (boolean)
 	 */
-	public boolean Lisaa(String nimi, double paino, double width, double height, double length, String hyllypaikka,
-			float hinta, int maara) {
-
+	public boolean Lisaa(Tuotejoukko joukko) {
 		// virheet kerätään	listaan, false = ei virhettä
 		ArrayList<Boolean> onkoVirheitä = new ArrayList();
 

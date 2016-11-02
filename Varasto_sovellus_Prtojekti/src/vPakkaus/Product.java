@@ -10,7 +10,7 @@ import java.sql.Date;
 public class Product {
 
 	private String product_name;
-	private Double product_weight, product_volume, product_length, product_height, product_width;
+	private Double product_weight, product_volume, product_length, product_height, product_width, min_temperature, max_temperature;
 	private float product_price;
 	private int ID;
 
@@ -41,7 +41,10 @@ public class Product {
 		this.product_width = product_width;
 		this.product_length = product_length;
 		ID = 0;
+		min_temperature = null;
+		max_temperature = null;
 	}
+
 
 	public Double getProduct_length() {
 		return product_length;
@@ -187,6 +190,22 @@ public class Product {
 		return "Product [product_name=" + product_name + ", product_location=" + ", product_weight="
 				+ product_weight + ", product_volume=" + product_volume + ", product_price=" + product_price + ", ID="
 				+ ID + ", maara=" + "]";
+	}
+
+	public Double getMin_temperature() {
+		return min_temperature;
+	}
+
+	public void setMin_temperature(Double min_temperature) {
+		this.min_temperature = min_temperature;
+	}
+
+	public Double getMax_temperature() {
+		return max_temperature;
+	}
+
+	public void setMax_temperature(Double max_temperature) {
+		this.max_temperature = max_temperature;
 	}
 
 }

@@ -1,19 +1,25 @@
 package vPakkaus;
 
 public class Hyllypaikka {
+
 	public Hyllypaikka(String nimi){
 		this.nimi=nimi;
 	}
 
-	public Hyllypaikka(String nimi, double pituus, double leveys, double syvyys, double lampotila){
+	public Hyllypaikka(String nimi, double pituus, double leveys, double syvyys, double lampotila, double max_paino){
 		this.pituus = pituus;
 		this.leveys = leveys;
 		this.syvyys = syvyys;
 		this.lämpötila = lampotila;
 		this.nimi = nimi;
+		this.max_paino = max_paino;
 	}
 
 	private String nimi;
+	private double leveys;
+	private double syvyys;
+	private double max_paino;
+	private double lämpötila;
 
 	public String getNimi() {
 		return nimi;
@@ -22,8 +28,6 @@ public class Hyllypaikka {
 	public void setNimi(String nimi) {
 		this.nimi = nimi;
 	}
-
-	private double lämpötila;
 
 	public double getLämpötila() {
 		return lämpötila;
@@ -59,6 +63,11 @@ public class Hyllypaikka {
 		this.syvyys = syvyys;
 	}
 
-	private double leveys;
-	private double syvyys;
+	public double getMax_paino() {
+		return max_paino;
+	}
+
+	public void setMax_paino(double max_paino) {
+		this.max_paino = max_paino;
+	}
 }

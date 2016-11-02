@@ -130,7 +130,6 @@ public class DB_AccessObject {
 	 */
 	public boolean Lisaa(Tuotejoukko joukko) {
 
-		// virheet kerätään listaan, false = ei virhettä
 		ArrayList<Boolean> onkoVirheitä = new ArrayList();
 
 		// tarkistetaan löytyykö tuotetta jo samalla nimellä
@@ -367,8 +366,8 @@ public class DB_AccessObject {
 					// tietokanta rivi
 
 					while (rs.next()) {
-						double lampotila_max = rs.getDouble("lampotila_max");
-						double lampotila_min = rs.getDouble("lampotila_min");
+						int lampotila_max = rs.getInt("lampotila_max");
+						int lampotila_min = rs.getInt("lampotila_min");
 
 						product.setMax_temperature(lampotila_max);
 						product.setMin_temperature(lampotila_min);

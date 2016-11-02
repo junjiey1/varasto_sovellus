@@ -66,8 +66,8 @@ public class DataBase_tests {
 	System.out.println("\nTest : Lisaa_Tuote_tableen_lampotilojen_kanssa\n");
 	Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
 	product.setID(537);
-	product.setMax_temperature(10.0);
-	product.setMin_temperature(-12.0);
+	product.setMax_temperature(10);
+	product.setMin_temperature(-12);
 	boolean result = db.addProductToTuoteTable(product);
 	assertEquals("Lisaaminen tuotetauluun", result, true);
 	}

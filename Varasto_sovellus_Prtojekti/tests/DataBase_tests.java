@@ -9,7 +9,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import vPakkaus.DB_AccessObject;
+import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
+import vPakkaus.Tuotejoukko;
 
 public class DataBase_tests {
 
@@ -50,10 +52,84 @@ public class DataBase_tests {
 		int result = db.LogIn("testi", "testi")[0];
 		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!", result, 1);
 	}
-	
+
 //	@Test
-//	public void Hae_tavaran_ID() {
-//		db.getProductID(nimi)
+//	public void Lisaa_Tuote_tableen() {
+//	System.out.println("\nTest : Lisaa_Tuote_tableen\n");
+//	Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
+//	boolean result = db.addProductToTuoteTable(product);
+//	assertEquals("Lisaaminen tuotetauluun", result, true);
+//	}
+
+	@Test
+	public void Lisaa_Tuote_tableen_lampotilojen_kanssa() {
+	System.out.println("\nTest : Lisaa_Tuote_tableen_lampotilojen_kanssa\n");
+	Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
+	product.setID(537);
+	product.setMax_temperature(10.0);
+	product.setMin_temperature(-12.0);
+	boolean result = db.addProductToTuoteTable(product);
+	assertEquals("Lisaaminen tuotetauluun", result, true);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//	@Test
+//	public void Lisaa_tuote() {
+//		System.out.println("\nTest : Lisaa_Tuote\n");
+//		Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
+//		Hyllypaikka hyllypaikka = new Hyllypaikka("a-15");
+//		int maara = 5;
+//		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, maara);
+//		boolean result = db.Lisaa(joukko);
+//		assertEquals("Tavaran lisaaminen onnistui!", result, false);
 //	}
 
 //	@Test

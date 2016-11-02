@@ -7,7 +7,7 @@ import java.sql.Date;
  * Luokka vastaa tavaran konstruktori seka getteri ja setteri tavaran tiedolle.
  *
  */
-public class Product {
+public class Product implements DAO_Objekti{
 
 	private String product_name;
 	private Integer min_temperature, max_temperature;

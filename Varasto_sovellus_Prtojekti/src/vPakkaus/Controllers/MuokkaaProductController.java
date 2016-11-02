@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import vPakkaus.DAO_Objekti;
 import vPakkaus.Product;
 
 /**

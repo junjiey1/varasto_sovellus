@@ -16,9 +16,9 @@ public class Product_Test {
 	}
 
 	@Before
-	public void nollaus(){
-		pro = new Product("Testi", "AA", 3.45, 2.4,2f, 1);
-	}
+//	public void nollaus(){
+//		pro = new Product("Testi", "AA", 3.45, 2.4,2f, 1);
+//	}
 
 	@Test
 	public void test_Get_JA_Set_Name() {

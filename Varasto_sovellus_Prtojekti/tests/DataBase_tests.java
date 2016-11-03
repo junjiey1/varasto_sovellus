@@ -61,15 +61,26 @@ public class DataBase_tests {
 //	assertEquals("Lisaaminen tuotetauluun", result, true);
 //	}
 
+//	@Test
+//	public void Lisaa_Tuote_tableen_lampotilojen_kanssa() {
+//	System.out.println("\nTest : Lisaa_Tuote_tableen_lampotilojen_kanssa\n");
+//	Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
+//	product.setID(537);
+//	product.setMax_temperature(10);
+//	product.setMin_temperature(-12);
+//	boolean result = db.addProductToTuoteTable(product);
+//	assertEquals("Lisaaminen tuotetauluun", result, true);
+//	}
+
 	@Test
-	public void Lisaa_Tuote_tableen_lampotilojen_kanssa() {
-	System.out.println("\nTest : Lisaa_Tuote_tableen_lampotilojen_kanssa\n");
-	Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
-	product.setID(537);
-	product.setMax_temperature(10);
-	product.setMin_temperature(-12);
-	boolean result = db.addProductToTuoteTable(product);
-	assertEquals("Lisaaminen tuotetauluun", result, true);
+	public void Lisaa_tuote() {
+		System.out.println("\nTest : Lisaa_Tuote\n");
+		Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
+		Hyllypaikka hyllypaikka = new Hyllypaikka("a-1");
+		int maara = 5;
+		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, maara);
+		boolean result = db.Lisaa(joukko);
+		assertEquals("Tavaran lisaaminen onnistui!", result, true);
 	}
 
 
@@ -120,17 +131,6 @@ public class DataBase_tests {
 
 
 
-
-//	@Test
-//	public void Lisaa_tuote() {
-//		System.out.println("\nTest : Lisaa_Tuote\n");
-//		Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
-//		Hyllypaikka hyllypaikka = new Hyllypaikka("a-15");
-//		int maara = 5;
-//		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, maara);
-//		boolean result = db.Lisaa(joukko);
-//		assertEquals("Tavaran lisaaminen onnistui!", result, false);
-//	}
 
 //	@Test
 //	public void Etsi_Tavara() {

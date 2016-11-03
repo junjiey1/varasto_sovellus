@@ -132,27 +132,47 @@ public class DB_AccessObject {
 
 		ArrayList<Boolean> onkoVirheitä = new ArrayList();
 
-		// tarkistetaan löytyykö tuotetta jo samalla nimellä
-		Product product = findProduct(joukko.getProduct().getProduct_name());
-
-		if (product == null) {
-			addProductToTuoteTable(joukko.getProduct());
-		}
+		// Haetaan hyllypaikka
+		Hyllypaikka hyllypaikka = HaeHylly(joukko.getHylly().getNimi());
 
 		// Haetaan hyllypaikan tuotteet
-		ArrayList<Integer> TuoteIDt = HaeHyllypaikanTuotteet(joukko.getHylly().getNimi());
+		ArrayList<String> Hyllyn_tuotteet = HaeHyllypaikanTuotteet(joukko.getHylly().getNimi());
 
-		// Tarkistetaan löytyykö tuotetta jo hyllypaikasta
-		// jo ei löydy lisätään se hyllypaikkaan
-		if (!TuoteIDt.contains(product.getID())) {
+		// Jos hyllypaikkaa ei ole olemassa
+		if (hyllypaikka == null) {
+			System.out.println("hyllypaikkaa ei ole olemassa");
+			onkoVirheitä.add(true);
+			// Jos tuotetta on jo hyllypaikassa
+		} else if (Hyllyn_tuotteet.contains(joukko.getProduct().getProduct_name())) {
 
-			// int id = getProductID(joukko.getProduct().getProduct_name());
-			// System.out.println("id = " + id);
+			System.out.println("Tuotetta on jo hyllyssä");
 
+			Tuotejoukko joukko_hyllyssä = GetTuotejoukko(joukko.getProduct().getProduct_name(),
+					joukko.getHylly().getNimi());
+			int uusimaara = joukko.getMaara() + joukko_hyllyssä.getMaara();
+			joukko.setMaara(uusimaara);
+			MuokkaaTuoteriviä(joukko);
+
+			System.out.println("Tuotteet lisätty hyllyyn");
+			return true;
+
+			// Muuten
+		} else {
+
+			Product product = findProduct(joukko.getProduct().getProduct_name());
+
+			// Jos kyseistä tuotetta ei ole vielä olemassa ollenkaan
+			if (product == null) {
+				addProductToTuoteTable(joukko.getProduct());
+			}
+
+			product = findProduct(joukko.getProduct().getProduct_name());
+			// joukolle täytyy asettaa tuote ID, joka haetaan productille
+			// yläpuolella.
+			joukko.getProduct().setID(product.getID());
 			addProductToTuoteriviTable(joukko);
 
-		} else {
-			System.out.println("jahas");
+			return true;
 		}
 		return false;
 	}
@@ -227,16 +247,50 @@ public class DB_AccessObject {
 		return true;
 	}
 
+	public ArrayList<Tuotejoukko> haeHyllynTuotejoukot(String hyllynimi) {
+
+		ArrayList<Tuotejoukko> tj = new ArrayList();
+		ArrayList<String> nimet = new ArrayList();
+		ArrayList<Integer> määrät = new ArrayList();
+
+		try {
+			ps = conn.prepareStatement(
+					"SELECT tuote.nimi, tuoterivi.maara FROM tuote, tuoterivi WHERE tuote.tuoteID = tuoterivi.tuoteID AND tuoterivi.hyllypaikka = ?;");
+
+			// Asetetaan argumentit sql-kyselyyn
+			ps.setString(1, hyllynimi);
+			rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
+			// tietokanta rivi
+
+			while (rs.next()) {
+				int maara = rs.getInt("maara");
+				String nimi = rs.getString("nimi");
+				nimet.add(nimi);
+				määrät.add(maara);
+			}
+
+			for (int i = 0; i < nimet.size(); i++) {
+				Tuotejoukko tuotejoukko = new Tuotejoukko(findProduct(nimet.get(i)), HaeHylly(hyllynimi),
+						määrät.get(i));
+				tj.add(tuotejoukko);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tj;
+	}
+
 	public boolean addProductToTuoteriviTable(Tuotejoukko joukko) {
 
 		boolean onkoVirheitä = false;
 
 		try {
-			ps = conn.prepareStatement("INSERT INTO lampotila(tuoteID, hyllypaikka, maara)" + "VALUES (?,?,?);");
+			ps = conn.prepareStatement("INSERT INTO tuoterivi(tuoteID, hyllypaikka, maara)" + "VALUES (?,?,?);");
 
 			ps.setInt(1, joukko.getProduct().getID());
 			ps.setString(2, joukko.getHylly().getNimi());
-			ps.setDouble(3, joukko.getMaara());
+			ps.setInt(3, joukko.getMaara());
 
 			ps.executeUpdate();
 			ps.close();
@@ -259,40 +313,40 @@ public class DB_AccessObject {
 	// * @return Tavaran ID
 	// */
 	//
-	public int getProductID(String nimi) {
-		Integer id = null;
-
-		try {
-			ps = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?");
-
-			// Asetetaan argumentit sql-kyselyyn
-			ps.setString(1, nimi);
-			rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
-			// tietokanta rivi
-
-			while (rs.next()) {
-				id = rs.getInt("tuoteID");
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return id;
-	}
+	// public int getProductID(String nimi) {
+	// Integer id = null;
+	//
+	// try {
+	// ps = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?");
+	//
+	// // Asetetaan argumentit sql-kyselyyn
+	// ps.setString(1, nimi);
+	// rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
+	// // tietokanta rivi
+	//
+	// while (rs.next()) {
+	// id = rs.getInt("tuoteID");
+	// }
+	//
+	// } catch (SQLException e) {
+	// e.printStackTrace();
+	// }
+	// return id;
+	// }
 
 	//
 	public Hyllypaikka HaeHylly(String tunnus) {
 		Hyllypaikka hyl = null;
 		try {
 			ps = conn.prepareStatement(
-					"select hyllypaikka.tunnus , hyllypaikka.pituus, hyllypaikka.leveys, hyllypaikka.syvyys, hyllypaikka.lampotila from hyllypaikka where hyllypaikka.tunnus=?");
+					"select hyllypaikka.tunnus , hyllypaikka.pituus, hyllypaikka.leveys, hyllypaikka.korkeus, hyllypaikka.lampotila, hyllypaikka.maksimi_paino from hyllypaikka where hyllypaikka.tunnus=?;");
 			ps.setString(1, tunnus);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				String nimi = rs.getString("tunnus");
 				double leveys = rs.getDouble("leveys");
 				double pituus = rs.getDouble("pituus");
-				double syvyys = rs.getDouble("syvyys");
+				double syvyys = rs.getDouble("korkeus");
 				double lampotila = rs.getDouble("lampotila");
 				double max_paino = rs.getDouble("maksimi_paino");
 				hyl = new Hyllypaikka(nimi, pituus, leveys, syvyys, lampotila, max_paino);
@@ -304,17 +358,17 @@ public class DB_AccessObject {
 		return hyl;
 	}
 
-	public ArrayList<Integer> HaeHyllypaikanTuotteet(String hyllypaikka) {
-		ArrayList<Integer> HP_Tuotteet = new ArrayList();
+	public ArrayList<String> HaeHyllypaikanTuotteet(String hyllypaikka) {
+		ArrayList<String> HP_Tuotteet = new ArrayList();
 		try {
 			ps = conn.prepareStatement(
-					"SELECT tuoterivi.tuoteID from hyllypaikka, tuoterivi WHERE tuoterivi.hyllypaikka = hyllypaikka.tunnus AND tunnus = ?;");
+					"Select tuote.nimi from tuote, tuoterivi WHERE tuoterivi.tuoteID = tuote.tuoteID AND tuoterivi.hyllypaikka = ?;");
 			ps.setString(1, hyllypaikka);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				int tuoteid = rs.getInt("tuoteID");
+				String nimi = rs.getString("nimi");
 
-				HP_Tuotteet.add(tuoteid);
+				HP_Tuotteet.add(nimi);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -380,6 +434,51 @@ public class DB_AccessObject {
 		}
 
 		return product;
+	}
+
+	public Tuotejoukko GetTuotejoukko(String nimi, String hyllypaikka) {
+
+		Tuotejoukko tuotejoukko = null;
+		try {
+			ps = conn.prepareStatement(
+					"Select tuoterivi.maara FROM tuoterivi, tuote WHERE tuoterivi.tuoteID = tuote.tuoteID AND tuote.nimi = ? and  tuoterivi.hyllypaikka = ?;");
+			ps.setString(1, nimi);
+			ps.setString(2, hyllypaikka);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				int maara = rs.getInt("maara");
+				Product product = findProduct(nimi);
+				Hyllypaikka hp = HaeHylly(hyllypaikka);
+				tuotejoukko = new Tuotejoukko(product, hp, maara);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return tuotejoukko;
+
+	}
+
+	public boolean MuokkaaTuoteriviä(Tuotejoukko tuotejoukko) {
+		boolean error = false;
+
+		try {
+			ps = conn.prepareStatement(
+					"UPDATE tuote, tuoterivi SET tuoterivi.maara = ?  WHERE tuote.tuoteID = tuoterivi.tuoteID AND tuote.nimi = ? AND tuoterivi.hyllypaikka = ?;");
+
+			ps.setInt(1, tuotejoukko.getMaara());
+			ps.setString(2, tuotejoukko.getProduct().getProduct_name());
+			ps.setString(3, tuotejoukko.getHylly().getNimi());
+
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			error = true;
+		}
+
+		return error;
 	}
 
 	//

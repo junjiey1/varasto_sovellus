@@ -177,7 +177,7 @@ public class DB_AccessObject {
 				if (product == null) {
 					addProductToTuoteTable(joukko.getProduct());
 					joukko.getProduct().setID(findProduct(joukko.getProduct().getProduct_name()).getID());
-					if (joukko.getProduct().getTemp())
+					if (joukko.getProduct().getMax_temperature() != null && joukko.getProduct().getMin_temperature() != null)
 						addTemperatures(joukko.getProduct());
 				} else {
 					product = findProduct(joukko.getProduct().getProduct_name());
@@ -247,8 +247,14 @@ public class DB_AccessObject {
 	public boolean MahtuukoTuotteetHyllyyn(Tuotejoukko joukko) {
 		boolean mahtuuko = true;
 
-		Double hyllyn_tilavuus = joukko.getHylly().getKorkeus() * joukko.getHylly().getLeveys()
-				* joukko.getHylly().getPituus();
+
+		Hyllypaikka hylly = HaeHylly(joukko.getHylly().getNimi());
+		//Kesken eräinen tsekkaus ettei yhden tuotteen mitat ole hyllyn mittoja suurempi
+//		ArrayList<Double> hyllynmitat = new ArrayList();
+//		hyllynmitat.add(hylly.getKorkeus());
+//		hyllynmitat.add(hylly.getLeveys());
+//		hyllynmitat.add(hylly.getPituus());
+		Double hyllyn_tilavuus = hylly.getKorkeus()*hylly.getLeveys()*hylly.getPituus();
 		Double vaadittu_tilavuus = joukko.getMaara() * joukko.getProduct().getProduct_volume();
 		Double käytetty_tilavuus = 0.0;
 
@@ -266,6 +272,7 @@ public class DB_AccessObject {
 				+ " käytetty_tilavuus =" + käytetty_tilavuus);
 		System.out.println("hyllyn_max_paino =" + hyllyn_max_paino + " vaadittu_paino =" + vaadittu_paino
 				+ " käytetty_paino =" + käytetty_paino);
+
 		if ((hyllyn_tilavuus - käytetty_tilavuus) > vaadittu_tilavuus
 				&& (hyllyn_max_paino - käytetty_paino) > vaadittu_paino) {
 			return mahtuuko;

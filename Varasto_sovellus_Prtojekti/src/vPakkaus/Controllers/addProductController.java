@@ -245,6 +245,7 @@ public class addProductController implements SetMainController {
 		if(pMinTemp!=null && pMaxTemp!=null){
 			product.setMin_temperature(pMinTemp);
 			product.setMax_temperature(pMaxTemp);
+			product.setTemp(true);
 			pMinTemp=pMaxTemp=null;
 		}
 		Hyllypaikka hylly = new Hyllypaikka(pShelf);
@@ -252,17 +253,17 @@ public class addProductController implements SetMainController {
 	}
 
 	public void clearAll(){
-		productName.setText(""); 
+		productName.setText("");
 		quantity.setText("");
-		price.setText(""); 
-		weight.setText("");  
-		volume.setText("");  
-		whLocation.setText(""); 
-		length.setText(""); 
-		width.setText(""); 
-		height.setText(""); 
-		minTempT.setText("");  
-		maxTempT.setText(""); 
+		price.setText("");
+		weight.setText("");
+		volume.setText("");
+		whLocation.setText("");
+		length.setText("");
+		width.setText("");
+		height.setText("");
+		minTempT.setText("");
+		maxTempT.setText("");
 	}
 
 	public void product_error_handler() {

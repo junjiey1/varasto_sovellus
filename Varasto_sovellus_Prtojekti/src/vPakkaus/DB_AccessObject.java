@@ -141,7 +141,7 @@ public class DB_AccessObject {
 		// Jos hyllypaikkaa ei ole olemassa
 		if (hyllypaikka == null) {
 			System.out.println("hyllypaikkaa ei ole olemassa");
-			onkoVirheitä.add(true);
+			onkoVirheitä.add(false);
 			// Jos tuotetta on jo hyllypaikassa
 		} else if (Hyllyn_tuotteet.contains(joukko.getProduct().getProduct_name())) {
 
@@ -158,23 +158,47 @@ public class DB_AccessObject {
 
 			// Muuten
 		} else {
-
 			Product product = findProduct(joukko.getProduct().getProduct_name());
-
 			// Jos kyseistä tuotetta ei ole vielä olemassa ollenkaan
 			if (product == null) {
-				addProductToTuoteTable(joukko.getProduct());
+				onkoVirheitä.add(addProductToTuoteTable(joukko.getProduct()));
+				joukko.getProduct().setID(findProduct(joukko.getProduct().getProduct_name()).getID());
+				if(joukko.getProduct().getTemp())
+					onkoVirheitä.add(addTemperatures(joukko.getProduct()));
+			}else{
+				product = findProduct(joukko.getProduct().getProduct_name());
+				// joukolle täytyy asettaa tuote ID, joka haetaan productille
+				// yläpuolella.
+				joukko.getProduct().setID(product.getID());
 			}
-
-			product = findProduct(joukko.getProduct().getProduct_name());
-			// joukolle täytyy asettaa tuote ID, joka haetaan productille
-			// yläpuolella.
-			joukko.getProduct().setID(product.getID());
-			addProductToTuoteriviTable(joukko);
-
-			return true;
+			onkoVirheitä.add(addProductToTuoteriviTable(joukko));
 		}
-		return false;
+		if(onkoVirheitä.contains(false))
+			return false;
+		return true;
+	}
+
+	public boolean addTemperatures(Product product){
+		//Tarvitaan tuotteen ID jotta voidaan lisätä arvoja Lämpötila taulukkoon
+		System.out.println("ID " + product.getID());
+		try {
+			ps = conn.prepareStatement(
+					"INSERT INTO lampotila(tuoteID, lampotila_max, lampotila_min) VALUES (?,?,?);");
+			// haetaan tuotteen id tietokannasta
+
+			ps.setInt(1, product.getID());
+			ps.setInt(2, product.getMax_temperature());
+			ps.setInt(3, product.getMin_temperature());
+
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("Lisäys epäonnistui lampotilataulukkoon!");
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	//
@@ -190,11 +214,9 @@ public class DB_AccessObject {
 	// * @return jos jotain error tapahtuu lisaamisessa
 	// */
 	public boolean addProductToTuoteTable(Product product) {
-
-		ArrayList<Boolean> onkoVirheitä = new ArrayList();
-
 		int lampotila_boolean = 0;
-
+		if (product.getMax_temperature() != null && product.getMin_temperature() != null)
+			lampotila_boolean = 1;
 		try {
 			ps = conn.prepareStatement(
 					"INSERT INTO tuote(nimi, hinta, paino, pituus, leveys, korkeus, lampotila_boolean)"
@@ -213,35 +235,8 @@ public class DB_AccessObject {
 			ps.close();
 
 		} catch (SQLException e) {
-			onkoVirheitä.add(true);
 			System.out.println("Lisäys epäonnistui tuotetaulukkoon!");
 			e.printStackTrace();
-		}
-
-		if (product.getMax_temperature() != null && product.getMin_temperature() != null) {
-			lampotila_boolean = 1;
-
-			try {
-				ps = conn.prepareStatement(
-						"INSERT INTO lampotila(tuoteID, lampotila_max, lampotila_min)" + "VALUES (?,?,?);");
-				// haetaan tuotteen id tietokannasta
-
-				ps.setInt(1, product.getID());
-				ps.setDouble(2, product.getMax_temperature());
-				ps.setDouble(3, product.getMin_temperature());
-
-				ps.executeUpdate();
-				ps.close();
-
-			} catch (SQLException e) {
-				onkoVirheitä.add(true);
-				System.out.println("Lisäys epäonnistui lampotilataulukkoon!");
-				e.printStackTrace();
-			}
-
-		}
-
-		if (onkoVirheitä.contains(true)) {
 			return false;
 		}
 		return true;
@@ -283,8 +278,6 @@ public class DB_AccessObject {
 
 	public boolean addProductToTuoteriviTable(Tuotejoukko joukko) {
 
-		boolean onkoVirheitä = false;
-
 		try {
 			ps = conn.prepareStatement("INSERT INTO tuoterivi(tuoteID, hyllypaikka, maara)" + "VALUES (?,?,?);");
 
@@ -296,12 +289,11 @@ public class DB_AccessObject {
 			ps.close();
 
 		} catch (SQLException e) {
-			onkoVirheitä = true;
 			System.out.println("Lisäys epäonnistui tuoterivitaulukkoon!");
 			e.printStackTrace();
+			return false;
 		}
-
-		return onkoVirheitä;
+		return true;
 	}
 
 	//
@@ -370,11 +362,34 @@ public class DB_AccessObject {
 
 				HP_Tuotteet.add(nimi);
 			}
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		return HP_Tuotteet;
+	}
+
+	public Product findTemperatures(Product pro){
+		if (pro.getTemp()) {
+			try {
+				ps = conn.prepareStatement("SELECT lampotila_max, lampotila_min FROM lampotila WHERE tuoteID = ?");
+				// Asetetaan argumentit sql-kyselyyn
+				ps.setInt(1, pro.getID());
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					int lampotila_max = rs.getInt("lampotila_max");
+					int lampotila_min = rs.getInt("lampotila_min");
+					pro.setMax_temperature(lampotila_max);
+					pro.setMin_temperature(lampotila_min);
+				}
+				ps.close();
+			} catch (SQLException e) {
+				System.out.println("Ei voitu hakea lämpötilaa!");
+				e.printStackTrace();
+			}
+		}
+		return pro;
 	}
 
 	/**
@@ -387,7 +402,6 @@ public class DB_AccessObject {
 	 */
 	public Product findProduct(String nimi) {
 		Product product = null;
-
 		try {
 			ps = conn.prepareStatement(
 					"SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.pituus, tuote.leveys, tuote.korkeus, tuote.lampotila_boolean FROM tuote WHERE tuote.nimi = ?");
@@ -406,29 +420,12 @@ public class DB_AccessObject {
 				double korkeus = rs.getDouble("korkeus");
 				float hinta = rs.getFloat("hinta");
 				float lampotila_boolean = rs.getFloat("lampotila_boolean");
-
 				product = new Product(name, paino, leveys, korkeus, pituus, hinta);
 				product.setID(id);
-
-				if (lampotila_boolean == 1) {
-
-					ps = conn.prepareStatement("SELECT lampotila_max, lampotila_min FROM lampotila WHERE tuoteID = ?");
-
-					// Asetetaan argumentit sql-kyselyyn
-					ps.setInt(1, id);
-					rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
-					// tietokanta rivi
-
-					while (rs.next()) {
-						int lampotila_max = rs.getInt("lampotila_max");
-						int lampotila_min = rs.getInt("lampotila_min");
-
-						product.setMax_temperature(lampotila_max);
-						product.setMin_temperature(lampotila_min);
-					}
-
-				}
+				if(lampotila_boolean == 1)
+					product.setTemp(true);
 			}
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

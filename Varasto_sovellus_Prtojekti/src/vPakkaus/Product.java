@@ -1,7 +1,5 @@
 package vPakkaus;
 
-import java.sql.Date;
-
 /**
  *
  * Luokka vastaa tavaran konstruktori seka getteri ja setteri tavaran tiedolle.
@@ -14,6 +12,7 @@ public class Product implements DAO_Objekti{
 	private Double product_weight, product_volume, product_length, product_height, product_width;
 	private float product_price;
 	private int ID;
+	private boolean temp;
 
 	/**
 	 * Tavaran konstruktori,missä on kaikki tavaran liittyvät tiedot.
@@ -44,9 +43,16 @@ public class Product implements DAO_Objekti{
 		ID = 0;
 		min_temperature = null;
 		max_temperature = null;
+		temp=false;
 	}
 
 
+	public boolean getTemp() {
+		return temp;
+	}
+	public void setTemp(boolean temp) {
+		this.temp = temp;
+	}
 	public Double getProduct_length() {
 		return product_length;
 	}

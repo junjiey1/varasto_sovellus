@@ -170,7 +170,7 @@ public class DB_AccessObject {
 		} else {
 			// tarkistetaan mahtuuko tuotteet hyllyyn
 			boolean mahtuuko = MahtuukoTuotteetHyllyyn(joukko);
-
+			System.out.println("Mahtuuko " + mahtuuko);
 			if (mahtuuko) {
 				Product product = findProduct(joukko.getProduct().getProduct_name());
 				// Jos kyseistä tuotetta ei ole vielä olemassa ollenkaan
@@ -259,8 +259,8 @@ public class DB_AccessObject {
 		ArrayList<Tuotejoukko> hyllyntuotejoukot = haeHyllynTuotejoukot(joukko.getHylly().getNimi());
 
 		for (Tuotejoukko t : hyllyntuotejoukot) {
-			käytetty_tilavuus = käytetty_tilavuus + t.getMaara() * t.getProduct().getProduct_volume();
-			käytetty_paino = käytetty_paino + t.getMaara() * t.getProduct().getProduct_weight();
+			käytetty_tilavuus += käytetty_tilavuus + t.getMaara() * t.getProduct().getProduct_volume();
+			käytetty_paino += käytetty_paino + t.getMaara() * t.getProduct().getProduct_weight();
 		}
 		System.out.println("hyllyn_tilavuus =" + hyllyn_tilavuus + " vaadittu_tilavuus =" + vaadittu_tilavuus
 				+ " käytetty_tilavuus =" + käytetty_tilavuus);
@@ -288,7 +288,7 @@ public class DB_AccessObject {
 	// * @param tilavuus Tavaran tilavuus
 	// * @return jos jotain error tapahtuu lisaamisessa
 	// */
-	
+
 	public boolean addProductToTuoteTable(Product product) {
 		int lampotila_boolean = 0;
 		if (product.getMax_temperature() != null && product.getMin_temperature() != null)
@@ -612,51 +612,51 @@ public class DB_AccessObject {
 	// return error;
 	// }
 	//
-	// /**
-	// *Hakee useamman tavaran tietueet. Hakuehto on osa tavaran nimestä.
-	// *
-	// * @param nimi Tavaran nimi.
-	// * @return Palauttaa ArrayList, mika sisaltaa product olioita.
-	// */
-	// public ArrayList<Product> findProducts(String nimi) {
-	// ArrayList<Product> products = new ArrayList();
-	// Product product;
+	//	 /**
+	//	 *Hakee useamman tavaran tietueet. Hakuehto on osa tavaran nimestä.
+	//	 *
+	//	 * @param nimi Tavaran nimi.
+	//	 * @return Palauttaa ArrayList, mika sisaltaa product olioita.
+	//	 */
+	//	 public ArrayList<Product> findProducts(String nimi) {
+	//	 ArrayList<Product> products = new ArrayList();
+	//	 Product product;
 	//
-	// try {
-	// nimi = "%"+nimi+"%";
-	// ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi,
-	// tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus,
-	// varasto.maara FROM tuote, hyllypaikka, varasto WHERE tuote.nimi LIKE ?
-	// AND tuote.tuoteID = hyllypaikka.tuoteID AND tuote.tuoteID =
-	// varasto.tuoteID;");
+	//	 try {
+	//	 nimi = "%"+nimi+"%";
+	//	 ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi,"
+	//	 		+ "tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus,"
+	//	 		+ "varasto.maara FROM tuote, hyllypaikka, varasto WHERE tuote.nimi LIKE ?"
+	//	 		+ "AND tuote.tuoteID = hyllypaikka.tuoteID AND tuote.tuoteID ="
+	//	 		+ "varasto.tuoteID;");
 	//
-	// // Asetetaan argumentit sql-kyselyyn
-	// ps.setString(1, nimi);
-	// rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
-	// // tietokanta rivi
+	//	 // Asetetaan argumentit sql-kyselyyn
+	//	 ps.setString(1, nimi);
+	//	 rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
+	//	 // tietokanta rivi
 	//
-	// while (rs.next()) {
+	//	 while (rs.next()) {
 	//
-	// int id = rs.getInt("tuoteID");
-	// String name = rs.getString("nimi");
-	// String hyllypaikka = rs.getString("tunnus");
-	// double paino = rs.getDouble("paino");
-	// double tilavuus = rs.getDouble("tilavuus");
-	// float hinta = rs.getFloat("hinta");
-	// int maara = rs.getInt("maara");
+	//	 int id = rs.getInt("tuoteID");
+	//	 String name = rs.getString("nimi");
+	//	 String hyllypaikka = rs.getString("tunnus");
+	//	 double paino = rs.getDouble("paino");
+	//	 double tilavuus = rs.getDouble("tilavuus");
+	//	 float hinta = rs.getFloat("hinta");
+	//	 int maara = rs.getInt("maara");
 	//
-	// product = new Product(name, hyllypaikka, paino, tilavuus, hinta, maara);
-	// product.setID(id);
-	// products.add(product);
-	// }
+	//	 product = new Product(name, hyllypaikka, paino, tilavuus, hinta, maara);
+	//	 product.setID(id);
+	//	 products.add(product);
+	//	 }
 	//
 	//
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// }
+	//	 } catch (SQLException e) {
+	//	 e.printStackTrace();
+	//	 }
 	//
-	// return products;
-	// }
+	//	 return products;
+	//}
 	//
 	// /**
 	// * Paivittaa tavaran tiedot tietokantaan.

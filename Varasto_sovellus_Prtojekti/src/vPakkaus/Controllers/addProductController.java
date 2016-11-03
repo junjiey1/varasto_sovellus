@@ -79,6 +79,7 @@ public class addProductController implements SetMainController {
 			pQuantity = Integer.parseInt(quantity.getText());
 			pPrice = Float.parseFloat(price.getText());
 			pShelf = whLocation.getText();
+			pLength = Double.parseDouble(length.getText());
 			if(minTempT.getText().equals("") || maxTempT.getText().equals("")){
 				//jompikumpi lämpötila tyhjä ei hyväksytä
 				pMinTemp=pMaxTemp=null;

@@ -35,7 +35,6 @@ public class Product implements DAO_Objekti{
 	Double product_height, Double product_length,float product_price){
 		this.product_name = product_name;
 		this.product_weight = product_weight;
-		this.product_volume = product_height * product_length * product_width;
 		this.product_price = product_price;
 		this.product_height = product_height;
 		this.product_width = product_width;
@@ -44,6 +43,7 @@ public class Product implements DAO_Objekti{
 		min_temperature = null;
 		max_temperature = null;
 		temp=false;
+		this.product_volume = product_height * product_length * product_width;
 	}
 
 
@@ -196,7 +196,7 @@ public class Product implements DAO_Objekti{
 	public String toString() {
 		return "Product [product_name=" + product_name + ", product_weight="
 				+ product_weight + ", product_volume=" + product_volume + ", product_price=" + product_price + ", ID="
-				+ ID + ", MinTemp=" + min_temperature + ", max_temperature=" +  max_temperature +"]";
+				+ ID + ", MinTemp=" + min_temperature + ", max_temperature=" +  max_temperature +", product_length="+product_length+"]";
 	}
 
 	public Integer getMin_temperature() {

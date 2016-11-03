@@ -72,16 +72,37 @@ public class DataBase_tests {
 //	assertEquals("Lisaaminen tuotetauluun", result, true);
 //	}
 
+//	@Test
+//	public void createHyllypaikka() {
+//		System.out.println("\nTest : createHyllypaikka\n");
+//		Hyllypaikka hyllypaikka = new Hyllypaikka("a-3", 100, 100, 100, -5, 2000);
+//		boolean result = db.CreateHyllypaikka(hyllypaikka);
+//		assertEquals("Hyllypaikan luominen onnistui", result, true);
+//	}
+
 	@Test
-	public void Lisaa_tuote() {
-		System.out.println("\nTest : Lisaa_Tuote\n");
-		Product product = new Product("shaisse", 1.0, 2.0, 3.0, 4.0, 5.0f);
-		Hyllypaikka hyllypaikka = new Hyllypaikka("a-1");
-		int maara = 5;
-		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, maara);
-		boolean result = db.Lisaa(joukko);
+	public void MahtuukoTuotteetHyllyyn_test() {
+		System.out.println("\nTest : MahtuukoTuotteetHyllyyn_test\n");
+		Product product = new Product("testi", 1.0, 10.0, 10.0, 10.0, 5.0f);
+		Hyllypaikka hyllypaikka = new Hyllypaikka("a-3", 10, 10, 100, -5, 2000);
+		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, 11);
+		boolean result = db.MahtuukoTuotteetHyllyyn(joukko);
+		assertEquals("Tavaran lisaaminen onnistui!", result, false);
+		Tuotejoukko joukko1 = new Tuotejoukko(product, hyllypaikka, 9);
+		result = db.MahtuukoTuotteetHyllyyn(joukko1);
 		assertEquals("Tavaran lisaaminen onnistui!", result, true);
 	}
+
+//	@Test
+//	public void Lisaa_tuote() {
+//		System.out.println("\nTest : Lisaa_Tuote\n");
+//		Product product = new Product("shaisse", 1.0, 2.0, 3.0, 4.0, 5.0f);
+//		Hyllypaikka hyllypaikka = new Hyllypaikka("a-1");
+//		int maara = 5;
+//		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, maara);
+//		boolean result = db.Lisaa(joukko);
+//		assertEquals("Tavaran lisaaminen onnistui!", result, true);
+//	}
 
 //	@Test
 //	public void hae_hyllyn_tuotejoukot() {

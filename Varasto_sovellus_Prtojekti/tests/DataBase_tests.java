@@ -75,13 +75,22 @@ public class DataBase_tests {
 	@Test
 	public void Lisaa_tuote() {
 		System.out.println("\nTest : Lisaa_Tuote\n");
-		Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
+		Product product = new Product("shaisse", 1.0, 2.0, 3.0, 4.0, 5.0f);
 		Hyllypaikka hyllypaikka = new Hyllypaikka("a-1");
 		int maara = 5;
 		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, maara);
 		boolean result = db.Lisaa(joukko);
 		assertEquals("Tavaran lisaaminen onnistui!", result, true);
 	}
+
+//	@Test
+//	public void hae_hyllyn_tuotejoukot() {
+//	ArrayList <Tuotejoukko> tj = db.haeHyllynTuotejoukot("a-1");
+//	for (Tuotejoukko t : tj) {
+//		System.out.println(t.getProduct().getProduct_name());
+//	}
+//	assertEquals("Tavaran lisaaminen onnistui!", tj, true);
+//	}
 
 
 

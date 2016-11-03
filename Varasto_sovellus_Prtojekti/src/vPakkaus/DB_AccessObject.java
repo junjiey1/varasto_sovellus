@@ -144,11 +144,18 @@ public class DB_AccessObject {
 			onkoVirheitä.add(true);
 			// Jos tuotetta on jo hyllypaikassa
 		} else if (Hyllyn_tuotteet.contains(joukko.getProduct().getProduct_name())) {
+
 			System.out.println("Tuotetta on jo hyllyssä");
-			System.out.println(haeHyllynJäljelläOlevaTilavuus(hyllypaikka.getNimi()));
-			onkoVirheitä.add(LisääTuoterivinNykysaldoon(joukko));
+
+			Tuotejoukko joukko_hyllyssä = GetTuotejoukko(joukko.getProduct().getProduct_name(),
+					joukko.getHylly().getNimi());
+			int uusimaara = joukko.getMaara() + joukko_hyllyssä.getMaara();
+			joukko.setMaara(uusimaara);
+			MuokkaaTuoteriviä(joukko);
+
 			System.out.println("Tuotteet lisätty hyllyyn");
 			return true;
+
 			// Muuten
 		} else {
 
@@ -240,17 +247,17 @@ public class DB_AccessObject {
 		return true;
 	}
 
-	public Double haeHyllynJäljelläOlevaTilavuus(String hyllynimi) {
+	public ArrayList<Tuotejoukko> haeHyllynTuotejoukot(String hyllynimi) {
 
-		boolean onkoVirheitä = false;
-		Double käytettytilavuus = 0.0;
+		ArrayList<Tuotejoukko> tj = new ArrayList();
+		ArrayList<String> nimet = new ArrayList();
+		ArrayList<Integer> määrät = new ArrayList();
 
 		try {
 			ps = conn.prepareStatement(
-					"SELECT tuoterivi.maara, tuote.nimi FROM tuote, tuoterivi WHERE tuote.tuoteID = tuoterivi.tuoteID AND tuoterivi.hyllypaikka = ?;");
+					"SELECT tuote.nimi, tuoterivi.maara FROM tuote, tuoterivi WHERE tuote.tuoteID = tuoterivi.tuoteID AND tuoterivi.hyllypaikka = ?;");
 
 			// Asetetaan argumentit sql-kyselyyn
-			System.out.println(hyllynimi);
 			ps.setString(1, hyllynimi);
 			rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
 			// tietokanta rivi
@@ -258,17 +265,20 @@ public class DB_AccessObject {
 			while (rs.next()) {
 				int maara = rs.getInt("maara");
 				String nimi = rs.getString("nimi");
-				Product pro = findProduct(nimi);
-				System.out.println("kt " + käytettytilavuus + " " + pro.getProduct_name()+" "+maara);
-				käytettytilavuus = käytettytilavuus + pro.getProduct_volume() * maara;
+				nimet.add(nimi);
+				määrät.add(maara);
+			}
+
+			for (int i = 0; i < nimet.size(); i++) {
+				Tuotejoukko tuotejoukko = new Tuotejoukko(findProduct(nimet.get(i)), HaeHylly(hyllynimi),
+						määrät.get(i));
+				tj.add(tuotejoukko);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			onkoVirheitä = true;
-			käytettytilavuus = null;
 		}
-		return käytettytilavuus;
+		return tj;
 	}
 
 	public boolean addProductToTuoteriviTable(Tuotejoukko joukko) {
@@ -303,26 +313,26 @@ public class DB_AccessObject {
 	// * @return Tavaran ID
 	// */
 	//
-	public int getProductID(String nimi) {
-		Integer id = null;
-
-		try {
-			ps = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?");
-
-			// Asetetaan argumentit sql-kyselyyn
-			ps.setString(1, nimi);
-			rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
-			// tietokanta rivi
-
-			while (rs.next()) {
-				id = rs.getInt("tuoteID");
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return id;
-	}
+	// public int getProductID(String nimi) {
+	// Integer id = null;
+	//
+	// try {
+	// ps = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?");
+	//
+	// // Asetetaan argumentit sql-kyselyyn
+	// ps.setString(1, nimi);
+	// rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
+	// // tietokanta rivi
+	//
+	// while (rs.next()) {
+	// id = rs.getInt("tuoteID");
+	// }
+	//
+	// } catch (SQLException e) {
+	// e.printStackTrace();
+	// }
+	// return id;
+	// }
 
 	//
 	public Hyllypaikka HaeHylly(String tunnus) {
@@ -449,17 +459,14 @@ public class DB_AccessObject {
 
 	}
 
-	public boolean LisääTuoterivinNykysaldoon(Tuotejoukko tuotejoukko) {
+	public boolean MuokkaaTuoteriviä(Tuotejoukko tuotejoukko) {
 		boolean error = false;
-		Tuotejoukko valmiiksi_hyllyssä = GetTuotejoukko(tuotejoukko.getProduct().getProduct_name(),
-				tuotejoukko.getHylly().getNimi());
-		int uusi_maara = tuotejoukko.getMaara() + valmiiksi_hyllyssä.getMaara();
 
 		try {
 			ps = conn.prepareStatement(
-					"UPDATE tuote, tuoterivi SET tuoterivi.maara = ? WHERE tuote.tuoteID = tuoterivi.tuoteID AND tuote.nimi = ? AND tuoterivi.hyllypaikka = ?;");
+					"UPDATE tuote, tuoterivi SET tuoterivi.maara = ?  WHERE tuote.tuoteID = tuoterivi.tuoteID AND tuote.nimi = ? AND tuoterivi.hyllypaikka = ?;");
 
-			ps.setInt(1, uusi_maara);
+			ps.setInt(1, tuotejoukko.getMaara());
 			ps.setString(2, tuotejoukko.getProduct().getProduct_name());
 			ps.setString(3, tuotejoukko.getHylly().getNimi());
 

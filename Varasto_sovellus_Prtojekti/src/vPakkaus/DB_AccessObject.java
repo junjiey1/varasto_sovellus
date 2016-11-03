@@ -343,6 +343,7 @@ public class DB_AccessObject {
 				double max_paino = rs.getDouble("maksimi_paino");
 				hyl = new Hyllypaikka(nimi, pituus, leveys, syvyys, lampotila, max_paino);
 			}
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -429,7 +430,6 @@ public class DB_AccessObject {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return product;
 	}
 

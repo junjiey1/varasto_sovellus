@@ -129,7 +129,7 @@ public class DB_AccessObject {
 	 * @return Onnistuuko tavaran lisaaminen (boolean)
 	 */
 	public boolean Lisaa(Tuotejoukko joukko) {
-
+		// Listaan kerätään virheet
 		ArrayList<Boolean> onkoVirheitä = new ArrayList();
 
 		// Haetaan hyllypaikka
@@ -144,46 +144,62 @@ public class DB_AccessObject {
 			onkoVirheitä.add(false);
 			// Jos tuotetta on jo hyllypaikassa
 		} else if (Hyllyn_tuotteet.contains(joukko.getProduct().getProduct_name())) {
-
 			System.out.println("Tuotetta on jo hyllyssä");
 
-			Tuotejoukko joukko_hyllyssä = GetTuotejoukko(joukko.getProduct().getProduct_name(),
-					joukko.getHylly().getNimi());
-			int uusimaara = joukko.getMaara() + joukko_hyllyssä.getMaara();
-			joukko.setMaara(uusimaara);
-			MuokkaaTuoteriviä(joukko);
+			// Tarkistetaan onko hyllyssä tilaa tuotteille
+			boolean mahtuuko = MahtuukoTuotteetHyllyyn(joukko);
+			// jos mahtuu
+			if (mahtuuko) {
 
-			System.out.println("Tuotteet lisätty hyllyyn");
-			return true;
+				// haetaan jo hyllyssä olevien tuotteiden määrä
+				Tuotejoukko joukko_hyllyssä = GetTuotejoukko(joukko.getProduct().getProduct_name(),
+						joukko.getHylly().getNimi());
+				// lisätään uusi määrä vanhaan määrään
+				int uusimaara = joukko.getMaara() + joukko_hyllyssä.getMaara();
+				joukko.setMaara(uusimaara);
+				MuokkaaTuoteriviä(joukko);
+
+				System.out.println("Tuotteet lisätty hyllyyn");
+				return true;
+			} else {
+				System.out.println("Tuotteet eivät mahdu hyllyyn");
+				return false;
+			}
 
 			// Muuten
 		} else {
-			Product product = findProduct(joukko.getProduct().getProduct_name());
-			// Jos kyseistä tuotetta ei ole vielä olemassa ollenkaan
-			if (product == null) {
-				onkoVirheitä.add(addProductToTuoteTable(joukko.getProduct()));
-				joukko.getProduct().setID(findProduct(joukko.getProduct().getProduct_name()).getID());
-				if(joukko.getProduct().getTemp())
-					onkoVirheitä.add(addTemperatures(joukko.getProduct()));
-			}else{
-				product = findProduct(joukko.getProduct().getProduct_name());
-				// joukolle täytyy asettaa tuote ID, joka haetaan productille
-				// yläpuolella.
-				joukko.getProduct().setID(product.getID());
+			// tarkistetaan mahtuuko tuotteet hyllyyn
+			boolean mahtuuko = MahtuukoTuotteetHyllyyn(joukko);
+
+			if (mahtuuko) {
+				Product product = findProduct(joukko.getProduct().getProduct_name());
+				// Jos kyseistä tuotetta ei ole vielä olemassa ollenkaan
+				if (product == null) {
+					addProductToTuoteTable(joukko.getProduct());
+					joukko.getProduct().setID(findProduct(joukko.getProduct().getProduct_name()).getID());
+					if (joukko.getProduct().getTemp())
+						addTemperatures(joukko.getProduct());
+				} else {
+					product = findProduct(joukko.getProduct().getProduct_name());
+					// joukolle täytyy asettaa tuote ID, joka haetaan
+					// productille
+					// yläpuolella.
+					joukko.getProduct().setID(product.getID());
+				}
+				addProductToTuoteriviTable(joukko);
 			}
-			onkoVirheitä.add(addProductToTuoteriviTable(joukko));
 		}
-		if(onkoVirheitä.contains(false))
+		if (onkoVirheitä.contains(false))
 			return false;
 		return true;
 	}
 
-	public boolean addTemperatures(Product product){
-		//Tarvitaan tuotteen ID jotta voidaan lisätä arvoja Lämpötila taulukkoon
+	public boolean addTemperatures(Product product) {
+		// Tarvitaan tuotteen ID jotta voidaan lisätä arvoja Lämpötila
+		// taulukkoon
 		System.out.println("ID " + product.getID());
 		try {
-			ps = conn.prepareStatement(
-					"INSERT INTO lampotila(tuoteID, lampotila_max, lampotila_min) VALUES (?,?,?);");
+			ps = conn.prepareStatement("INSERT INTO lampotila(tuoteID, lampotila_max, lampotila_min) VALUES (?,?,?);");
 			// haetaan tuotteen id tietokannasta
 
 			ps.setInt(1, product.getID());
@@ -201,6 +217,65 @@ public class DB_AccessObject {
 		return true;
 	}
 
+	public boolean CreateHyllypaikka(Hyllypaikka hyllypaikka) {
+		int varastoID = 513;
+
+		try {
+			ps = conn.prepareStatement(
+					"INSERT INTO hyllypaikka(tunnus, pituus, leveys, korkeus, maksimi_paino, lampotila, varastoID) VALUES (?,?,?,?,?,?,?);");
+			// haetaan tuotteen id tietokannasta
+
+			ps.setString(1, hyllypaikka.getNimi());
+			ps.setDouble(2, hyllypaikka.getPituus());
+			ps.setDouble(3, hyllypaikka.getLeveys());
+			ps.setDouble(4, hyllypaikka.getKorkeus());
+			ps.setDouble(5, hyllypaikka.getMax_paino());
+			ps.setDouble(6, hyllypaikka.getLämpötila());
+			ps.setInt(7, varastoID);
+
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("Lisäys epäonnistui hyllypaikkataulukkoon!");
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean MahtuukoTuotteetHyllyyn(Tuotejoukko joukko) {
+		boolean mahtuuko = true;
+
+		Double hyllyn_tilavuus = joukko.getHylly().getKorkeus() * joukko.getHylly().getLeveys()
+				* joukko.getHylly().getPituus();
+		Double vaadittu_tilavuus = joukko.getMaara() * joukko.getProduct().getProduct_volume();
+		Double käytetty_tilavuus = 0.0;
+
+		Double hyllyn_max_paino = HaeHylly(joukko.getHylly().getNimi()).getMax_paino();
+		Double vaadittu_paino = joukko.getMaara() * joukko.getProduct().getProduct_weight();
+		Double käytetty_paino = 0.0;
+
+		ArrayList<Tuotejoukko> hyllyntuotejoukot = haeHyllynTuotejoukot(joukko.getHylly().getNimi());
+
+		for (Tuotejoukko t : hyllyntuotejoukot) {
+			käytetty_tilavuus = käytetty_tilavuus + t.getMaara() * t.getProduct().getProduct_volume();
+			käytetty_paino = käytetty_paino + t.getMaara() * t.getProduct().getProduct_weight();
+		}
+		System.out.println("hyllyn_tilavuus =" + hyllyn_tilavuus + " vaadittu_tilavuus =" + vaadittu_tilavuus
+				+ " käytetty_tilavuus =" + käytetty_tilavuus);
+		System.out.println("hyllyn_max_paino =" + hyllyn_max_paino + " vaadittu_paino =" + vaadittu_paino
+				+ " käytetty_paino =" + käytetty_paino);
+		if ((hyllyn_tilavuus - käytetty_tilavuus) > vaadittu_tilavuus
+				&& (hyllyn_max_paino - käytetty_paino) > vaadittu_paino) {
+			return mahtuuko;
+		} else {
+			mahtuuko = false;
+		}
+		return mahtuuko;
+
+	}
+
 	//
 	//
 	//
@@ -213,6 +288,7 @@ public class DB_AccessObject {
 	// * @param tilavuus Tavaran tilavuus
 	// * @return jos jotain error tapahtuu lisaamisessa
 	// */
+	
 	public boolean addProductToTuoteTable(Product product) {
 		int lampotila_boolean = 0;
 		if (product.getMax_temperature() != null && product.getMin_temperature() != null)
@@ -370,7 +446,7 @@ public class DB_AccessObject {
 		return HP_Tuotteet;
 	}
 
-	public Product findTemperatures(Product pro){
+	public Product findTemperatures(Product pro) {
 		if (pro.getTemp()) {
 			try {
 				ps = conn.prepareStatement("SELECT lampotila_max, lampotila_min FROM lampotila WHERE tuoteID = ?");
@@ -422,7 +498,7 @@ public class DB_AccessObject {
 				float lampotila_boolean = rs.getFloat("lampotila_boolean");
 				product = new Product(name, paino, leveys, korkeus, pituus, hinta);
 				product.setID(id);
-				if(lampotila_boolean == 1)
+				if (lampotila_boolean == 1)
 					product.setTemp(true);
 			}
 			ps.close();

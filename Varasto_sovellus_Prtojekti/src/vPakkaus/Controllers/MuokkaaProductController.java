@@ -37,7 +37,7 @@ public class MuokkaaProductController implements SetMainController {
 	@FXML
 	private TableColumn<Product, Double> volumeCol;
 
-	private MainController mc;
+	private MainController_IF mc;
 	private ArrayList<Product> p;
 	ObservableList<String> productTextFiles = FXCollections.observableArrayList();
 	ObservableList<Product> tuote = FXCollections.observableArrayList();
@@ -130,7 +130,7 @@ public class MuokkaaProductController implements SetMainController {
 	}
 
 	@Override
-	public void setMainController(MainController m) {
+	public void setMainController(MainController_IF m) {
 		mc = m;
 	}
 

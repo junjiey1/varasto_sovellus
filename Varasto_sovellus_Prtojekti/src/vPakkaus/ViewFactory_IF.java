@@ -1,8 +1,6 @@
 package vPakkaus;
-import vPakkaus.Controllers.SetMainController;
+import javafx.scene.Scene;
 
 public interface ViewFactory_IF {
-	public SetMainController annaLogin();
-	public SetMainController annaSearch();
-	public SetMainController annaMain();
+	public Scene annaNakyma(String fxmlTiedostoNimi);
 }

@@ -9,7 +9,7 @@ import vPakkaus.Tuotejoukko;
  * Ohjelman pääkontrolleri. Vastaa tiedon välityksestä Näytön ja mallin välillä
  *
  */
-public class MainController {
+public class MainController implements MainController_IF{
 	private DB_AccessObject db;
 	private int UserID;
 	private String username;
@@ -71,12 +71,14 @@ public class MainController {
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
 		for (Product p : res) {
-			System.out.println(p.getProduct_name() + p.getID());
+			System.out.println(p.getProduct_name() +" "+ p.getID());
+			if(p.getTemp())
+				System.out.println(p.getMin_temperature() + " " + p.getMax_temperature());
 		}
 		if (res == null)
 			return null;
 		// product-olio
-		return res;
+		return null;
 	}
 
 	/**

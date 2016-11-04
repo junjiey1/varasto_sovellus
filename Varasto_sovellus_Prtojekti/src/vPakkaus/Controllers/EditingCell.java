@@ -13,8 +13,7 @@ import vPakkaus.Product;
  * Tämä luokka vastaa tuotteiden taulukon solujen muokkauksesta
  *
  */
-class EditingCell extends TableCell<Product, Object> { // List<? extends Foo>
-														// list
+class EditingCell extends TableCell<Product, Object> {
 
 	private TextField textField;
 	private Product[] PaivitettavatTuotteet;

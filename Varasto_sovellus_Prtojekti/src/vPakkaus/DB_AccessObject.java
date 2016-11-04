@@ -619,51 +619,55 @@ public class DB_AccessObject {
 	// return error;
 	// }
 	//
-	//	 /**
-	//	 *Hakee useamman tavaran tietueet. Hakuehto on osa tavaran nimestä.
-	//	 *
-	//	 * @param nimi Tavaran nimi.
-	//	 * @return Palauttaa ArrayList, mika sisaltaa product olioita.
-	//	 */
-	//	 public ArrayList<Product> findProducts(String nimi) {
-	//	 ArrayList<Product> products = new ArrayList();
-	//	 Product product;
-	//
-	//	 try {
-	//	 nimi = "%"+nimi+"%";
-	//	 ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi,"
-	//	 		+ "tuote.hinta, tuote.paino, tuote.tilavuus, hyllypaikka.tunnus,"
-	//	 		+ "varasto.maara FROM tuote, hyllypaikka, varasto WHERE tuote.nimi LIKE ?"
-	//	 		+ "AND tuote.tuoteID = hyllypaikka.tuoteID AND tuote.tuoteID ="
-	//	 		+ "varasto.tuoteID;");
-	//
-	//	 // Asetetaan argumentit sql-kyselyyn
-	//	 ps.setString(1, nimi);
-	//	 rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
-	//	 // tietokanta rivi
-	//
-	//	 while (rs.next()) {
-	//
-	//	 int id = rs.getInt("tuoteID");
-	//	 String name = rs.getString("nimi");
-	//	 String hyllypaikka = rs.getString("tunnus");
-	//	 double paino = rs.getDouble("paino");
-	//	 double tilavuus = rs.getDouble("tilavuus");
-	//	 float hinta = rs.getFloat("hinta");
-	//	 int maara = rs.getInt("maara");
-	//
-	//	 product = new Product(name, hyllypaikka, paino, tilavuus, hinta, maara);
-	//	 product.setID(id);
-	//	 products.add(product);
-	//	 }
-	//
-	//
-	//	 } catch (SQLException e) {
-	//	 e.printStackTrace();
-	//	 }
-	//
-	//	 return products;
-	//}
+		 /**
+		 *Hakee useamman tavaran tietueet. Hakuehto on osa tavaran nimestä.
+		 *
+		 * @param nimi Tavaran nimi.
+		 * @return Palauttaa ArrayList, mika sisaltaa product olioita.
+		 */
+		 public ArrayList<Product> findProducts(String nimi) {
+		 ArrayList<Product> products = new ArrayList();
+		 Product product;
+
+		 try {
+		 nimi = "%"+nimi+"%";
+		 ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi,"
+		 		+ "tuote.hinta, tuote.paino, tuote.pituus, tuote.leveys, tuote.korkeus, tuote.lampotila_boolean "
+		 		+ "FROM tuote WHERE tuote.nimi LIKE ?");
+		 		//+ "AND tuote.tuoteID = hyllypaikka.tuoteID AND tuote.tuoteID ="
+		 		//+ "varasto.tuoteID;");
+
+		 // Asetetaan argumentit sql-kyselyyn
+		 ps.setString(1, nimi);
+		 rs = ps.executeQuery();
+		 // tietokanta rivi
+
+		 while (rs.next()) {
+			 int id = rs.getInt("tuoteID");
+			 String name = rs.getString("nimi");
+			 double paino = rs.getDouble("paino");
+			 double pituus = rs.getDouble("pituus");
+			 double leveys = rs.getDouble("leveys");
+			 double korkeus = rs.getDouble("korkeus");
+			 float hinta = rs.getFloat("hinta");
+			 product = new Product(name, paino, leveys, korkeus, pituus, hinta);
+			 product.setID(id);
+			 if(rs.getInt("lampotila_boolean")==1){
+				 product.setTemp(true);
+			 }
+	 		products.add(product);
+		 }
+		 rs.close();
+		 ps.close();
+		 for(Product p : products)
+			 if(p.getTemp())
+				 product = findTemperatures(p);
+		 } catch (SQLException e) {
+		 e.printStackTrace();
+		 }
+
+		 return products;
+	}
 	//
 	// /**
 	// * Paivittaa tavaran tiedot tietokantaan.

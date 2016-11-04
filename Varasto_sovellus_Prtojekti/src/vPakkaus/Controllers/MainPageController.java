@@ -8,6 +8,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import vPakkaus.MainLaunch;
+import vPakkaus.ViewFactory_IF;
 
 public class MainPageController implements SetMainController{
 
@@ -24,14 +25,14 @@ public class MainPageController implements SetMainController{
 	private Label currentUserLbl;
 
 	private Stage newStage;
-	private FXMLLoader loader;
-	private AnchorPane APLayout;
-	private MainController mc;
+	//private FXMLLoader loader;
+	//private AnchorPane APLayout;
+	private ViewFactory_IF NayttoTehdas;
+	private MainController_IF mc;
 	private Tab activeTab;
 	private String resource;
 
 	public MainPageController(){
-
 	}
 
 
@@ -71,7 +72,7 @@ public class MainPageController implements SetMainController{
 
 
 	@Override
-	public void setMainController(MainController m) {
+	public void setMainController(MainController_IF m) {
 		// TODO Auto-generated method stub
 		mc = m;
 		currentUserLbl.setText("Current user : " + m.getName());

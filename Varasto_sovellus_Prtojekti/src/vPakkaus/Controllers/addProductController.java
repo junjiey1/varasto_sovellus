@@ -33,7 +33,7 @@ public class addProductController implements SetMainController {
     private Label minTempL, maxTempL;
 
 
-	private MainController mc;
+	private MainController_IF mc;
 	boolean allGood, product_error;
 
 	ObservableList<String> productTextFiles = FXCollections.observableArrayList();
@@ -52,7 +52,7 @@ public class addProductController implements SetMainController {
 		pMinTemp=pMaxTemp=null;
 	}
 
-	public void setMainController(MainController m) {
+	public void setMainController(MainController_IF m) {
 		mc = m;
 	}
 

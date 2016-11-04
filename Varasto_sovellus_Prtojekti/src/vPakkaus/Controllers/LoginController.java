@@ -26,7 +26,7 @@ public class LoginController implements SetMainController {
     private TextField visiblePasswordTxt;
 
 	private String uname, pword;
-	private MainController mc;
+	private MainController_IF mc;
 	boolean allGood;
 
 	public LoginController() {
@@ -38,7 +38,8 @@ public class LoginController implements SetMainController {
 		visiblePasswordTxt.setFocusTraversable(false);
 	}
 
-	public void setMainController(MainController m) {
+	@Override
+	public void setMainController(MainController_IF m) {
 		mc = m;
 	}
 
@@ -82,7 +83,6 @@ public class LoginController implements SetMainController {
 			passwordTxt.setText(visiblePasswordTxt.getText());
 		}
 		if (mc.LogIn(uname, pword)) {
-			System.out.println("LOG IN ONNISTUI : " + uname);
 			MainLaunch.windowDestroyer();
 			MainLaunch.windowConstructor("view/MainPageView.fxml", "VarastoSovellus 1.03", null);
 		} else {

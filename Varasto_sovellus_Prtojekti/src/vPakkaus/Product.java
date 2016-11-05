@@ -214,5 +214,4 @@ public class Product implements DAO_Objekti{
 	public void setMax_temperature(Integer max_temperature) {
 		this.max_temperature = max_temperature;
 	}
-
 }

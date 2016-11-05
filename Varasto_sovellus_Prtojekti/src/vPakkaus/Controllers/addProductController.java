@@ -23,7 +23,7 @@ import vPakkaus.Tuotejoukko;
  * Kontrolleri tavaran lisaamiselle.
  *
  */
-public class addProductController implements SetMainController {
+public class addProductController implements Nakyma_IF {
 
 	@FXML
 	private TextField productName, quantity, price, weight, volume, whLocation, length, width, height, minTempT, maxTempT;
@@ -32,7 +32,7 @@ public class addProductController implements SetMainController {
     @FXML
     private Label minTempL, maxTempL;
 
-
+    private NayttojenVaihtaja_IF vaihtaja;
 	private MainController_IF mc;
 	boolean allGood, product_error;
 
@@ -269,6 +269,35 @@ public class addProductController implements SetMainController {
 
 	public void product_error_handler() {
 		JOptionPane.showMessageDialog(null, "Error occured while adding product, please check product information.");
+	}
+
+	@Override
+	public void paivita(Object data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resetoi() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void virheIlmoitus(Object viesti) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
+		this.vaihtaja = vaihtaja;
+	}
+
+	@Override
+	public void esiValmistelut() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

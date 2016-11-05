@@ -20,7 +20,7 @@ import vPakkaus.Product;
 /**
 *Tuoteen muokkaus tabi ikkunan kontrolleri. Vastaa taulukon luonnista.
 */
-public class MuokkaaProductController implements SetMainController {
+public class MuokkaaProductController implements Nakyma_IF {
 
 	@FXML
 	private TextField productName;
@@ -43,6 +43,7 @@ public class MuokkaaProductController implements SetMainController {
 	ObservableList<Product> tuote = FXCollections.observableArrayList();
 	boolean hae;
 	private Product[] PaivitettavatTuotteet;
+	private NayttojenVaihtaja_IF vaihtaja;
 
 	public void initialize() {
 		p = new ArrayList();
@@ -176,6 +177,35 @@ public class MuokkaaProductController implements SetMainController {
 			Reset();
 			täytäTaulukko(p);
 		}
+	}
+
+	@Override
+	public void paivita(Object data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resetoi() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void virheIlmoitus(Object viesti) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
+		this.vaihtaja = vaihtaja;
+	}
+
+	@Override
+	public void esiValmistelut() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

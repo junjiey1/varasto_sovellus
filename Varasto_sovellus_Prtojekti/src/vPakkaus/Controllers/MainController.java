@@ -11,6 +11,7 @@ import vPakkaus.Tuotejoukko;
  */
 public class MainController implements MainController_IF{
 	private DB_AccessObject db;
+	private Nakyma_IF naytto;
 	private int UserID;
 	private String username;
 
@@ -40,6 +41,7 @@ public class MainController implements MainController_IF{
 			res = true;
 			UserID = tulos[1];
 			this.username = username;
+			System.out.println("käyttäjä " + this.username);
 		}
 		return res;
 	}
@@ -140,5 +142,11 @@ public class MainController implements MainController_IF{
 		System.out.println("logged  out. Deleting saved user information...");
 		UserID = -1;
 		username = "undefined";
+	}
+
+	@Override
+	public void liitaNaytto(Nakyma_IF naytto) {
+		this.naytto = naytto;
+		this.naytto.esiValmistelut();
 	}
 }

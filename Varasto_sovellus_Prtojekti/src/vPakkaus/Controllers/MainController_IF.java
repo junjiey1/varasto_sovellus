@@ -6,6 +6,7 @@ import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
 
 public interface MainController_IF {
+	public void liitaNaytto(Nakyma_IF naytto);
 	boolean LogIn(String username, String password);
 	boolean AddProduct(Tuotejoukko joukko);
 	ArrayList<Product> haeTuote(String nimi);

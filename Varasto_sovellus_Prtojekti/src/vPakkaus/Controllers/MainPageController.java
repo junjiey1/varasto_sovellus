@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import vPakkaus.MainLaunch;
 import vPakkaus.ViewFactory_IF;
 
-public class MainPageController implements SetMainController{
+public class MainPageController implements Nakyma_IF{
 
 
 	@FXML
@@ -23,14 +23,12 @@ public class MainPageController implements SetMainController{
 	private Tab tab5;
 	@FXML
 	private Label currentUserLbl;
-
-	private Stage newStage;
 	//private FXMLLoader loader;
 	//private AnchorPane APLayout;
-	private ViewFactory_IF NayttoTehdas;
 	private MainController_IF mc;
 	private Tab activeTab;
 	private String resource;
+	private NayttojenVaihtaja_IF vaihtaja;
 
 	public MainPageController(){
 	}
@@ -39,30 +37,34 @@ public class MainPageController implements SetMainController{
 	public void tabChoose() throws IOException {
 
 		System.gc(); // CLEAR MEMORY
-
 		if (addProductTab.isSelected()) {
 			activeTab = addProductTab;
+			activeTab.setContent(vaihtaja.getAnchorPane("addpage"));
+			//vaihtaja.asetaUudeksiNaytoksi("addpage", "VarastoSovellus");
 			resource = "view/addProduct.fxml";
 		}
 		if (tab3.isSelected()) {
 			activeTab = tab3;
+			activeTab.setContent(vaihtaja.getAnchorPane("searchpage"));
+			//vaihtaja.asetaUudeksiNaytoksi("searchpage", "VarastoSovellus");
 			resource = "view/SearchProduct.fxml";
 		}
 		if (tab4.isSelected()) {
 			activeTab = tab4;
+			//vaihtaja.asetaUudeksiNaytoksi("addpage", "VarastoSovellus");
 			resource = "view/addProduct.fxml";
 		}
 		if (tab5.isSelected()) {
 			activeTab = tab5;
+			//vaihtaja.asetaUudeksiNaytoksi("addpage", "VarastoSovellus");
 			resource = "view/addProduct.fxml";
 		}
-		MainLaunch.windowConstructor(resource, "VarastoSovellus 1.01", activeTab);
+		//MainLaunch.windowConstructor(resource, "VarastoSovellus 1.01", activeTab);
 	}
 
 	public void logOut() throws IOException {
 		mc.LogOut(); // Poistaa tallennetut käyttäjän nimen ja ID:n
-		MainLaunch.windowDestroyer();
-		MainLaunch.windowConstructor("view/LoginView.fxml", "LOG IN", null);
+		vaihtaja.asetaUudeksiNaytoksi("login", "VarastoSovellus");
 	}
 
 	public void whManagement(){
@@ -73,8 +75,41 @@ public class MainPageController implements SetMainController{
 
 	@Override
 	public void setMainController(MainController_IF m) {
-		// TODO Auto-generated method stub
 		mc = m;
-		currentUserLbl.setText("Current user : " + m.getName());
+	}
+
+
+	@Override
+	public void paivita(Object data) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void resetoi() {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void virheIlmoitus(Object viesti) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
+		this.vaihtaja = vaihtaja;
+		this.vaihtaja.rekisteröiNakymaKontrolleri(this,"mainpage");
+	}
+
+
+	@Override
+	public void esiValmistelut() {
+		System.out.println(mc.getName());
+		currentUserLbl.setText("Current user : " + mc.getName());
 	}
 }

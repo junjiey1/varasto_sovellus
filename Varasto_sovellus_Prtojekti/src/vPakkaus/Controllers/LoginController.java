@@ -12,7 +12,7 @@ import vPakkaus.MainLaunch;
  * Kontrolleri sisaankirjautumiselle.
  *
  */
-public class LoginController implements SetMainController {
+public class LoginController implements Nakyma_IF {
 
 	@FXML
 	private TextField usernameTxt;
@@ -27,7 +27,8 @@ public class LoginController implements SetMainController {
 
 	private String uname, pword;
 	private MainController_IF mc;
-	boolean allGood;
+	private boolean allGood;
+	private NayttojenVaihtaja_IF vaihtaja;
 
 	public LoginController() {
 		System.out.println("LOG IN CONTROLLER");
@@ -83,12 +84,40 @@ public class LoginController implements SetMainController {
 			passwordTxt.setText(visiblePasswordTxt.getText());
 		}
 		if (mc.LogIn(uname, pword)) {
-			MainLaunch.windowDestroyer();
-			MainLaunch.windowConstructor("view/MainPageView.fxml", "VarastoSovellus 1.03", null);
+			vaihtaja.asetaUudeksiNaytoksi("mainpage", "VarastoSovellus");
+			//MainLaunch.windowDestroyer();
+			//MainLaunch.windowConstructor("view/MainPageView.fxml", "VarastoSovellus 1.03", null);
 		} else {
 			incorrectLabel.setVisible(true);
 			passwordTxt.setText("");
 			usernameTxt.requestFocus();
 		}
+	}
+
+	@Override
+	public void paivita(Object data) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void resetoi() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void virheIlmoitus(Object viesti) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
+		this.vaihtaja = vaihtaja;
+		this.vaihtaja.rekisteröiNakymaKontrolleri(this, "login");
+	}
+
+	@Override
+	public void esiValmistelut() {
+		// TODO Auto-generated method stub
+
 	}
 }

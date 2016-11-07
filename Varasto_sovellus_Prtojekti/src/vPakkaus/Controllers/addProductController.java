@@ -212,6 +212,7 @@ public class addProductController implements SetMainController {
 				pMinTemp = Integer.parseInt(oneRowOfData[8]);
 				pMaxTemp = Integer.parseInt(oneRowOfData[9]);
 				product_error = mc.AddProduct(rakennaTuotejoukko());
+				
 				if (!product_error) {
 					product_error_handler();
 					break;

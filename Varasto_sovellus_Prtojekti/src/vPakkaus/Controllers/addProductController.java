@@ -23,7 +23,7 @@ import vPakkaus.Tuotejoukko;
  * Kontrolleri tavaran lisaamiselle.
  *
  */
-public class addProductController implements SetMainController {
+public class addProductController implements Nakyma_IF {
 
 	@FXML
 	private TextField productName, quantity, price, weight, volume, whLocation, length, width, height, minTempT, maxTempT;
@@ -32,8 +32,8 @@ public class addProductController implements SetMainController {
     @FXML
     private Label minTempL, maxTempL;
 
-
-	private MainController mc;
+    private NayttojenVaihtaja_IF vaihtaja;
+	private MainController_IF mc;
 	boolean allGood, product_error;
 
 	ObservableList<String> productTextFiles = FXCollections.observableArrayList();
@@ -52,7 +52,7 @@ public class addProductController implements SetMainController {
 		pMinTemp=pMaxTemp=null;
 	}
 
-	public void setMainController(MainController m) {
+	public void setMainController(MainController_IF m) {
 		mc = m;
 	}
 
@@ -79,6 +79,7 @@ public class addProductController implements SetMainController {
 			pQuantity = Integer.parseInt(quantity.getText());
 			pPrice = Float.parseFloat(price.getText());
 			pShelf = whLocation.getText();
+			pLength = Double.parseDouble(length.getText());
 			if(minTempT.getText().equals("") || maxTempT.getText().equals("")){
 				//jompikumpi lämpötila tyhjä ei hyväksytä
 				pMinTemp=pMaxTemp=null;
@@ -246,6 +247,7 @@ public class addProductController implements SetMainController {
 		if(pMinTemp!=null && pMaxTemp!=null){
 			product.setMin_temperature(pMinTemp);
 			product.setMax_temperature(pMaxTemp);
+			product.setTemp(true);
 			pMinTemp=pMaxTemp=null;
 		}
 		Hyllypaikka hylly = new Hyllypaikka(pShelf);
@@ -253,21 +255,50 @@ public class addProductController implements SetMainController {
 	}
 
 	public void clearAll(){
-		productName.setText(""); 
+		productName.setText("");
 		quantity.setText("");
-		price.setText(""); 
-		weight.setText("");  
-		volume.setText("");  
-		whLocation.setText(""); 
-		length.setText(""); 
-		width.setText(""); 
-		height.setText(""); 
-		minTempT.setText("");  
-		maxTempT.setText(""); 
+		price.setText("");
+		weight.setText("");
+		volume.setText("");
+		whLocation.setText("");
+		length.setText("");
+		width.setText("");
+		height.setText("");
+		minTempT.setText("");
+		maxTempT.setText("");
 	}
 
 	public void product_error_handler() {
 		JOptionPane.showMessageDialog(null, "Error occured while adding product, please check product information.");
+	}
+
+	@Override
+	public void paivita(Object data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resetoi() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void virheIlmoitus(Object viesti) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
+		this.vaihtaja = vaihtaja;
+	}
+
+	@Override
+	public void esiValmistelut() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

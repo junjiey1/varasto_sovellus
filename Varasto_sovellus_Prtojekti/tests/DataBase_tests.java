@@ -9,7 +9,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import vPakkaus.DB_AccessObject;
+import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
+import vPakkaus.Tuotejoukko;
 
 public class DataBase_tests {
 
@@ -50,11 +52,117 @@ public class DataBase_tests {
 		int result = db.LogIn("testi", "testi")[0];
 		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!", result, 1);
 	}
-	
+
 //	@Test
-//	public void Hae_tavaran_ID() {
-//		db.getProductID(nimi)
+//	public void Lisaa_Tuote_tableen() {
+//	System.out.println("\nTest : Lisaa_Tuote_tableen\n");
+//	Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
+//	boolean result = db.addProductToTuoteTable(product);
+//	assertEquals("Lisaaminen tuotetauluun", result, true);
 //	}
+
+//	@Test
+//	public void Lisaa_Tuote_tableen_lampotilojen_kanssa() {
+//	System.out.println("\nTest : Lisaa_Tuote_tableen_lampotilojen_kanssa\n");
+//	Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
+//	product.setID(537);
+//	product.setMax_temperature(10);
+//	product.setMin_temperature(-12);
+//	boolean result = db.addProductToTuoteTable(product);
+//	assertEquals("Lisaaminen tuotetauluun", result, true);
+//	}
+
+//	@Test
+//	public void createHyllypaikka() {
+//		System.out.println("\nTest : createHyllypaikka\n");
+//		Hyllypaikka hyllypaikka = new Hyllypaikka("a-3", 100, 100, 100, -5, 2000);
+//		boolean result = db.CreateHyllypaikka(hyllypaikka);
+//		assertEquals("Hyllypaikan luominen onnistui", result, true);
+//	}
+
+	@Test
+	public void MahtuukoTuotteetHyllyyn_test() {
+		System.out.println("\nTest : MahtuukoTuotteetHyllyyn_test\n");
+		Product product = new Product("testi", 1.0, 10.0, 10.0, 10.0, 5.0f);
+		Hyllypaikka hyllypaikka = new Hyllypaikka("a-3", 10, 10, 100, -5, 2000);
+		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, 11);
+		boolean result = db.MahtuukoTuotteetHyllyyn(joukko);
+		assertEquals("Tavaran lisaaminen onnistui!", result, false);
+		Tuotejoukko joukko1 = new Tuotejoukko(product, hyllypaikka, 9);
+		result = db.MahtuukoTuotteetHyllyyn(joukko1);
+		assertEquals("Tavaran lisaaminen onnistui!", result, true);
+	}
+
+	@Test
+	public void Lisaa_tuote() {
+		System.out.println("\nTest : Lisaa_Tuote\n");
+		Product product = new Product("Liha1", 1.0, 1.0, 1.0, 1.0, 1.0f);
+		product.setMax_temperature(15);
+		product.setMin_temperature(-5);
+		Hyllypaikka hyllypaikka = new Hyllypaikka("a-1");
+		int maara = 2;
+		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, maara);
+		boolean result = db.Lisaa(joukko);
+		assertEquals("Tavaran lisaaminen onnistui!", result, true);
+	}
+
+//	@Test
+//	public void hae_hyllyn_tuotejoukot() {
+//	ArrayList <Tuotejoukko> tj = db.haeHyllynTuotejoukot("a-1");
+//	for (Tuotejoukko t : tj) {
+//		System.out.println(t.getProduct().getProduct_name());
+//	}
+//	assertEquals("Tavaran lisaaminen onnistui!", tj, true);
+//	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //	@Test
 //	public void Etsi_Tavara() {

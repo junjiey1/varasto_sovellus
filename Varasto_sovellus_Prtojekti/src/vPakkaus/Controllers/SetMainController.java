@@ -1,5 +1,5 @@
 package vPakkaus.Controllers;
 
 public interface SetMainController {
-	public void setMainController(MainController m);
+	public void setMainController(MainController_IF m);
 }

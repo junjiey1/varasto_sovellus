@@ -6,10 +6,10 @@ public class Hyllypaikka {
 		this.nimi=nimi;
 	}
 
-	public Hyllypaikka(String nimi, double pituus, double leveys, double syvyys, double lampotila, double max_paino){
+	public Hyllypaikka(String nimi, double pituus, double leveys, double korkeus, double lampotila, double max_paino){
 		this.pituus = pituus;
 		this.leveys = leveys;
-		this.syvyys = syvyys;
+		this.korkeus = korkeus;
 		this.lämpötila = lampotila;
 		this.nimi = nimi;
 		this.max_paino = max_paino;
@@ -17,7 +17,7 @@ public class Hyllypaikka {
 
 	private String nimi;
 	private double leveys;
-	private double syvyys;
+	private double korkeus;
 	private double max_paino;
 	private double lämpötila;
 
@@ -55,12 +55,12 @@ public class Hyllypaikka {
 		this.leveys = leveys;
 	}
 
-	public double getSyvyys() {
-		return syvyys;
+	public double getKorkeus() {
+		return korkeus;
 	}
 
-	public void setSyvyys(double syvyys) {
-		this.syvyys = syvyys;
+	public void setKorkeus(double korkeus) {
+		this.korkeus = korkeus;
 	}
 
 	public double getMax_paino() {

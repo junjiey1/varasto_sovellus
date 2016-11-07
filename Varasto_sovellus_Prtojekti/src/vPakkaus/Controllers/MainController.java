@@ -9,8 +9,9 @@ import vPakkaus.Tuotejoukko;
  * Ohjelman pääkontrolleri. Vastaa tiedon välityksestä Näytön ja mallin välillä
  *
  */
-public class MainController {
+public class MainController implements MainController_IF{
 	private DB_AccessObject db;
+	private Nakyma_IF naytto;
 	private int UserID;
 	private String username;
 
@@ -40,6 +41,7 @@ public class MainController {
 			res = true;
 			UserID = tulos[1];
 			this.username = username;
+			System.out.println("käyttäjä " + this.username);
 		}
 		return res;
 	}
@@ -71,12 +73,14 @@ public class MainController {
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
 		for (Product p : res) {
-			System.out.println(p.getProduct_name() + p.getID());
+			System.out.println(p.getProduct_name() +" "+ p.getID());
+			if(p.getTemp())
+				System.out.println(p.getMin_temperature() + " " + p.getMax_temperature());
 		}
 		if (res == null)
 			return null;
 		// product-olio
-		return res;
+		return null;
 	}
 
 	/**
@@ -138,5 +142,11 @@ public class MainController {
 		System.out.println("logged  out. Deleting saved user information...");
 		UserID = -1;
 		username = "undefined";
+	}
+
+	@Override
+	public void liitaNaytto(Nakyma_IF naytto) {
+		this.naytto = naytto;
+		this.naytto.esiValmistelut();
 	}
 }

@@ -1,6 +1,6 @@
 package vPakkaus;
 
-public class Hyllypaikka {
+public class Hyllypaikka implements DAO_Objekti{
 
 	public Hyllypaikka(String nimi){
 		this.nimi=nimi;

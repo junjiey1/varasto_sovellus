@@ -6,7 +6,7 @@ public class Hyllypaikka implements DAO_Objekti{
 		this.nimi=nimi;
 	}
 
-	public Hyllypaikka(String nimi, double pituus, double leveys, double korkeus, double lampotila, double max_paino){
+	public Hyllypaikka(String nimi, double pituus, double leveys, double korkeus, int lampotila, double max_paino){
 		this.pituus = pituus;
 		this.leveys = leveys;
 		this.korkeus = korkeus;
@@ -19,7 +19,7 @@ public class Hyllypaikka implements DAO_Objekti{
 	private double leveys;
 	private double korkeus;
 	private double max_paino;
-	private double lämpötila;
+	private int lämpötila;
 
 	public String getNimi() {
 		return nimi;
@@ -33,7 +33,7 @@ public class Hyllypaikka implements DAO_Objekti{
 		return lämpötila;
 	}
 
-	public void setLämpötila(double lämpötila) {
+	public void setLämpötila(int lämpötila) {
 		this.lämpötila = lämpötila;
 	}
 

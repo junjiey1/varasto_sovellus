@@ -148,17 +148,12 @@ public class DB_AccessObject {
 
 			// Tarkistetaan onko hyllyssä tilaa tuotteille
 			boolean mahtuuko = MahtuukoTuotteetHyllyyn(joukko);
+			boolean onkoLampotilaSopiva = checkLampotila(joukko);
 			// jos mahtuu
-			// alla keskeneräinen tarkistus voiko tuotetta lisätä hyllyyn lämpötilan perusteella
-//			if (joukko.getProduct().getMax_temperature() != null & joukko.getProduct().getMin_temperature() != null) {
-//				if (hyllypaikka.getLämpötila() < joukko.getProduct().getMax_temperature() && hyllypaikka.getLämpötila() > joukko.getProduct().getMin_temperature()) {
-//
-//				} else {
-//					return false;
-//				}
-//			}
+			// alla keskeneräinen tarkistus voiko tuotetta lisätä hyllyyn
+			// lämpötilan perusteella
 
-			if (mahtuuko) {
+			if (mahtuuko && onkoLampotilaSopiva) {
 
 				// haetaan jo hyllyssä olevien tuotteiden määrä
 				Tuotejoukko joukko_hyllyssä = GetTuotejoukko(joukko.getProduct().getProduct_name(),
@@ -171,7 +166,7 @@ public class DB_AccessObject {
 				System.out.println("Tuotteet lisätty hyllyyn");
 				return true;
 			} else {
-				System.out.println("Tuotteet eivät mahdu hyllyyn");
+				System.out.println("Tuotteet eivät mahdu hyllyyn tai lämpötila ei ole sopiva");
 				return false;
 			}
 
@@ -179,14 +174,16 @@ public class DB_AccessObject {
 		} else {
 			// tarkistetaan mahtuuko tuotteet hyllyyn
 			boolean mahtuuko = MahtuukoTuotteetHyllyyn(joukko);
+			boolean onkoLampotilaSopiva = checkLampotila(joukko);
 			System.out.println("Mahtuuko " + mahtuuko);
-			if (mahtuuko) {
+			if (mahtuuko && onkoLampotilaSopiva) {
 				Product product = findProduct(joukko.getProduct().getProduct_name());
 				// Jos kyseistä tuotetta ei ole vielä olemassa ollenkaan
 				if (product == null) {
 					addProductToTuoteTable(joukko.getProduct());
 					joukko.getProduct().setID(findProduct(joukko.getProduct().getProduct_name()).getID());
-					if (joukko.getProduct().getMax_temperature() != null && joukko.getProduct().getMin_temperature() != null)
+					if (joukko.getProduct().getMax_temperature() != null
+							&& joukko.getProduct().getMin_temperature() != null)
 						addTemperatures(joukko.getProduct());
 				} else {
 					product = findProduct(joukko.getProduct().getProduct_name());
@@ -253,17 +250,33 @@ public class DB_AccessObject {
 		return true;
 	}
 
+	public boolean checkLampotila(Tuotejoukko joukko) {
+		boolean lampotila = true;
+		if (joukko.getProduct().getMax_temperature() != null & joukko.getProduct().getMin_temperature() != null) {
+			if (joukko.getHylly().getLämpötila() < joukko.getProduct().getMax_temperature()
+					&& joukko.getHylly().getLämpötila() > joukko.getProduct().getMin_temperature()) {
+				System.out.println("Tuotteen lämpötila on sopiva hyllypaikkaan");
+			} else {
+				System.out.println("Tuotteen lämpötila vaatimus ei vastaa hyllyn lämpötilaa");
+				lampotila = false;
+			}
+		} else {
+			System.out.println("tuotteelle ei ole asetettu lämpötila rajoituksia");
+		}
+		return lampotila;
+	}
+
 	public boolean MahtuukoTuotteetHyllyyn(Tuotejoukko joukko) {
 		boolean mahtuuko = true;
 
-
 		Hyllypaikka hylly = HaeHylly(joukko.getHylly().getNimi());
-		//Kesken eräinen tsekkaus ettei yhden tuotteen mitat ole hyllyn mittoja suurempi
-//		ArrayList<Double> hyllynmitat = new ArrayList();
-//		hyllynmitat.add(hylly.getKorkeus());
-//		hyllynmitat.add(hylly.getLeveys());
-//		hyllynmitat.add(hylly.getPituus());
-		Double hyllyn_tilavuus = hylly.getKorkeus()*hylly.getLeveys()*hylly.getPituus();
+		// Kesken eräinen tsekkaus ettei yhden tuotteen mitat ole hyllyn mittoja
+		// suurempi
+		// ArrayList<Double> hyllynmitat = new ArrayList();
+		// hyllynmitat.add(hylly.getKorkeus());
+		// hyllynmitat.add(hylly.getLeveys());
+		// hyllynmitat.add(hylly.getPituus());
+		Double hyllyn_tilavuus = hylly.getKorkeus() * hylly.getLeveys() * hylly.getPituus();
 		Double vaadittu_tilavuus = joukko.getMaara() * joukko.getProduct().getProduct_volume();
 		Double käytetty_tilavuus = 0.0;
 
@@ -355,6 +368,8 @@ public class DB_AccessObject {
 				nimet.add(nimi);
 				määrät.add(maara);
 			}
+			ps.close();
+			rs.close();
 
 			for (int i = 0; i < nimet.size(); i++) {
 				Tuotejoukko tuotejoukko = new Tuotejoukko(findProduct(nimet.get(i)), HaeHylly(hyllynimi),
@@ -435,6 +450,7 @@ public class DB_AccessObject {
 				double max_paino = rs.getDouble("maksimi_paino");
 				hyl = new Hyllypaikka(nimi, pituus, leveys, syvyys, lampotila, max_paino);
 			}
+			rs.close();
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -455,6 +471,7 @@ public class DB_AccessObject {
 
 				HP_Tuotteet.add(nimi);
 			}
+			rs.close();
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -476,6 +493,7 @@ public class DB_AccessObject {
 					pro.setMax_temperature(lampotila_max);
 					pro.setMin_temperature(lampotila_min);
 				}
+				rs.close();
 				ps.close();
 			} catch (SQLException e) {
 				System.out.println("Ei voitu hakea lämpötilaa!");
@@ -518,6 +536,7 @@ public class DB_AccessObject {
 				if (lampotila_boolean == 1)
 					product.setTemp(true);
 			}
+			rs.close();
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -540,6 +559,8 @@ public class DB_AccessObject {
 				Hyllypaikka hp = HaeHylly(hyllypaikka);
 				tuotejoukko = new Tuotejoukko(product, hp, maara);
 			}
+			rs.close();
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -628,92 +649,97 @@ public class DB_AccessObject {
 	// return error;
 	// }
 	//
-		 /**
-		 *Hakee useamman tavaran tietueet. Hakuehto on osa tavaran nimestä.
-		 *
-		 * @param nimi Tavaran nimi.
-		 * @return Palauttaa ArrayList, mika sisaltaa product olioita.
-		 */
-		 public ArrayList<Product> findProducts(String nimi) {
-		 ArrayList<Product> products = new ArrayList();
-		 Product product;
+	/**
+	 * Hakee useamman tavaran tietueet. Hakuehto on osa tavaran nimestä.
+	 *
+	 * @param nimi
+	 *            Tavaran nimi.
+	 * @return Palauttaa ArrayList, mika sisaltaa product olioita.
+	 */
+	public ArrayList<Product> findProducts(String nimi) {
+		ArrayList<Product> products = new ArrayList();
+		Product product;
 
-		 try {
-		 nimi = "%"+nimi+"%";
-		 ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi,"
-		 		+ "tuote.hinta, tuote.paino, tuote.pituus, tuote.leveys, tuote.korkeus, tuote.lampotila_boolean "
-		 		+ "FROM tuote WHERE tuote.nimi LIKE ?");
-		 		//+ "AND tuote.tuoteID = hyllypaikka.tuoteID AND tuote.tuoteID ="
-		 		//+ "varasto.tuoteID;");
+		try {
+			nimi = "%" + nimi + "%";
+			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi,"
+					+ "tuote.hinta, tuote.paino, tuote.pituus, tuote.leveys, tuote.korkeus, tuote.lampotila_boolean "
+					+ "FROM tuote WHERE tuote.nimi LIKE ?");
+					// + "AND tuote.tuoteID = hyllypaikka.tuoteID AND
+					// tuote.tuoteID ="
+					// + "varasto.tuoteID;");
 
-		 // Asetetaan argumentit sql-kyselyyn
-		 ps.setString(1, nimi);
-		 rs = ps.executeQuery();
-		 // tietokanta rivi
+			// Asetetaan argumentit sql-kyselyyn
+			ps.setString(1, nimi);
+			rs = ps.executeQuery();
+			// tietokanta rivi
 
-		 while (rs.next()) {
-			 int id = rs.getInt("tuoteID");
-			 String name = rs.getString("nimi");
-			 double paino = rs.getDouble("paino");
-			 double pituus = rs.getDouble("pituus");
-			 double leveys = rs.getDouble("leveys");
-			 double korkeus = rs.getDouble("korkeus");
-			 float hinta = rs.getFloat("hinta");
-			 product = new Product(name, paino, leveys, korkeus, pituus, hinta);
-			 product.setID(id);
-			 if(rs.getInt("lampotila_boolean")==1){
-				 product.setTemp(true);
-			 }
-	 		products.add(product);
-		 }
-		 rs.close();
-		 ps.close();
-		 for(Product p : products)
-			 if(p.getTemp())
-				 product = findTemperatures(p);
-		 } catch (SQLException e) {
-		 e.printStackTrace();
-		 }
+			while (rs.next()) {
+				int id = rs.getInt("tuoteID");
+				String name = rs.getString("nimi");
+				double paino = rs.getDouble("paino");
+				double pituus = rs.getDouble("pituus");
+				double leveys = rs.getDouble("leveys");
+				double korkeus = rs.getDouble("korkeus");
+				float hinta = rs.getFloat("hinta");
+				product = new Product(name, paino, leveys, korkeus, pituus, hinta);
+				product.setID(id);
+				if (rs.getInt("lampotila_boolean") == 1) {
+					product.setTemp(true);
+				}
+				products.add(product);
+			}
+			rs.close();
+			ps.close();
+			for (Product p : products)
+				if (p.getTemp())
+					product = findTemperatures(p);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-		 return products;
+		return products;
 	}
+
 	//
-	 /**
+	/**
 	 * Paivittaa tavaran tiedot tietokantaan.
 	 *
-	 * @param products tavaran tietue
+	 * @param products
+	 *            tavaran tietue
 	 * @return Return error, jos tavaran lisaaminen epäonnistuu.
 	 */
-	 public boolean updateProducts(ArrayList<Product> products) {
-	 boolean error = true;
+	public boolean updateProducts(ArrayList<Product> products) {
+		boolean error = true;
 
-	 for(Product p : products){
+		for (Product p : products) {
 
-		 try {
-		 ps= conn.prepareStatement("UPDATE tuote  SET"
-		 		+ " tuote.nimi = ?,tuote.hinta = ?, tuote.paino = ?, tuote.leveys = ?,"
-		 		+ " tuote.pituus = ?, tuote.korkeus = ? WHERE tuote.tuoteID = ?");
+			try {
+				ps = conn.prepareStatement(
+						"UPDATE tuote  SET" + " tuote.nimi = ?,tuote.hinta = ?, tuote.paino = ?, tuote.leveys = ?,"
+								+ " tuote.pituus = ?, tuote.korkeus = ? WHERE tuote.tuoteID = ?");
 
-		 ps.setString(1, p.getProduct_name());
-		 ps.setFloat(2, p.getProduct_price());
-		 ps.setDouble(3, p.getProduct_weight());
-		 ps.setDouble(4, p.getProduct_width());
-		 ps.setDouble(5, p.getProduct_length());
-		 ps.setDouble(6, p.getProduct_height());
-		 ps.setInt(7, p.getID());
+				ps.setString(1, p.getProduct_name());
+				ps.setFloat(2, p.getProduct_price());
+				ps.setDouble(3, p.getProduct_weight());
+				ps.setDouble(4, p.getProduct_width());
+				ps.setDouble(5, p.getProduct_length());
+				ps.setDouble(6, p.getProduct_height());
+				ps.setInt(7, p.getID());
 
-		 ps.executeUpdate();
-		 ps.close();
+				ps.executeUpdate();
+				ps.close();
 
-	 } catch (SQLException e) {
-	 e.printStackTrace();
-	 error = false;
-	 }
+			} catch (SQLException e) {
+				e.printStackTrace();
+				error = false;
+			}
 
-	 }
+		}
 
-	 return error;
-	 }
+		return error;
+	}
+
 	//
 	//
 	// /**

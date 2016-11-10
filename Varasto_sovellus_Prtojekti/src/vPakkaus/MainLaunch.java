@@ -58,8 +58,10 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		anchorMap.put("mainpage",tehdas.annaNakyma("view/MainPageView.fxml", this));
 		anchorMap.put("addpage",tehdas.annaNakyma("view/addProduct.fxml", this));
 		anchorMap.put("searchpage",tehdas.annaNakyma("view/SearchProduct.fxml", this));
+		anchorMap.put("customer",tehdas.annaNakyma("view/addCustomer.fxml", this));
 		sceneMap.put("login", new Scene(anchorMap.get("login")));
 		sceneMap.put("mainpage", new Scene(anchorMap.get("mainpage")));
+		sceneMap.put("customer", new Scene(anchorMap.get("customer")));
 	}
 
 	/**

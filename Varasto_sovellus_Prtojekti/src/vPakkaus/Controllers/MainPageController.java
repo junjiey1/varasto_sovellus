@@ -68,7 +68,7 @@ public class MainPageController implements Nakyma_IF{
 	}
 
 	public void whManagement(){
-
+		vaihtaja.asetaUudeksiNaytoksi("customer", "lol");
 	}
 
 

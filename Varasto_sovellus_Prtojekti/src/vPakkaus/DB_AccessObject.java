@@ -431,7 +431,7 @@ public class DB_AccessObject {
 				double leveys = rs.getDouble("leveys");
 				double pituus = rs.getDouble("pituus");
 				double syvyys = rs.getDouble("korkeus");
-				double lampotila = rs.getDouble("lampotila");
+				int lampotila = rs.getInt("lampotila");
 				double max_paino = rs.getDouble("maksimi_paino");
 				hyl = new Hyllypaikka(nimi, pituus, leveys, syvyys, lampotila, max_paino);
 			}

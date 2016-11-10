@@ -21,8 +21,7 @@ public class ProductCellEditor extends EditingCell{
 									// pitää tallentaa
 			case (1): // Int
 				Integer i = this.isInt(s);
-				if (i != null && i.intValue() != muokattava.getMax_temperature()) {
-					System.out.println("yritän");
+				if (i != null) {
 					setValChanged(true);
 					paivitaSolu(i, getIndex());
 				}
@@ -88,7 +87,9 @@ public class ProductCellEditor extends EditingCell{
 					p.setMax_temperature(((Integer) newValue).intValue());
 				else
 					p.setMin_temperature(((Integer) newValue).intValue());
-				
+				if(p.getMax_temperature()!=null && p.getMin_temperature()!=null)
+					if(!p.getTemp()) //productille ei olla säädetty vielä lämpötila booleaniksi true
+						p.setTemp(true);
 				break;
 			case (2):
 				p.setProduct_name(newValue.toString());

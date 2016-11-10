@@ -213,7 +213,7 @@ public class addProductController implements Nakyma_IF {
 				pMinTemp = Integer.parseInt(oneRowOfData[8]);
 				pMaxTemp = Integer.parseInt(oneRowOfData[9]);
 				product_error = mc.AddProduct(rakennaTuotejoukko());
-				
+
 				if (!product_error) {
 					product_error_handler();
 					break;
@@ -274,7 +274,6 @@ public class addProductController implements Nakyma_IF {
 
 	@Override
 	public void paivita(Object data) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -286,7 +285,6 @@ public class addProductController implements Nakyma_IF {
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-		// TODO Auto-generated method stub
 
 	}
 

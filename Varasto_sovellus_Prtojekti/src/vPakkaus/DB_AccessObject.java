@@ -34,7 +34,6 @@ public class DB_AccessObject {
 				System.out.println("Yritetään muodostaa yhteys Jenkinsillä");
 				conn = DriverManager.getConnection("jdbc:mysql://10.114.32.19:3306/varasto", "jenkins", "jenkins");
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		} catch (ClassNotFoundException e) {
@@ -511,6 +510,7 @@ public class DB_AccessObject {
 					product.setTemp(true);
 			}
 			ps.close();
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -711,13 +711,56 @@ public class DB_AccessObject {
 	 	return error;
 	 }
 
+	 public boolean checkIfTuoteIDExcistInLampoTila(int ID){
+		 int res=0;
+		 try {
+			ps = conn.prepareStatement("SELECT 1 AS total FROM lampotila WHERE tuoteID = ?;");
+			ps.setInt(1, ID);
+			 rs = ps.executeQuery();
+			 while(rs.next())
+				 res = rs.getInt("total");
+		 } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}finally{
+			try {
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		 System.out.println("RES " + res);
+		 if(res==1)
+			 return true;
+		 return false;
+	 }
+
 	 public boolean updateLampotila(Product p){
 		 try {
-			ps = conn.prepareStatement("UPDATE lampotila SET lampotila_max = ?, lampotila_min = ? WHERE tuoteID = ?");
-			ps.setInt(1, p.getMax_temperature());
-			ps.setInt(2, p.getMin_temperature());
-			ps.setInt(3, p.getID());
-			ps.executeUpdate();
+			 System.out.println("Onko temp " + p.getTemp() + " " + p.getMax_temperature() + " " + p.getMin_temperature() + " ID " + p.getID());
+			 if(!checkIfTuoteIDExcistInLampoTila(p.getID())){
+				 System.out.println("set");
+				 ps = conn.prepareStatement("UPDATE tuote SET lampotila_boolean = ? WHERE tuoteID = ?");
+				ps.setInt(1, 1);
+				ps.setInt(2, p.getID());
+				ps.executeUpdate();
+				ps.close();
+				ps = conn.prepareStatement("INSERT INTO lampotila (lampotila_max, lampotila_min, tuoteID) VALUES (?,?,?)");
+				ps.setInt(1, p.getMax_temperature());
+				ps.setInt(2, p.getMin_temperature());
+				ps.setInt(3, p.getID());
+				ps.executeUpdate();
+			 }else{
+				 System.out.println("upd");
+				ps = conn.prepareStatement("UPDATE lampotila SET lampotila_max = ?, lampotila_min = ? WHERE tuoteID = ?");
+				ps.setInt(1, p.getMax_temperature());
+				ps.setInt(2, p.getMin_temperature());
+				ps.setInt(3, p.getID());
+				ps.executeUpdate();
+			 }
 			ps.close();
 		 } catch (SQLException e) {
 			e.printStackTrace();

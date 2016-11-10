@@ -149,6 +149,15 @@ public class DB_AccessObject {
 			// Tarkistetaan onko hyllyssä tilaa tuotteille
 			boolean mahtuuko = MahtuukoTuotteetHyllyyn(joukko);
 			// jos mahtuu
+			// alla keskeneräinen tarkistus voiko tuotetta lisätä hyllyyn lämpötilan perusteella
+//			if (joukko.getProduct().getMax_temperature() != null & joukko.getProduct().getMin_temperature() != null) {
+//				if (hyllypaikka.getLämpötila() < joukko.getProduct().getMax_temperature() && hyllypaikka.getLämpötila() > joukko.getProduct().getMin_temperature()) {
+//
+//				} else {
+//					return false;
+//				}
+//			}
+
 			if (mahtuuko) {
 
 				// haetaan jo hyllyssä olevien tuotteiden määrä

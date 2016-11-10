@@ -84,14 +84,14 @@ abstract class EditingCell extends TableCell<DAO_Objekti, Object> {
 		}
 		super.updateItem(item, empty);
 		if (empty) {
-			// setText(null);
+			 setText(null);
 			setGraphic(null);
 		} else {
 			if (isEditing()) {
 				if (textField != null) {
 					textField.setText(getString());
 				}
-				// setText(null);
+				setText(null);
 				setGraphic(textField);
 			} else {
 				setText(getString());

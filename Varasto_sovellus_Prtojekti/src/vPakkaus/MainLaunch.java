@@ -75,25 +75,6 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	 * @throws IOException
 	 *             Heittaa error,jos jotain on epaonnistunut.
 	 */
-	public static void windowConstructor(String resource, String title, Tab activeTab) throws IOException {
-		System.out.println(resource);
-		loader = new FXMLLoader();
-		loader.setLocation(MainLaunch.class.getResource(resource));
-		APLayout = loader.load();
-
-		if (activeTab != null) {
-			activeTab.setContent(APLayout);
-		} else {
-			MainStage = new Stage();
-			MainStage.setTitle(title);
-			MainStage.setScene(new Scene(APLayout));
-			MainStage.show();
-		}
-		if (loader.getController() instanceof SetMainController) {
-			SetMainController c = (SetMainController) loader.getController();
-			c.setMainController(mc);
-		}
-	}
 
 	/**
 	 * Tuhoa koko nakyma

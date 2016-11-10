@@ -29,7 +29,6 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	private static AnchorPane APLayout;
 	private static MainController mc;
 
-
 	private ViewFactory_IF tehdas;
 	private HashMap<String, AnchorPane> anchorMap;
 	private HashMap<String, Scene> sceneMap;

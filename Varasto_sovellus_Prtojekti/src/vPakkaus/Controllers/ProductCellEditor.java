@@ -88,6 +88,7 @@ public class ProductCellEditor extends EditingCell{
 					p.setMax_temperature(((Integer) newValue).intValue());
 				else
 					p.setMin_temperature(((Integer) newValue).intValue());
+				
 				break;
 			case (2):
 				p.setProduct_name(newValue.toString());

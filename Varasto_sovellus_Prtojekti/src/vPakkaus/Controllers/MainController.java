@@ -80,7 +80,7 @@ public class MainController implements MainController_IF{
 		if (res == null)
 			return null;
 		// product-olio
-		return null;
+		return res;
 	}
 
 	/**

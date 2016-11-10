@@ -14,7 +14,7 @@ import vPakkaus.Product;
  * Tämä luokka vastaa tuotteiden taulukon solujen muokkauksesta
  *
  */
-abstract class EditingCell extends TableCell<Product, Object> {
+abstract class EditingCell extends TableCell<DAO_Objekti, Object> {
 
 	private TextField textField;
 	//private Product[] PaivitettavatTuotteet;

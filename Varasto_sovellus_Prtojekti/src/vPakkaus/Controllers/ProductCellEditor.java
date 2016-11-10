@@ -84,7 +84,10 @@ public class ProductCellEditor extends EditingCell{
 		Product p = (Product)super.getTableView().getItems().get(i);
 		switch (getDatatyyppi()) {
 			case (1):
-				p.setMax_temperature(((Integer) newValue).intValue());
+				if (getColumnName().equals("MaxLampo"))
+					p.setMax_temperature(((Integer) newValue).intValue());
+				else
+					p.setMin_temperature(((Integer) newValue).intValue());
 				break;
 			case (2):
 				p.setProduct_name(newValue.toString());

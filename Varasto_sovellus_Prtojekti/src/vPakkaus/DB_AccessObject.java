@@ -427,6 +427,7 @@ public class DB_AccessObject {
 				hyl = new Hyllypaikka(nimi, pituus, leveys, syvyys, lampotila, max_paino);
 			}
 			ps.close();
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -681,29 +682,48 @@ public class DB_AccessObject {
 	 for(Product p : products){
 
 		 try {
-		 ps= conn.prepareStatement("UPDATE tuote  SET"
-		 		+ " tuote.nimi = ?,tuote.hinta = ?, tuote.paino = ?, tuote.leveys = ?,"
-		 		+ " tuote.pituus = ?, tuote.korkeus = ? WHERE tuote.tuoteID = ?");
+			 ps= conn.prepareStatement("UPDATE tuote  SET"
+			 		+ " tuote.nimi = ?,tuote.hinta = ?, tuote.paino = ?, tuote.leveys = ?,"
+			 		+ " tuote.pituus = ?, tuote.korkeus = ? WHERE tuote.tuoteID = ?");
 
-		 ps.setString(1, p.getProduct_name());
-		 ps.setFloat(2, p.getProduct_price());
-		 ps.setDouble(3, p.getProduct_weight());
-		 ps.setDouble(4, p.getProduct_width());
-		 ps.setDouble(5, p.getProduct_length());
-		 ps.setDouble(6, p.getProduct_height());
-		 ps.setInt(7, p.getID());
+			 ps.setString(1, p.getProduct_name());
+			 ps.setFloat(2, p.getProduct_price());
+			 ps.setDouble(3, p.getProduct_weight());
+			 ps.setDouble(4, p.getProduct_width());
+			 ps.setDouble(5, p.getProduct_length());
+			 ps.setDouble(6, p.getProduct_height());
+			 ps.setInt(7, p.getID());
 
-		 ps.executeUpdate();
-		 ps.close();
+			 ps.executeUpdate();
+			 ps.close();
 
-	 } catch (SQLException e) {
-	 e.printStackTrace();
-	 error = false;
+			 if(p.getTemp())
+				 if(!updateLampotila(p))
+					 return false;
+
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+			 error = false;
+		 }
+
 	 }
 
+	 	return error;
 	 }
 
-	 return error;
+	 public boolean updateLampotila(Product p){
+		 try {
+			ps = conn.prepareStatement("UPDATE lampotila SET lampotila_max = ?, lampotila_min = ? WHERE tuoteID = ?");
+			ps.setInt(1, p.getMax_temperature());
+			ps.setInt(2, p.getMin_temperature());
+			ps.setInt(3, p.getID());
+			ps.executeUpdate();
+			ps.close();
+		 } catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		 return true;
 	 }
 	//
 	//

@@ -35,12 +35,16 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 		TableColumn<DAO_Objekti, Double> t4 = new TableColumn<DAO_Objekti, Double>();//Pituus
 		TableColumn<DAO_Objekti, Double> t5 = new TableColumn<DAO_Objekti, Double>();//Korkeus
 		TableColumn<DAO_Objekti, Float> t6 = new TableColumn<DAO_Objekti, Float>();//Hinta
+		TableColumn<DAO_Objekti, Integer> t7 = new TableColumn<DAO_Objekti, Integer>();//MaxLämpotila
+		TableColumn<DAO_Objekti, Integer> t8 = new TableColumn<DAO_Objekti, Integer>();//MinLämpotila
 		t1.setText("Paino");
 		t2.setText("Nimi");
 		t3.setText("Leveys");
 		t4.setText("Pituus");
 		t5.setText("Korkeus");
 		t6.setText("Hinta");
+		t7.setText("MaxLampo");
+		t8.setText("MinLampo");
 
 		Product[] PaivitettavatTuotteet = new Product[lista.size()];
 		System.out.println("koko " + lista.size());
@@ -76,6 +80,8 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 		product_taulukko.getColumns().add(t4);
 		product_taulukko.getColumns().add(t5);
 		product_taulukko.getColumns().add(t6);
+		product_taulukko.getColumns().add(t7);
+		product_taulukko.getColumns().add(t8);
 
 		t1.setCellFactory(cellFactory3);
 		t2.setCellFactory(cellFactory2);
@@ -83,6 +89,8 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 		t4.setCellFactory(cellFactory3);
 		t5.setCellFactory(cellFactory3);
 		t6.setCellFactory(cellFactory4);
+		t7.setCellFactory(cellFactory);
+		t8.setCellFactory(cellFactory);
 
 		for(int i = 0; i<PaivitettavatTuotteet.length;i++){
 			t1.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("product_weight"));
@@ -91,6 +99,8 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 			t4.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("product_length"));
 			t5.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("product_height"));
 			t6.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Float>("product_price"));
+			t7.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Integer>("max_temperature"));
+			t8.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Integer>("min_temperature"));
 		}
 		return new ProductTaulukko(product_taulukko, PaivitettavatTuotteet);
 	}

@@ -35,17 +35,8 @@ public class MuokkaaProductController implements Nakyma_IF {
 	private Taulukko_IF taulukko;
 
 	public void initialize() {
-		//p = new ArrayList();
 		tuoteTable.setEditable(true);
-		//tuoteTable.getColumns().add(e);
-		tuoteTable.getColumns().clear();
 		tehdas = new TaulukkoFactory();
-		System.out.println( "table " + tuoteTable.toString());
-		//TableColumn t1 = new TableColumn<Product, Double>();
-//		t1.setText("lol");
-//		tuoteTable.getColumns().add(t1);
-
-
 	}
 
 	public void Reset() {

@@ -36,7 +36,7 @@ public class MainPageController implements Nakyma_IF{
 
 	public void tabChoose() throws IOException {
 
-		System.gc(); // CLEAR MEMORY
+		//System.gc(); // CLEAR MEMORY
 		if (addProductTab.isSelected()) {
 			activeTab = addProductTab;
 			activeTab.setContent(vaihtaja.getAnchorPane("addpage"));
@@ -81,21 +81,17 @@ public class MainPageController implements Nakyma_IF{
 
 	@Override
 	public void paivita(Object data) {
-		// TODO Auto-generated method stub
 
 	}
 
 
 	@Override
 	public void resetoi() {
-		// TODO Auto-generated method stub
 
 	}
 
-
 	@Override
 	public void virheIlmoitus(Object viesti) {
-		// TODO Auto-generated method stub
 
 	}
 

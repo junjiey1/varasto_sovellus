@@ -48,33 +48,39 @@ public class MuokkaaProductController implements Nakyma_IF {
 	public void initialize() {
 		p = new ArrayList();
 		tuoteTable.setEditable(true);
-		Callback<TableColumn<Product, Integer>, TableCell<Product, Integer>> cellFactory = new Callback<TableColumn<Product, Integer>, TableCell<Product, Integer>>() {
-			public TableCell call(TableColumn p) {
-				return new EditingCell(1,PaivitettavatTuotteet);
-			}
-		};
-		Callback<TableColumn<Product, String>, TableCell<Product, String>> cellFactory2 = new Callback<TableColumn<Product, String>, TableCell<Product, String>>() {
-			public TableCell call(TableColumn p) {
-				return new EditingCell(2,PaivitettavatTuotteet);
-			}
-		};
-		Callback<TableColumn<Product, Double>, TableCell<Product, Double>> cellFactory3 = new Callback<TableColumn<Product, Double>, TableCell<Product, Double>>() {
-			public TableCell call(TableColumn p) {
-				EditingCell e = new EditingCell(3,PaivitettavatTuotteet);
-				return e;
-			}
-		};
+		//tuoteTable.getColumns().add(e);
+//		Callback<TableColumn<Product, Integer>, TableCell<Product, Integer>> cellFactory = new Callback<TableColumn<Product, Integer>, TableCell<Product, Integer>>() {
+//			public TableCell call(TableColumn p) {
+//				return new EditingCell(1,PaivitettavatTuotteet);
+//			}
+//		};
+//		Callback<TableColumn<Product, String>, TableCell<Product, String>> cellFactory2 = new Callback<TableColumn<Product, String>, TableCell<Product, String>>() {
+//			public TableCell call(TableColumn p) {
+//				return new EditingCell(2,PaivitettavatTuotteet);
+//			}
+//		};
+//		Callback<TableColumn<Product, Double>, TableCell<Product, Double>> cellFactory3 = new Callback<TableColumn<Product, Double>, TableCell<Product, Double>>() {
+//			public TableCell call(TableColumn p) {
+//				EditingCell e = new EditingCell(3,PaivitettavatTuotteet);
+//				return e;
+//			}
+//		};
+//
+//		Callback<TableColumn<Product, Float>, TableCell<Product, Float>> cellFactory4 = new Callback<TableColumn<Product, Float>, TableCell<Product, Float>>() {
+//			public TableCell call(TableColumn p) {
+//				return new EditingCell(4,PaivitettavatTuotteet);
+//			}
+//		};
+//		maaraCol.setCellFactory(cellFactory);
+//		nameCol.setCellFactory(cellFactory2);
+//		weightCol.setCellFactory(cellFactory3);
+//		volumeCol.setCellFactory(cellFactory3);
+//		priceCol.setCellFactory(cellFactory4);
+		tuoteTable.getColumns().clear();
+		TableColumn t1 = new TableColumn<Product, Double>();
+		t1.setText("lol");
+		tuoteTable.getColumns().add(t1);
 
-		Callback<TableColumn<Product, Float>, TableCell<Product, Float>> cellFactory4 = new Callback<TableColumn<Product, Float>, TableCell<Product, Float>>() {
-			public TableCell call(TableColumn p) {
-				return new EditingCell(4,PaivitettavatTuotteet);
-			}
-		};
-		maaraCol.setCellFactory(cellFactory);
-		nameCol.setCellFactory(cellFactory2);
-		weightCol.setCellFactory(cellFactory3);
-		volumeCol.setCellFactory(cellFactory3);
-		priceCol.setCellFactory(cellFactory4);
 	}
 
 	public void Reset() {
@@ -181,7 +187,6 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void paivita(Object data) {
-		// TODO Auto-generated method stub
 
 	}
 

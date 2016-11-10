@@ -14,7 +14,7 @@ import vPakkaus.Product;
  * Tämä luokka vastaa tuotteiden taulukon solujen muokkauksesta
  *
  */
-abstract class EditingCell extends TableCell<Product, Object> {
+abstract class EditingCell extends TableCell<DAO_Objekti, Object> {
 
 	private TextField textField;
 	//private Product[] PaivitettavatTuotteet;
@@ -84,14 +84,14 @@ abstract class EditingCell extends TableCell<Product, Object> {
 		}
 		super.updateItem(item, empty);
 		if (empty) {
-			// setText(null);
+			 setText(null);
 			setGraphic(null);
 		} else {
 			if (isEditing()) {
 				if (textField != null) {
 					textField.setText(getString());
 				}
-				// setText(null);
+				setText(null);
 				setGraphic(textField);
 			} else {
 				setText(getString());

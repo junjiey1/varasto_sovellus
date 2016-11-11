@@ -743,6 +743,7 @@ public class DB_AccessObject {
 		for (Product p : products) {
 
 			try {
+				System.out.println(p.toString());
 				ps = conn.prepareStatement(
 						"UPDATE tuote  SET" + " tuote.nimi = ?,tuote.hinta = ?, tuote.paino = ?, tuote.leveys = ?,"
 								+ " tuote.pituus = ?, tuote.korkeus = ? WHERE tuote.tuoteID = ?");
@@ -758,9 +759,16 @@ public class DB_AccessObject {
 				ps.executeUpdate();
 				ps.close();
 
-				if (p.getTemp())
+				if (p.getTemp()){
 					if (!updateLampotila(p))
 						return false;
+				}else{
+					System.out.println("1");
+					if(checkIfTuoteIDExcistInLampoTila(p.getID())){
+						System.out.println("1");
+						deleteLampotila(p);
+					}
+				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -797,6 +805,24 @@ public class DB_AccessObject {
 		 if(res==1)
 			 return true;
 		 return false;
+	 }
+
+	 public boolean deleteLampotila(Product p){
+		 try {
+			ps = conn.prepareStatement("UPDATE tuote SET lampotila_boolean = ? WHERE tuoteID = ?");
+			ps.setInt(1, 0);
+			ps.setInt(2, p.getID());
+			ps.executeUpdate();
+			ps.close();
+			ps = conn.prepareStatement("DELETE FROM lampotila WHERE tuoteID = ?");
+			ps.setInt(1, p.getID());
+			ps.executeUpdate();
+			ps.close();
+			return true;
+		 } catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	 }
 
 	 public boolean updateLampotila(Product p){

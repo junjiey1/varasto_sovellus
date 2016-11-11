@@ -15,6 +15,7 @@ public class ProductTaulukko implements Taulukko_IF{
 	private TableView<DAO_Objekti> taulukko;
 	private Product[] PaivitettavatTuotteet;
 	private ArrayList<Product> p = new ArrayList<Product>();
+	private String error;
 
 	ProductTaulukko(TableView<DAO_Objekti> tuoteTaulukko, Product[] lista){
 		taulukko = tuoteTaulukko;
@@ -35,11 +36,31 @@ public class ProductTaulukko implements Taulukko_IF{
 
 	private ArrayList<Product> convertToArrayList() {
 		ArrayList<Product> res = new ArrayList<Product>();
+		int lask=0;
 		for (Product p : PaivitettavatTuotteet) {
-			if (p != null)
-				res.add(p);
+			if (p != null){
+				if(!isValid(p)){
+					return null;
+				}else
+					res.add(p);
+				lask++;
+			}
 		}
 		return res;
+	}
+
+	private boolean isValid(Product p){
+		if(p.getMax_temperature()!=null && p.getMin_temperature()==null
+			|| p.getMin_temperature()!=null && p.getMax_temperature()==null){
+			error = "Virhe! tuotteella " + p.getProduct_name() + " pitää olla määriteltynä sekä "
+					+ "minimi, että maksimi lämpotilat";
+			return false;
+		}else if(p.getTemp() && p.getMin_temperature()>p.getMax_temperature()){
+			error = "Virhe! tuotteella " + p.getProduct_name() + " on määritelty minimi lämpötila "
+					+ "suuremmaksi kuin maksimi lämpötila";
+			return false;
+		}
+		return true;
 	}
 
 	private boolean isEmpty() {
@@ -56,11 +77,16 @@ public class ProductTaulukko implements Taulukko_IF{
 	}
 
 	@Override
-	public boolean paivitaTietokantaan(MainController_IF mc) {
+	public boolean paivitaTietokantaan(MainController_IF mc, Nakyma_IF nakyma) {
 		if (PaivitettavatTuotteet == null || isEmpty()) // Tuote lista on tyhjä käyttäjä ei oo muokannut tuotteita
 			return false;
 		System.out.println("Tyhjä? " + isEmpty());
-		if (mc.paivitaTuotteet(convertToArrayList())) {
+		ArrayList<Product> res = convertToArrayList();
+		if(res==null){
+			nakyma.virheIlmoitus(error);
+			return false;
+		}
+		if (mc.paivitaTuotteet(res)) {
 			for(int i = 0 ; i<PaivitettavatTuotteet.length; i++)
 				if(PaivitettavatTuotteet[i]!=null)
 					PaivitettavatTuotteet[i]=null;

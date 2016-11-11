@@ -93,16 +93,15 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	public void paivitaTuotteet() {
 		if (0 == JOptionPane.showConfirmDialog(null, "Punaisella merkityt rivit tallenetaan pysyvästi\njatketaanko?")) {
-			if (taulukko.paivitaTietokantaan(mc)) {
+			if (taulukko.paivitaTietokantaan(mc, this)) {
 				JOptionPane.showMessageDialog(null, "Tiedot päivitetty onnistuneesti", "Päivitys onnistui",
 						JOptionPane.INFORMATION_MESSAGE);
-				Reset();
-				täytäTaulukko();
 			}else{
 				JOptionPane.showMessageDialog(null, "Tietokantaa ei voitu päivittää!",
 					"Virhe havaittu tietokannan päivityksessä", JOptionPane.ERROR_MESSAGE);
-				Reset();
 			}
+			Reset();
+			täytäTaulukko();
 		}
 	}
 
@@ -119,8 +118,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-		// TODO Auto-generated method stub
-
+		JOptionPane.showMessageDialog(null, viesti.toString(), null, JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override

@@ -36,18 +36,13 @@ public class MainPageController implements Nakyma_IF{
 
 	public void tabChoose() throws IOException {
 
-		//System.gc(); // CLEAR MEMORY
 		if (addProductTab.isSelected()) {
 			activeTab = addProductTab;
 			activeTab.setContent(vaihtaja.getAnchorPane("addpage"));
-			//vaihtaja.asetaUudeksiNaytoksi("addpage", "VarastoSovellus");
-			resource = "view/addProduct.fxml";
 		}
 		if (tab3.isSelected()) {
 			activeTab = tab3;
 			activeTab.setContent(vaihtaja.getAnchorPane("searchpage"));
-			//vaihtaja.asetaUudeksiNaytoksi("searchpage", "VarastoSovellus");
-			resource = "view/SearchProduct.fxml";
 		}
 		if (tab4.isSelected()) {
 			activeTab = tab4;

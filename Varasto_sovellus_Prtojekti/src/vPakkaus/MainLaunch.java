@@ -34,6 +34,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	private HashMap<String, Scene> sceneMap;
 	private HashMap<String, Nakyma_IF> luodutNakymaKontrollerit;
 
+
 	/**
 	 * Paaohjelma alku. Sisaankirjautumis nakyma
 	 */
@@ -44,7 +45,8 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		luodutNakymaKontrollerit = new HashMap<String, Nakyma_IF>(); //Tänne jokainen FXML näkymä-luokan kontrolleri instanssi
 		mc = new MainController();
 		tehdas = new AnchorPaneFactory(mc);
-		lataaNakymat();
+		lataaAnchorPanet();
+		luoNakymat();
 		MainStage = primaStage;
 		MainStage.setTitle("test");
 		MainStage.setScene(sceneMap.get("login"));
@@ -52,13 +54,17 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		//windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}
 
-	private void lataaNakymat(){ //Ladataan Anchorpane luokat tehtaan kautta
+	private void lataaAnchorPanet(){ //Ladataan Anchorpane luokat tehtaan kautta
 		System.out.println("Ladataan nakymia");
 		anchorMap.put("login",tehdas.annaNakyma("view/LoginView.fxml", this));
 		anchorMap.put("mainpage",tehdas.annaNakyma("view/MainPageView.fxml", this));
 		anchorMap.put("addpage",tehdas.annaNakyma("view/addProduct.fxml", this));
 		anchorMap.put("searchpage",tehdas.annaNakyma("view/SearchProduct.fxml", this));
 		anchorMap.put("customer",tehdas.annaNakyma("view/addCustomer.fxml", this));
+	}
+
+	private void luoNakymat(){ //Luo ladatuista Anchorpaneista Nakymia
+		System.out.println("luodaan nakymia");
 		sceneMap.put("login", new Scene(anchorMap.get("login")));
 		sceneMap.put("mainpage", new Scene(anchorMap.get("mainpage")));
 		sceneMap.put("customer", new Scene(anchorMap.get("customer")));
@@ -130,4 +136,15 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	public void rekisteröiNakymaKontrolleri(Nakyma_IF viewController, String nimi) {
 		luodutNakymaKontrollerit.put(nimi, viewController);
 	}
+
+	public void testFX_Esivalmistelut(){
+		anchorMap = new HashMap<String, AnchorPane>(); //Tänne tallenetaan fxml tiedoista luodut Anchorpanet
+		sceneMap = new HashMap<String, Scene>(); //Tänne tallennetaan jokainen Scene-olio
+		luodutNakymaKontrollerit = new HashMap<String, Nakyma_IF>(); //Tänne jokainen FXML näkymä-luokan kontrolleri instanssi
+		mc = new MainController();
+		tehdas = new AnchorPaneFactory(mc);
+		lataaAnchorPanet();
+	}
+
+
 }

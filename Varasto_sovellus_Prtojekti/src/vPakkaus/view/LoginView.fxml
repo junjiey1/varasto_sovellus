@@ -41,7 +41,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button defaultButton="true" layoutX="25.0" layoutY="255.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="107.0" text="LOG IN">
+      <Button fx:id="loginButton" defaultButton="true" layoutX="25.0" layoutY="255.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="107.0" text="LOG IN">
          <font>
             <Font size="14.0" />
          </font>

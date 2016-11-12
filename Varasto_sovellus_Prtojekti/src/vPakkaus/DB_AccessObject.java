@@ -460,6 +460,12 @@ public class DB_AccessObject {
 		return hyl;
 	}
 
+	public ArrayList<Hyllypaikka> findHyllypaikka(String nimi){
+		ArrayList<Hyllypaikka> res = new ArrayList<Hyllypaikka>();
+
+		return res;
+	}
+
 	public ArrayList<String> HaeHyllypaikanTuotteet(String hyllypaikka) {
 		ArrayList<String> HP_Tuotteet = new ArrayList();
 		try {

@@ -1,6 +1,6 @@
 package vPakkaus;
 
-public class Tuotejoukko {
+public class Tuotejoukko implements DAO_Objekti{
 	private Product product;
 	private Hyllypaikka hylly;
 	private int maara;
@@ -33,6 +33,18 @@ public class Tuotejoukko {
 
 	public void setMaara(int maara) {
 		this.maara = maara;
+	}
+
+	@Override
+	public boolean paivitaMuuttuja(String muuttujanNimi) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Object haeMuuttuja(String muuttujanNimi) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

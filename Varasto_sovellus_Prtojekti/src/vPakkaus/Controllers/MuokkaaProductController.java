@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,6 +18,7 @@ import javafx.util.Callback;
 import vPakkaus.DAO_Objekti;
 import vPakkaus.Product;
 
+
 /**
 *Tuoteen muokkaus tabi ikkunan kontrolleri. Vastaa taulukon luonnista.
 */
@@ -26,7 +28,12 @@ public class MuokkaaProductController implements Nakyma_IF {
 	private TextField productName;
 	@FXML
 	private TableView<DAO_Objekti> tuoteTable;
+	@FXML
+	private Button hyllyButton;
+	@FXML
+	private Button tuoteButton;
 
+	private int mode;
 	private MainController_IF mc;
 	private ArrayList<DAO_Objekti> p = new ArrayList<DAO_Objekti>();
 	boolean hae;
@@ -34,7 +41,12 @@ public class MuokkaaProductController implements Nakyma_IF {
 	private TaulukkoFactory tehdas;
 	private Taulukko_IF taulukko;
 
+
 	public void initialize() {
+		mode = 1;
+		hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
+		tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
+		switchMode();
 		tuoteTable.setEditable(true);
 		tehdas = new TaulukkoFactory();
 	}
@@ -105,6 +117,24 @@ public class MuokkaaProductController implements Nakyma_IF {
 		}
 	}
 
+	public void switchMode(){
+		switch(mode){//F75757
+			case 1:
+				mode = 2;
+				tuoteButton.setDisable(true);
+				hyllyButton.setDisable(false);
+				hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
+				tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
+				break;
+			case 2:
+				mode = 1;
+				hyllyButton.setDisable(true);
+				tuoteButton.setDisable(false);
+				tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
+				hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
+		}
+	}
+
 	@Override
 	public void paivita(Object data) {
 
@@ -128,8 +158,6 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void esiValmistelut() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -27,10 +27,10 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 
 	private Taulukko_IF rakennaProductTaulukko(ArrayList<DAO_Objekti> lista){
 		TableView<DAO_Objekti> product_taulukko = new TableView<DAO_Objekti>();
-		product_taulukko.setId("lolleriino");
-		product_taulukko.setLayoutX(307.0);
-		product_taulukko.setLayoutY(23.0);
-		product_taulukko.setPrefSize(385.0, 430.0);
+//		product_taulukko.setId("lolleriino");
+//		product_taulukko.setLayoutX(307.0);
+//		product_taulukko.setLayoutY(23.0);
+//		product_taulukko.setPrefSize(385.0, 430.0);
 		System.out.println("p " +product_taulukko.toString());
 		TableColumn<DAO_Objekti, Double> t1 = new TableColumn<DAO_Objekti, Double>();//Paino
 		TableColumn<DAO_Objekti, String> t2 = new TableColumn<DAO_Objekti, String>();//Nimi

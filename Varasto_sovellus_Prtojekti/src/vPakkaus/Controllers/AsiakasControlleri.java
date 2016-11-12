@@ -10,33 +10,35 @@ public class AsiakasControlleri implements Nakyma_IF {
 	private TextField customerName, customerStreet, customerPostalCode, customerCity, customerState,
 			contactPersonFname, contactPersonLname, contactPersonEmail, contactPersonPhone;
 
-	
+
 	String Customer_Name, Customer_Street, Customer_Postal, Customer_City, Customer_State,
 			ContactP_F_Name, ContactP_L_Name, ContactP_Email, ContactP_Phone;
 
+	private MainController_IF mc;
+
 	@Override
 	public void setMainController(MainController_IF m) {
-		
+		mc = m;
 	}
 
 	@Override
 	public void paivita(Object data) {
-		
+
 	}
 
 	@Override
 	public void resetoi() {
-		
+
 	}
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-		
+
 	}
 
 	@Override
 	public void esiValmistelut() {
-		
+
 	}
 
 	@Override
@@ -48,15 +50,15 @@ public class AsiakasControlleri implements Nakyma_IF {
 		if (parseData()){
 			System.out.println("WORKINGS");
 			//Save data to DB
-			
-			
+
+
 		}
-		
+
 	}
-	
+
 	private boolean parseData(){
 		boolean allGood = true;
-		
+
 		if (customerName.getText().isEmpty()){
 			allGood = false;
 			showError("Customer name field", "is empty");
@@ -91,10 +93,10 @@ public class AsiakasControlleri implements Nakyma_IF {
 			allGood = false;
 			showError("Contact person email field", "is empty");
 		}else{
-			if (contactPersonEmail.getText().contains("@") && 
-				contactPersonEmail.getText().contains(".") && 
+			if (contactPersonEmail.getText().contains("@") &&
+				contactPersonEmail.getText().contains(".") &&
 				contactPersonEmail.getText().lastIndexOf(".") > contactPersonEmail.getText().indexOf("@")){
-				
+
 				ContactP_Email = contactPersonEmail.getText();
 			}else{
 				allGood = false;
@@ -112,7 +114,7 @@ public class AsiakasControlleri implements Nakyma_IF {
 				Customer_Name = customerName.getText();
 			}
 		}
-		
+
 		return allGood;
 	}
 

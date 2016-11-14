@@ -3,6 +3,7 @@ package vPakkaus.Controllers;
 import javax.swing.JOptionPane;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import vPakkaus.Asiakas;
 
 public class AsiakasControlleri implements Nakyma_IF {
 
@@ -10,7 +11,7 @@ public class AsiakasControlleri implements Nakyma_IF {
 	private TextField customerName, customerStreet, customerPostalCode, customerCity, customerState,
 			contactPersonFname, contactPersonLname, contactPersonEmail, contactPersonPhone;
 
-
+	private int postalNumber;
 	String Customer_Name, Customer_Street, Customer_Postal, Customer_City, Customer_State,
 			ContactP_F_Name, ContactP_L_Name, ContactP_Email, ContactP_Phone;
 
@@ -23,7 +24,8 @@ public class AsiakasControlleri implements Nakyma_IF {
 
 	@Override
 	public void paivita(Object data) {
-
+		JOptionPane.showMessageDialog(null, data.toString(), "ILMOITUS",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
@@ -38,22 +40,22 @@ public class AsiakasControlleri implements Nakyma_IF {
 
 	@Override
 	public void esiValmistelut() {
-
+		System.out.println("asiakasliitetty");
 	}
 
 	@Override
 	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
-
+		vaihtaja.rekisteröiNakymaKontrolleri(this, "customer");
 	}
 
 	public void saveChanges() {
 		if (parseData()){
 			System.out.println("WORKINGS");
-			//Save data to DB
-
-
+			Asiakas asiakas = new Asiakas(Customer_Name, Customer_Street,Customer_City,
+					ContactP_Email, ContactP_Phone,postalNumber
+			);
+			mc.TallennaAsiakas(asiakas);
 		}
-
 	}
 
 	private boolean parseData(){
@@ -64,6 +66,11 @@ public class AsiakasControlleri implements Nakyma_IF {
 			showError("Customer name field", "is empty");
 		}else{
 			Customer_Name = customerName.getText();
+		}
+		try{
+			postalNumber = Integer.parseInt(customerPostalCode.getText());
+		}catch(Exception e){
+			allGood = false;
 		}
 		if (customerStreet.getText().isEmpty()){
 			allGood = false;
@@ -111,6 +118,7 @@ public class AsiakasControlleri implements Nakyma_IF {
 				allGood = false;
 				showError("Contact person phone number", "should be in following format: +123 12 345 6789");
 			}else{
+				ContactP_Phone = contactPersonPhone.getText();
 				Customer_Name = customerName.getText();
 			}
 		}

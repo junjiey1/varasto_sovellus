@@ -11,9 +11,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="551.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="551.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.AsiakasViewController">
    <children>
-      <TableView layoutX="254.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="asiakasTaulukko" layoutX="254.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columns>
             <TableColumn maxWidth="1.7976931348623157E308" minWidth="300.0" prefWidth="-1.0" text="Customer" />
          </columns>
@@ -38,7 +38,7 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <Button layoutX="63.0" layoutY="430.0" mnemonicParsing="false" text="Add new customer">
+      <Button layoutX="63.0" layoutY="430.0" mnemonicParsing="false" onAction="#vaihdaAsiakkaanTarkasteluun" text="Add new customer">
          <font>
             <Font size="13.0" />
          </font>

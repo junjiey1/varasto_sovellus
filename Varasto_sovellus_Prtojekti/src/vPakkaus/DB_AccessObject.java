@@ -833,7 +833,6 @@ public class DB_AccessObject {
 
 	 public boolean updateLampotila(Product p){
 		 try {
-			 System.out.println("Onko temp " + p.getTemp() + " " + p.getMax_temperature() + " " + p.getMin_temperature() + " ID " + p.getID());
 			 if(!checkIfTuoteIDExcistInLampoTila(p.getID())){
 				 System.out.println("set");
 				 ps = conn.prepareStatement("UPDATE tuote SET lampotila_boolean = ? WHERE tuoteID = ?");
@@ -860,6 +859,28 @@ public class DB_AccessObject {
 		}
 		return true;
 	 }
+
+	 public boolean addAsiakas(Asiakas a){
+		 if(a==null)
+			 return false;
+		 try {
+			ps = conn.prepareStatement("INSERT INTO asiakas (nimi, osoite, postinumero, kaupunki, email, puhelinnumero) VALUES (?,?,?,?,?,?)");
+			ps.setString(1, a.getNimi());
+			ps.setString(2, a.getOsoit());
+			ps.setInt(3, a.getPosnumero());
+			ps.setString(4, a.getKaupun());
+			ps.setString(5, a.getEmai());
+			ps.setString(6, a.getNumero());
+			ps.executeUpdate();
+			ps.close();
+		 } catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		 return true;
+	 }
+
+
 	// /**
 	// * Sulje tietokanta yhteys.
 	// *

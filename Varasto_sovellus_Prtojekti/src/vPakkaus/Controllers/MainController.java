@@ -1,6 +1,8 @@
 package vPakkaus.Controllers;
 
 import java.util.ArrayList;
+
+import vPakkaus.Asiakas;
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
@@ -143,8 +145,25 @@ public class MainController implements MainController_IF{
 	}
 
 	@Override
-	public void liitaNaytto(Nakyma_IF naytto) {
+	public void asetaAktiiviseksiNaytoksi(Nakyma_IF naytto) {
 		this.naytto = naytto;
-		this.naytto.esiValmistelut();
+		naytto.esiValmistelut();
+	}
+
+	@Override
+	public ArrayList<Asiakas> haeAsiakkaat(String nimi) {
+		return null;
+	}
+
+	@Override
+	public void TallennaAsiakas(Asiakas asiakas) {
+		if(db.addAsiakas(asiakas)){
+			System.out.println("le");
+			naytto.paivita("Asiakas nimellä " + asiakas.getNimi() + " lisättiin onnistuneesti");
+		}else{
+			System.out.println("reee");
+			naytto.paivita("Asiakas nimellä " + asiakas.getNimi() + " lisääminen epäonnistui");
+
+		}
 	}
 }

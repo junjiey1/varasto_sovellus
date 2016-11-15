@@ -42,6 +42,8 @@ public class MuokkaaProductController implements Nakyma_IF {
 	private Taulukko_IF taulukko;
 
 
+
+
 	public void initialize() {
 		System.out.println("---------");
 		mode = 1;
@@ -70,12 +72,13 @@ public class MuokkaaProductController implements Nakyma_IF {
 		tuoteTable.refresh();
 	}
 
-	private void luoUusiTaulukko(){
-		if(p.size()<=0)
-			return;
+	private boolean luoUusiTaulukko(){
+		if(p.size()<=0 || p == null)
+			return false;
 		tuoteTable.getColumns().clear();
 		taulukko = tehdas.annaTaulukko(p.get(0), p);
 		tuoteTable.getColumns().addAll(taulukko.getTaulukko().getColumns());
+		return true;
 	}
 
 	public void SearchManually() throws IOException {
@@ -86,10 +89,12 @@ public class MuokkaaProductController implements Nakyma_IF {
 		if (hae) {
 			Reset();
 			HaeTuoteet();
-			luoUusiTaulukko();
-			täytäTaulukko();
-			if (p == null) // Saatu tuote lista on null eli tyhjä
-				return; // error viesti tÃ¤nne ku ei lÃ¶ytynyt mitÃ¤Ã¤n
+			if(luoUusiTaulukko()){
+				täytäTaulukko();
+			}else{
+				virheIlmoitus("Annetulla hakusanalla ei löytynyt tuotteita");
+				return;
+			}
 		} else {
 			System.out.println("KenttÃ¤ on tÃ¤ytetty vÃ¤Ã¤rÃ¤llÃ¤ tavalla");
 		}

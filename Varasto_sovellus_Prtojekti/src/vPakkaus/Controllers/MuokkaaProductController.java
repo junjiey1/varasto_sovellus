@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,6 +18,7 @@ import javafx.util.Callback;
 import vPakkaus.DAO_Objekti;
 import vPakkaus.Product;
 
+
 /**
 *Tuoteen muokkaus tabi ikkunan kontrolleri. Vastaa taulukon luonnista.
 */
@@ -26,7 +28,12 @@ public class MuokkaaProductController implements Nakyma_IF {
 	private TextField productName;
 	@FXML
 	private TableView<DAO_Objekti> tuoteTable;
+	@FXML
+	private Button hyllyButton;
+	@FXML
+	private Button tuoteButton;
 
+	private int mode;
 	private MainController_IF mc;
 	private ArrayList<DAO_Objekti> p = new ArrayList<DAO_Objekti>();
 	boolean hae;
@@ -34,7 +41,14 @@ public class MuokkaaProductController implements Nakyma_IF {
 	private TaulukkoFactory tehdas;
 	private Taulukko_IF taulukko;
 
+
+
+
 	public void initialize() {
+		mode = 1;
+		hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
+		tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
+		switchMode();
 		tuoteTable.setEditable(true);
 		tehdas = new TaulukkoFactory();
 	}
@@ -57,12 +71,13 @@ public class MuokkaaProductController implements Nakyma_IF {
 		tuoteTable.refresh();
 	}
 
-	private void luoUusiTaulukko(){
-		if(p.size()<=0)
-			return;
+	private boolean luoUusiTaulukko(){
+		if(p.size()<=0 || p == null)
+			return false;
 		tuoteTable.getColumns().clear();
 		taulukko = tehdas.annaTaulukko(p.get(0), p);
 		tuoteTable.getColumns().addAll(taulukko.getTaulukko().getColumns());
+		return true;
 	}
 
 	public void SearchManually() throws IOException {
@@ -73,10 +88,12 @@ public class MuokkaaProductController implements Nakyma_IF {
 		if (hae) {
 			Reset();
 			HaeTuoteet();
-			luoUusiTaulukko();
-			täytäTaulukko();
-			if (p == null) // Saatu tuote lista on null eli tyhjä
-				return; // error viesti tÃ¤nne ku ei lÃ¶ytynyt mitÃ¤Ã¤n
+			if(luoUusiTaulukko()){
+				täytäTaulukko();
+			}else{
+				virheIlmoitus("Annetulla hakusanalla ei löytynyt tuotteita");
+				return;
+			}
 		} else {
 			System.out.println("KenttÃ¤ on tÃ¤ytetty vÃ¤Ã¤rÃ¤llÃ¤ tavalla");
 		}
@@ -93,16 +110,33 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	public void paivitaTuotteet() {
 		if (0 == JOptionPane.showConfirmDialog(null, "Punaisella merkityt rivit tallenetaan pysyvästi\njatketaanko?")) {
-			if (taulukko.paivitaTietokantaan(mc)) {
+			if (taulukko.paivitaTietokantaan(mc, this)) {
 				JOptionPane.showMessageDialog(null, "Tiedot päivitetty onnistuneesti", "Päivitys onnistui",
 						JOptionPane.INFORMATION_MESSAGE);
-				Reset();
-				täytäTaulukko();
 			}else{
 				JOptionPane.showMessageDialog(null, "Tietokantaa ei voitu päivittää!",
 					"Virhe havaittu tietokannan päivityksessä", JOptionPane.ERROR_MESSAGE);
-				Reset();
 			}
+			Reset();
+			täytäTaulukko();
+		}
+	}
+
+	public void switchMode(){
+		switch(mode){//F75757
+			case 1:
+				mode = 2;
+				tuoteButton.setDisable(true);
+				hyllyButton.setDisable(false);
+				hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
+				tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
+				break;
+			case 2:
+				mode = 1;
+				hyllyButton.setDisable(true);
+				tuoteButton.setDisable(false);
+				tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
+				hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
 		}
 	}
 
@@ -119,8 +153,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-		// TODO Auto-generated method stub
-
+		JOptionPane.showMessageDialog(null, viesti.toString(), null, JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override
@@ -130,8 +163,6 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void esiValmistelut() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -34,7 +34,6 @@ public class DB_AccessObject {
 				System.out.println("Yritetään muodostaa yhteys Jenkinsillä");
 				conn = DriverManager.getConnection("jdbc:mysql://10.114.32.19:3306/varasto", "jenkins", "jenkins");
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		} catch (ClassNotFoundException e) {
@@ -460,6 +459,12 @@ public class DB_AccessObject {
 		return hyl;
 	}
 
+	public ArrayList<Hyllypaikka> findHyllypaikka(String nimi){
+		ArrayList<Hyllypaikka> res = new ArrayList<Hyllypaikka>();
+
+		return res;
+	}
+
 	public ArrayList<String> HaeHyllypaikanTuotteet(String hyllypaikka) {
 		ArrayList<String> HP_Tuotteet = new ArrayList();
 		try {
@@ -549,6 +554,7 @@ public class DB_AccessObject {
 				if (lampotila_boolean == 1)
 					product.setTemp(true);
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -742,6 +748,7 @@ public class DB_AccessObject {
 		for (Product p : products) {
 
 			try {
+				System.out.println(p.toString());
 				ps = conn.prepareStatement(
 						"UPDATE tuote  SET" + " tuote.nimi = ?,tuote.hinta = ?, tuote.paino = ?, tuote.leveys = ?,"
 								+ " tuote.pituus = ?, tuote.korkeus = ? WHERE tuote.tuoteID = ?");
@@ -757,9 +764,16 @@ public class DB_AccessObject {
 				ps.executeUpdate();
 				ps.close();
 
-				if (p.getTemp())
+				if (p.getTemp()){
 					if (!updateLampotila(p))
 						return false;
+				}else{
+					System.out.println("1");
+					if(checkIfTuoteIDExcistInLampoTila(p.getID())){
+						System.out.println("1");
+						deleteLampotila(p);
+					}
+				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -771,23 +785,101 @@ public class DB_AccessObject {
 		return error;
 	}
 
-	public boolean updateLampotila(Product p) {
-		try {
-			ps = conn.prepareStatement("UPDATE lampotila SET lampotila_max = ?, lampotila_min = ? WHERE tuoteID = ?");
-			ps.setInt(1, p.getMax_temperature());
-			ps.setInt(2, p.getMin_temperature());
-			ps.setInt(3, p.getID());
+	 public boolean checkIfTuoteIDExcistInLampoTila(int ID){
+		 int res=0;
+		 try {
+			ps = conn.prepareStatement("SELECT 1 AS total FROM lampotila WHERE tuoteID = ?;");
+			ps.setInt(1, ID);
+			 rs = ps.executeQuery();
+			 while(rs.next())
+				 res = rs.getInt("total");
+		 } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}finally{
+			try {
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		 System.out.println("RES " + res);
+		 if(res==1)
+			 return true;
+		 return false;
+	 }
+
+	 public boolean deleteLampotila(Product p){
+		 try {
+			ps = conn.prepareStatement("UPDATE tuote SET lampotila_boolean = ? WHERE tuoteID = ?");
+			ps.setInt(1, 0);
+			ps.setInt(2, p.getID());
 			ps.executeUpdate();
 			ps.close();
-		} catch (SQLException e) {
+			ps = conn.prepareStatement("DELETE FROM lampotila WHERE tuoteID = ?");
+			ps.setInt(1, p.getID());
+			ps.executeUpdate();
+			ps.close();
+			return true;
+		 } catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	 }
+
+	 public boolean updateLampotila(Product p){
+		 try {
+			 if(!checkIfTuoteIDExcistInLampoTila(p.getID())){
+				 System.out.println("set");
+				 ps = conn.prepareStatement("UPDATE tuote SET lampotila_boolean = ? WHERE tuoteID = ?");
+				ps.setInt(1, 1);
+				ps.setInt(2, p.getID());
+				ps.executeUpdate();
+				ps.close();
+				ps = conn.prepareStatement("INSERT INTO lampotila (lampotila_max, lampotila_min, tuoteID) VALUES (?,?,?)");
+				ps.setInt(1, p.getMax_temperature());
+				ps.setInt(2, p.getMin_temperature());
+				ps.setInt(3, p.getID());
+				ps.executeUpdate();
+			 }else{
+				 System.out.println("upd");
+				ps = conn.prepareStatement("UPDATE lampotila SET lampotila_max = ?, lampotila_min = ? WHERE tuoteID = ?");
+				ps.setInt(1, p.getMax_temperature());
+				ps.setInt(2, p.getMin_temperature());
+				ps.setInt(3, p.getID());
+				ps.executeUpdate();
+			 }
+		 } catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 		return true;
-	}
-	// gitlab.com/Grigorij_S/Varasto_Sovellus.git
-	//
-	//
+	 }
+
+	 public boolean addAsiakas(Asiakas a){
+		 if(a==null)
+			 return false;
+		 try {
+			ps = conn.prepareStatement("INSERT INTO asiakas (nimi, osoite, postinumero, kaupunki, email, puhelinnumero) VALUES (?,?,?,?,?,?)");
+			ps.setString(1, a.getNimi());
+			ps.setString(2, a.getOsoit());
+			ps.setInt(3, a.getPosnumero());
+			ps.setString(4, a.getKaupun());
+			ps.setString(5, a.getEmai());
+			ps.setString(6, a.getNumero());
+			ps.executeUpdate();
+			ps.close();
+		 } catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		 return true;
+	 }
+
+
 	// /**
 	// * Sulje tietokanta yhteys.
 	// *

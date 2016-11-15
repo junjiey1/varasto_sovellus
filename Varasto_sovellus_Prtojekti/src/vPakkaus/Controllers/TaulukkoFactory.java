@@ -2,10 +2,13 @@ package vPakkaus.Controllers;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 import vPakkaus.DAO_Objekti;
@@ -24,10 +27,10 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 
 	private Taulukko_IF rakennaProductTaulukko(ArrayList<DAO_Objekti> lista){
 		TableView<DAO_Objekti> product_taulukko = new TableView<DAO_Objekti>();
-		product_taulukko.setId("lolleriino");
-		product_taulukko.setLayoutX(307.0);
-		product_taulukko.setLayoutY(23.0);
-		product_taulukko.setPrefSize(385.0, 430.0);
+//		product_taulukko.setId("lolleriino");
+//		product_taulukko.setLayoutX(307.0);
+//		product_taulukko.setLayoutY(23.0);
+//		product_taulukko.setPrefSize(385.0, 430.0);
 		System.out.println("p " +product_taulukko.toString());
 		TableColumn<DAO_Objekti, Double> t1 = new TableColumn<DAO_Objekti, Double>();//Paino
 		TableColumn<DAO_Objekti, String> t2 = new TableColumn<DAO_Objekti, String>();//Nimi
@@ -37,6 +40,8 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 		TableColumn<DAO_Objekti, Float> t6 = new TableColumn<DAO_Objekti, Float>();//Hinta
 		TableColumn<DAO_Objekti, Integer> t7 = new TableColumn<DAO_Objekti, Integer>();//MaxLämpotila
 		TableColumn<DAO_Objekti, Integer> t8 = new TableColumn<DAO_Objekti, Integer>();//MinLämpotila
+		TableColumn<DAO_Objekti, Object> t9 = new TableColumn<DAO_Objekti, Object>();
+
 		t1.setText("Paino");
 		t2.setText("Nimi");
 		t3.setText("Leveys");
@@ -45,6 +50,7 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 		t6.setText("Hinta");
 		t7.setText("MaxLampo");
 		t8.setText("MinLampo");
+		t9.setText("Nollaus");
 
 		Product[] PaivitettavatTuotteet = new Product[lista.size()];
 		System.out.println("koko " + lista.size());
@@ -74,6 +80,12 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 				return new ProductCellEditor(4,PaivitettavatTuotteet);
 			}
 		};
+		Callback<TableColumn<DAO_Objekti, Object>, TableCell<DAO_Objekti, Object>> cellFactory5 = new Callback<TableColumn<DAO_Objekti, Object>, TableCell<DAO_Objekti, Object>>() {
+			public TableCell call(TableColumn p) {
+				return new ProductTaulukkoNappi("Nollaa lämpötila", PaivitettavatTuotteet);
+			}
+		};
+
 		product_taulukko.getColumns().add(t1);
 		product_taulukko.getColumns().add(t2);
 		product_taulukko.getColumns().add(t3);
@@ -82,6 +94,7 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 		product_taulukko.getColumns().add(t6);
 		product_taulukko.getColumns().add(t7);
 		product_taulukko.getColumns().add(t8);
+		product_taulukko.getColumns().add(t9);
 
 		t1.setCellFactory(cellFactory3);
 		t2.setCellFactory(cellFactory2);
@@ -91,6 +104,7 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 		t6.setCellFactory(cellFactory4);
 		t7.setCellFactory(cellFactory);
 		t8.setCellFactory(cellFactory);
+		t9.setCellFactory(cellFactory5);
 
 		for(int i = 0; i<PaivitettavatTuotteet.length;i++){
 			t1.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("product_weight"));
@@ -101,6 +115,16 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 			t6.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Float>("product_price"));
 			t7.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Integer>("max_temperature"));
 			t8.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Integer>("min_temperature"));
+			t9.setCellValueFactory(
+	                new Callback<TableColumn.CellDataFeatures<DAO_Objekti, Object>,
+	                ObservableValue<Object>>() {
+
+				@Override
+				public ObservableValue<Object> call(CellDataFeatures<DAO_Objekti, Object> arg0) {
+					// TODO Auto-generated method stub
+					return new ReadOnlyObjectWrapper<Object>(arg0.getValue());
+				}
+	        });
 		}
 		return new ProductTaulukko(product_taulukko, PaivitettavatTuotteet);
 	}

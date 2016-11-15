@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.AsiakasControlleri">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.AsiakasControlleri">
    <children>
       <GridPane hgap="15.0" layoutX="14.0" layoutY="14.0" prefHeight="297.0" prefWidth="641.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
          <columnConstraints>
@@ -32,7 +31,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="customerName" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="customerName" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -47,7 +46,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="customerStreet" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="customerStreet" promptText="Street" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font>
@@ -57,7 +56,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="customerPostalCode" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="customerPostalCode" promptText="Code" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="14.0" />
                </font>
@@ -70,7 +69,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="customerCity" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="customerCity" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
                </font>
@@ -80,7 +79,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="customerState" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="customerState" promptText="State" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font size="14.0" />
                </font>
@@ -95,7 +94,7 @@
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="contactPersonFname" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <TextField fx:id="contactPersonFname" promptText="First name" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -105,7 +104,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="contactPersonLname" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <TextField fx:id="contactPersonLname" promptText="Last name" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font>
@@ -115,7 +114,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="contactPersonEmail" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <TextField fx:id="contactPersonEmail" promptText="example@exa.com" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <font>
                   <Font size="14.0" />
                </font>
@@ -125,7 +124,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="contactPersonPhone" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <TextField fx:id="contactPersonPhone" promptText="+123 12 345 6789" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
                </font>
@@ -135,7 +134,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" text="Save information" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Button mnemonicParsing="false" onAction="#saveChanges" text="Save information" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font size="13.0" />
                </font>
@@ -155,17 +154,7 @@
             <Insets right="15.0" />
          </padding>
       </GridPane>
-      <TextField fx:id="customerName1" layoutX="135.0" layoutY="45.0" prefHeight="30.0" prefWidth="182.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextField>
-      <Label layoutX="14.0" layoutY="50.0" text="Search customer">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="119.0" fitWidth="182.0" layoutX="503.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="74.84158325195312" AnchorPane.topAnchor="1.0">
+      <ImageView fitHeight="95.0" fitWidth="84.0" layoutX="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.814712524414062" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../images/customer.png" />
          </image>

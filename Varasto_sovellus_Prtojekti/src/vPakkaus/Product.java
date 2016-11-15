@@ -1,5 +1,7 @@
 package vPakkaus;
 
+import java.util.ArrayList;
+
 /**
  *
  * Luokka vastaa tavaran konstruktori seka getteri ja setteri tavaran tiedolle.
@@ -13,6 +15,7 @@ public class Product implements DAO_Objekti{
 	private float product_price;
 	private int ID;
 	private boolean temp;
+	private ArrayList<String> muuttujienNimet = new ArrayList<String>();
 
 	/**
 	 * Tavaran konstruktori,missä on kaikki tavaran liittyvät tiedot.
@@ -196,7 +199,7 @@ public class Product implements DAO_Objekti{
 	public String toString() {
 		return "Product [product_name=" + product_name + ", product_weight="
 				+ product_weight + ", product_volume=" + product_volume + ", product_price=" + product_price + ", ID="
-				+ ID + ", MinTemp=" + min_temperature + ", max_temperature=" +  max_temperature +", product_length="+product_length+"]";
+				+ ID + ", TempSet=" + temp + ", MinTemp=" + min_temperature + ", max_temperature=" +  max_temperature +", product_length="+product_length+"]";
 	}
 
 	public Integer getMin_temperature() {
@@ -213,5 +216,19 @@ public class Product implements DAO_Objekti{
 
 	public void setMax_temperature(Integer max_temperature) {
 		this.max_temperature = max_temperature;
+	}
+
+
+	@Override
+	public boolean paivitaMuuttuja(String muuttujanNimi) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public Object haeMuuttuja(String muuttujanNimi) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,5 +1,6 @@
 package vPakkaus;
 
 public interface DAO_Objekti {
-//	public void paivitaMuuttuja()
+	public boolean paivitaMuuttuja(String muuttujanNimi);
+	public Object haeMuuttuja(String muuttujanNimi);
 }

@@ -13,7 +13,7 @@
    <children>
       <TabPane minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="100.0" tabMinHeight="25.0" tabMinWidth="124.0">
         <tabs>
-          <Tab text="MAIN">
+          <Tab fx:id="homeTab" text="MAIN">
                <content>
                   <AnchorPane minHeight="460.0" minWidth="700.0" prefHeight="200.0" prefWidth="200.0">
                      <children>

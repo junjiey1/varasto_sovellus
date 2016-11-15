@@ -11,6 +11,6 @@ public interface Taulukko_IF {
 	public TableView<DAO_Objekti> getTaulukko();
 	public void addInstance(DAO_Objekti obj);
 	public void prepareEditArray();
-	public boolean paivitaTietokantaan(MainController_IF mc);
+	public boolean paivitaTietokantaan(MainController_IF mc, Nakyma_IF nakyma);
 	public DAO_Objekti getObject(int index);
 }

@@ -13,8 +13,8 @@ public class SearchTest extends GuiTest{
 		click("#productName").type("a");
 		click("#searchbtn");
 	}
-	
-	
+
+
 
 
 	@Override

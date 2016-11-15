@@ -30,12 +30,19 @@ public class AsiakasControlleri implements Nakyma_IF {
 
 	@Override
 	public void resetoi() {
-
+		customerName.setText("");
+		customerStreet.setText("");
+		customerPostalCode.setText("");
+		customerCity.setText("");
+		contactPersonFname.setText("");
+		contactPersonEmail.setText("");
+		contactPersonPhone.setText("");
 	}
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-
+		JOptionPane.showMessageDialog(null, viesti.toString(), "ILMOITUS",
+				JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override

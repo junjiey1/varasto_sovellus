@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
+import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
 import vPakkaus.Product;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,7 +22,28 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 	public Taulukko_IF annaTaulukko(DAO_Objekti obj, ArrayList<DAO_Objekti> lista) {
 		if(obj instanceof Product)
 			return rakennaProductTaulukko(lista);
+		else if(obj instanceof Asiakas)
+			return rakennaAsiakasTaulukko(lista);
 		return null;
+	}
+
+
+	private Taulukko_IF rakennaAsiakasTaulukko(ArrayList<DAO_Objekti> lista) {
+		TableView<DAO_Objekti> asiakas_taulukko = new TableView<DAO_Objekti>();
+		TableColumn<DAO_Objekti, String> t1 = new TableColumn<DAO_Objekti, String>();//Nimi
+		t1.setText("Nimi");
+//		Callback<TableColumn<DAO_Objekti, String>, TableCell<DAO_Objekti, String>> cellFactory2 = new Callback<TableColumn<DAO_Objekti, String>, TableCell<DAO_Objekti, String>>() {
+//			public TableCell call(TableColumn p) {
+//				return new ProductCellEditor(2,null);
+//			}
+//		};
+//		t1.setCellFactory(cellFactory2);
+		asiakas_taulukko.getColumns().add(t1);
+		for(int i = 0; i<lista.size();i++){
+			t1.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("nimi"));
+		}
+		asiakas_taulukko.getItems().addAll(lista);
+		return new AsiakasTaulukko(asiakas_taulukko);
 	}
 
 
@@ -31,7 +53,6 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 //		product_taulukko.setLayoutX(307.0);
 //		product_taulukko.setLayoutY(23.0);
 //		product_taulukko.setPrefSize(385.0, 430.0);
-		System.out.println("p " +product_taulukko.toString());
 		TableColumn<DAO_Objekti, Double> t1 = new TableColumn<DAO_Objekti, Double>();//Paino
 		TableColumn<DAO_Objekti, String> t2 = new TableColumn<DAO_Objekti, String>();//Nimi
 		TableColumn<DAO_Objekti, Double> t3 = new TableColumn<DAO_Objekti, Double>();//Leveys

@@ -13,9 +13,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="551.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.AsiakasViewController">
    <children>
       <TableView fx:id="asiakasTaulukko" layoutX="254.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <columns>
+         <!--  <columns>
             <TableColumn maxWidth="1.7976931348623157E308" minWidth="300.0" prefWidth="-1.0" text="Customer" />
-         </columns>
+         </columns> -->
       </TableView>
       <TextField fx:id="searchCustomer" layoutX="44.0" layoutY="43.0" promptText="Customer">
          <font>
@@ -27,7 +27,7 @@
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
-      <Button layoutX="149.0" layoutY="80.0" mnemonicParsing="false" text="Search">
+      <Button layoutX="149.0" layoutY="80.0" mnemonicParsing="false" onAction="#etsiAsiakasta" text="Search">
          <font>
             <Font size="13.0" />
          </font>

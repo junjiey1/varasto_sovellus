@@ -151,8 +151,11 @@ public class MainController implements MainController_IF{
 	}
 
 	@Override
-	public ArrayList<Asiakas> haeAsiakkaat(String nimi) {
-		return null;
+	public void haeAsiakkaat(String nimi) {
+		ArrayList<Asiakas> lista = db.haeAsiakkaat(nimi);
+		for(Asiakas a : lista)
+			System.out.println(a.getNimi());
+		naytto.paivita(lista);
 	}
 
 	@Override

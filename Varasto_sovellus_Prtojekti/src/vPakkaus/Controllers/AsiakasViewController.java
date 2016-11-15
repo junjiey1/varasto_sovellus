@@ -1,30 +1,41 @@
 package vPakkaus.Controllers;
 
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import vPakkaus.Asiakas;
+import vPakkaus.DAO_Objekti;
 
 public class AsiakasViewController implements Nakyma_IF{
 
 	@FXML
-	private TableView asiakasTaulukko;
-
+	private TableView<DAO_Objekti> asiakasTaulukko;
+	@FXML
+	private TextField searchCustomer;
+	private Taulukko_IF taulukko;
 	private TaulukkoFactory tehdas;
 	private MainController_IF mc;
 	private NayttojenVaihtaja_IF v;
-	private String nimi;
 
 
-	public void AsiakasViewController(){
+	public AsiakasViewController(){
 		tehdas = new TaulukkoFactory();
 	}
 
 	public void vaihdaAsiakkaanTarkasteluun(){
-		//asiakasTaulukko.getSelectionModel().getSelectedItem();
-		v.asetaUudeksiNaytoksi("customer", "Asiakas : UUSI ASIAKAS");
+		if(asiakasTaulukko.getSelectionModel().getSelectedItem()!=null){
+			Asiakas a = (Asiakas)asiakasTaulukko.getSelectionModel().getSelectedItem();
+			v.asetaUudeksiNaytoksi("customer", "Asiakas : " + a.getNimi() + " ", a);
+		}else
+			v.asetaUudeksiNaytoksi("customer", "Asiakas : UUSI ASIAKAS", null);
 	}
 
 	public void back(){
-		v.asetaUudeksiNaytoksi("mainpage", "VarastoSovellus");
+		v.asetaUudeksiNaytoksi("mainpage", "VarastoSovellus", null);
 	}
 
 	@Override
@@ -34,30 +45,61 @@ public class AsiakasViewController implements Nakyma_IF{
 
 	@Override
 	public void paivita(Object data) {
+		reset();
+		if(luoUusiTaulukko((ArrayList<DAO_Objekti>)data)){
+			täytäTaulukko();
+		}else
+			virheIlmoitus("Asiakasta annetulla nimellä ei löydy!");
+	}
 
+	private void reset(){
+			int length = asiakasTaulukko.getItems().size(); // Hae taulun rivien määrä
+			if (length > 0) {// Jos on rivejä
+				for (; 0 < length;) {// Poistetaan yksi kerrallaan
+					asiakasTaulukko.getItems().remove(0);
+					length--;
+				}
+			}
+			asiakasTaulukko.refresh(); // Varmuuden vuoksi päivitetään TableView
+	}
+
+	private void täytäTaulukko() {
+		asiakasTaulukko.getItems().addAll(taulukko.getTaulukko().getItems());
+		asiakasTaulukko.refresh();
+	}
+
+	private boolean luoUusiTaulukko(ArrayList<DAO_Objekti> p){
+		if(p.size()<=0 || p == null)
+			return false;
+		asiakasTaulukko.getColumns().clear();
+		taulukko = tehdas.annaTaulukko(p.get(0), p);
+		asiakasTaulukko.getColumns().addAll(taulukko.getTaulukko().getColumns());
+		return true;
+	}
+
+	public void etsiAsiakasta(){
+		mc.haeAsiakkaat(searchCustomer.getText());
 	}
 
 	@Override
 	public void resetoi() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-		// TODO Auto-generated method stub
-
+		JOptionPane.showMessageDialog(null, viesti.toString(), null, JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override
 	public void esiValmistelut() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
 		v = vaihtaja;
+		v.rekisteröiNakymaKontrolleri(this, "customerview");
 	}
 
 }

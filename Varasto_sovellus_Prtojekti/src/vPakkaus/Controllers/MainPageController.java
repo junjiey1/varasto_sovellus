@@ -59,11 +59,11 @@ public class MainPageController implements Nakyma_IF{
 
 	public void logOut() throws IOException {
 		mc.LogOut(); // Poistaa tallennetut käyttäjän nimen ja ID:n
-		vaihtaja.asetaUudeksiNaytoksi("login", "VarastoSovellus");
+		vaihtaja.asetaUudeksiNaytoksi("login", "VarastoSovellus", null);
 	}
 
 	public void whManagement(){
-		vaihtaja.asetaUudeksiNaytoksi("customerview", "Asiakkaat");
+		vaihtaja.asetaUudeksiNaytoksi("customerview", "Asiakkaat", null);
 	}
 
 
@@ -100,7 +100,6 @@ public class MainPageController implements Nakyma_IF{
 
 	@Override
 	public void esiValmistelut() {
-		System.out.println(mc.getName());
-		currentUserLbl.setText("Current user : " + mc.getName());
+		currentUserLbl.setText("CURRENT USER : " + mc.getName());
 	}
 }

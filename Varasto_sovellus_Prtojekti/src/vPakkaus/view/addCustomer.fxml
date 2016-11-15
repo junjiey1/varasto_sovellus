@@ -139,7 +139,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#Back" prefHeight="29.0" prefWidth="47.0" text="Back" GridPane.rowIndex="6">
+            <Button mnemonicParsing="false" onAction="#back" prefHeight="29.0" prefWidth="47.0" text="Back" GridPane.rowIndex="6">
                <font>
                   <Font size="13.0" />
                </font>

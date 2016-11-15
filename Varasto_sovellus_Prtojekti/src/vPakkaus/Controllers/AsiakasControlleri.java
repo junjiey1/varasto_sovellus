@@ -16,6 +16,7 @@ public class AsiakasControlleri implements Nakyma_IF {
 			ContactP_F_Name, ContactP_L_Name, ContactP_Email, ContactP_Phone;
 
 	private MainController_IF mc;
+	private NayttojenVaihtaja_IF vaihtaja;
 
 	@Override
 	public void setMainController(MainController_IF m) {
@@ -47,12 +48,17 @@ public class AsiakasControlleri implements Nakyma_IF {
 
 	@Override
 	public void esiValmistelut() {
-		System.out.println("asiakasliitetty");
+		resetoi();
 	}
 
 	@Override
 	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
 		vaihtaja.rekisteröiNakymaKontrolleri(this, "customer");
+		this.vaihtaja = vaihtaja;
+	}
+
+	public void back(){
+		vaihtaja.asetaUudeksiNaytoksi("customerview", "Asiakkaat");
 	}
 
 	public void saveChanges() {

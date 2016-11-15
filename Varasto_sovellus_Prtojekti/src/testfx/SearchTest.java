@@ -12,6 +12,7 @@ public class SearchTest extends GuiTest{
 	public void search(){
 		click("#productName").type("a");
 		click("#searchbtn");
+		
 	}
 
 

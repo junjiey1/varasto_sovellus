@@ -129,10 +129,9 @@ public class DB_AccessObject {
 	 * @return Onnistuuko tavaran lisaaminen (boolean)
 	 */
 	public boolean Lisaa(Tuotejoukko joukko) {
-		// Listaan kerätään virheet
+	
 		ArrayList<Boolean> onkoVirheitä = new ArrayList();
 
-		// Haetaan hyllypaikka
 		Hyllypaikka hyllypaikka = HaeHylly(joukko.getHylly().getNimi());
 		joukko.setHylly(hyllypaikka);
 

@@ -43,6 +43,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 
 	public void initialize() {
+		System.out.println("---------");
 		mode = 1;
 		hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
 		tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");

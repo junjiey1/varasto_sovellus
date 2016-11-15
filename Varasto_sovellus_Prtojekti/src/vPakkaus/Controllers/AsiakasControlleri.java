@@ -65,6 +65,8 @@ public class AsiakasControlleri implements Nakyma_IF {
 		}
 	}
 
+
+
 	private boolean parseData(){
 		boolean allGood = true;
 

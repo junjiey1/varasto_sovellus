@@ -23,6 +23,10 @@ public class AsiakasViewController implements Nakyma_IF{
 		v.asetaUudeksiNaytoksi("customer", "Asiakas : UUSI ASIAKAS");
 	}
 
+	public void back(){
+		v.asetaUudeksiNaytoksi("mainpage", "VarastoSovellus");
+	}
+
 	@Override
 	public void setMainController(MainController_IF m) {
 		mc = m;

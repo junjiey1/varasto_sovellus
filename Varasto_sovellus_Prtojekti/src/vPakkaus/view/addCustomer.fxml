@@ -139,6 +139,11 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
+            <Button mnemonicParsing="false" onAction="#Back" prefHeight="29.0" prefWidth="47.0" text="Back" GridPane.rowIndex="6">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
          </children>
          <padding>
             <Insets right="15.0" />
@@ -149,10 +154,5 @@
             <Image url="@../images/customer.png" />
          </image>
       </ImageView>
-      <Button layoutX="14.0" layoutY="19.0" mnemonicParsing="false" text="Back">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>

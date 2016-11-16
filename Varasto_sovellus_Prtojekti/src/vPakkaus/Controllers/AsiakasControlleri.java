@@ -26,16 +26,18 @@ public class AsiakasControlleri implements Nakyma_IF {
 
 	@Override
 	public void paivita(Object data) {
+		if(data==null)
+			return;
 		if(data instanceof Asiakas){
 			a = (Asiakas) data;
 			muokataanOlemassaOlevaa = true;
 			customerName.setText(a.getNimi());
 			customerStreet.setText(a.getOsoit());
-			customerPostalCode.setText("");
+			customerPostalCode.setText(a.getPosnumero());
 			customerCity.setText(a.getKaupun());
 			contactPersonFname.setText("");
 			contactPersonEmail.setText(a.getEmai());
-			contactPersonPhone.setText("");
+			contactPersonPhone.setText(a.getNumero());
 		}else
 			JOptionPane.showMessageDialog(null, data.toString(), "ILMOITUS",
 					JOptionPane.INFORMATION_MESSAGE);
@@ -85,7 +87,13 @@ public class AsiakasControlleri implements Nakyma_IF {
 				vaihtaja.asetaUudeksiNaytoksi("customer", "ASIAKAS : " + a.getNimi() ,a);
 				//muokataanOlemassaOlevaa = true;
 			}else{
-				System.out.println("Päivitys....Ei vielä tehty");
+				a.setNimi(Customer_Name);
+				a.setKaupun(Customer_City);
+				a.setPosnumero(postalNumber);
+				a.setOsoit(Customer_Street);
+				a.setNumero(ContactP_Phone);
+				a.setEmai(ContactP_Email);
+				mc.updateAsiakas(a);
 			}
 		}
 	}

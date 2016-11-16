@@ -884,7 +884,7 @@ public class DB_AccessObject {
 		 if(a==null)
 			 return false;
 		 try {
-			ps = conn.prepareStatement("UPDATE asiakas SET nimi, osoite, postinumero, kaupunki, email, puhelinnumero WHERE asiakasnumero = ?");
+			ps = conn.prepareStatement("UPDATE asiakas SET nimi = ?, osoite = ?, postinumero = ?, kaupunki = ?, email = ?, puhelinnumero = ? WHERE asiakasnumero = ?");
 			ps.setString(1, a.getNimi());
 			ps.setString(2, a.getOsoit());
 			ps.setString(3, a.getPosnumero());
@@ -901,6 +901,39 @@ public class DB_AccessObject {
 		 return true;
 	 }
 
+	 public Asiakas haeAsiakas(String nimi){
+		 Asiakas asiakas=null;
+		 try {
+			ps = conn.prepareStatement("SELECT asiakasnumero, nimi,"
+						+ "osoite, postinumero, kaupunki, email, puhelinnumero "
+						+ "FROM asiakas WHERE nimi = ?");
+			ps.setString(1, nimi);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("asiakasnumero");
+				String name = rs.getString("nimi");
+				String osoite = rs.getString("osoite");
+				String post = rs.getString("postinumero");
+				String kaupunki = rs.getString("kaupunki");
+				String email = rs.getString("email");
+				String puhelin = rs.getString("puhelinnumero");
+				asiakas = new Asiakas(name, osoite, kaupunki, email, puhelin, post);
+				asiakas.setID(rs.getInt("asiakasnumero"));
+			}
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		 return asiakas;
+	 }
+
 	public ArrayList<Asiakas> haeAsiakkaat(String nimi) {
 		ArrayList<Asiakas> asiakkaat = new ArrayList();
 		Asiakas asiakas;
@@ -910,14 +943,9 @@ public class DB_AccessObject {
 			ps = conn.prepareStatement("SELECT asiakasnumero, nimi,"
 					+ "osoite, postinumero, kaupunki, email, puhelinnumero "
 					+ "FROM asiakas WHERE nimi LIKE ?");
-					// + "AND tuote.tuoteID = hyllypaikka.tuoteID AND
-					// tuote.tuoteID ="
-					// + "varasto.tuoteID;");
 
-			// Asetetaan argumentit sql-kyselyyn
 			ps.setString(1, nimi);
 			rs = ps.executeQuery();
-			// tietokanta rivi
 
 			while (rs.next()) {
 				int id = rs.getInt("asiakasnumero");
@@ -928,7 +956,7 @@ public class DB_AccessObject {
 				String email = rs.getString("email");
 				String puhelin = rs.getString("puhelinnumero");
 				asiakas = new Asiakas(name, osoite, kaupunki, email, puhelin, post);
-				asiakas.setID(id);
+				asiakas.setID(rs.getInt("asiakasnumero"));
 				asiakkaat.add(asiakas);
 			}
 		} catch (SQLException e) {

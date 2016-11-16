@@ -14,7 +14,7 @@ public interface MainController_IF {
 	public int getID();
 	public String getName();
 	public boolean paivitaTuotteet(ArrayList<Product> products);
-	public ArrayList<Asiakas> haeAsiakkaat(String nimi);
+	public void haeAsiakkaat(String nimi);
 	public void TallennaAsiakas(Asiakas asiakas);
 	public void LogOut();
 }

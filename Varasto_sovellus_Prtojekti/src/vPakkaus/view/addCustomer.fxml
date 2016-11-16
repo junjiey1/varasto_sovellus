@@ -129,7 +129,7 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Clear all" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Button mnemonicParsing="false" text="Clear all" GridPane.columnIndex="2" onAction="#resetoi" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font size="13.0" />
                </font>
@@ -139,7 +139,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false"  prefHeight="29.0" prefWidth="47.0" text="Back" GridPane.rowIndex="6">
+            <Button mnemonicParsing="false" onAction="#back" prefHeight="29.0" prefWidth="47.0" text="Back" GridPane.rowIndex="6">
                <font>
                   <Font size="13.0" />
                </font>

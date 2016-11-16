@@ -84,7 +84,7 @@ public class LoginController implements Nakyma_IF {
 			passwordTxt.setText(visiblePasswordTxt.getText());
 		}
 		if (mc.LogIn(uname, pword)) {
-			vaihtaja.asetaUudeksiNaytoksi("mainpage", "VarastoSovellus");
+			vaihtaja.asetaUudeksiNaytoksi("mainpage", "VarastoSovellus", null);
 			//MainLaunch.windowDestroyer();
 			//MainLaunch.windowConstructor("view/MainPageView.fxml", "VarastoSovellus 1.03", null);
 		} else {
@@ -117,7 +117,7 @@ public class LoginController implements Nakyma_IF {
 
 	@Override
 	public void esiValmistelut() {
-		// TODO Auto-generated method stub
-
+		passwordTxt.setText("");
+		usernameTxt.setText("");
 	}
 }

@@ -151,19 +151,19 @@ public class MainController implements MainController_IF{
 	}
 
 	@Override
-	public ArrayList<Asiakas> haeAsiakkaat(String nimi) {
-		return null;
+	public void haeAsiakkaat(String nimi) {
+		ArrayList<Asiakas> lista = db.haeAsiakkaat(nimi);
+		for(Asiakas a : lista)
+			System.out.println(a.getNimi());
+		naytto.paivita(lista);
 	}
 
 	@Override
 	public void TallennaAsiakas(Asiakas asiakas) {
 		if(db.addAsiakas(asiakas)){
-			System.out.println("le");
 			naytto.paivita("Asiakas nimellä " + asiakas.getNimi() + " lisättiin onnistuneesti");
 		}else{
-			System.out.println("reee");
-			naytto.paivita("Asiakas nimellä " + asiakas.getNimi() + " lisääminen epäonnistui");
-
+			naytto.virheIlmoitus("Asiakas nimellä " + asiakas.getNimi() + " lisääminen epäonnistui");
 		}
 	}
 }

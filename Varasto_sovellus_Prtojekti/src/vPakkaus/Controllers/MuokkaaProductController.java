@@ -174,7 +174,12 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void paivita(Object data) {
-
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("TIEDOTE");
+		alert.setContentText(data.toString());
+		ButtonType buttonTypeOne = ButtonType.OK;
+		alert.getButtonTypes().setAll(buttonTypeOne);
+		alert.showAndWait();
 	}
 
 	@Override
@@ -187,9 +192,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 	public void virheIlmoitus(Object viesti) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
-		alert.setHeaderText("Tuote ei Löyty");
 		alert.setContentText(viesti.toString());
-
 		alert.showAndWait();
 
 	}
@@ -198,6 +201,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 	@Override
 	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
 		this.vaihtaja = vaihtaja;
+		vaihtaja.rekisteröiNakymaKontrolleri(this, "searchpage");
 	}
 
 	@Override

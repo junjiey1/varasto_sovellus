@@ -75,6 +75,7 @@ public class MainController implements MainController_IF{
 	public ArrayList<Product> haeTuote(String nimi) {
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
+		//naytto.paivita("lol");
 		return res;
 	}
 
@@ -153,8 +154,6 @@ public class MainController implements MainController_IF{
 	@Override
 	public void haeAsiakkaat(String nimi) {
 		ArrayList<Asiakas> lista = db.haeAsiakkaat(nimi);
-		for(Asiakas a : lista)
-			System.out.println(a.getNimi());
 		naytto.paivita(lista);
 	}
 
@@ -162,8 +161,18 @@ public class MainController implements MainController_IF{
 	public void TallennaAsiakas(Asiakas asiakas) {
 		if(db.addAsiakas(asiakas)){
 			naytto.paivita("Asiakas nimellä " + asiakas.getNimi() + " lisättiin onnistuneesti");
+			naytto.paivita(db.haeAsiakas(asiakas.getNimi()));
 		}else{
 			naytto.virheIlmoitus("Asiakas nimellä " + asiakas.getNimi() + " lisääminen epäonnistui");
 		}
+	}
+
+	@Override
+	public void updateAsiakas(Asiakas a){
+		System.out.println(a.getNimi() + " " + a.getPosnumero() + " " + a.getNumero() + " id: " + a.getID());
+		if(db.updateAsiakas(a))
+			naytto.paivita("Päivitys onnistui!");
+		else
+			naytto.virheIlmoitus("Päivitys epäonnistui!");
 	}
 }

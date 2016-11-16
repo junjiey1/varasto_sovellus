@@ -31,7 +31,11 @@ public class AsiakasViewController implements Nakyma_IF{
 			Asiakas a = (Asiakas)asiakasTaulukko.getSelectionModel().getSelectedItem();
 			v.asetaUudeksiNaytoksi("customer", "Asiakas : " + a.getNimi() + " ", a);
 		}else
-			v.asetaUudeksiNaytoksi("customer", "Asiakas : UUSI ASIAKAS", null);
+			virheIlmoitus("Et ole valinnut tarkasteltavaa asiakasta taulukosta");
+	}
+
+	public void vaihdaUudenAsiakkaanLuontiin(){
+		v.asetaUudeksiNaytoksi("customer", "Asiakas : UUSI ASIAKAS", null);
 	}
 
 	public void back(){
@@ -45,22 +49,11 @@ public class AsiakasViewController implements Nakyma_IF{
 
 	@Override
 	public void paivita(Object data) {
-		reset();
+		resetoi();
 		if(luoUusiTaulukko((ArrayList<DAO_Objekti>)data)){
 			täytäTaulukko();
 		}else
 			virheIlmoitus("Asiakasta annetulla nimellä ei löydy!");
-	}
-
-	private void reset(){
-			int length = asiakasTaulukko.getItems().size(); // Hae taulun rivien määrä
-			if (length > 0) {// Jos on rivejä
-				for (; 0 < length;) {// Poistetaan yksi kerrallaan
-					asiakasTaulukko.getItems().remove(0);
-					length--;
-				}
-			}
-			asiakasTaulukko.refresh(); // Varmuuden vuoksi päivitetään TableView
 	}
 
 	private void täytäTaulukko() {
@@ -83,7 +76,14 @@ public class AsiakasViewController implements Nakyma_IF{
 
 	@Override
 	public void resetoi() {
-
+		int length = asiakasTaulukko.getItems().size(); // Hae taulun rivien määrä
+		if (length > 0) {// Jos on rivejä
+			for (; 0 < length;) {// Poistetaan yksi kerrallaan
+				asiakasTaulukko.getItems().remove(0);
+				length--;
+			}
+		}
+		asiakasTaulukko.refresh(); // Varmuuden vuoksi päivitetään TableView
 	}
 
 	@Override

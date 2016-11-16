@@ -111,7 +111,7 @@
             <classpath refid="Varasto_sovellus_Prtojekti.classpath"/>
         </java>
     </target>
-    <target name="MainPageTestFX_TEST">
+    <target name="MainPageTestFX_TEST" depends="build">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>

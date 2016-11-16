@@ -17,6 +17,7 @@
       <TableView fx:id="tuoteTable" editable="true" layoutX="307.0" layoutY="23.0" prefHeight="430.0" prefWidth="385.0">
       </TableView>
       <Label layoutX="28.0" layoutY="17.0" text="Filter Table" />
-      <Button fx:id="paivita" layoutX="150.0" layoutY="180.0" mnemonicParsing="false" onAction="#paivitaTuotteet" text="Paivita" />
+      <Button fx:id="paivita" layoutX="151.0" layoutY="178.0" mnemonicParsing="false" onAction="#paivitaTuotteet" text="Paivita" />
+      <Button fx:id="tyhjenta" layoutX="151.0" layoutY="215.0" mnemonicParsing="false" onAction="#Reset" prefHeight="31.0" prefWidth="64.0" text="Clear" />
    </children>
 </AnchorPane>

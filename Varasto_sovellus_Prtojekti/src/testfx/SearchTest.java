@@ -11,15 +11,6 @@ import vPakkaus.MainLaunch;
 public class SearchTest extends GuiTest{
 
 
-	@Test
-	public void modify(){
-		click("#productName").type("Maito");
-		click("#searchbtn");
-		click("#tuoteTable");
-		doubleClick("Maito1");
-		doubleClick("Maito1").type("Maito2");
-
-	}
 
 	@Test
 	public void search(){
@@ -30,7 +21,31 @@ public class SearchTest extends GuiTest{
 		click("#productName").type("jjjjj");
 		click("#searchbtn");
 		click("OK");
+	}
 
+	@Test
+	public void modify(){
+		click("#productName").type("Maito");
+		click("#searchbtn");
+		click("#tuoteTable");
+		doubleClick("Maito");
+		doubleClick("Maito2").type("Maito3");
+		click("#paivita");
+		click("Ei");
+		click("OK");
+		click("#paivita");
+		click("Kyllä");
+		click("OK");
+
+	}
+
+	@Test
+	public void clear(){
+		click("#productName").type("a");
+		click("#searchbtn");
+		click("#tuoteTable");
+		doubleClick("#productName");
+		click("#tyhjenta");
 	}
 
 

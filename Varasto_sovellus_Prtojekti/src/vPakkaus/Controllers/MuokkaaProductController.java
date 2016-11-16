@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -128,10 +129,26 @@ public class MuokkaaProductController implements Nakyma_IF {
 		alert.setHeaderText("Punaisella merkityt rivit tallenetaan pysyvästi\njatketaanko");
 		alert.setContentText("Jatketaanko?");
 		ButtonType buttonTypeOne = new ButtonType("Kyllä");
-		ButtonType buttonTypeTwo = new ButtonType("Ei");
+		ButtonType buttonTypeTwo = new ButtonType("Ei", ButtonData.CANCEL_CLOSE);
 		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
 		Optional<ButtonType> result = alert.showAndWait();
-		
+		if (result.get() == buttonTypeOne){
+			taulukko.paivitaTietokantaan(mc, this);
+			Alert info = new Alert(AlertType.INFORMATION);
+			info.setTitle("Päivitys onnistuu");
+			info.setHeaderText("Päivitys onnistui");
+			info.setContentText("Tiedot päivitetty onnistuneesti");
+
+			info.showAndWait();
+		} else{
+			Alert huomautus = new Alert(AlertType.ERROR);
+			huomautus.setTitle("Error");
+			huomautus.setHeaderText("Tietokantaa ei voitu päivittää!");
+			huomautus.setContentText("Virhe havaittu tietokannan päivityksessä");
+
+			huomautus.showAndWait();
+		}
+
 			Reset();
 			täytäTaulukko();
 
@@ -168,8 +185,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-//		JOptionPane.showMessageDialog(null, viesti.toString(),"Tuote ei löyty", JOptionPane.ERROR_MESSAGE);
-		Alert alert = new Alert(AlertType.INFORMATION);
+		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		alert.setHeaderText("Tuote ei Löyty");
 		alert.setContentText(viesti.toString());
@@ -177,6 +193,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 		alert.showAndWait();
 
 	}
+
 
 	@Override
 	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {

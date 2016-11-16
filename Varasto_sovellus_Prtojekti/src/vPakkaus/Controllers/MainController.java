@@ -75,6 +75,7 @@ public class MainController implements MainController_IF{
 	public ArrayList<Product> haeTuote(String nimi) {
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
+		//naytto.paivita("lol");
 		return res;
 	}
 

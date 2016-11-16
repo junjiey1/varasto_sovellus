@@ -132,8 +132,10 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 			System.out.println("Nakymaa nimella " + nimi + " ei ole ladattu!!!");
 			return null;
 		}
-		if(luodutNakymaKontrollerit.containsKey(nimi))
+		if(luodutNakymaKontrollerit.containsKey(nimi)){
 			luodutNakymaKontrollerit.get(nimi).esiValmistelut();
+			mc.asetaAktiiviseksiNaytoksi(luodutNakymaKontrollerit.get(nimi));
+		}
 		return anchor;
 	}
 
@@ -155,6 +157,4 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	public Nakyma_IF haeKontrolleri(String nimi) {
 		return luodutNakymaKontrollerit.get(nimi);
 	}
-
-
 }

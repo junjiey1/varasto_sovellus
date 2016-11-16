@@ -131,10 +131,15 @@ public class MuokkaaProductController implements Nakyma_IF {
 		ButtonType buttonTypeTwo = new ButtonType("Ei");
 		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
 		Optional<ButtonType> result = alert.showAndWait();
-		
-			Reset();
-			täytäTaulukko();
-
+		if(result.get() == buttonTypeOne){
+			if(taulukko.paivitaTietokantaan(mc, this)){ //Tietokantaan päivitys
+				paivita("Tiedot päivitetty onnistuneesti");
+				Reset();
+				täytäTaulukko();
+			}else{
+				virheIlmoitus("Tietokantaa ei voitu päivittää!");
+			}
+		}
 	}
 
 	public void switchMode(){
@@ -157,7 +162,12 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void paivita(Object data) {
-
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("TIEDOTE");
+		alert.setContentText(data.toString());
+		ButtonType buttonTypeOne = ButtonType.OK;
+		alert.getButtonTypes().setAll(buttonTypeOne);
+		alert.showAndWait();
 	}
 
 	@Override
@@ -168,12 +178,9 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-//		JOptionPane.showMessageDialog(null, viesti.toString(),"Tuote ei löyty", JOptionPane.ERROR_MESSAGE);
-		Alert alert = new Alert(AlertType.INFORMATION);
+		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
-		alert.setHeaderText("Tuote ei Löyty");
 		alert.setContentText(viesti.toString());
-
 		alert.showAndWait();
 
 	}
@@ -181,6 +188,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 	@Override
 	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
 		this.vaihtaja = vaihtaja;
+		vaihtaja.rekisteröiNakymaKontrolleri(this, "searchpage");
 	}
 
 	@Override

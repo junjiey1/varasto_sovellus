@@ -77,6 +77,10 @@ public class AsiakasControlleri implements Nakyma_IF {
 		vaihtaja.asetaUudeksiNaytoksi("customerview", "Asiakkaat",null);
 	}
 
+	public boolean confirmation(){
+		return true;
+	}
+
 	public void saveChanges() { //Button Callback funktio
 		if (parseData()){
 			if(!muokataanOlemassaOlevaa){

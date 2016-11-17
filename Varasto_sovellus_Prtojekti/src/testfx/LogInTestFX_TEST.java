@@ -29,6 +29,7 @@ public class LogInTestFX_TEST extends GuiTest{
 		click("#usernameTxt").type("eisaisionnistua");
 		click("#passwordTxt").type("kayttaja");
 		click("#loginButton");
+		System.out.println("Ei onnistu!");
 		assertTrue(find("#incorrectLabel").isVisible());
 		//verifyThat(find("#incorrectLabel").isVisible(), true); ei toimi
 	}

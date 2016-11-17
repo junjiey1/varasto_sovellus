@@ -79,16 +79,6 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="customerState" promptText="State" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <Label text="State" GridPane.rowIndex="5">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
             <Label text="Contact person" textFill="#4d4d4d" GridPane.columnIndex="2" GridPane.columnSpan="2">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
@@ -139,16 +129,21 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Clear all" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Button mnemonicParsing="false" text="Clear all" GridPane.columnIndex="2" onAction="#resetoi" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <Label text="* marked fields are required" GridPane.columnSpan="2" GridPane.rowIndex="6">
+            <Label text="* marked fields are required" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
+            <Button mnemonicParsing="false" onAction="#back" prefHeight="29.0" prefWidth="47.0" text="Back" GridPane.rowIndex="6">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
          </children>
          <padding>
             <Insets right="15.0" />

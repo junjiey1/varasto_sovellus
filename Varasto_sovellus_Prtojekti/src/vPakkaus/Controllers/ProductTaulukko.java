@@ -72,11 +72,6 @@ public class ProductTaulukko implements Taulukko_IF{
 	}
 
 	@Override
-	public void prepareEditArray() {
-
-	}
-
-	@Override
 	public boolean paivitaTietokantaan(MainController_IF mc, Nakyma_IF nakyma) {
 		if (PaivitettavatTuotteet == null || isEmpty()) // Tuote lista on tyhjä käyttäjä ei oo muokannut tuotteita
 			return false;
@@ -99,13 +94,6 @@ public class ProductTaulukko implements Taulukko_IF{
 	@Override
 	public void addTableView(TableView table) {
 		taulukko = table;
-	}
-
-	@Override
-	public void addInstance(DAO_Objekti obj) {
-		if(!(obj instanceof Product))
-			return;
-		p.add((Product)obj);
 	}
 
 	public TableView<DAO_Objekti> getTaulukko() {

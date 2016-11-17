@@ -11,11 +11,13 @@ public class AsiakasControlleri implements Nakyma_IF {
 	private TextField customerName, customerStreet, customerPostalCode, customerCity, customerState,
 			contactPersonFname, contactPersonLname, contactPersonEmail, contactPersonPhone;
 
-	private int postalNumber;
-	String Customer_Name, Customer_Street, Customer_Postal, Customer_City, Customer_State,
-			ContactP_F_Name, ContactP_L_Name, ContactP_Email, ContactP_Phone;
+	private String Customer_Name, Customer_Street, Customer_Postal, Customer_City, Customer_State,
+			ContactP_F_Name, ContactP_L_Name, ContactP_Email, ContactP_Phone, postalNumber;
 
 	private MainController_IF mc;
+	private NayttojenVaihtaja_IF vaihtaja;
+	private Asiakas a;
+	private boolean muokataanOlemassaOlevaa = false;
 
 	@Override
 	public void setMainController(MainController_IF m) {
@@ -24,39 +26,83 @@ public class AsiakasControlleri implements Nakyma_IF {
 
 	@Override
 	public void paivita(Object data) {
-		JOptionPane.showMessageDialog(null, data.toString(), "ILMOITUS",
-				JOptionPane.INFORMATION_MESSAGE);
+		if(data==null)
+			return;
+		if(data instanceof Asiakas){
+			a = (Asiakas) data;
+			muokataanOlemassaOlevaa = true;
+			customerName.setText(a.getNimi());
+			customerStreet.setText(a.getOsoit());
+			customerPostalCode.setText(a.getPosnumero());
+			customerCity.setText(a.getKaupun());
+			contactPersonFname.setText("");
+			contactPersonEmail.setText(a.getEmai());
+			contactPersonPhone.setText(a.getNumero());
+		}else
+			JOptionPane.showMessageDialog(null, data.toString(), "ILMOITUS",
+					JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
 	public void resetoi() {
-
+		customerName.setText("");
+		customerStreet.setText("");
+		customerPostalCode.setText("");
+		customerCity.setText("");
+		contactPersonFname.setText("");
+		contactPersonLname.setText("");
+		contactPersonEmail.setText("");
+		contactPersonPhone.setText("");
+		muokataanOlemassaOlevaa = false;
 	}
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-
+		JOptionPane.showMessageDialog(null, viesti.toString(), "ILMOITUS",
+				JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override
 	public void esiValmistelut() {
-		System.out.println("asiakasliitetty");
+		resetoi();
 	}
 
 	@Override
 	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
 		vaihtaja.rekisteröiNakymaKontrolleri(this, "customer");
+		this.vaihtaja = vaihtaja;
 	}
 
-	public void saveChanges() {
+	public void back(){//Button Callback funktio
+		vaihtaja.asetaUudeksiNaytoksi("customerview", "Asiakkaat",null);
+	}
+
+	public boolean confirmation(){
+		return true;
+	}
+
+	public void saveChanges() { //Button Callback funktio
 		if (parseData()){
-			System.out.println("WORKINGS");
-			Asiakas asiakas = new Asiakas(Customer_Name, Customer_Street,Customer_City,
+			if(!muokataanOlemassaOlevaa){
+				a = new Asiakas(Customer_Name, Customer_Street,Customer_City,
 					ContactP_Email, ContactP_Phone,postalNumber
-			);
-			mc.TallennaAsiakas(asiakas);
+				);
+				mc.TallennaAsiakas(a);
+				vaihtaja.asetaUudeksiNaytoksi("customer", "ASIAKAS : " + a.getNimi() ,a);
+				//muokataanOlemassaOlevaa = true;
+			}else{
+				a.setNimi(Customer_Name);
+				a.setKaupun(Customer_City);
+				a.setPosnumero(postalNumber);
+				a.setOsoit(Customer_Street);
+				a.setNumero(ContactP_Phone);
+				a.setEmai(ContactP_Email);
+				mc.updateAsiakas(a);
+			}
 		}
 	}
+
+
 
 	private boolean parseData(){
 		boolean allGood = true;
@@ -67,11 +113,12 @@ public class AsiakasControlleri implements Nakyma_IF {
 		}else{
 			Customer_Name = customerName.getText();
 		}
-		try{
-			postalNumber = Integer.parseInt(customerPostalCode.getText());
-		}catch(Exception e){
-			allGood = false;
-		}
+		if(customerPostalCode.getText().isEmpty()){
+			showError("Postal number field", "is empty");
+			return false;
+		}else
+			postalNumber = customerPostalCode.getText();
+
 		if (customerStreet.getText().isEmpty()){
 			allGood = false;
 			showError("Customer street address field", "is empty");

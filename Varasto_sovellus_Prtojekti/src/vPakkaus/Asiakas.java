@@ -2,11 +2,11 @@ package vPakkaus;
 
 public class Asiakas implements DAO_Objekti{
 
-	private String nimi, osoit, kaupun, emai, numero;
-	private int posnumero, ID;
+	private String nimi, osoit, kaupun, emai, numero, posnumero;
+	private int ID;
 
 
-	public Asiakas(String nimi, String osoite, String kaupunki, String email, String puhelinnumero, int postinumero){
+	public Asiakas(String nimi, String osoite, String kaupunki, String email, String puhelinnumero, String postinumero){
 		this.nimi = nimi;
 		osoit = osoite;
 		kaupun = kaupunki;
@@ -76,13 +76,13 @@ public class Asiakas implements DAO_Objekti{
 
 
 
-	public int getPosnumero() {
+	public String getPosnumero() {
 		return posnumero;
 	}
 
 
 
-	public void setPosnumero(int posnumero) {
+	public void setPosnumero(String posnumero) {
 		this.posnumero = posnumero;
 	}
 

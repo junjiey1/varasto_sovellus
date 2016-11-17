@@ -9,8 +9,6 @@ import vPakkaus.Product;
 public interface Taulukko_IF {
 	public void addTableView(TableView table);
 	public TableView<DAO_Objekti> getTaulukko();
-	public void addInstance(DAO_Objekti obj);
-	public void prepareEditArray();
 	public boolean paivitaTietokantaan(MainController_IF mc, Nakyma_IF nakyma);
 	public DAO_Objekti getObject(int index);
 }

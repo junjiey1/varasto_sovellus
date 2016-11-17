@@ -14,7 +14,10 @@ public class MainPageTestFX_TEST extends GuiTest{
 		click("#tab3");
 		click("#tab4");
 		click("#homeTab");
+		click("#addProductTab");
 	}
+
+
 
 	@Override
 	protected Parent getRootNode() {

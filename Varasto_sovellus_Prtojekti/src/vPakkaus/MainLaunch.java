@@ -109,13 +109,16 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	//http://stackoverflow.com/questions/31890137/java-fxml-loading-a-view-for-later-use
 	//http://stackoverflow.com/questions/22328087/scene-loads-too-slow
 	@Override
-	public void asetaUudeksiNaytoksi(String nimi, String otsikko) {
+	public void asetaUudeksiNaytoksi(String nimi, String otsikko, Object preData) {
 		Scene scene = sceneMap.get(nimi);
 		if(scene == null)
 			System.out.println("Nakymaa nimella " + nimi + " ei ole ladattu!!!");
 		else{
-			if(luodutNakymaKontrollerit.containsKey(nimi))
+			if(luodutNakymaKontrollerit.containsKey(nimi)){
 				mc.asetaAktiiviseksiNaytoksi(luodutNakymaKontrollerit.get(nimi));
+				if(preData!=null)
+					luodutNakymaKontrollerit.get(nimi).paivita(preData);
+			}
 			MainStage.setScene(scene);
 			MainStage.setTitle(otsikko);
 			MainStage.show();
@@ -129,8 +132,10 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 			System.out.println("Nakymaa nimella " + nimi + " ei ole ladattu!!!");
 			return null;
 		}
-		if(luodutNakymaKontrollerit.containsKey(nimi))
+		if(luodutNakymaKontrollerit.containsKey(nimi)){
 			luodutNakymaKontrollerit.get(nimi).esiValmistelut();
+			mc.asetaAktiiviseksiNaytoksi(luodutNakymaKontrollerit.get(nimi));
+		}
 		return anchor;
 	}
 
@@ -152,6 +157,4 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	public Nakyma_IF haeKontrolleri(String nimi) {
 		return luodutNakymaKontrollerit.get(nimi);
 	}
-
-
 }

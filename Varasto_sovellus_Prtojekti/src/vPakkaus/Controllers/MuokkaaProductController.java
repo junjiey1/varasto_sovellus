@@ -2,12 +2,18 @@ package vPakkaus.Controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
+
 import javax.swing.JOptionPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -109,17 +115,43 @@ public class MuokkaaProductController implements Nakyma_IF {
 	}
 
 	public void paivitaTuotteet() {
-		if (0 == JOptionPane.showConfirmDialog(null, "Punaisella merkityt rivit tallenetaan pysyvästi\njatketaanko?")) {
-			if (taulukko.paivitaTietokantaan(mc, this)) {
-				JOptionPane.showMessageDialog(null, "Tiedot päivitetty onnistuneesti", "Päivitys onnistui",
-						JOptionPane.INFORMATION_MESSAGE);
-			}else{
-				JOptionPane.showMessageDialog(null, "Tietokantaa ei voitu päivittää!",
-					"Virhe havaittu tietokannan päivityksessä", JOptionPane.ERROR_MESSAGE);
-			}
+//		if (0 == JOptionPane.showConfirmDialog(null, "Punaisella merkityt rivit tallenetaan pysyvästi\njatketaanko?")) {
+//			if (taulukko.paivitaTietokantaan(mc, this)) {
+//				JOptionPane.showMessageDialog(null, "Tiedot päivitetty onnistuneesti", "Päivitys onnistui",
+//						JOptionPane.INFORMATION_MESSAGE);
+//			}else{
+//				JOptionPane.showMessageDialog(null, "Tietokantaa ei voitu päivittää!",
+//					"Virhe havaittu tietokannan päivityksessä", JOptionPane.ERROR_MESSAGE);
+//			}
+
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("CONFIRM");
+		alert.setHeaderText("Punaisella merkityt rivit tallenetaan pysyvästi\njatketaanko");
+		alert.setContentText("Jatketaanko?");
+		ButtonType buttonTypeOne = new ButtonType("Kyllä");
+		ButtonType buttonTypeTwo = new ButtonType("Ei", ButtonData.CANCEL_CLOSE);
+		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == buttonTypeOne){
+			taulukko.paivitaTietokantaan(mc, this);
+			Alert info = new Alert(AlertType.INFORMATION);
+			info.setTitle("Päivitys onnistuu");
+			info.setHeaderText("Päivitys onnistui");
+			info.setContentText("Tiedot päivitetty onnistuneesti");
+
+			info.showAndWait();
+		} else{
+			Alert huomautus = new Alert(AlertType.ERROR);
+			huomautus.setTitle("Error");
+			huomautus.setHeaderText("Tietokantaa ei voitu päivittää!");
+			huomautus.setContentText("Virhe havaittu tietokannan päivityksessä");
+
+			huomautus.showAndWait();
+		}
+
 			Reset();
 			täytäTaulukko();
-		}
+
 	}
 
 	public void switchMode(){
@@ -142,7 +174,12 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void paivita(Object data) {
-
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("TIEDOTE");
+		alert.setContentText(data.toString());
+		ButtonType buttonTypeOne = ButtonType.OK;
+		alert.getButtonTypes().setAll(buttonTypeOne);
+		alert.showAndWait();
 	}
 
 	@Override
@@ -153,12 +190,18 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-		JOptionPane.showMessageDialog(null, viesti.toString(), null, JOptionPane.ERROR_MESSAGE);
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setContentText(viesti.toString());
+		alert.showAndWait();
+
 	}
+
 
 	@Override
 	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
 		this.vaihtaja = vaihtaja;
+		vaihtaja.rekisteröiNakymaKontrolleri(this, "searchpage");
 	}
 
 	@Override

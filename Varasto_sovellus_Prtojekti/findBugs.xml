@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="3.0.1-dev-20150306-5afe4d1" sequence="1" timestamp="1479385240634" analysisTimestamp="1479385217569" release="">
+  <Project projectName="Varasto_sovellus_Prtojekti">
+    <Jar>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\bin</Jar>
+    <AuxClasspathEntry>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\bin</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\ecplise\eclipse-SDK-4.5.1-win32-x86_64-distro-2.1.0\eclipse\plugins\org.junit_4.12.0.v201504281640\junit.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\ecplise\eclipse-SDK-4.5.1-win32-x86_64-distro-2.1.0\eclipse\plugins\org.hamcrest.core_1.3.0.v201303031735.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\sql_connector\mysql-connector-java-5.1.38-bin.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\Junit\junit.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\TestFx\testFx-3.1.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\TestFx\hamcrest-all-1.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\TestFx\guava-14.0.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\TestFx\hamcrest-core-1.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Program Files\Java\jre1.8.0_91\lib\rt.jar</AuxClasspathEntry>
+    <SrcDir>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\src</SrcDir>
+    <SrcDir>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\tests</SrcDir>
+    <Cloud id="edu.umd.cs.findbugs.cloud.doNothingCloud" online="false"></Cloud>
+  </Project>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="1" rank="15" abbrev="ST" category="STYLE" first="1">
+    <Class classname="DataBase_tests">
+      <SourceLine classname="DataBase_tests" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+    </Class>
+    <Method classname="DataBase_tests" name="luoDB_AccesObject" signature="()V" isStatic="false">
+      <SourceLine classname="DataBase_tests" start="32" end="33" startBytecode="0" endBytecode="56" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+    </Method>
+    <Field classname="DataBase_tests" name="db" signature="LvPakkaus/DB_AccessObject;" isStatic="true">
+      <SourceLine classname="DataBase_tests" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+    </Field>
+    <SourceLine classname="DataBase_tests" start="32" end="32" startBytecode="7" endBytecode="7" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+    <SourceLine classname="DataBase_tests" start="32" end="32" startBytecode="7" endBytecode="7" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="DataBase_tests">
+      <SourceLine classname="DataBase_tests" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+    </Class>
+    <Field classname="DataBase_tests" name="conn" signature="Ljava/sql/Connection;" isStatic="false">
+      <SourceLine classname="DataBase_tests" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+    </Field>
+    <SourceLine classname="DataBase_tests" start="18" end="18" startBytecode="6" endBytecode="6" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="TietokantaKyselyt.HyllyDB">
+      <SourceLine classname="TietokantaKyselyt.HyllyDB" sourcefile="HyllyDB.java" sourcepath="TietokantaKyselyt/HyllyDB.java"/>
+    </Class>
+    <Method classname="TietokantaKyselyt.HyllyDB" name="CreateHyllypaikka" signature="(LvPakkaus/Hyllypaikka;)Z" isStatic="false">
+      <SourceLine classname="TietokantaKyselyt.HyllyDB" start="83" end="106" startBytecode="0" endBytecode="328" sourcefile="HyllyDB.java" sourcepath="TietokantaKyselyt/HyllyDB.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="TietokantaKyselyt.HyllyDB">
+      <SourceLine classname="TietokantaKyselyt.HyllyDB" sourcefile="HyllyDB.java" sourcepath="TietokantaKyselyt/HyllyDB.java"/>
+    </Class>
+    <Method classname="TietokantaKyselyt.HyllyDB" name="HaeHylly" signature="(Ljava/lang/String;)LvPakkaus/Hyllypaikka;" isStatic="false">
+      <SourceLine classname="TietokantaKyselyt.HyllyDB" start="37" end="64" startBytecode="0" endBytecode="662" sourcefile="HyllyDB.java" sourcepath="TietokantaKyselyt/HyllyDB.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="TietokantaKyselyt.HyllyDB">
+      <SourceLine classname="TietokantaKyselyt.HyllyDB" sourcefile="HyllyDB.java" sourcepath="TietokantaKyselyt/HyllyDB.java"/>
+    </Class>
+    <Method classname="TietokantaKyselyt.HyllyDB" name="HaeTuotteenHyllypaikat" signature="(LvPakkaus/Product;)Ljava/util/ArrayList;" isStatic="false">
+      <SourceLine classname="TietokantaKyselyt.HyllyDB" start="119" end="142" startBytecode="0" endBytecode="530" sourcefile="HyllyDB.java" sourcepath="TietokantaKyselyt/HyllyDB.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="TietokantaKyselyt.ProductDB">
+      <SourceLine classname="TietokantaKyselyt.ProductDB" sourcefile="ProductDB.java" sourcepath="TietokantaKyselyt/ProductDB.java"/>
+    </Class>
+    <Method classname="TietokantaKyselyt.ProductDB" name="HaeHyllypaikanTuotteet" signature="(Ljava/lang/String;)Ljava/util/ArrayList;" isStatic="false">
+      <SourceLine classname="TietokantaKyselyt.ProductDB" start="191" end="214" startBytecode="0" endBytecode="528" sourcefile="ProductDB.java" sourcepath="TietokantaKyselyt/ProductDB.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="TietokantaKyselyt.TuoteriviDB">
+      <SourceLine classname="TietokantaKyselyt.TuoteriviDB" sourcefile="TuoteriviDB.java" sourcepath="TietokantaKyselyt/TuoteriviDB.java"/>
+    </Class>
+    <Method classname="TietokantaKyselyt.TuoteriviDB" name="MuokkaaTuoterivi&#228;" signature="(LvPakkaus/Tuotejoukko;)Z" isStatic="false">
+      <SourceLine classname="TietokantaKyselyt.TuoteriviDB" start="160" end="178" startBytecode="0" endBytecode="249" sourcefile="TuoteriviDB.java" sourcepath="TietokantaKyselyt/TuoteriviDB.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="TietokantaKyselyt.UsersDB">
+      <SourceLine classname="TietokantaKyselyt.UsersDB" sourcefile="UsersDB.java" sourcepath="TietokantaKyselyt/UsersDB.java"/>
+    </Class>
+    <Method classname="TietokantaKyselyt.UsersDB" name="LogIn" signature="(Ljava/lang/String;Ljava/lang/String;)[I" isStatic="false">
+      <SourceLine classname="TietokantaKyselyt.UsersDB" start="27" end="79" startBytecode="0" endBytecode="1021" sourcefile="UsersDB.java" sourcepath="TietokantaKyselyt/UsersDB.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_CLASS_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="TietokantaKyselyt.lampotilaDB">
+      <SourceLine classname="TietokantaKyselyt.lampotilaDB" start="17" end="193" sourcefile="lampotilaDB.java" sourcepath="TietokantaKyselyt/lampotilaDB.java"/>
+    </Class>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="testfx.LogInTestFX_TEST">
+      <SourceLine classname="testfx.LogInTestFX_TEST" sourcefile="LogInTestFX_TEST.java" sourcepath="testfx/LogInTestFX_TEST.java"/>
+    </Class>
+    <Method classname="testfx.LogInTestFX_TEST" name="LoginOikeatTunnukset" signature="()V" isStatic="false">
+      <SourceLine classname="testfx.LogInTestFX_TEST" start="18" end="25" startBytecode="0" endBytecode="162" sourcefile="LogInTestFX_TEST.java" sourcepath="testfx/LogInTestFX_TEST.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="testfx.LogInTestFX_TEST">
+      <SourceLine classname="testfx.LogInTestFX_TEST" sourcefile="LogInTestFX_TEST.java" sourcepath="testfx/LogInTestFX_TEST.java"/>
+    </Class>
+    <Method classname="testfx.LogInTestFX_TEST" name="LoginVaarillaTunnuksillaPitaaEpaonnistua" signature="()V" isStatic="false">
+      <SourceLine classname="testfx.LogInTestFX_TEST" start="29" end="35" startBytecode="0" endBytecode="124" sourcefile="LogInTestFX_TEST.java" sourcepath="testfx/LogInTestFX_TEST.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.AsiakasControlleri">
+      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
+    </Class>
+    <Field classname="vPakkaus.Controllers.AsiakasControlleri" name="ContactP_F_Name" signature="Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" start="158" end="158" startBytecode="181" endBytecode="181" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.AsiakasControlleri">
+      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
+    </Class>
+    <Field classname="vPakkaus.Controllers.AsiakasControlleri" name="ContactP_L_Name" signature="Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" start="164" end="164" startBytecode="218" endBytecode="218" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
+  </BugInstance>
+  <BugInstance type="UUF_UNUSED_FIELD" priority="2" rank="18" abbrev="UuF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.AsiakasControlleri">
+      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
+    </Class>
+    <Field classname="vPakkaus.Controllers.AsiakasControlleri" name="Customer_Postal" signature="Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" start="21" end="21" startBytecode="0" endBytecode="0" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
+    </Field>
+  </BugInstance>
+  <BugInstance type="UUF_UNUSED_FIELD" priority="2" rank="18" abbrev="UuF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.AsiakasControlleri">
+      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
+    </Class>
+    <Field classname="vPakkaus.Controllers.AsiakasControlleri" name="Customer_State" signature="Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" start="21" end="21" startBytecode="0" endBytecode="0" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
+    </Field>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE" priority="2" rank="11" abbrev="RCN" category="CORRECTNESS" first="1">
+    <Class classname="vPakkaus.Controllers.AsiakasViewController">
+      <SourceLine classname="vPakkaus.Controllers.AsiakasViewController" sourcefile="AsiakasViewController.java" sourcepath="vPakkaus/Controllers/AsiakasViewController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.AsiakasViewController" name="luoUusiTaulukko" signature="(Ljava/util/ArrayList;)Z" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.AsiakasViewController" start="83" end="88" startBytecode="0" endBytecode="171" sourcefile="AsiakasViewController.java" sourcepath="vPakkaus/Controllers/AsiakasViewController.java"/>
+    </Method>
+    <LocalVariable name="p" register="1" pc="7" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="vPakkaus.Controllers.AsiakasViewController" start="83" end="83" startBytecode="1" endBytecode="1" sourcefile="AsiakasViewController.java" sourcepath="vPakkaus/Controllers/AsiakasViewController.java"/>
+    <SourceLine classname="vPakkaus.Controllers.AsiakasViewController" start="83" end="83" startBytecode="8" endBytecode="8" sourcefile="AsiakasViewController.java" sourcepath="vPakkaus/Controllers/AsiakasViewController.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+    <SourceLine classname="vPakkaus.Controllers.AsiakasViewController" start="83" end="83" startBytecode="8" endBytecode="8" sourcefile="AsiakasViewController.java" sourcepath="vPakkaus/Controllers/AsiakasViewController.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.Controllers.MainController">
+      <SourceLine classname="vPakkaus.Controllers.MainController" sourcefile="MainController.java" sourcepath="vPakkaus/Controllers/MainController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.MainController" name="AddProduct" signature="(LvPakkaus/Tuotejoukko;)Z" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MainController" start="64" end="66" startBytecode="0" endBytecode="93" sourcefile="MainController.java" sourcepath="vPakkaus/Controllers/MainController.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.Controllers.MainController">
+      <SourceLine classname="vPakkaus.Controllers.MainController" sourcefile="MainController.java" sourcepath="vPakkaus/Controllers/MainController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.MainController" name="DeleteProduct" signature="(Ljava/lang/String;)Z" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MainController" start="116" end="117" startBytecode="0" endBytecode="69" sourcefile="MainController.java" sourcepath="vPakkaus/Controllers/MainController.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.Controllers.MainController">
+      <SourceLine classname="vPakkaus.Controllers.MainController" sourcefile="MainController.java" sourcepath="vPakkaus/Controllers/MainController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.MainController" name="LogIn" signature="(Ljava/lang/String;Ljava/lang/String;)Z" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MainController" start="41" end="49" startBytecode="0" endBytecode="187" sourcefile="MainController.java" sourcepath="vPakkaus/Controllers/MainController.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.Controllers.MainController">
+      <SourceLine classname="vPakkaus.Controllers.MainController" sourcefile="MainController.java" sourcepath="vPakkaus/Controllers/MainController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.MainController" name="LogOut" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MainController" start="143" end="146" startBytecode="0" endBytecode="73" sourcefile="MainController.java" sourcepath="vPakkaus/Controllers/MainController.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.Controllers.MainController">
+      <SourceLine classname="vPakkaus.Controllers.MainController" sourcefile="MainController.java" sourcepath="vPakkaus/Controllers/MainController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.MainController" name="TallennaAsiakas" signature="(LvPakkaus/Asiakas;)V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MainController" start="162" end="168" startBytecode="0" endBytecode="184" sourcefile="MainController.java" sourcepath="vPakkaus/Controllers/MainController.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.MainPageController">
+      <SourceLine classname="vPakkaus.Controllers.MainPageController" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
+    </Class>
+    <Field classname="vPakkaus.Controllers.MainPageController" name="resource" signature="Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MainPageController" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.Controllers.MainPageController" start="50" end="50" startBytecode="93" endBytecode="93" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.Controllers.MuokkaaProductController">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.MuokkaaProductController" name="HaeTuoteet" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="114" end="115" startBytecode="0" endBytecode="70" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.Controllers.MuokkaaProductController">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.MuokkaaProductController" name="Reset" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="63" end="73" startBytecode="0" endBytecode="169" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.Controllers.MuokkaaProductController">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.MuokkaaProductController" name="SearchManually" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="90" end="106" startBytecode="0" endBytecode="169" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE" priority="2" rank="11" abbrev="RCN" category="CORRECTNESS" first="1">
+    <Class classname="vPakkaus.Controllers.MuokkaaProductController">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.MuokkaaProductController" name="luoUusiTaulukko" signature="()Z" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="81" end="86" startBytecode="0" endBytecode="155" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Method>
+    <Field classname="vPakkaus.Controllers.MuokkaaProductController" name="p" signature="Ljava/util/ArrayList;" sourceSignature="Ljava/util/ArrayList&lt;LvPakkaus/DAO_Objekti;&gt;;" isStatic="false" role="FIELD_VALUE_OF">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="81" end="81" startBytecode="4" endBytecode="4" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="81" end="81" startBytecode="14" endBytecode="14" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+    <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="81" end="81" startBytecode="14" endBytecode="14" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="SF_SWITCH_NO_DEFAULT" priority="2" rank="19" abbrev="SF" category="STYLE" first="1">
+    <Class classname="vPakkaus.Controllers.MuokkaaProductController">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.MuokkaaProductController" name="switchMode" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="149" end="164" startBytecode="0" endBytecode="162" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Method>
+    <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="149" end="162" startBytecode="4" endBytecode="76" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="149" end="162" startBytecode="4" endBytecode="76" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.MuokkaaProductController">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Class>
+    <Field classname="vPakkaus.Controllers.MuokkaaProductController" name="vaihtaja" signature="LvPakkaus/Controllers/NayttojenVaihtaja_IF;" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.Controllers.MuokkaaProductController" start="194" end="194" startBytecode="2" endBytecode="2" sourcefile="MuokkaaProductController.java" sourcepath="vPakkaus/Controllers/MuokkaaProductController.java"/>
+  </BugInstance>
+  <BugInstance type="BX_UNBOXING_IMMEDIATELY_REBOXED" priority="2" rank="18" abbrev="Bx" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.ProductCellEditor">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.ProductCellEditor" name="paivitaSolu" signature="(Ljava/lang/Object;I)V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="82" end="112" startBytecode="0" endBytecode="472" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Method>
+    <Method classname="java.lang.Double" name="valueOf" signature="(D)Ljava/lang/Double;" isStatic="true" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Double"/>
+    </Method>
+    <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="99" end="99" startBytecode="163" endBytecode="163" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="99" end="99" startBytecode="163" endBytecode="163" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+  </BugInstance>
+  <BugInstance type="BX_UNBOXING_IMMEDIATELY_REBOXED" priority="2" rank="18" abbrev="Bx" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.ProductCellEditor">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.ProductCellEditor" name="paivitaSolu" signature="(Ljava/lang/Object;I)V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="82" end="112" startBytecode="0" endBytecode="472" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="valueOf" signature="(I)Ljava/lang/Integer;" isStatic="true" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Integer"/>
+    </Method>
+    <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="87" end="87" startBytecode="80" endBytecode="80" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="87" end="87" startBytecode="80" endBytecode="80" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" rank="18" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="vPakkaus.Controllers.ProductCellEditor">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.ProductCellEditor" name="&lt;init&gt;" signature="(I[LvPakkaus/Product;)V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="11" end="13" startBytecode="0" endBytecode="80" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Method>
+    <Field classname="vPakkaus.Controllers.ProductCellEditor" name="PaivitettavatTuotteet" signature="[LvPakkaus/Product;" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Field>
+    <LocalVariable name="PaivitettavatTuotteet" register="2" pc="7" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="12" end="12" startBytecode="7" endBytecode="7" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="12" end="12" startBytecode="7" endBytecode="7" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+  </BugInstance>
+  <BugInstance type="SF_SWITCH_NO_DEFAULT" priority="2" rank="19" abbrev="SF" category="STYLE" first="1">
+    <Class classname="vPakkaus.Controllers.ProductCellEditor">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.ProductCellEditor" name="paivitaSolu" signature="(Ljava/lang/Object;I)V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="82" end="112" startBytecode="0" endBytecode="472" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Method>
+    <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="84" end="108" startBytecode="29" endBytecode="269" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="84" end="108" startBytecode="29" endBytecode="269" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+  </BugInstance>
+  <BugInstance type="SF_SWITCH_NO_DEFAULT" priority="2" rank="19" abbrev="SF" category="STYLE" first="1">
+    <Class classname="vPakkaus.Controllers.ProductCellEditor">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.ProductCellEditor" name="textFieldHandelerMethod" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="16" end="79" startBytecode="0" endBytecode="818" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    </Method>
+    <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="19" end="67" startBytecode="68" endBytecode="457" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductCellEditor" start="19" end="67" startBytecode="68" endBytecode="457" sourcefile="ProductCellEditor.java" sourcepath="vPakkaus/Controllers/ProductCellEditor.java"/>
+  </BugInstance>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE" priority="2" rank="11" abbrev="RCN" category="CORRECTNESS" first="1">
+    <Class classname="vPakkaus.Controllers.ProductTaulukko">
+      <SourceLine classname="vPakkaus.Controllers.ProductTaulukko" sourcefile="ProductTaulukko.java" sourcepath="vPakkaus/Controllers/ProductTaulukko.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.ProductTaulukko" name="&lt;init&gt;" signature="(Ljavafx/scene/control/TableView;[LvPakkaus/Product;)V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.ProductTaulukko" start="20" end="35" startBytecode="0" endBytecode="290" sourcefile="ProductTaulukko.java" sourcepath="vPakkaus/Controllers/ProductTaulukko.java"/>
+    </Method>
+    <LocalVariable name="o" register="4" pc="58" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductTaulukko" start="25" end="25" startBytecode="52" endBytecode="52" sourcefile="ProductTaulukko.java" sourcepath="vPakkaus/Controllers/ProductTaulukko.java"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductTaulukko" start="26" end="26" startBytecode="60" endBytecode="60" sourcefile="ProductTaulukko.java" sourcepath="vPakkaus/Controllers/ProductTaulukko.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductTaulukko" start="26" end="26" startBytecode="60" endBytecode="60" sourcefile="ProductTaulukko.java" sourcepath="vPakkaus/Controllers/ProductTaulukko.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" rank="18" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="vPakkaus.Controllers.ProductTaulukkoNappi">
+      <SourceLine classname="vPakkaus.Controllers.ProductTaulukkoNappi" sourcefile="ProductTaulukkoNappi.java" sourcepath="vPakkaus/Controllers/ProductTaulukkoNappi.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.ProductTaulukkoNappi" name="&lt;init&gt;" signature="(Ljava/lang/String;[LvPakkaus/Product;)V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.ProductTaulukkoNappi" start="16" end="38" startBytecode="0" endBytecode="125" sourcefile="ProductTaulukkoNappi.java" sourcepath="vPakkaus/Controllers/ProductTaulukkoNappi.java"/>
+    </Method>
+    <Field classname="vPakkaus.Controllers.ProductTaulukkoNappi" name="tuotteetpaivitettavana" signature="[LvPakkaus/Product;" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.ProductTaulukkoNappi" sourcefile="ProductTaulukkoNappi.java" sourcepath="vPakkaus/Controllers/ProductTaulukkoNappi.java"/>
+    </Field>
+    <LocalVariable name="list" register="2" pc="25" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductTaulukkoNappi" start="19" end="19" startBytecode="25" endBytecode="25" sourcefile="ProductTaulukkoNappi.java" sourcepath="vPakkaus/Controllers/ProductTaulukkoNappi.java"/>
+    <SourceLine classname="vPakkaus.Controllers.ProductTaulukkoNappi" start="19" end="19" startBytecode="25" endBytecode="25" sourcefile="ProductTaulukkoNappi.java" sourcepath="vPakkaus/Controllers/ProductTaulukkoNappi.java"/>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller">
+      <SourceLine classname="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller" sourcefile="WareHouseManagement_MainMenu_Controller.java" sourcepath="vPakkaus/Controllers/WareHouseManagement_MainMenu_Controller.java"/>
+    </Class>
+    <Field classname="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller" name="mc" signature="LvPakkaus/Controllers/MainController_IF;" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller" sourcefile="WareHouseManagement_MainMenu_Controller.java" sourcepath="vPakkaus/Controllers/WareHouseManagement_MainMenu_Controller.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller" start="10" end="10" startBytecode="2" endBytecode="2" sourcefile="WareHouseManagement_MainMenu_Controller.java" sourcepath="vPakkaus/Controllers/WareHouseManagement_MainMenu_Controller.java"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="2" rank="17" abbrev="DLS" category="STYLE" first="1">
+    <Class classname="vPakkaus.Controllers.addProductController">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.addProductController" name="AddProductManually" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" start="66" end="108" startBytecode="0" endBytecode="154" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Method>
+    <LocalVariable name="lisaajan_id" register="1" pc="302" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="vPakkaus.Controllers.addProductController" start="97" end="97" startBytecode="301" endBytecode="301" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    <SourceLine classname="vPakkaus.Controllers.addProductController" start="97" end="97" startBytecode="301" endBytecode="301" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.BASE_VALUE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="lisaajan_id"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.METHOD_RESULT" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.NO_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="DM_DEFAULT_ENCODING" priority="1" rank="19" abbrev="Dm" category="I18N" first="1">
+    <Class classname="vPakkaus.Controllers.addProductController">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.addProductController" name="readFromFile" signature="(Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" start="195" end="226" startBytecode="0" endBytecode="561" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Method>
+    <Method classname="java.util.Scanner" name="&lt;init&gt;" signature="(Ljava/io/File;)V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.util.Scanner"/>
+    </Method>
+    <SourceLine classname="vPakkaus.Controllers.addProductController" start="197" end="197" startBytecode="26" endBytecode="26" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    <SourceLine classname="vPakkaus.Controllers.addProductController" start="197" end="197" startBytecode="26" endBytecode="26" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+  </BugInstance>
+  <BugInstance type="DM_STRING_CTOR" priority="2" rank="18" abbrev="Dm" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.addProductController">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.addProductController" name="handleFilesDragDropped" signature="(Ljavafx/scene/input/DragEvent;)V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" start="147" end="184" startBytecode="0" endBytecode="600" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Method>
+    <SourceLine classname="vPakkaus.Controllers.addProductController" start="166" end="166" startBytecode="197" endBytecode="197" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    <SourceLine classname="vPakkaus.Controllers.addProductController" start="166" end="166" startBytecode="197" endBytecode="197" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+  </BugInstance>
+  <BugInstance type="NM_CLASS_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.Controllers.addProductController">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" start="39" end="299" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Class>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.Controllers.addProductController">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Class>
+    <Method classname="vPakkaus.Controllers.addProductController" name="AddProductManually" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" start="66" end="108" startBytecode="0" endBytecode="595" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Controllers.addProductController">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Class>
+    <Field classname="vPakkaus.Controllers.addProductController" name="vaihtaja" signature="LvPakkaus/Controllers/NayttojenVaihtaja_IF;" isStatic="false">
+      <SourceLine classname="vPakkaus.Controllers.addProductController" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.Controllers.addProductController" start="293" end="293" startBytecode="2" endBytecode="2" sourcefile="addProductController.java" sourcepath="vPakkaus/Controllers/addProductController.java"/>
+  </BugInstance>
+  <BugInstance type="DMI_CONSTANT_DB_PASSWORD" priority="2" rank="7" abbrev="Dm" category="SECURITY" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="&lt;init&gt;" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="40" end="71" startBytecode="0" endBytecode="88" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+    <SourceLine classname="vPakkaus.DB_AccessObject" start="46" end="46" startBytecode="26" endBytecode="26" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    <SourceLine classname="vPakkaus.DB_AccessObject" start="46" end="46" startBytecode="26" endBytecode="26" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="CreateHyllypaikka" signature="(LvPakkaus/Hyllypaikka;)Z" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="162" end="162" startBytecode="0" endBytecode="60" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="HaeHylly" signature="(Ljava/lang/String;)LvPakkaus/Hyllypaikka;" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="264" end="264" startBytecode="0" endBytecode="60" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="HaeHyllypaikanTuotteet" signature="(Ljava/lang/String;)Ljava/util/ArrayList;" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="268" end="268" startBytecode="0" endBytecode="60" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="HaeTuotteenHyllypaikat" signature="(LvPakkaus/Product;)Ljava/util/ArrayList;" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="272" end="272" startBytecode="0" endBytecode="60" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="Lisaa" signature="(LvPakkaus/Tuotejoukko;)Z" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="98" end="153" startBytecode="0" endBytecode="686" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="LogIn" signature="(Ljava/lang/String;Ljava/lang/String;)[I" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="84" end="84" startBytecode="0" endBytecode="71" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="MahtuukoTuotteetHyllyyn" signature="(LvPakkaus/Tuotejoukko;)Z" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="212" end="246" startBytecode="0" endBytecode="711" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="MuokkaaTuoterivi&#228;" signature="(LvPakkaus/Tuotejoukko;)Z" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="288" end="288" startBytecode="0" endBytecode="60" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NS_DANGEROUS_NON_SHORT_CIRCUIT" priority="1" rank="15" abbrev="NS" category="STYLE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="checkLampotila" signature="(LvPakkaus/Tuotejoukko;)Z" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="176" end="188" startBytecode="0" endBytecode="253" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+    <SourceLine classname="vPakkaus.DB_AccessObject" start="177" end="177" startBytecode="33" endBytecode="33" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    <SourceLine classname="vPakkaus.DB_AccessObject" start="177" end="177" startBytecode="33" endBytecode="33" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="2" rank="17" abbrev="ST" category="STYLE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Method classname="vPakkaus.DB_AccessObject" name="&lt;init&gt;" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="40" end="71" startBytecode="0" endBytecode="461" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Method>
+    <Field classname="vPakkaus.DB_AccessObject" name="conn" signature="Ljava/sql/Connection;" isStatic="true">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.DB_AccessObject" start="46" end="46" startBytecode="29" endBytecode="29" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    <SourceLine classname="vPakkaus.DB_AccessObject" start="46" end="46" startBytecode="29" endBytecode="29" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Field classname="vPakkaus.DB_AccessObject" name="ps" signature="Ljava/sql/PreparedStatement;" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.DB_AccessObject" start="24" end="24" startBytecode="6" endBytecode="6" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.DB_AccessObject">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Class>
+    <Field classname="vPakkaus.DB_AccessObject" name="rs" signature="Ljava/sql/ResultSet;" isStatic="false">
+      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.DB_AccessObject" start="25" end="25" startBytecode="11" endBytecode="11" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="1" rank="15" abbrev="ST" category="STYLE" first="1">
+    <Class classname="vPakkaus.MainLaunch">
+      <SourceLine classname="vPakkaus.MainLaunch" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Class>
+    <Method classname="vPakkaus.MainLaunch" name="start" signature="(Ljavafx/stage/Stage;)V" isStatic="false">
+      <SourceLine classname="vPakkaus.MainLaunch" start="42" end="54" startBytecode="0" endBytecode="197" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Method>
+    <Field classname="vPakkaus.MainLaunch" name="mc" signature="LvPakkaus/Controllers/MainController;" isStatic="true">
+      <SourceLine classname="vPakkaus.MainLaunch" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.MainLaunch" start="45" end="45" startBytecode="40" endBytecode="40" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    <SourceLine classname="vPakkaus.MainLaunch" start="45" end="45" startBytecode="40" endBytecode="40" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="1" rank="15" abbrev="ST" category="STYLE" first="1">
+    <Class classname="vPakkaus.MainLaunch">
+      <SourceLine classname="vPakkaus.MainLaunch" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Class>
+    <Method classname="vPakkaus.MainLaunch" name="testFX_Esivalmistelut" signature="()V" isStatic="false">
+      <SourceLine classname="vPakkaus.MainLaunch" start="152" end="158" startBytecode="0" endBytecode="127" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Method>
+    <Field classname="vPakkaus.MainLaunch" name="mc" signature="LvPakkaus/Controllers/MainController;" isStatic="true">
+      <SourceLine classname="vPakkaus.MainLaunch" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.MainLaunch" start="155" end="155" startBytecode="40" endBytecode="40" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    <SourceLine classname="vPakkaus.MainLaunch" start="155" end="155" startBytecode="40" endBytecode="40" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+  </BugInstance>
+  <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="2" rank="17" abbrev="ST" category="STYLE" first="1">
+    <Class classname="vPakkaus.MainLaunch">
+      <SourceLine classname="vPakkaus.MainLaunch" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Class>
+    <Method classname="vPakkaus.MainLaunch" name="start" signature="(Ljavafx/stage/Stage;)V" isStatic="false">
+      <SourceLine classname="vPakkaus.MainLaunch" start="42" end="54" startBytecode="0" endBytecode="197" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Method>
+    <Field classname="vPakkaus.MainLaunch" name="MainStage" signature="Ljavafx/stage/Stage;" isStatic="true">
+      <SourceLine classname="vPakkaus.MainLaunch" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.MainLaunch" start="49" end="49" startBytecode="66" endBytecode="66" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    <SourceLine classname="vPakkaus.MainLaunch" start="49" end="49" startBytecode="66" endBytecode="66" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+  </BugInstance>
+  <BugInstance type="UUF_UNUSED_FIELD" priority="2" rank="18" abbrev="UuF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.MainLaunch">
+      <SourceLine classname="vPakkaus.MainLaunch" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Class>
+    <Field classname="vPakkaus.MainLaunch" name="APLayout" signature="Ljavafx/scene/layout/AnchorPane;" isStatic="true">
+      <SourceLine classname="vPakkaus.MainLaunch" start="28" end="28" startBytecode="0" endBytecode="0" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Field>
+  </BugInstance>
+  <BugInstance type="UUF_UNUSED_FIELD" priority="2" rank="18" abbrev="UuF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.MainLaunch">
+      <SourceLine classname="vPakkaus.MainLaunch" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Class>
+    <Field classname="vPakkaus.MainLaunch" name="loader" signature="Ljavafx/fxml/FXMLLoader;" isStatic="true">
+      <SourceLine classname="vPakkaus.MainLaunch" start="27" end="27" startBytecode="0" endBytecode="0" sourcefile="MainLaunch.java" sourcepath="vPakkaus/MainLaunch.java"/>
+    </Field>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="vPakkaus.Product">
+      <SourceLine classname="vPakkaus.Product" sourcefile="Product.java" sourcepath="vPakkaus/Product.java"/>
+    </Class>
+    <Field classname="vPakkaus.Product" name="muuttujienNimet" signature="Ljava/util/ArrayList;" isStatic="false">
+      <SourceLine classname="vPakkaus.Product" sourcefile="Product.java" sourcepath="vPakkaus/Product.java"/>
+    </Field>
+    <SourceLine classname="vPakkaus.Product" start="18" end="18" startBytecode="12" endBytecode="12" sourcefile="Product.java" sourcepath="vPakkaus/Product.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Thu, 17 Nov 2016 13:59:49 +0200" total_classes="49" referenced_classes="146" total_bugs="61" total_size="2427" num_packages="5" java_version="1.8.0_91" vm_version="25.91-b14" cpu_seconds="126.92" clock_seconds="527.70" peak_mbytes="639.11" alloc_mbytes="910.50" gc_seconds="0.32" priority_2="56" priority_1="5">
+    <PackageStats package="" total_bugs="2" total_types="1" total_size="50" priority_2="1" priority_1="1">
+      <ClassStats class="DataBase_tests" sourceFile="DataBase_tests.java" interface="false" size="50" bugs="2" priority_2="1" priority_1="1"/>
+    </PackageStats>
+    <PackageStats package="TietokantaKyselyt" total_bugs="7" total_types="6" total_size="551" priority_2="7">
+      <ClassStats class="TietokantaKyselyt.AsiakasDB" sourceFile="AsiakasDB.java" interface="false" size="97" bugs="0"/>
+      <ClassStats class="TietokantaKyselyt.HyllyDB" sourceFile="HyllyDB.java" interface="false" size="73" bugs="3" priority_2="3"/>
+      <ClassStats class="TietokantaKyselyt.ProductDB" sourceFile="ProductDB.java" interface="false" size="136" bugs="1" priority_2="1"/>
+      <ClassStats class="TietokantaKyselyt.TuoteriviDB" sourceFile="TuoteriviDB.java" interface="false" size="86" bugs="1" priority_2="1"/>
+      <ClassStats class="TietokantaKyselyt.UsersDB" sourceFile="UsersDB.java" interface="false" size="43" bugs="1" priority_2="1"/>
+      <ClassStats class="TietokantaKyselyt.lampotilaDB" sourceFile="lampotilaDB.java" interface="false" size="116" bugs="1" priority_2="1"/>
+    </PackageStats>
+    <PackageStats package="testfx" total_bugs="2" total_types="4" total_size="90" priority_2="2">
+      <ClassStats class="testfx.AddProduct" sourceFile="AddProduct.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="testfx.LogInTestFX_TEST" sourceFile="LogInTestFX_TEST.java" interface="false" size="24" bugs="2" priority_2="2"/>
+      <ClassStats class="testfx.MainPageTestFX_TEST" sourceFile="MainPageTestFX_TEST.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="testfx.SearchTest" sourceFile="SearchTest.java" interface="false" size="37" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="vPakkaus" total_bugs="19" total_types="9" total_size="493" priority_2="16" priority_1="3">
+      <ClassStats class="vPakkaus.AnchorPaneFactory" sourceFile="AnchorPaneFactory.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="vPakkaus.Asiakas" sourceFile="Asiakas.java" interface="false" size="57" bugs="0"/>
+      <ClassStats class="vPakkaus.DAO_Objekti" sourceFile="DAO_Objekti.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="vPakkaus.DB_AccessObject" sourceFile="DB_AccessObject.java" interface="false" size="156" bugs="13" priority_2="12" priority_1="1"/>
+      <ClassStats class="vPakkaus.Hyllypaikka" sourceFile="Hyllypaikka.java" interface="false" size="54" bugs="0"/>
+      <ClassStats class="vPakkaus.MainLaunch" sourceFile="MainLaunch.java" interface="false" size="80" bugs="5" priority_2="3" priority_1="2"/>
+      <ClassStats class="vPakkaus.Product" sourceFile="Product.java" interface="false" size="91" bugs="1" priority_2="1"/>
+      <ClassStats class="vPakkaus.Tuotejoukko" sourceFile="Tuotejoukko.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="vPakkaus.ViewFactory_IF" sourceFile="ViewFactory_IF.java" interface="true" size="2" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="vPakkaus.Controllers" total_bugs="31" total_types="29" total_size="1243" priority_2="30" priority_1="1">
+      <ClassStats class="vPakkaus.Controllers.AsiakasControlleri" sourceFile="AsiakasControlleri.java" interface="false" size="147" bugs="4" priority_2="4"/>
+      <ClassStats class="vPakkaus.Controllers.AsiakasTaulukko" sourceFile="AsiakasTaulukko.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.AsiakasViewController" sourceFile="AsiakasViewController.java" interface="false" size="65" bugs="1" priority_2="1"/>
+      <ClassStats class="vPakkaus.Controllers.EditingCell" sourceFile="EditingCell.java" interface="false" size="92" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.EditingCell$1" sourceFile="EditingCell.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.EditingCell$2" sourceFile="EditingCell.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.LoginController" sourceFile="LoginController.java" interface="false" size="72" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.MainController" sourceFile="MainController.java" interface="false" size="71" bugs="5" priority_2="5"/>
+      <ClassStats class="vPakkaus.Controllers.MainController_IF" sourceFile="MainController_IF.java" interface="true" size="12" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.MainPageController" sourceFile="MainPageController.java" interface="false" size="50" bugs="1" priority_2="1"/>
+      <ClassStats class="vPakkaus.Controllers.MuokkaaProductController" sourceFile="MuokkaaProductController.java" interface="false" size="121" bugs="6" priority_2="6"/>
+      <ClassStats class="vPakkaus.Controllers.Nakyma_IF" sourceFile="Nakyma_IF.java" interface="true" size="6" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.NayttojenVaihtaja_IF" sourceFile="NayttojenVaihtaja_IF.java" interface="true" size="5" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.ProductCellEditor" sourceFile="ProductCellEditor.java" interface="false" size="91" bugs="5" priority_2="5"/>
+      <ClassStats class="vPakkaus.Controllers.ProductTaulukko" sourceFile="ProductTaulukko.java" interface="false" size="66" bugs="1" priority_2="1"/>
+      <ClassStats class="vPakkaus.Controllers.ProductTaulukkoNappi" sourceFile="ProductTaulukkoNappi.java" interface="false" size="22" bugs="1" priority_2="1"/>
+      <ClassStats class="vPakkaus.Controllers.ProductTaulukkoNappi$1" sourceFile="ProductTaulukkoNappi.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.SetMainController" sourceFile="SetMainController.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.TaulukkoFactory" sourceFile="TaulukkoFactory.java" interface="false" size="78" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.TaulukkoFactory$1" sourceFile="TaulukkoFactory.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.TaulukkoFactory$2" sourceFile="TaulukkoFactory.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.TaulukkoFactory$3" sourceFile="TaulukkoFactory.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.TaulukkoFactory$4" sourceFile="TaulukkoFactory.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.TaulukkoFactory$5" sourceFile="TaulukkoFactory.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.TaulukkoFactory$6" sourceFile="TaulukkoFactory.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.TaulukkoFactory_IF" sourceFile="TaulukkoFactory_IF.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.Taulukko_IF" sourceFile="Taulukko_IF.java" interface="true" size="5" bugs="0"/>
+      <ClassStats class="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller" sourceFile="WareHouseManagement_MainMenu_Controller.java" interface="false" size="26" bugs="1" priority_2="1"/>
+      <ClassStats class="vPakkaus.Controllers.addProductController" sourceFile="addProductController.java" interface="false" size="198" bugs="6" priority_2="5" priority_1="1"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="de.tobject.findbugs.builder.FindBugs2Eclipse" totalMilliseconds="2140" invocations="2" avgMicrosecondsPerInvocation="1070212" maxMicrosecondsPerInvocation="1460288" standardDeviationMircosecondsPerInvocation="390075"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="1265" invocations="1112" avgMicrosecondsPerInvocation="1138" maxMicrosecondsPerInvocation="38129" standardDeviationMircosecondsPerInvocation="2227"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="1173" invocations="370" avgMicrosecondsPerInvocation="3172" maxMicrosecondsPerInvocation="190211" standardDeviationMircosecondsPerInvocation="13933"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="1045" invocations="346" avgMicrosecondsPerInvocation="3020" maxMicrosecondsPerInvocation="78343" standardDeviationMircosecondsPerInvocation="8868"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="966" invocations="369" avgMicrosecondsPerInvocation="2618" maxMicrosecondsPerInvocation="80206" standardDeviationMircosecondsPerInvocation="7323"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="750" invocations="338" avgMicrosecondsPerInvocation="2221" maxMicrosecondsPerInvocation="63010" standardDeviationMircosecondsPerInvocation="6915"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="722" invocations="326" avgMicrosecondsPerInvocation="2217" maxMicrosecondsPerInvocation="69715" standardDeviationMircosecondsPerInvocation="5283"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="687" invocations="146" avgMicrosecondsPerInvocation="4706" maxMicrosecondsPerInvocation="107361" standardDeviationMircosecondsPerInvocation="11893"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="658" invocations="146" avgMicrosecondsPerInvocation="4511" maxMicrosecondsPerInvocation="72750" standardDeviationMircosecondsPerInvocation="8695"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="482" invocations="598" avgMicrosecondsPerInvocation="806" maxMicrosecondsPerInvocation="32687" standardDeviationMircosecondsPerInvocation="1838"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="459" invocations="233" avgMicrosecondsPerInvocation="1970" maxMicrosecondsPerInvocation="92326" standardDeviationMircosecondsPerInvocation="6684"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="457" invocations="346" avgMicrosecondsPerInvocation="1321" maxMicrosecondsPerInvocation="43359" standardDeviationMircosecondsPerInvocation="3345"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="411" invocations="1115" avgMicrosecondsPerInvocation="368" maxMicrosecondsPerInvocation="3609" standardDeviationMircosecondsPerInvocation="220"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="273" invocations="49" avgMicrosecondsPerInvocation="5587" maxMicrosecondsPerInvocation="49052" standardDeviationMircosecondsPerInvocation="10440"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="258" invocations="378" avgMicrosecondsPerInvocation="684" maxMicrosecondsPerInvocation="119133" standardDeviationMircosecondsPerInvocation="6164"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="244" invocations="346" avgMicrosecondsPerInvocation="707" maxMicrosecondsPerInvocation="76062" standardDeviationMircosecondsPerInvocation="4510"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="202" invocations="49" avgMicrosecondsPerInvocation="4139" maxMicrosecondsPerInvocation="34697" standardDeviationMircosecondsPerInvocation="6600"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindInconsistentSync2" totalMilliseconds="199" invocations="49" avgMicrosecondsPerInvocation="4078" maxMicrosecondsPerInvocation="33865" standardDeviationMircosecondsPerInvocation="6499"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="173" invocations="146" avgMicrosecondsPerInvocation="1188" maxMicrosecondsPerInvocation="14242" standardDeviationMircosecondsPerInvocation="2026"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="168" invocations="49" avgMicrosecondsPerInvocation="3438" maxMicrosecondsPerInvocation="18285" standardDeviationMircosecondsPerInvocation="4509"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="161" invocations="146" avgMicrosecondsPerInvocation="1105" maxMicrosecondsPerInvocation="29214" standardDeviationMircosecondsPerInvocation="3018"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="160" invocations="101" avgMicrosecondsPerInvocation="1587" maxMicrosecondsPerInvocation="13248" standardDeviationMircosecondsPerInvocation="2093"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MethodReturnCheck" totalMilliseconds="156" invocations="49" avgMicrosecondsPerInvocation="3197" maxMicrosecondsPerInvocation="33352" standardDeviationMircosecondsPerInvocation="6620"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DefaultEncodingDetector" totalMilliseconds="156" invocations="49" avgMicrosecondsPerInvocation="3195" maxMicrosecondsPerInvocation="21791" standardDeviationMircosecondsPerInvocation="5413"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindDeadLocalStores" totalMilliseconds="152" invocations="49" avgMicrosecondsPerInvocation="3122" maxMicrosecondsPerInvocation="34768" standardDeviationMircosecondsPerInvocation="6674"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="146" invocations="146" avgMicrosecondsPerInvocation="1003" maxMicrosecondsPerInvocation="14676" standardDeviationMircosecondsPerInvocation="1813"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.IntCast2LongAsInstant" totalMilliseconds="139" invocations="49" avgMicrosecondsPerInvocation="2837" maxMicrosecondsPerInvocation="95742" standardDeviationMircosecondsPerInvocation="13475"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindPuzzlers" totalMilliseconds="135" invocations="49" avgMicrosecondsPerInvocation="2774" maxMicrosecondsPerInvocation="29238" standardDeviationMircosecondsPerInvocation="6106"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.LoadOfKnownNullValue" totalMilliseconds="133" invocations="49" avgMicrosecondsPerInvocation="2727" maxMicrosecondsPerInvocation="14161" standardDeviationMircosecondsPerInvocation="3347"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="131" invocations="146" avgMicrosecondsPerInvocation="901" maxMicrosecondsPerInvocation="29416" standardDeviationMircosecondsPerInvocation="2659"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.RuntimeExceptionCapture" totalMilliseconds="130" invocations="49" avgMicrosecondsPerInvocation="2664" maxMicrosecondsPerInvocation="34597" standardDeviationMircosecondsPerInvocation="5485"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="129" invocations="226" avgMicrosecondsPerInvocation="574" maxMicrosecondsPerInvocation="38894" standardDeviationMircosecondsPerInvocation="2724"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1479385240613" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

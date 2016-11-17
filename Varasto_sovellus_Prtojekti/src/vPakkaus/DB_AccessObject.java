@@ -310,7 +310,7 @@ public class DB_AccessObject {
 	}
 
 	public boolean updateAsiakas(Asiakas a) {
-		return asiakasdb.addAsiakas(a);
+		return asiakasdb.updateAsiakas(a);
 	}
 
 	public Asiakas haeAsiakas(String nimi) {

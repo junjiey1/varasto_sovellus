@@ -62,6 +62,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		anchorMap.put("searchpage",tehdas.annaNakyma("view/SearchProduct.fxml", this));
 		anchorMap.put("customer",tehdas.annaNakyma("view/addCustomer.fxml", this));
 		anchorMap.put("customerview",tehdas.annaNakyma("view/customerView.fxml", this));
+		anchorMap.put("ManagementMainMenu",tehdas.annaNakyma("view/WarehouseManagement_MainMenu.fxml", this));
 	}
 
 	private void luoNakymat(){ //Luo ladatuista Anchorpaneista Nakymia
@@ -70,6 +71,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		sceneMap.put("mainpage", new Scene(anchorMap.get("mainpage")));
 		sceneMap.put("customer", new Scene(anchorMap.get("customer")));
 		sceneMap.put("customerview", new Scene(anchorMap.get("customerview")));
+		sceneMap.put("ManagementMainMenu", new Scene(anchorMap.get("ManagementMainMenu")));
 	}
 
 	/**

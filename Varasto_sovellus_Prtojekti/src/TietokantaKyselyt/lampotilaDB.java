@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
 
+/**
+ * Luokka vastaa lampotilataulun tietokantakyselyista
+ *
+ */
+
 public class lampotilaDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
@@ -17,6 +22,15 @@ public class lampotilaDB {
 		this.conn = conn;
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * Lisataan tuotteelle lampotila
+	 *
+	 * @param product
+	 * 		product-olio, jolle lisataan lampotila (Product)
+	 *
+	 * @return Onnistuminen/epäonnistuminen (Boolean)
+	 */
 
 	public boolean addTemperatures(Product product) {
 		// Tarvitaan tuotteen ID jotta voidaan lisätä arvoja Lämpötila
@@ -41,21 +55,14 @@ public class lampotilaDB {
 		return true;
 	}
 
-	public boolean checkLampotila(Tuotejoukko joukko) {
-		boolean lampotila = true;
-		if (joukko.getProduct().getMax_temperature() != null & joukko.getProduct().getMin_temperature() != null) {
-			if (joukko.getHylly().getLämpötila() <= joukko.getProduct().getMax_temperature()
-					&& joukko.getHylly().getLämpötila() >= joukko.getProduct().getMin_temperature()) {
-				System.out.println("Tuotteen lämpötila on sopiva hyllypaikkaan");
-			} else {
-				System.out.println("Tuotteen lämpötila vaatimus ei vastaa hyllyn lämpötilaa");
-				lampotila = false;
-			}
-		} else {
-			System.out.println("tuotteelle ei ole asetettu lämpötila rajoituksia");
-		}
-		return lampotila;
-	}
+	/**
+	 * Hakee tuotteen minimi- ja maksimilampotilan.
+	 *
+	 * @param tuotejoukko
+	 * 		tuote (Product)
+	 *
+	 * @return tuote lampotilojen kanssa (Product)
+	 */
 
 	public Product findTemperatures(Product pro) {
 		if (pro.getTemp()) {
@@ -85,6 +92,15 @@ public class lampotilaDB {
 		}
 		return pro;
 	}
+
+	/**
+	 * Tarkistaa jos tuotteelle on asetettu lampotilarajoituksia
+	 *
+	 * @param id
+	 * 		tuotteen id (int)
+	 *
+	 * @return Loytyy/ei loydy (Boolean)
+	 */
 
 	public boolean checkIfTuoteIDExcistInLampoTila(int ID) {
 		int res = 0;

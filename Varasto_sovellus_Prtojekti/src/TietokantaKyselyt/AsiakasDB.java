@@ -8,6 +8,11 @@ import java.util.ArrayList;
 
 import vPakkaus.Asiakas;
 
+/**
+ * Luokka vastaa Asiakas tietokantataulun kyselyistä
+ *
+ */
+
 public class AsiakasDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
@@ -17,6 +22,15 @@ public class AsiakasDB {
 		// TODO Auto-generated constructor stub
 		this.conn = conn;
 	}
+
+	/**
+	 * Lisataan uusi asiakas tietokantatauluun.
+	 *
+	 * @param a
+	 * 		Asiakasolio (Asiakas)
+	 *
+	 * @return Onnistuminen/epäonnistuminen (boolean)
+	 */
 
 	public boolean addAsiakas(Asiakas a) {
 		if (a == null)
@@ -39,6 +53,15 @@ public class AsiakasDB {
 		return true;
 	}
 
+	/**
+	 * Paivitetaan asiakkaan tiedot tietokantatauluun.
+	 *
+	 * @param a
+	 * 		Asiakasolio (Asiakas)
+	 *
+	 * @return Onnistuminen/epäonnistuminen (boolean)
+	 */
+
 	public boolean updateAsiakas(Asiakas a) {
 		if (a == null)
 			return false;
@@ -60,6 +83,15 @@ public class AsiakasDB {
 		}
 		return true;
 	}
+
+	/**
+	 * Haetaan asiakaan tiedot tietokannasta.
+	 *
+	 * @param nimi
+	 * 		Asiakkaan nimi (String)
+	 *
+	 * @return Asiakkaan tiedot (Asiakas)
+	 */
 
 	public Asiakas haeAsiakas(String nimi) {
 		Asiakas asiakas = null;
@@ -92,6 +124,17 @@ public class AsiakasDB {
 		}
 		return asiakas;
 	}
+
+	/**
+	 * Haetaan yhden tai useamman asiakkaan tiedot merkkijonon perusteella.
+	 * Merkkijono voi olla osa asiakkaan nimestä, jolloin haetaan kaikki asiakkaat,
+	 * joiden nimessä esiintyy kyseinen merkkijono
+	 *
+	 * @param nimi
+	 * 		asiakkaan nimi (String)
+	 *
+	 * @return lista asiakkaista (ArrayList<Asiakas>)
+	 */
 
 	public ArrayList<Asiakas> haeAsiakkaat(String nimi) {
 		ArrayList<Asiakas> asiakkaat = new ArrayList();

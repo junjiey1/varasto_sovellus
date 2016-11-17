@@ -7,6 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import TietokantaKyselyt.AsiakasDB;
+import TietokantaKyselyt.HyllyDB;
+import TietokantaKyselyt.ProductDB;
+import TietokantaKyselyt.TuoteriviDB;
+import TietokantaKyselyt.UsersDB;
+import TietokantaKyselyt.lampotilaDB;
+
 /**
  * Luokka vastaa tietokantayhteydesta ja kyselyista.
  *
@@ -17,10 +24,19 @@ public class DB_AccessObject {
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
+
+	private lampotilaDB lampotiladb;
+	private AsiakasDB asiakasdb;
+	private UsersDB usersdb;
+	private ProductDB productdb;
+	private TuoteriviDB tuoterividb;
+	private HyllyDB hyllydb;
+
 	/**
 	 * Luodaan yhteys virtuaalikoneeseen ja tietokantaan.
 	 *
 	 */
+
 	public DB_AccessObject() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -39,75 +55,26 @@ public class DB_AccessObject {
 		} catch (ClassNotFoundException e) {
 			System.out.println("JDBC-ajurin lataus epäonnistui");
 		}
+		try {
+			if (conn.isValid(10)) {
+				usersdb = new UsersDB(conn);
+				hyllydb = new HyllyDB(conn);
+				lampotiladb = new lampotilaDB(conn);
+				asiakasdb = new AsiakasDB(conn);
+				productdb = new ProductDB(conn, lampotiladb);
+				tuoterividb = new TuoteriviDB(conn, productdb, hyllydb);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
-	// -----METODIT-----//
-
-	/**
-	 * Metodi, joka vastaa käyttäjätunnusten hakemisesta ja tarkistamisesta.
-	 *
-	 * @param uname
-	 *            kayttajatunnus
-	 * @param pword
-	 *            salasana
-	 * @return palautta listana.
-	 */
 
 	public int[] LogIn(String uname, String pword) {
-		int res = 0; // Oletetaan, että login epäonnistuu
 
-		PreparedStatement haetiedot = null;
-		ResultSet rs = null;
-		String pass = "";
-		int id = 0;
-
-		try {
-			// Parametrisoitu sql-kysely
-			haetiedot = conn.prepareStatement("SELECT * FROM users WHERE user = ?");
-			try {
-				// Asetetaan argumentit sql-kyselyyn
-				haetiedot.setString(1, uname);
-				rs = haetiedot.executeQuery();// Hae annetulla käyttäjänimellä
-
-				// tietokanta rivi
-				try {
-					while (rs.next()) {
-						pass = rs.getString("pass"); // hae password column ja
-						// tallenna muuttujaan
-						id = rs.getInt("id");
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} finally {
-					rs.close();
-					System.out.println("Tulosjuokko suljettu");
-				}
-			} catch (SQLException e) {
-				System.out.println("Haku " + uname + " epäonnistui!");
-				e.printStackTrace();
-			}
-		} catch (Exception e) {
-			System.out.println("Tietojen haku epäonnistui!");
-		} finally {
-			try {
-				haetiedot.close();
-				System.out.println("Haku kysely suljettu");
-			} catch (SQLException e) {
-				System.out.println("Yhteyden sulkemisessa vikaa");
-				e.printStackTrace();
-			} catch (Exception e) {
-				System.out.println("Vikaa LogInin lopussa");
-			}
-		}
-
-		if (pass.equals(pword)) { // tarkistetaan salasanat
-			// True vain jos funktioon tullut salasana
-			// on sama mikä löytyy tietokannasta
-			res = 1;
-		}
-		int[] list = { res, id };
-		return list;
+		return usersdb.LogIn(uname, pword);
 	}
+	// -----METODIT-----//
 
 	/**
 	 * Lisaa tavara tietokantaan. Kutsuu metodeita, jolla saadaan arvot
@@ -127,11 +94,11 @@ public class DB_AccessObject {
 	 *            Tavaran maara (int)
 	 * @return Onnistuuko tavaran lisaaminen (boolean)
 	 */
+
 	public boolean Lisaa(Tuotejoukko joukko) {
-		// Listaan kerätään virheet
+
 		ArrayList<Boolean> onkoVirheitä = new ArrayList();
 
-		// Haetaan hyllypaikka
 		Hyllypaikka hyllypaikka = HaeHylly(joukko.getHylly().getNimi());
 		joukko.setHylly(hyllypaikka);
 
@@ -190,69 +157,15 @@ public class DB_AccessObject {
 	}
 
 	public boolean addTemperatures(Product product) {
-		// Tarvitaan tuotteen ID jotta voidaan lisätä arvoja Lämpötila
-		// taulukkoon
-		System.out.println("ID " + product.getID());
-		try {
-			ps = conn.prepareStatement("INSERT INTO lampotila(tuoteID, lampotila_max, lampotila_min) VALUES (?,?,?);");
-			// haetaan tuotteen id tietokannasta
-
-			ps.setInt(1, product.getID());
-			ps.setInt(2, product.getMax_temperature());
-			ps.setInt(3, product.getMin_temperature());
-
-			ps.executeUpdate();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println("Lisäys epäonnistui lampotilataulukkoon!");
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		return lampotiladb.addTemperatures(product);
 	}
 
 	public boolean CreateHyllypaikka(Hyllypaikka hyllypaikka) {
-		int varastoID = 513;
-
-		try {
-			ps = conn.prepareStatement(
-					"INSERT INTO hyllypaikka(tunnus, pituus, leveys, korkeus, maksimi_paino, lampotila, varastoID) VALUES (?,?,?,?,?,?,?);");
-			// haetaan tuotteen id tietokannasta
-
-			ps.setString(1, hyllypaikka.getNimi());
-			ps.setDouble(2, hyllypaikka.getPituus());
-			ps.setDouble(3, hyllypaikka.getLeveys());
-			ps.setDouble(4, hyllypaikka.getKorkeus());
-			ps.setDouble(5, hyllypaikka.getMax_paino());
-			ps.setDouble(6, hyllypaikka.getLämpötila());
-			ps.setInt(7, varastoID);
-
-			ps.executeUpdate();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println("Lisäys epäonnistui hyllypaikkataulukkoon!");
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		return hyllydb.CreateHyllypaikka(hyllypaikka);
 	}
 
 	public boolean checkLampotila(Tuotejoukko joukko) {
-		boolean lampotila = true;
-		if (joukko.getProduct().getMax_temperature() != null & joukko.getProduct().getMin_temperature() != null) {
-			if (joukko.getHylly().getLämpötila() <= joukko.getProduct().getMax_temperature()
-					&& joukko.getHylly().getLämpötila() >= joukko.getProduct().getMin_temperature()) {
-				System.out.println("Tuotteen lämpötila on sopiva hyllypaikkaan");
-			} else {
-				System.out.println("Tuotteen lämpötila vaatimus ei vastaa hyllyn lämpötilaa");
-				lampotila = false;
-			}
-		} else {
-			System.out.println("tuotteelle ei ole asetettu lämpötila rajoituksia");
-		}
-		return lampotila;
+		return lampotiladb.checkLampotila(joukko);
 	}
 
 	public boolean MahtuukoTuotteetHyllyyn(Tuotejoukko joukko) {
@@ -308,218 +221,32 @@ public class DB_AccessObject {
 	// */
 
 	public boolean addProductToTuoteTable(Product product) {
-		int lampotila_boolean = 0;
-		if (product.getMax_temperature() != null && product.getMin_temperature() != null)
-			lampotila_boolean = 1;
-		try {
-			ps = conn.prepareStatement(
-					"INSERT INTO tuote(nimi, hinta, paino, pituus, leveys, korkeus, lampotila_boolean)"
-							+ "VALUES (?,?,?,?,?,?,?);");
-			// haetaan tuotteen id tietokannasta
-
-			ps.setString(1, product.getProduct_name());
-			ps.setFloat(2, product.getProduct_price());
-			ps.setDouble(3, product.getProduct_weight());
-			ps.setDouble(4, product.getProduct_length());
-			ps.setDouble(5, product.getProduct_width());
-			ps.setDouble(6, product.getProduct_height());
-			ps.setDouble(7, lampotila_boolean);
-
-			ps.executeUpdate();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println("Lisäys epäonnistui tuotetaulukkoon!");
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		return productdb.addProductToTuoteTable(product);
 	}
 
 	public ArrayList<Tuotejoukko> haeHyllynTuotejoukot(String hyllynimi) {
-
-		ArrayList<Tuotejoukko> tj = new ArrayList();
-		ArrayList<String> nimet = new ArrayList();
-		ArrayList<Integer> määrät = new ArrayList();
-
-		try {
-			ps = conn.prepareStatement(
-					"SELECT tuote.nimi, tuoterivi.maara FROM tuote, tuoterivi WHERE tuote.tuoteID = tuoterivi.tuoteID AND tuoterivi.hyllypaikka = ?;");
-
-			// Asetetaan argumentit sql-kyselyyn
-			ps.setString(1, hyllynimi);
-			rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
-			// tietokanta rivi
-
-			while (rs.next()) {
-				int maara = rs.getInt("maara");
-				String nimi = rs.getString("nimi");
-				nimet.add(nimi);
-				määrät.add(maara);
-			}
-
-			for (int i = 0; i < nimet.size(); i++) {
-				Tuotejoukko tuotejoukko = new Tuotejoukko(findProduct(nimet.get(i)), HaeHylly(hyllynimi),
-						määrät.get(i));
-				tj.add(tuotejoukko);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return tj;
+		return tuoterividb.haeHyllynTuotejoukot(hyllynimi);
 	}
 
 	public boolean addProductToTuoteriviTable(Tuotejoukko joukko) {
-
-		try {
-			ps = conn.prepareStatement("INSERT INTO tuoterivi(tuoteID, hyllypaikka, maara)" + "VALUES (?,?,?);");
-
-			ps.setInt(1, joukko.getProduct().getID());
-			ps.setString(2, joukko.getHylly().getNimi());
-			ps.setInt(3, joukko.getMaara());
-
-			ps.executeUpdate();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println("Lisäys epäonnistui tuoterivitaulukkoon!");
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		return tuoterividb.addProductToTuoteriviTable(joukko);
 	}
 
-	//
-	//
-	// /**
-	// *Hakee tavaran ID:n nimen perusteella.
-	// *
-	// * @param nimi Tavaran nimi
-	// * @return Tavaran ID
-	// */
-	//
-	// public int getProductID(String nimi) {
-	// Integer id = null;
-	//
-	// try {
-	// ps = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?");
-	//
-	// // Asetetaan argumentit sql-kyselyyn
-	// ps.setString(1, nimi);
-	// rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
-	// // tietokanta rivi
-	//
-	// while (rs.next()) {
-	// id = rs.getInt("tuoteID");
-	// }
-	//
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// }
-	// return id;
-	// }
 
-	//
 	public Hyllypaikka HaeHylly(String tunnus) {
-		Hyllypaikka hyl = null;
-		try {
-			ps = conn.prepareStatement(
-					"select hyllypaikka.tunnus , hyllypaikka.pituus, hyllypaikka.leveys, hyllypaikka.korkeus, hyllypaikka.lampotila, hyllypaikka.maksimi_paino from hyllypaikka where hyllypaikka.tunnus=?;");
-			ps.setString(1, tunnus);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				String nimi = rs.getString("tunnus");
-				double leveys = rs.getDouble("leveys");
-				double pituus = rs.getDouble("pituus");
-				double syvyys = rs.getDouble("korkeus");
-				int lampotila = rs.getInt("lampotila");
-				double max_paino = rs.getDouble("maksimi_paino");
-				hyl = new Hyllypaikka(nimi, pituus, leveys, syvyys, lampotila, max_paino);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		return hyl;
-	}
-
-	public ArrayList<Hyllypaikka> findHyllypaikka(String nimi){
-		ArrayList<Hyllypaikka> res = new ArrayList<Hyllypaikka>();
-
-		return res;
+		return hyllydb.HaeHylly(tunnus);
 	}
 
 	public ArrayList<String> HaeHyllypaikanTuotteet(String hyllypaikka) {
-		ArrayList<String> HP_Tuotteet = new ArrayList();
-		try {
-			ps = conn.prepareStatement(
-					"Select tuote.nimi from tuote, tuoterivi WHERE tuoterivi.tuoteID = tuote.tuoteID AND tuoterivi.hyllypaikka = ?;");
-			ps.setString(1, hyllypaikka);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				String nimi = rs.getString("nimi");
+		return productdb.HaeHyllypaikanTuotteet(hyllypaikka);
+	}
 
-				HP_Tuotteet.add(nimi);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		return HP_Tuotteet;
+	public ArrayList<String> HaeTuotteenHyllypaikat(Product product) {
+		return hyllydb.HaeTuotteenHyllypaikat(product);
 	}
 
 	public Product findTemperatures(Product pro) {
-		if (pro.getTemp()) {
-			try {
-				ps = conn.prepareStatement("SELECT lampotila_max, lampotila_min FROM lampotila WHERE tuoteID = ?");
-				// Asetetaan argumentit sql-kyselyyn
-				ps.setInt(1, pro.getID());
-				rs = ps.executeQuery();
-				while (rs.next()) {
-					int lampotila_max = rs.getInt("lampotila_max");
-					int lampotila_min = rs.getInt("lampotila_min");
-					pro.setMax_temperature(lampotila_max);
-					pro.setMin_temperature(lampotila_min);
-				}
-			} catch (SQLException e) {
-				System.out.println("Ei voitu hakea lämpötilaa!");
-				e.printStackTrace();
-			} finally {
-				try {
-					ps.close();
-					rs.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return pro;
+		return lampotiladb.findTemperatures(pro);
 	}
 
 	/**
@@ -531,152 +258,18 @@ public class DB_AccessObject {
 	 *         null, jos tavara ei löyty.)
 	 */
 	public Product findProduct(String nimi) {
-		Product product = null;
-		try {
-			ps = conn.prepareStatement(
-					"SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.pituus, tuote.leveys, tuote.korkeus, tuote.lampotila_boolean FROM tuote WHERE tuote.nimi = ?");
-
-			// Asetetaan argumentit sql-kyselyyn
-			ps.setString(1, nimi);
-			rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
-			// tietokanta rivi
-
-			while (rs.next()) {
-				int id = rs.getInt("tuoteID");
-				String name = rs.getString("nimi");
-				double paino = rs.getDouble("paino");
-				double pituus = rs.getDouble("pituus");
-				double leveys = rs.getDouble("leveys");
-				double korkeus = rs.getDouble("korkeus");
-				float hinta = rs.getFloat("hinta");
-				float lampotila_boolean = rs.getFloat("lampotila_boolean");
-				product = new Product(name, paino, leveys, korkeus, pituus, hinta);
-				product.setID(id);
-				if (lampotila_boolean == 1)
-					product.setTemp(true);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return product;
+		return productdb.findProduct(nimi);
 	}
 
 	public int tuotteidenMaaraHyllyssa(String nimi, String hyllypaikka) {
-		int maara = 0;
-		try {
-			ps = conn.prepareStatement(
-					"Select tuoterivi.maara FROM tuoterivi, tuote WHERE tuoterivi.tuoteID = tuote.tuoteID AND tuote.nimi = ? and  tuoterivi.hyllypaikka = ?;");
-			ps.setString(1, nimi);
-			ps.setString(2, hyllypaikka);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				maara = rs.getInt("maara");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		return maara;
-
+		return tuoterividb.tuotteidenMaaraHyllyssa(nimi, hyllypaikka);
 	}
 
 	public boolean MuokkaaTuoteriviä(Tuotejoukko tuotejoukko) {
-		boolean error = false;
-
-		try {
-			ps = conn.prepareStatement(
-					"UPDATE tuote, tuoterivi SET tuoterivi.maara = ?  WHERE tuote.tuoteID = tuoterivi.tuoteID AND tuote.nimi = ? AND tuoterivi.hyllypaikka = ?;");
-
-			ps.setInt(1, tuotejoukko.getMaara());
-			ps.setString(2, tuotejoukko.getProduct().getProduct_name());
-			ps.setString(3, tuotejoukko.getHylly().getNimi());
-
-			ps.executeUpdate();
-			ps.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			error = true;
-		}
-
-		return error;
+		return tuoterividb.MuokkaaTuoteriviä(tuotejoukko);
 	}
 
-	//
-	// /**
-	// * Lisaa tavaralle hyllypaikka tietokantaan.
-	// *
-	// * @param hyllypaikka varaston hyllypaikat
-	// * @param id tavaran ID
-	// * @return Palauta booleana, onko lisaaminen onnistunut
-	// */
-	// public boolean addProductLocation(String hyllypaikka, int id){
-	// boolean error = true;
-	//
-	// try {
-	// ps = conn.prepareStatement("INSERT INTO hyllypaikka(tunnus, tuoteID)" +
-	// "VALUES (?,?);");
-	//
-	// ps.setString(1, hyllypaikka);
-	// ps.setInt(2, id);
-	//
-	// ps.executeUpdate();
-	// ps.close();
-	//
-	// } catch (SQLException e) {
-	// System.out.println("Lisäys epäonnistui hyllypaikkataulukkoon!");
-	// e.printStackTrace();
-	// error = false;
-	// }
-	// return error;
-	// }
-	//
-	// /**
-	// * Lisaa tietokantaan tuotteelle oikean varaston.
-	// *
-	// * @param maara Tavaran maara
-	// * @param id Tavaran ID
-	// * @return Palauta booleana, onko lisaaminen onnistunut
-	// */
-	// public boolean addProductToWarehouse(int maara, int id) {
-	// boolean error = true;
-	// try {
-	// ps= conn.prepareStatement("INSERT INTO varasto(varastoID, maara,
-	// tuoteID)" + "VALUES (?,?,?);");
-	//
-	// int varastoID = 1;
-	// ps.setInt(1, varastoID);
-	// ps.setInt(2, maara);
-	// ps.setInt(3, id);
-	//
-	// ps.executeUpdate();
-	// ps.close();
-	//
-	// } catch (SQLException e) {
-	// System.out.println("Lisäys epäonnistui varastotaulukkoon!");
-	// e.printStackTrace();
-	// error = false;
-	// }
-	// return error;
-	// }
-	//
+
 	/**
 	 * Hakee useamman tavaran tietueet. Hakuehto on osa tavaran nimestä.
 	 *
@@ -685,54 +278,7 @@ public class DB_AccessObject {
 	 * @return Palauttaa ArrayList, mika sisaltaa product olioita.
 	 */
 	public ArrayList<Product> findProducts(String nimi) {
-		ArrayList<Product> products = new ArrayList();
-		Product product;
-
-		try {
-			nimi = "%" + nimi + "%";
-			ps = conn.prepareStatement("SELECT tuote.tuoteID, tuote.nimi,"
-					+ "tuote.hinta, tuote.paino, tuote.pituus, tuote.leveys, tuote.korkeus, tuote.lampotila_boolean "
-					+ "FROM tuote WHERE tuote.nimi LIKE ?");
-					// + "AND tuote.tuoteID = hyllypaikka.tuoteID AND
-					// tuote.tuoteID ="
-					// + "varasto.tuoteID;");
-
-			// Asetetaan argumentit sql-kyselyyn
-			ps.setString(1, nimi);
-			rs = ps.executeQuery();
-			// tietokanta rivi
-
-			while (rs.next()) {
-				int id = rs.getInt("tuoteID");
-				String name = rs.getString("nimi");
-				double paino = rs.getDouble("paino");
-				double pituus = rs.getDouble("pituus");
-				double leveys = rs.getDouble("leveys");
-				double korkeus = rs.getDouble("korkeus");
-				float hinta = rs.getFloat("hinta");
-				product = new Product(name, paino, leveys, korkeus, pituus, hinta);
-				product.setID(id);
-				if (rs.getInt("lampotila_boolean") == 1) {
-					product.setTemp(true);
-				}
-				products.add(product);
-			}
-			for (Product p : products)
-				if (p.getTemp())
-					product = findTemperatures(p);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		return products;
+		return productdb.findProducts(nimi);
 	}
 
 	//
@@ -744,233 +290,35 @@ public class DB_AccessObject {
 	 * @return Return error, jos tavaran lisaaminen epäonnistuu.
 	 */
 	public boolean updateProducts(ArrayList<Product> products) {
-		boolean error = true;
-
-		for (Product p : products) {
-
-			try {
-				System.out.println(p.toString());
-				ps = conn.prepareStatement(
-						"UPDATE tuote  SET" + " tuote.nimi = ?,tuote.hinta = ?, tuote.paino = ?, tuote.leveys = ?,"
-								+ " tuote.pituus = ?, tuote.korkeus = ? WHERE tuote.tuoteID = ?");
-
-				ps.setString(1, p.getProduct_name());
-				ps.setFloat(2, p.getProduct_price());
-				ps.setDouble(3, p.getProduct_weight());
-				ps.setDouble(4, p.getProduct_width());
-				ps.setDouble(5, p.getProduct_length());
-				ps.setDouble(6, p.getProduct_height());
-				ps.setInt(7, p.getID());
-
-				ps.executeUpdate();
-				ps.close();
-
-				if (p.getTemp()){
-					if (!updateLampotila(p))
-						return false;
-				}else{
-					System.out.println("1");
-					if(checkIfTuoteIDExcistInLampoTila(p.getID())){
-						System.out.println("1");
-						deleteLampotila(p);
-					}
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-				error = false;
-			}
-
-		}
-
-		return error;
+		return productdb.updateProducts(products);
 	}
 
-	 public boolean checkIfTuoteIDExcistInLampoTila(int ID){
-		 int res=0;
-		 try {
-			ps = conn.prepareStatement("SELECT 1 AS total FROM lampotila WHERE tuoteID = ?;");
-			ps.setInt(1, ID);
-			 rs = ps.executeQuery();
-			 while(rs.next())
-				 res = rs.getInt("total");
-		 } catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}finally{
-			try {
-				ps.close();
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		 System.out.println("RES " + res);
-		 if(res==1)
-			 return true;
-		 return false;
-	 }
+	public boolean checkIfTuoteIDExcistInLampoTila(int ID) {
+		return lampotiladb.checkIfTuoteIDExcistInLampoTila(ID);
+	}
 
-	 public boolean deleteLampotila(Product p){
-		 try {
-			ps = conn.prepareStatement("UPDATE tuote SET lampotila_boolean = ? WHERE tuoteID = ?");
-			ps.setInt(1, 0);
-			ps.setInt(2, p.getID());
-			ps.executeUpdate();
-			ps.close();
-			ps = conn.prepareStatement("DELETE FROM lampotila WHERE tuoteID = ?");
-			ps.setInt(1, p.getID());
-			ps.executeUpdate();
-			ps.close();
-			return true;
-		 } catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	 }
+	public boolean deleteLampotila(Product p) {
+		return lampotiladb.deleteLampotila(p);
+	}
 
-	 public boolean updateLampotila(Product p){
-		 try {
-			 if(!checkIfTuoteIDExcistInLampoTila(p.getID())){
-				 System.out.println("set");
-				 ps = conn.prepareStatement("UPDATE tuote SET lampotila_boolean = ? WHERE tuoteID = ?");
-				ps.setInt(1, 1);
-				ps.setInt(2, p.getID());
-				ps.executeUpdate();
-				ps.close();
-				ps = conn.prepareStatement("INSERT INTO lampotila (lampotila_max, lampotila_min, tuoteID) VALUES (?,?,?)");
-				ps.setInt(1, p.getMax_temperature());
-				ps.setInt(2, p.getMin_temperature());
-				ps.setInt(3, p.getID());
-				ps.executeUpdate();
-			 }else{
-				 System.out.println("upd");
-				ps = conn.prepareStatement("UPDATE lampotila SET lampotila_max = ?, lampotila_min = ? WHERE tuoteID = ?");
-				ps.setInt(1, p.getMax_temperature());
-				ps.setInt(2, p.getMin_temperature());
-				ps.setInt(3, p.getID());
-				ps.executeUpdate();
-			 }
-		 } catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	 }
+	public boolean updateLampotila(Product p) {
+		return lampotiladb.updateLampotila(p);
+	}
 
-	 public boolean addAsiakas(Asiakas a){
-		 if(a==null)
-			 return false;
-		 try {
-			ps = conn.prepareStatement("INSERT INTO asiakas (nimi, osoite, postinumero, kaupunki, email, puhelinnumero) VALUES (?,?,?,?,?,?)");
-			ps.setString(1, a.getNimi());
-			ps.setString(2, a.getOsoit());
-			ps.setString(3, a.getPosnumero());
-			ps.setString(4, a.getKaupun());
-			ps.setString(5, a.getEmai());
-			ps.setString(6, a.getNumero());
-			ps.executeUpdate();
-			ps.close();
-		 } catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-		 return true;
-	 }
+	public boolean addAsiakas(Asiakas a) {
+		return asiakasdb.addAsiakas(a);
+	}
 
-	 public boolean updateAsiakas(Asiakas a){
-		 if(a==null)
-			 return false;
-		 try {
-			ps = conn.prepareStatement("UPDATE asiakas SET nimi = ?, osoite = ?, postinumero = ?, kaupunki = ?, email = ?, puhelinnumero = ? WHERE asiakasnumero = ?");
-			ps.setString(1, a.getNimi());
-			ps.setString(2, a.getOsoit());
-			ps.setString(3, a.getPosnumero());
-			ps.setString(4, a.getKaupun());
-			ps.setString(5, a.getEmai());
-			ps.setString(6, a.getNumero());
-			ps.setInt(7, a.getID());
-			ps.executeUpdate();
-			ps.close();
-		 } catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-		 return true;
-	 }
+	public boolean updateAsiakas(Asiakas a) {
+		return asiakasdb.updateAsiakas(a);
+	}
 
-	 public Asiakas haeAsiakas(String nimi){
-		 Asiakas asiakas=null;
-		 try {
-			ps = conn.prepareStatement("SELECT asiakasnumero, nimi,"
-						+ "osoite, postinumero, kaupunki, email, puhelinnumero "
-						+ "FROM asiakas WHERE nimi = ?");
-			ps.setString(1, nimi);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				int id = rs.getInt("asiakasnumero");
-				String name = rs.getString("nimi");
-				String osoite = rs.getString("osoite");
-				String post = rs.getString("postinumero");
-				String kaupunki = rs.getString("kaupunki");
-				String email = rs.getString("email");
-				String puhelin = rs.getString("puhelinnumero");
-				asiakas = new Asiakas(name, osoite, kaupunki, email, puhelin, post);
-				asiakas.setID(rs.getInt("asiakasnumero"));
-			}
-			rs = ps.executeQuery();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally{
-			try {
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		 return asiakas;
-	 }
+	public Asiakas haeAsiakas(String nimi) {
+		return asiakasdb.haeAsiakas(nimi);
+	}
 
 	public ArrayList<Asiakas> haeAsiakkaat(String nimi) {
-		ArrayList<Asiakas> asiakkaat = new ArrayList();
-		Asiakas asiakas;
-
-		try {
-			nimi = "%" + nimi + "%";
-			ps = conn.prepareStatement("SELECT asiakasnumero, nimi,"
-					+ "osoite, postinumero, kaupunki, email, puhelinnumero "
-					+ "FROM asiakas WHERE nimi LIKE ?");
-
-			ps.setString(1, nimi);
-			rs = ps.executeQuery();
-
-			while (rs.next()) {
-				int id = rs.getInt("asiakasnumero");
-				String name = rs.getString("nimi");
-				String osoite = rs.getString("osoite");
-				String post = rs.getString("postinumero");
-				String kaupunki = rs.getString("kaupunki");
-				String email = rs.getString("email");
-				String puhelin = rs.getString("puhelinnumero");
-				asiakas = new Asiakas(name, osoite, kaupunki, email, puhelin, post);
-				asiakas.setID(rs.getInt("asiakasnumero"));
-				asiakkaat.add(asiakas);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return asiakkaat;
+		return asiakasdb.haeAsiakkaat(nimi);
 	}
 	// /**
 	// * Sulje tietokanta yhteys.
@@ -1034,4 +382,94 @@ public class DB_AccessObject {
 	// }
 	//
 	// }
+
+	//
+	// /**
+	// * Lisaa tavaralle hyllypaikka tietokantaan.
+	// *
+	// * @param hyllypaikka varaston hyllypaikat
+	// * @param id tavaran ID
+	// * @return Palauta booleana, onko lisaaminen onnistunut
+	// */
+	// public boolean addProductLocation(String hyllypaikka, int id){
+	// boolean error = true;
+	//
+	// try {
+	// ps = conn.prepareStatement("INSERT INTO hyllypaikka(tunnus, tuoteID)" +
+	// "VALUES (?,?);");
+	//
+	// ps.setString(1, hyllypaikka);
+	// ps.setInt(2, id);
+	//
+	// ps.executeUpdate();
+	// ps.close();
+	//
+	// } catch (SQLException e) {
+	// System.out.println("Lisäys epäonnistui hyllypaikkataulukkoon!");
+	// e.printStackTrace();
+	// error = false;
+	// }
+	// return error;
+	// }
+	//
+	// /**
+	// * Lisaa tietokantaan tuotteelle oikean varaston.
+	// *
+	// * @param maara Tavaran maara
+	// * @param id Tavaran ID
+	// * @return Palauta booleana, onko lisaaminen onnistunut
+	// */
+	// public boolean addProductToWarehouse(int maara, int id) {
+	// boolean error = true;
+	// try {
+	// ps= conn.prepareStatement("INSERT INTO varasto(varastoID, maara,
+	// tuoteID)" + "VALUES (?,?,?);");
+	//
+	// int varastoID = 1;
+	// ps.setInt(1, varastoID);
+	// ps.setInt(2, maara);
+	// ps.setInt(3, id);
+	//
+	// ps.executeUpdate();
+	// ps.close();
+	//
+	// } catch (SQLException e) {
+	// System.out.println("Lisäys epäonnistui varastotaulukkoon!");
+	// e.printStackTrace();
+	// error = false;
+	// }
+	// return error;
+	// }
+	//
+	//
+	//
+	// /**
+	// *Hakee tavaran ID:n nimen perusteella.
+	// *
+	// * @param nimi Tavaran nimi
+	// * @return Tavaran ID
+	// */
+	//
+	// public int getProductID(String nimi) {
+	// Integer id = null;
+	//
+	// try {
+	// ps = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?");
+	//
+	// // Asetetaan argumentit sql-kyselyyn
+	// ps.setString(1, nimi);
+	// rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
+	// // tietokanta rivi
+	//
+	// while (rs.next()) {
+	// id = rs.getInt("tuoteID");
+	// }
+	//
+	// } catch (SQLException e) {
+	// e.printStackTrace();
+	// }
+	// return id;
+	// }
+
+	//
 }

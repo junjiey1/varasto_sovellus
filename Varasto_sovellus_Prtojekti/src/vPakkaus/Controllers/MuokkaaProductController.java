@@ -115,15 +115,6 @@ public class MuokkaaProductController implements Nakyma_IF {
 	}
 
 	public void paivitaTuotteet() {
-//		if (0 == JOptionPane.showConfirmDialog(null, "Punaisella merkityt rivit tallenetaan pysyvästi\njatketaanko?")) {
-//			if (taulukko.paivitaTietokantaan(mc, this)) {
-//				JOptionPane.showMessageDialog(null, "Tiedot päivitetty onnistuneesti", "Päivitys onnistui",
-//						JOptionPane.INFORMATION_MESSAGE);
-//			}else{
-//				JOptionPane.showMessageDialog(null, "Tietokantaa ei voitu päivittää!",
-//					"Virhe havaittu tietokannan päivityksessä", JOptionPane.ERROR_MESSAGE);
-//			}
-
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("CONFIRM");
 		alert.setHeaderText("Punaisella merkityt rivit tallenetaan pysyvästi\njatketaanko");

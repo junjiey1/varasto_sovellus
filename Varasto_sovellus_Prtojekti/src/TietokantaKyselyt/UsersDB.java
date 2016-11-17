@@ -20,7 +20,7 @@ public class UsersDB {
 	 *            kayttajatunnus
 	 * @param pword
 	 *            salasana
-	 * @return palautta listana.
+	 * @return palauttaa listan, joka sisältää käyttäjä id ja tiedon onnistumisesta (res=1).
 	 */
 
 	public int[] LogIn(String uname, String pword) {

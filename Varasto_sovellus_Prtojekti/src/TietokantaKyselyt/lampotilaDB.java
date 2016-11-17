@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
 
+/**
+ * Luokka vastaa lampotilataulun tietokantakyselyista
+ *
+ */
+
 public class lampotilaDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
@@ -17,6 +22,15 @@ public class lampotilaDB {
 		this.conn = conn;
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * Lisataan tuotteelle lampotila
+	 *
+	 * @param product
+	 * 		product-olio, jolle lisataan lampotila (Product)
+	 *
+	 * @return Onnistuminen/epäonnistuminen (Boolean)
+	 */
 
 	public boolean addTemperatures(Product product) {
 		// Tarvitaan tuotteen ID jotta voidaan lisätä arvoja Lämpötila
@@ -57,6 +71,14 @@ public class lampotilaDB {
 		return lampotila;
 	}
 
+	/**
+	 * Hakee tuotteen minimi- ja maksimilampotilan.
+	 *
+	 * @param tuotejoukko
+	 * 		tuote (Product)
+	 *
+	 * @return tuote lampotilojen kanssa (Product)
+	 */
 	public Product findTemperatures(Product pro) {
 		if (pro.getTemp()) {
 			try {
@@ -85,6 +107,15 @@ public class lampotilaDB {
 		}
 		return pro;
 	}
+
+	/**
+	 * Tarkistaa jos tuotteelle on asetettu lampotilarajoituksia
+	 *
+	 * @param id
+	 * 		tuotteen id (int)
+	 *
+	 * @return Loytyy/ei loydy (Boolean)
+	 */
 
 	public boolean checkIfTuoteIDExcistInLampoTila(int ID) {
 		int res = 0;

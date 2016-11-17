@@ -70,28 +70,26 @@ public class DB_AccessObject {
 		}
 	}
 
+
+
+	// -----METODIT-----//
+
+	/**
+	 * Kirjautuminen, tarkistaa löytyykö vastaava käyttäjätunnus ja salasana tietokannasta.
+	 *
+	 */
+
 	public int[] LogIn(String uname, String pword) {
 
 		return usersdb.LogIn(uname, pword);
 	}
-	// -----METODIT-----//
 
 	/**
-	 * Lisaa tavara tietokantaan. Kutsuu metodeita, jolla saadaan arvot
-	 * syotettya oikeisiin tietokantatauluihin.
+	 * Lisaa tuotejoukon tietokantaan.
 	 *
-	 * @param nimi
-	 *            Tavaran nimi(String)
-	 * @param paino
-	 *            Tavaran paino (double)
-	 * @param tilavuus
-	 *            Tavaran tilavuus (double)
-	 * @param hyllypaikka
-	 *            missä hyllypaikassa tavara sijaitsee (String)
-	 * @param hinta
-	 *            Tavaran hinta (float)
-	 * @param maara
-	 *            Tavaran maara (int)
+	 * @param joukko
+	 *            Tuotejoukon lisaaminen (Tuotejoukko)
+	 *
 	 * @return Onnistuuko tavaran lisaaminen (boolean)
 	 */
 
@@ -164,9 +162,51 @@ public class DB_AccessObject {
 		return hyllydb.CreateHyllypaikka(hyllypaikka);
 	}
 
+	/**
+	 * Mikali tuotteelle on asetettu lampotila. Tarkistetaan voiko se lampotilansa perusteella sijaita
+	 * tuotejoukon sisaltamassa hyllypaikassa.
+	 *
+	 * @param tuotejoukko
+	 * 		tuotejoukko, joka sisaltaa hyllypaikan ja tuotteen (Tuotejoukko)
+	 *
+	 * @return Mahtuu(true)/Ei mahdu(false) (Boolean)
+	 */
+
 	public boolean checkLampotila(Tuotejoukko joukko) {
-		return lampotiladb.checkLampotila(joukko);
+		boolean lampotila = true;
+		if (joukko.getProduct().getMax_temperature() != null & joukko.getProduct().getMin_temperature() != null) {
+			if (joukko.getHylly().getLämpötila() <= joukko.getProduct().getMax_temperature()
+					&& joukko.getHylly().getLämpötila() >= joukko.getProduct().getMin_temperature()) {
+				System.out.println("Tuotteen lämpötila on sopiva hyllypaikkaan");
+			} else {
+				System.out.println("Tuotteen lämpötila vaatimus ei vastaa hyllyn lämpötilaa");
+				lampotila = false;
+			}
+		} else {
+			System.out.println("tuotteelle ei ole asetettu lämpötila rajoituksia");
+		}
+		return lampotila;
 	}
+
+//	public ArrayList<Object> CheckPaivitys(ArrayList<Product> products) {
+//		ArrayList<Object> ar = new ArrayList();
+//		for (Product p : products) {
+//		ArrayList<String> hpt = db.HaeTuotteenHyllypaikat(p);
+//		for (String hp : hpt) {
+//			if (db.HaeHylly(hp).getLämpötila() < p.get
+//		}
+//	}
+//		return ar;
+//	}
+
+	/**
+	 * Tarkistaa mahtuuko tuotteet hyllyyn
+	 *
+	 * @param tuotejoukko
+	 * 		tuotejoukko, joka sisaltaa hyllypaikan ja tuotteen (Tuotejoukko)
+	 *
+	 * @return Mahtuu (true)/ei mahdu (false) (Boolean)
+	 */
 
 	public boolean MahtuukoTuotteetHyllyyn(Tuotejoukko joukko) {
 		boolean mahtuuko = true;
@@ -207,19 +247,6 @@ public class DB_AccessObject {
 
 	}
 
-	//
-	//
-	//
-	// /**
-	// * Lisaa tiedot tavara-tauluun tietokannassa.
-	// *
-	// * @param nimi Tavaran nimi
-	// * @param hinta Tavaran hinta
-	// * @param paino Tavaran paino
-	// * @param tilavuus Tavaran tilavuus
-	// * @return jos jotain error tapahtuu lisaamisessa
-	// */
-
 	public boolean addProductToTuoteTable(Product product) {
 		return productdb.addProductToTuoteTable(product);
 	}
@@ -249,14 +276,6 @@ public class DB_AccessObject {
 		return lampotiladb.findTemperatures(pro);
 	}
 
-	/**
-	 * Etsii tavaran nimen perusteella.
-	 *
-	 * @param nimi
-	 *            Tavaran nimi
-	 * @return palauttaa tavaran kaikki tietueet nimen perusteella.(palauttaa
-	 *         null, jos tavara ei löyty.)
-	 */
 	public Product findProduct(String nimi) {
 		return productdb.findProduct(nimi);
 	}
@@ -269,26 +288,10 @@ public class DB_AccessObject {
 		return tuoterividb.MuokkaaTuoteriviä(tuotejoukko);
 	}
 
-
-	/**
-	 * Hakee useamman tavaran tietueet. Hakuehto on osa tavaran nimestä.
-	 *
-	 * @param nimi
-	 *            Tavaran nimi.
-	 * @return Palauttaa ArrayList, mika sisaltaa product olioita.
-	 */
 	public ArrayList<Product> findProducts(String nimi) {
 		return productdb.findProducts(nimi);
 	}
 
-	//
-	/**
-	 * Paivittaa tavaran tiedot tietokantaan.
-	 *
-	 * @param products
-	 *            tavaran tietue
-	 * @return Return error, jos tavaran lisaaminen epäonnistuu.
-	 */
 	public boolean updateProducts(ArrayList<Product> products) {
 		return productdb.updateProducts(products);
 	}
@@ -331,6 +334,7 @@ public class DB_AccessObject {
 	public void close() throws SQLException {
 		conn.close();
 	}
+
 	//
 	//
 	// /**

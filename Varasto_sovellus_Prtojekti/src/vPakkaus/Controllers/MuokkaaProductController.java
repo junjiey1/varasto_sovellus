@@ -158,15 +158,15 @@ public class MuokkaaProductController implements Nakyma_IF {
 		switch(mode){//F75757
 			case 1:
 				mode = 2;
-				tuoteButton.setDisable(true);
-				hyllyButton.setDisable(false);
+				//tuoteButton.setDisable(true);
+				//hyllyButton.setDisable(false);
 				hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
 				tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
 				break;
 			case 2:
 				mode = 1;
-				hyllyButton.setDisable(true);
-				tuoteButton.setDisable(false);
+				//hyllyButton.setDisable(true);
+				//tuoteButton.setDisable(false);
 				tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
 				hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
 		}

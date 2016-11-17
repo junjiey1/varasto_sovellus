@@ -37,6 +37,10 @@ public class WareHouseManagement_MainMenu_Controller implements Nakyma_IF{
 	public void aktivoiMainPageIkkuna(){
 		vaihtaja.asetaUudeksiNaytoksi("mainpage", "VarastoSovellus", null);
 	}
+	public void aktivoiTransmission(){
+		vaihtaja.asetaUudeksiNaytoksi("Transmission", "Lahetys", null);
+	}
+
 
 	@Override
 	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {

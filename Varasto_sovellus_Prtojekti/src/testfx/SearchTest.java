@@ -28,7 +28,7 @@ public class SearchTest extends GuiTest{
 		click("#productName").type("Maito");
 		click("#searchbtn");
 		click("#tuoteTable");
-		doubleClick("Maito");
+		doubleClick("Maito2");
 		doubleClick("Maito2").type("Maito3");
 		click("#paivita");
 		click("Ei");

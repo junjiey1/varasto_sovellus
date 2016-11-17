@@ -42,7 +42,7 @@
                         <Button layoutX="215.0" layoutY="485.0" mnemonicParsing="false" text="Next" />
                         <Button layoutX="14.0" layoutY="485.0" mnemonicParsing="false" text="Back" />
                         <Button layoutX="176.0" layoutY="159.0" mnemonicParsing="false" text="Search" />
-                        <GridPane layoutX="33.0" layoutY="298.0" prefHeight="104.0" prefWidth="200.0">
+                        <GridPane layoutX="33.0" layoutY="276.0" prefHeight="126.0" prefWidth="200.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="200.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="0.0" prefWidth="0.0" />

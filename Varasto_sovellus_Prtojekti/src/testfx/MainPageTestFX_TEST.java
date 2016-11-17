@@ -17,6 +17,18 @@ public class MainPageTestFX_TEST extends GuiTest{
 		click("#addProductTab");
 	}
 
+	@Test
+	public void logOut(){
+		click("#logout");
+
+	}
+
+	@Test
+	public void management(){
+		click("#management");
+
+	}
+
 
 
 	@Override

@@ -26,6 +26,10 @@ public class AsiakasViewController implements Nakyma_IF{
 		tehdas = new TaulukkoFactory();
 	}
 
+	/**
+	 * ViewCustomer napin callback-funktio. Pyytää näytönvaihtajaa asettamaan käyttöliittymän näkymäksi
+	 * asiakkaan tietoja käsittelevän näytön.
+	 */
 	public void vaihdaAsiakkaanTarkasteluun(){
 		if(asiakasTaulukko.getSelectionModel().getSelectedItem()!=null){
 			Asiakas a = (Asiakas)asiakasTaulukko.getSelectionModel().getSelectedItem();
@@ -34,10 +38,18 @@ public class AsiakasViewController implements Nakyma_IF{
 			virheIlmoitus("Et ole valinnut tarkasteltavaa asiakasta taulukosta");
 	}
 
+	/**
+	 * AddCustomer napin callback-funktio. Pyytää näytönvaihtajaa asettamaan käyttöliittymän näkymäksi
+	 * asiakkaan luontia käsittelevän näytön.
+	 */
 	public void vaihdaUudenAsiakkaanLuontiin(){
 		v.asetaUudeksiNaytoksi("customer", "Asiakas : UUSI ASIAKAS", null);
 	}
 
+	/**
+	 * Back napin callback-funktio. Pyytää näytönvaihtajaa asettamaan käyttöliittymän näkymäksi
+	 * main menu näytön.
+	 */
 	public void back(){
 		v.asetaUudeksiNaytoksi("ManagementMainMenu", "WareHouseManagement", null);
 	}
@@ -56,11 +68,17 @@ public class AsiakasViewController implements Nakyma_IF{
 			virheIlmoitus("Asiakasta annetulla nimellä ei löydy!");
 	}
 
+	/**
+	 * Täyttää käyttöliittymän taulukon asiakkailla.
+	 */
 	private void täytäTaulukko() {
 		asiakasTaulukko.getItems().addAll(taulukko.getTaulukko().getItems());
 		asiakasTaulukko.refresh();
 	}
 
+	/**
+	 * Luo Kolumnit käyttöliittymän taulukolle.
+	 */
 	private boolean luoUusiTaulukko(ArrayList<DAO_Objekti> p){
 		if(p.size()<=0 || p == null)
 			return false;
@@ -70,6 +88,9 @@ public class AsiakasViewController implements Nakyma_IF{
 		return true;
 	}
 
+	/**
+	 * Pyytää PääKontrolleria hakemaan asiakkaita.
+	 */
 	public void etsiAsiakasta(){
 		mc.haeAsiakkaat(searchCustomer.getText());
 	}

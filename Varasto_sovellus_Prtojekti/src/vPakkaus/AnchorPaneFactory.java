@@ -10,6 +10,11 @@ import vPakkaus.Controllers.MainController_IF;
 import vPakkaus.Controllers.Nakyma_IF;
 import vPakkaus.Controllers.NayttojenVaihtaja_IF;
 
+/**
+ *
+ * @author Julius
+ *ViewFactoryn konkreettinen luokka. Rakentaa annetusta fxml-tiedoston nimestä Anchorpaneja
+ */
 public class AnchorPaneFactory implements ViewFactory_IF{
 	private MainController_IF PaaKontrolleri;
 

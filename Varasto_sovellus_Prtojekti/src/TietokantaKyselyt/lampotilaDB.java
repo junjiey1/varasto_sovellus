@@ -43,7 +43,7 @@ public class lampotilaDB {
 
 	public boolean checkLampotila(Tuotejoukko joukko) {
 		boolean lampotila = true;
-		if (joukko.getProduct().getMax_temperature() != null & joukko.getProduct().getMin_temperature() != null) {
+		if (joukko.getProduct().getMax_temperature() != null && joukko.getProduct().getMin_temperature() != null) {
 			if (joukko.getHylly().getLämpötila() <= joukko.getProduct().getMax_temperature()
 					&& joukko.getHylly().getLämpötila() >= joukko.getProduct().getMin_temperature()) {
 				System.out.println("Tuotteen lämpötila on sopiva hyllypaikkaan");

@@ -5,6 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import vPakkaus.Asiakas;
 
+/**
+ *
+ * @author Julius
+ *
+ *Asiakaan lisäys/päivitys ikkunan kontrolleri.
+ */
+
 public class AsiakasControlleri implements Nakyma_IF {
 
 	@FXML
@@ -73,14 +80,23 @@ public class AsiakasControlleri implements Nakyma_IF {
 		this.vaihtaja = vaihtaja;
 	}
 
+	/**
+	 * Back napin callback-funktio, joka asettaa uuden näkymän
+	 * */
 	public void back(){//Button Callback funktio
 		vaihtaja.asetaUudeksiNaytoksi("customerview", "Asiakkaat",null);
 	}
 
+	/**
+	 * Funktio, joka kysyy käyttäjältä vahvistusta asiakkaan tallennuksesta/päivityksestä
+	 * */
 	public boolean confirmation(){
 		return true;
 	}
 
+	/**
+	 * Funktio, joka tallentaa näkymän tekstikenttien tiedot tietokantaan
+	 * */
 	public void saveChanges() { //Button Callback funktio
 		if (parseData()){
 			if(!muokataanOlemassaOlevaa){
@@ -103,7 +119,11 @@ public class AsiakasControlleri implements Nakyma_IF {
 	}
 
 
-
+	/**
+	 * Funktio, joka validoi näkymän tekstikenttien sisällöt.
+	 * @return true, jos tekstikentät oikein täytetty
+	 * @return false, jos tekstikentät väärin täytetty
+	 * */
 	private boolean parseData(){
 		boolean allGood = true;
 
@@ -173,6 +193,13 @@ public class AsiakasControlleri implements Nakyma_IF {
 		return allGood;
 	}
 
+
+	/**
+	 *
+	 * @param String element
+	 * @param String msg
+	 * Private funktio, joka näyttää virheviestin käyttäjälle
+	 */
 	private void showError(String element, String msg){
 		JOptionPane.showMessageDialog(null, element +" "+msg, element,
 				JOptionPane.INFORMATION_MESSAGE);

@@ -127,8 +127,10 @@ public class DB_AccessObject {
 	 *            Tavaran maara (int)
 	 * @return Onnistuuko tavaran lisaaminen (boolean)
 	 */
+
+
 	public boolean Lisaa(Tuotejoukko joukko) {
-	
+
 		ArrayList<Boolean> onkoVirheitä = new ArrayList();
 
 		Hyllypaikka hyllypaikka = HaeHylly(joukko.getHylly().getNimi());
@@ -490,6 +492,33 @@ public class DB_AccessObject {
 		}
 
 		return HP_Tuotteet;
+	}
+
+	public ArrayList<String> HaeTuotteenHyllypaikat(Product product) {
+		ArrayList<String> tuotteen_hyllypaikat = new ArrayList();
+		try {
+			ps = conn.prepareStatement(
+					"SELECT tuoterivi.hyllypaikka FROM tuoterivi, tuote WHERE tuoterivi.tuoteID = tuote.tuoteID AND tuote.nimi = ?;");
+			ps.setString(1, product.getProduct_name());
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String hp_nimi = rs.getString("nimi");
+
+				tuotteen_hyllypaikat.add(hp_nimi);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return tuotteen_hyllypaikat;
 	}
 
 	public Product findTemperatures(Product pro) {

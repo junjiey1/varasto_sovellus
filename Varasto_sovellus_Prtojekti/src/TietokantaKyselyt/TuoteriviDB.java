@@ -8,6 +8,11 @@ import java.util.ArrayList;
 
 import vPakkaus.Tuotejoukko;
 
+/**
+ * Luokka vastaa tuoterivi tietokantataulun kyselyistä.
+ *
+ */
+
 public class TuoteriviDB {
 
 	private Connection conn = null;
@@ -22,6 +27,15 @@ public class TuoteriviDB {
 		this.productdb = productdb;
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * Haetaan kaikki tuoterivit hyllypaikan perusteella
+	 *
+	 * @param hyllynimi
+	 * 		Hyllynpaikan tunnus (String)
+	 *
+	 * @return tuotejoukkojen lista (ArrayList<Tuotejoukko>)
+	 */
 
 	public ArrayList<Tuotejoukko> haeHyllynTuotejoukot(String hyllynimi) {
 
@@ -65,6 +79,15 @@ public class TuoteriviDB {
 		return tj;
 	}
 
+	/*
+	 * Lisataan tuotejoukko tietokantaan
+	 *
+	 * @param joukko
+	 * 		Lisattava tuotejoukko (Tuotejoukko)
+	 *
+	 * @return Onnistuminen/epäonnistuminen (Boolean)
+	 */
+
 	public boolean addProductToTuoteriviTable(Tuotejoukko joukko) {
 
 		try {
@@ -84,6 +107,18 @@ public class TuoteriviDB {
 		}
 		return true;
 	}
+
+	/**
+	 * Haetaan tuotteen määrä tietystä hyllypaikasta
+	 *
+	 * @param hyllypaikka
+	 * 		Tuotteen sijainti (String)
+	 *
+	 * @param nimi
+	 * 		Tuotteen nimi (String)
+	 *
+	 * @return tuotteiden maara (int)
+	 */
 
 	public int tuotteidenMaaraHyllyssa(String nimi, String hyllypaikka) {
 		int maara = 0;
@@ -111,6 +146,15 @@ public class TuoteriviDB {
 		return maara;
 
 	}
+
+	/**
+	 * Muokataan tuoteriviä tietokannassa.
+	 *
+	 * @param tuotejoukko
+	 * 		muokattava tuotejoukko (Tuotejoukko)
+	 *
+	 * @return Onnistuminen/epäonnistuminen (Boolean)
+	 */
 
 	public boolean MuokkaaTuoteriviä(Tuotejoukko tuotejoukko) {
 		boolean error = false;

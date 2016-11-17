@@ -92,12 +92,6 @@ public class MainController implements MainController_IF{
 	 * @return palauttaa boolean arvon jos päivitys onnistui
 	 */
 	public boolean paivitaTuotteet(ArrayList<Product> products){
-//		for (Product p : products) {
-//			ArrayList<String> hpt = db.HaeTuotteenHyllypaikat(p);
-//			for (String hp : hpt) {
-//				if (db.HaeHylly(hp).getLämpötila() < p.get
-//			}
-//		}
 		boolean res = db.updateProducts(products);
 		return res;
 	}

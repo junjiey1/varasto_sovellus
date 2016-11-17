@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
 
+/**
+ * Luokka vastaa hyllypaikka tietokantataulun kyselyistä.
+ *
+ */
+
 public class HyllyDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
@@ -18,6 +23,15 @@ public class HyllyDB {
 		this.conn = conn;
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * Haetaan hylly hyllyn nimen perusteella.
+	 *
+	 * @param tunnus
+	 * 		hyllynn nimi (String)
+	 *
+	 * @return hyllyolio (Hyllypaikka)
+	 */
 
 	public Hyllypaikka HaeHylly(String tunnus) {
 		Hyllypaikka hyl = null;
@@ -56,6 +70,15 @@ public class HyllyDB {
 		return res;
 	}
 
+	/**
+	 * Luodaan uusi hyllypaikka tietokantatauluun.
+	 *
+	 * @param hyllypaikka
+	 * 		hyllypaikkaolio (Hyllypaikka)
+	 *
+	 * @return Onnistuminen/epäonnistuminen (Boolean)
+	 */
+
 	public boolean CreateHyllypaikka(Hyllypaikka hyllypaikka) {
 		int varastoID = 513;
 
@@ -82,6 +105,15 @@ public class HyllyDB {
 		}
 		return true;
 	}
+
+	/**
+	 * Heataan kaikki hyllypaikat, jossa tuotetta sijaitsee
+	 *
+	 * @param product
+	 * 		product-olio (Product)
+	 *
+	 * @return Lista hyllypaikkojen nimistä (ArrayList<String>)
+	 */
 
 	public ArrayList<String> HaeTuotteenHyllypaikat(Product product) {
 		ArrayList<String> tuotteen_hyllypaikat = new ArrayList();

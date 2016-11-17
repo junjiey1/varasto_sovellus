@@ -8,6 +8,11 @@ import java.util.ArrayList;
 
 import vPakkaus.Product;
 
+/**
+ * Luokka vastaa tuote tietokantataulun kyselyistä.
+ *
+ */
+
 public class ProductDB {
 
 	private Connection conn = null;
@@ -20,6 +25,15 @@ public class ProductDB {
 		this.lampotiladb = lampotiladb;
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * Paivitetaan jo olemassa olevia tuotteita. Saa parametrina listan, joka sisältää päivitettävää tietoa tuotteista.
+	 *
+	 * @param products
+	 * 		ArrayList product-oliota (ArrayList<Product>)
+	 *
+	 * @return Onnistuminen/epäonnistuminen (boolean)
+	 */
 
 	public boolean updateProducts(ArrayList<Product> products) {
 		boolean error = true;
@@ -63,6 +77,17 @@ public class ProductDB {
 
 		return error;
 	}
+
+	/**
+	 * Haetaan yhden tai useamman tuotteen tiedot merkkijonon perusteella.
+	 * Merkkijono voi olla osa tuotteen nimestä, jolloin haetaan kaikki tuotteet,
+	 * joiden nimessä esiintyy kyseinen merkkijono.
+	 *
+	 * @param nimi
+	 * 		Tuotteen nimi (String)
+	 *
+	 * @return lista tuotteista (ArrayList<Product>)
+	 */
 
 	public ArrayList<Product> findProducts(String nimi) {
 		ArrayList<Product> products = new ArrayList();
@@ -115,6 +140,15 @@ public class ProductDB {
 		return products;
 	}
 
+	/**
+	 * Lisataan uusi tuote tietokantataulukkoon.
+	 *
+	 * @param product
+	 * 		Tuote-olio, joka sisältää kaikki parametrit (Product)
+	 *
+	 * @return Onnistuminen/epäonnistuminen (Boolean)
+	 */
+
 	public boolean addProductToTuoteTable(Product product) {
 		int lampotila_boolean = 0;
 		if (product.getMax_temperature() != null && product.getMin_temperature() != null)
@@ -144,6 +178,15 @@ public class ProductDB {
 		return true;
 	}
 
+	/**
+	 * Haetaan kaikki hyllypaikan tuotteet
+	 *
+	 * @param hyllypaikka
+	 * 		hyllypaikan nimi (String)
+	 *
+	 * @return lista tuotteita (ArrayList<String>)
+	 */
+
 	public ArrayList<String> HaeHyllypaikanTuotteet(String hyllypaikka) {
 		ArrayList<String> HP_Tuotteet = new ArrayList();
 		try {
@@ -170,6 +213,15 @@ public class ProductDB {
 
 		return HP_Tuotteet;
 	}
+
+	/**
+	 * Haetaan tuote tietokannasta nimen perusteella
+	 *
+	 * @param nimi
+	 * 		Tuotteen nimi (String)
+	 *
+	 * @return Product-olio (Product)
+	 */
 
 	public Product findProduct(String nimi) {
 		Product product = null;

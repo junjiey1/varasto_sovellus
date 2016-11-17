@@ -39,7 +39,7 @@ public class AsiakasViewController implements Nakyma_IF{
 	}
 
 	public void back(){
-		v.asetaUudeksiNaytoksi("mainpage", "VarastoSovellus", null);
+		v.asetaUudeksiNaytoksi("ManagementMainMenu", "WareHouseManagement", null);
 	}
 
 	@Override

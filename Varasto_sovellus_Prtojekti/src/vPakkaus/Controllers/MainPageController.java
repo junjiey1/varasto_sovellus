@@ -63,7 +63,7 @@ public class MainPageController implements Nakyma_IF{
 	}
 
 	public void whManagement(){
-		vaihtaja.asetaUudeksiNaytoksi("customerview", "Asiakkaat", null);
+		vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "WareHouseManagement", null);
 	}
 
 

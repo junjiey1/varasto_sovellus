@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="570.0" prefWidth="815.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller">
+<AnchorPane prefHeight="570.0" prefWidth="815.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller">
    <children>
       <TabPane layoutY="35.0" prefHeight="534.0" prefWidth="815.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="244.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -40,7 +39,7 @@
                            </columnResizePolicy>
                         </TableView>
                         <Button layoutX="215.0" layoutY="485.0" mnemonicParsing="false" text="Next" />
-                        <Button layoutX="14.0" layoutY="485.0" mnemonicParsing="false" text="Back" />
+                        <Button layoutX="14.0" layoutY="485.0" mnemonicParsing="false" onAction="#back" text="Back" />
                         <Button layoutX="176.0" layoutY="159.0" mnemonicParsing="false" text="Search" />
                         <GridPane layoutX="33.0" layoutY="276.0" prefHeight="126.0" prefWidth="200.0">
                           <columnConstraints>

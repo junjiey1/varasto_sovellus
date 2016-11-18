@@ -23,13 +23,13 @@ public class MainPageController implements Nakyma_IF{
 	private Tab tab5;
 	@FXML
 	private Label currentUserLbl;
-	//private FXMLLoader loader;
-	//private AnchorPane APLayout;
+
 	private MainController_IF mc;
 	private Tab activeTab;
 	private NayttojenVaihtaja_IF vaihtaja;
 
 	public MainPageController(){
+	  mc=null;
 	}
 
 

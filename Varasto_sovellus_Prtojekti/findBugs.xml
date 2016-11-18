@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<BugCollection version="3.0.1-dev-20150306-5afe4d1" sequence="1" timestamp="1479458868190" analysisTimestamp="1479458862612" release="">
+<BugCollection version="3.0.1-dev-20150306-5afe4d1" sequence="1" timestamp="1479462213112" analysisTimestamp="1479462208697" release="">
   <Project projectName="Varasto_sovellus_Prtojekti">
     <Jar>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\bin</Jar>
     <AuxClasspathEntry>C:\Users\Julius\git\Varasto_Sovellus\Varasto_sovellus_Prtojekti\bin</AuxClasspathEntry>
@@ -22,14 +22,14 @@
       <SourceLine classname="DataBase_tests" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
     </Class>
     <Method classname="DataBase_tests" name="sh" signature="()V" isStatic="true">
-      <SourceLine classname="DataBase_tests" start="23" end="28" startBytecode="0" endBytecode="83" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+      <SourceLine classname="DataBase_tests" start="22" end="28" startBytecode="0" endBytecode="83" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
     </Method>
     <Class classname="java.lang.Exception" role="CLASS_EXCEPTION">
       <SourceLine classname="java.lang.Exception"/>
     </Class>
-    <SourceLine classname="DataBase_tests" start="26" end="26" startBytecode="17" endBytecode="17" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
-    <SourceLine classname="DataBase_tests" start="26" end="26" startBytecode="17" endBytecode="17" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
-    <SourceLine classname="DataBase_tests" start="26" end="26" startBytecode="17" endBytecode="17" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+    <SourceLine classname="DataBase_tests" start="25" end="25" startBytecode="17" endBytecode="17" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+    <SourceLine classname="DataBase_tests" start="25" end="25" startBytecode="17" endBytecode="17" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
+    <SourceLine classname="DataBase_tests" start="25" end="25" startBytecode="17" endBytecode="17" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
   </BugInstance>
   <BugInstance type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" priority="1" rank="15" abbrev="ST" category="STYLE" first="1">
     <Class classname="DataBase_tests">
@@ -44,15 +44,6 @@
     <SourceLine classname="DataBase_tests" start="32" end="32" startBytecode="7" endBytecode="7" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
     <SourceLine classname="DataBase_tests" start="32" end="32" startBytecode="7" endBytecode="7" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
   </BugInstance>
-  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
-    <Class classname="DataBase_tests">
-      <SourceLine classname="DataBase_tests" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
-    </Class>
-    <Field classname="DataBase_tests" name="conn" signature="Ljava/sql/Connection;" isStatic="false">
-      <SourceLine classname="DataBase_tests" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
-    </Field>
-    <SourceLine classname="DataBase_tests" start="18" end="18" startBytecode="6" endBytecode="6" sourcefile="DataBase_tests.java" sourcepath="DataBase_tests.java"/>
-  </BugInstance>
   <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="3" rank="20" abbrev="DLS" category="STYLE" first="1">
     <Class classname="TietokantaKyselyt.ProductDB">
       <SourceLine classname="TietokantaKyselyt.ProductDB" sourcefile="ProductDB.java" sourcepath="TietokantaKyselyt/ProductDB.java"/>
@@ -66,28 +57,6 @@
     <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.KILLED_BY_SUBSEQUENT_STORE" value="true"/>
     <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="product"/>
     <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.METHOD_RESULT" value="true"/>
-  </BugInstance>
-  <BugInstance type="NM_CONFUSING" priority="3" rank="19" abbrev="Nm" category="BAD_PRACTICE" first="1">
-    <Class classname="TietokantaKyselyt.ProductDB">
-      <SourceLine classname="TietokantaKyselyt.ProductDB" sourcefile="ProductDB.java" sourcepath="TietokantaKyselyt/ProductDB.java"/>
-    </Class>
-    <Method classname="TietokantaKyselyt.ProductDB" name="HaeHyllypaikanTuotteet" signature="(Ljava/lang/String;)Ljava/util/ArrayList;" isStatic="false">
-      <SourceLine classname="TietokantaKyselyt.ProductDB" start="191" end="214" startBytecode="0" endBytecode="528" sourcefile="ProductDB.java" sourcepath="TietokantaKyselyt/ProductDB.java"/>
-    </Method>
-    <Class classname="vPakkaus.DB_AccessObject">
-      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
-    </Class>
-    <Method classname="vPakkaus.DB_AccessObject" name="haeHyllypaikanTuotteet" signature="(Ljava/lang/String;)Ljava/util/ArrayList;" isStatic="false">
-      <SourceLine classname="vPakkaus.DB_AccessObject" start="268" end="268" startBytecode="0" endBytecode="60" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
-    </Method>
-  </BugInstance>
-  <BugInstance type="NM_METHOD_NAMING_CONVENTION" priority="2" rank="16" abbrev="Nm" category="BAD_PRACTICE" first="1">
-    <Class classname="TietokantaKyselyt.ProductDB">
-      <SourceLine classname="TietokantaKyselyt.ProductDB" sourcefile="ProductDB.java" sourcepath="TietokantaKyselyt/ProductDB.java"/>
-    </Class>
-    <Method classname="TietokantaKyselyt.ProductDB" name="HaeHyllypaikanTuotteet" signature="(Ljava/lang/String;)Ljava/util/ArrayList;" isStatic="false">
-      <SourceLine classname="TietokantaKyselyt.ProductDB" start="191" end="214" startBytecode="0" endBytecode="528" sourcefile="ProductDB.java" sourcepath="TietokantaKyselyt/ProductDB.java"/>
-    </Method>
   </BugInstance>
   <BugInstance type="REC_CATCH_EXCEPTION" priority="3" rank="20" abbrev="REC" category="STYLE" first="1">
     <Class classname="TietokantaKyselyt.UsersDB">
@@ -169,74 +138,6 @@
       <SourceLine classname="vPakkaus.Controllers.AddProductController" sourcefile="AddProductController.java" sourcepath="vPakkaus/Controllers/AddProductController.java"/>
     </Field>
     <SourceLine classname="vPakkaus.Controllers.AddProductController" start="293" end="293" startBytecode="2" endBytecode="2" sourcefile="AddProductController.java" sourcepath="vPakkaus/Controllers/AddProductController.java"/>
-  </BugInstance>
-  <BugInstance type="UUF_UNUSED_FIELD" priority="2" rank="18" abbrev="UuF" category="PERFORMANCE" first="1">
-    <Class classname="vPakkaus.Controllers.AddProductController">
-      <SourceLine classname="vPakkaus.Controllers.AddProductController" sourcefile="AddProductController.java" sourcepath="vPakkaus/Controllers/AddProductController.java"/>
-    </Class>
-    <Field classname="vPakkaus.Controllers.AddProductController" name="pVolume" signature="D" isStatic="false">
-      <SourceLine classname="vPakkaus.Controllers.AddProductController" start="45" end="45" startBytecode="0" endBytecode="0" sourcefile="AddProductController.java" sourcepath="vPakkaus/Controllers/AddProductController.java"/>
-    </Field>
-  </BugInstance>
-  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
-    <Class classname="vPakkaus.Controllers.AsiakasControlleri">
-      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
-    </Class>
-    <Field classname="vPakkaus.Controllers.AsiakasControlleri" name="ContactP_F_Name" signature="Ljava/lang/String;" isStatic="false">
-      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
-    </Field>
-    <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" start="163" end="163" startBytecode="181" endBytecode="181" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
-  </BugInstance>
-  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
-    <Class classname="vPakkaus.Controllers.AsiakasControlleri">
-      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
-    </Class>
-    <Field classname="vPakkaus.Controllers.AsiakasControlleri" name="ContactP_L_Name" signature="Ljava/lang/String;" isStatic="false">
-      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
-    </Field>
-    <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" start="169" end="169" startBytecode="218" endBytecode="218" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
-  </BugInstance>
-  <BugInstance type="UUF_UNUSED_FIELD" priority="2" rank="18" abbrev="UuF" category="PERFORMANCE" first="1">
-    <Class classname="vPakkaus.Controllers.AsiakasControlleri">
-      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
-    </Class>
-    <Field classname="vPakkaus.Controllers.AsiakasControlleri" name="Customer_Postal" signature="Ljava/lang/String;" isStatic="false">
-      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" start="21" end="21" startBytecode="0" endBytecode="0" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
-    </Field>
-  </BugInstance>
-  <BugInstance type="UUF_UNUSED_FIELD" priority="2" rank="18" abbrev="UuF" category="PERFORMANCE" first="1">
-    <Class classname="vPakkaus.Controllers.AsiakasControlleri">
-      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
-    </Class>
-    <Field classname="vPakkaus.Controllers.AsiakasControlleri" name="Customer_State" signature="Ljava/lang/String;" isStatic="false">
-      <SourceLine classname="vPakkaus.Controllers.AsiakasControlleri" start="21" end="21" startBytecode="0" endBytecode="0" sourcefile="AsiakasControlleri.java" sourcepath="vPakkaus/Controllers/AsiakasControlleri.java"/>
-    </Field>
-  </BugInstance>
-  <BugInstance type="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" priority="3" rank="20" abbrev="UwF" category="STYLE" first="1">
-    <Class classname="vPakkaus.Controllers.MainPageController">
-      <SourceLine classname="vPakkaus.Controllers.MainPageController" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
-    </Class>
-    <Field classname="vPakkaus.Controllers.MainPageController" name="mc" signature="LvPakkaus/Controllers/MainController_IF;" isStatic="false">
-      <SourceLine classname="vPakkaus.Controllers.MainPageController" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
-    </Field>
-    <Method classname="vPakkaus.Controllers.MainPageController" name="esiValmistelut" signature="()V" isStatic="false">
-      <SourceLine classname="vPakkaus.Controllers.MainPageController" start="97" end="98" startBytecode="0" endBytecode="77" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
-    </Method>
-    <SourceLine classname="vPakkaus.Controllers.MainPageController" start="97" end="97" startBytecode="17" endBytecode="17" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
-    <SourceLine classname="vPakkaus.Controllers.MainPageController" start="97" end="97" startBytecode="17" endBytecode="17" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
-  </BugInstance>
-  <BugInstance type="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" priority="3" rank="20" abbrev="UwF" category="STYLE" first="1">
-    <Class classname="vPakkaus.Controllers.MainPageController">
-      <SourceLine classname="vPakkaus.Controllers.MainPageController" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
-    </Class>
-    <Field classname="vPakkaus.Controllers.MainPageController" name="mc" signature="LvPakkaus/Controllers/MainController_IF;" isStatic="false">
-      <SourceLine classname="vPakkaus.Controllers.MainPageController" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
-    </Field>
-    <Method classname="vPakkaus.Controllers.MainPageController" name="logOut" signature="()V" isStatic="false">
-      <SourceLine classname="vPakkaus.Controllers.MainPageController" start="55" end="57" startBytecode="0" endBytecode="73" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
-    </Method>
-    <SourceLine classname="vPakkaus.Controllers.MainPageController" start="55" end="55" startBytecode="4" endBytecode="4" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
-    <SourceLine classname="vPakkaus.Controllers.MainPageController" start="55" end="55" startBytecode="4" endBytecode="4" sourcefile="MainPageController.java" sourcepath="vPakkaus/Controllers/MainPageController.java"/>
   </BugInstance>
   <BugInstance type="SF_SWITCH_NO_DEFAULT" priority="2" rank="19" abbrev="SF" category="STYLE" first="1">
     <Class classname="vPakkaus.Controllers.MuokkaaProductController">
@@ -386,39 +287,21 @@
       <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
     </Class>
     <Method classname="vPakkaus.DB_AccessObject" name="&lt;init&gt;" signature="()V" isStatic="false">
-      <SourceLine classname="vPakkaus.DB_AccessObject" start="40" end="71" startBytecode="0" endBytecode="103" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+      <SourceLine classname="vPakkaus.DB_AccessObject" start="38" end="69" startBytecode="0" endBytecode="97" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
     </Method>
-    <SourceLine classname="vPakkaus.DB_AccessObject" start="46" end="46" startBytecode="32" endBytecode="32" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
-    <SourceLine classname="vPakkaus.DB_AccessObject" start="46" end="46" startBytecode="32" endBytecode="32" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
-  </BugInstance>
-  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
-    <Class classname="vPakkaus.DB_AccessObject">
-      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
-    </Class>
-    <Field classname="vPakkaus.DB_AccessObject" name="ps" signature="Ljava/sql/PreparedStatement;" isStatic="false">
-      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
-    </Field>
-    <SourceLine classname="vPakkaus.DB_AccessObject" start="24" end="24" startBytecode="11" endBytecode="11" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
-  </BugInstance>
-  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
-    <Class classname="vPakkaus.DB_AccessObject">
-      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
-    </Class>
-    <Field classname="vPakkaus.DB_AccessObject" name="rs" signature="Ljava/sql/ResultSet;" isStatic="false">
-      <SourceLine classname="vPakkaus.DB_AccessObject" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
-    </Field>
-    <SourceLine classname="vPakkaus.DB_AccessObject" start="25" end="25" startBytecode="16" endBytecode="16" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    <SourceLine classname="vPakkaus.DB_AccessObject" start="44" end="44" startBytecode="22" endBytecode="22" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
+    <SourceLine classname="vPakkaus.DB_AccessObject" start="44" end="44" startBytecode="22" endBytecode="22" sourcefile="DB_AccessObject.java" sourcepath="vPakkaus/DB_AccessObject.java"/>
   </BugInstance>
   <Errors errors="0" missingClasses="0"></Errors>
-  <FindBugsSummary timestamp="Fri, 18 Nov 2016 10:47:22 +0200" total_classes="49" referenced_classes="146" total_bugs="36" total_size="2434" num_packages="5" java_version="1.8.0_91" vm_version="25.91-b14" cpu_seconds="28.28" clock_seconds="39.26" peak_mbytes="621.19" alloc_mbytes="910.50" gc_seconds="1.17" priority_3="12" priority_2="22" priority_1="2">
-    <PackageStats package="" total_bugs="3" total_types="1" total_size="50" priority_3="1" priority_2="1" priority_1="1">
-      <ClassStats class="DataBase_tests" sourceFile="DataBase_tests.java" interface="false" size="50" bugs="3" priority_3="1" priority_2="1" priority_1="1"/>
+  <FindBugsSummary timestamp="Fri, 18 Nov 2016 11:34:01 +0200" total_classes="49" referenced_classes="146" total_bugs="24" total_size="2414" num_packages="5" java_version="1.8.0_91" vm_version="25.91-b14" cpu_seconds="21.55" clock_seconds="58.39" peak_mbytes="792.93" alloc_mbytes="910.50" gc_seconds="0.92" priority_3="9" priority_2="13" priority_1="2">
+    <PackageStats package="" total_bugs="2" total_types="1" total_size="48" priority_3="1" priority_1="1">
+      <ClassStats class="DataBase_tests" sourceFile="DataBase_tests.java" interface="false" size="48" bugs="2" priority_3="1" priority_1="1"/>
     </PackageStats>
-    <PackageStats package="TietokantaKyselyt" total_bugs="4" total_types="6" total_size="549" priority_3="3" priority_2="1">
+    <PackageStats package="TietokantaKyselyt" total_bugs="2" total_types="6" total_size="549" priority_3="2">
       <ClassStats class="TietokantaKyselyt.AsiakasDB" sourceFile="AsiakasDB.java" interface="false" size="95" bugs="0"/>
       <ClassStats class="TietokantaKyselyt.HyllyDB" sourceFile="HyllyDB.java" interface="false" size="73" bugs="0"/>
       <ClassStats class="TietokantaKyselyt.LampotilaDB" sourceFile="LampotilaDB.java" interface="false" size="116" bugs="0"/>
-      <ClassStats class="TietokantaKyselyt.ProductDB" sourceFile="ProductDB.java" interface="false" size="136" bugs="3" priority_3="2" priority_2="1"/>
+      <ClassStats class="TietokantaKyselyt.ProductDB" sourceFile="ProductDB.java" interface="false" size="136" bugs="1" priority_3="1"/>
       <ClassStats class="TietokantaKyselyt.TuoteriviDB" sourceFile="TuoteriviDB.java" interface="false" size="86" bugs="0"/>
       <ClassStats class="TietokantaKyselyt.UsersDB" sourceFile="UsersDB.java" interface="false" size="43" bugs="1" priority_3="1"/>
     </PackageStats>
@@ -428,20 +311,20 @@
       <ClassStats class="testfx.MainPageTestFX_TEST" sourceFile="MainPageTestFX_TEST.java" interface="false" size="21" bugs="0"/>
       <ClassStats class="testfx.SearchTest" sourceFile="SearchTest.java" interface="false" size="37" bugs="0"/>
     </PackageStats>
-    <PackageStats package="vPakkaus" total_bugs="4" total_types="9" total_size="492" priority_3="1" priority_2="3">
+    <PackageStats package="vPakkaus" total_bugs="2" total_types="9" total_size="488" priority_3="1" priority_2="1">
       <ClassStats class="vPakkaus.AnchorPaneFactory" sourceFile="AnchorPaneFactory.java" interface="false" size="21" bugs="1" priority_3="1"/>
       <ClassStats class="vPakkaus.Asiakas" sourceFile="Asiakas.java" interface="false" size="57" bugs="0"/>
       <ClassStats class="vPakkaus.DAO_Objekti" sourceFile="DAO_Objekti.java" interface="true" size="3" bugs="0"/>
-      <ClassStats class="vPakkaus.DB_AccessObject" sourceFile="DB_AccessObject.java" interface="false" size="155" bugs="3" priority_2="3"/>
+      <ClassStats class="vPakkaus.DB_AccessObject" sourceFile="DB_AccessObject.java" interface="false" size="151" bugs="1" priority_2="1"/>
       <ClassStats class="vPakkaus.Hyllypaikka" sourceFile="Hyllypaikka.java" interface="false" size="54" bugs="0"/>
       <ClassStats class="vPakkaus.MainLaunch" sourceFile="MainLaunch.java" interface="false" size="82" bugs="0"/>
       <ClassStats class="vPakkaus.Product" sourceFile="Product.java" interface="false" size="89" bugs="0"/>
       <ClassStats class="vPakkaus.Tuotejoukko" sourceFile="Tuotejoukko.java" interface="false" size="29" bugs="0"/>
       <ClassStats class="vPakkaus.ViewFactory_IF" sourceFile="ViewFactory_IF.java" interface="true" size="2" bugs="0"/>
     </PackageStats>
-    <PackageStats package="vPakkaus.Controllers" total_bugs="25" total_types="29" total_size="1253" priority_3="7" priority_2="17" priority_1="1">
-      <ClassStats class="vPakkaus.Controllers.AddProductController" sourceFile="AddProductController.java" interface="false" size="198" bugs="6" priority_3="1" priority_2="4" priority_1="1"/>
-      <ClassStats class="vPakkaus.Controllers.AsiakasControlleri" sourceFile="AsiakasControlleri.java" interface="false" size="150" bugs="4" priority_2="4"/>
+    <PackageStats package="vPakkaus.Controllers" total_bugs="18" total_types="29" total_size="1239" priority_3="5" priority_2="12" priority_1="1">
+      <ClassStats class="vPakkaus.Controllers.AddProductController" sourceFile="AddProductController.java" interface="false" size="197" bugs="5" priority_3="1" priority_2="3" priority_1="1"/>
+      <ClassStats class="vPakkaus.Controllers.AsiakasControlleri" sourceFile="AsiakasControlleri.java" interface="false" size="136" bugs="0"/>
       <ClassStats class="vPakkaus.Controllers.AsiakasTaulukko" sourceFile="AsiakasTaulukko.java" interface="false" size="14" bugs="0"/>
       <ClassStats class="vPakkaus.Controllers.AsiakasViewController" sourceFile="AsiakasViewController.java" interface="false" size="67" bugs="0"/>
       <ClassStats class="vPakkaus.Controllers.EditingCell" sourceFile="EditingCell.java" interface="false" size="92" bugs="0"/>
@@ -450,7 +333,7 @@
       <ClassStats class="vPakkaus.Controllers.LoginController" sourceFile="LoginController.java" interface="false" size="73" bugs="0"/>
       <ClassStats class="vPakkaus.Controllers.MainController" sourceFile="MainController.java" interface="false" size="71" bugs="0"/>
       <ClassStats class="vPakkaus.Controllers.MainController_IF" sourceFile="MainController_IF.java" interface="true" size="12" bugs="0"/>
-      <ClassStats class="vPakkaus.Controllers.MainPageController" sourceFile="MainPageController.java" interface="false" size="47" bugs="2" priority_3="2"/>
+      <ClassStats class="vPakkaus.Controllers.MainPageController" sourceFile="MainPageController.java" interface="false" size="48" bugs="0"/>
       <ClassStats class="vPakkaus.Controllers.MuokkaaProductController" sourceFile="MuokkaaProductController.java" interface="false" size="123" bugs="3" priority_3="1" priority_2="2"/>
       <ClassStats class="vPakkaus.Controllers.Nakyma_IF" sourceFile="Nakyma_IF.java" interface="true" size="6" bugs="0"/>
       <ClassStats class="vPakkaus.Controllers.NayttojenVaihtaja_IF" sourceFile="NayttojenVaihtaja_IF.java" interface="true" size="5" bugs="0"/>
@@ -471,37 +354,41 @@
       <ClassStats class="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller" sourceFile="WareHouseManagement_MainMenu_Controller.java" interface="false" size="32" bugs="1" priority_2="1"/>
     </PackageStats>
     <FindBugsProfile>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="566" invocations="1112" avgMicrosecondsPerInvocation="509" maxMicrosecondsPerInvocation="13370" standardDeviationMircosecondsPerInvocation="1031"/>
-      <ClassProfile name="de.tobject.findbugs.builder.FindBugs2Eclipse" totalMilliseconds="397" invocations="2" avgMicrosecondsPerInvocation="198948" maxMicrosecondsPerInvocation="250378" standardDeviationMircosecondsPerInvocation="51430"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="329" invocations="1115" avgMicrosecondsPerInvocation="295" maxMicrosecondsPerInvocation="5532" standardDeviationMircosecondsPerInvocation="294"/>
-      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="320" invocations="327" avgMicrosecondsPerInvocation="980" maxMicrosecondsPerInvocation="46490" standardDeviationMircosecondsPerInvocation="2893"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="254" invocations="347" avgMicrosecondsPerInvocation="733" maxMicrosecondsPerInvocation="11446" standardDeviationMircosecondsPerInvocation="1479"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="245" invocations="371" avgMicrosecondsPerInvocation="661" maxMicrosecondsPerInvocation="9270" standardDeviationMircosecondsPerInvocation="1382"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="234" invocations="146" avgMicrosecondsPerInvocation="1608" maxMicrosecondsPerInvocation="35478" standardDeviationMircosecondsPerInvocation="3823"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="231" invocations="370" avgMicrosecondsPerInvocation="624" maxMicrosecondsPerInvocation="9813" standardDeviationMircosecondsPerInvocation="1209"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="214" invocations="146" avgMicrosecondsPerInvocation="1471" maxMicrosecondsPerInvocation="44651" standardDeviationMircosecondsPerInvocation="3986"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="209" invocations="339" avgMicrosecondsPerInvocation="619" maxMicrosecondsPerInvocation="11077" standardDeviationMircosecondsPerInvocation="1323"/>
-      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="135" invocations="599" avgMicrosecondsPerInvocation="226" maxMicrosecondsPerInvocation="3280" standardDeviationMircosecondsPerInvocation="325"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="133" invocations="235" avgMicrosecondsPerInvocation="567" maxMicrosecondsPerInvocation="12112" standardDeviationMircosecondsPerInvocation="1147"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="122" invocations="347" avgMicrosecondsPerInvocation="352" maxMicrosecondsPerInvocation="5720" standardDeviationMircosecondsPerInvocation="548"/>
-      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="107" invocations="1022" avgMicrosecondsPerInvocation="104" maxMicrosecondsPerInvocation="49573" standardDeviationMircosecondsPerInvocation="1551"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="81" invocations="49" avgMicrosecondsPerInvocation="1672" maxMicrosecondsPerInvocation="11223" standardDeviationMircosecondsPerInvocation="2751"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.LoadOfKnownNullValue" totalMilliseconds="65" invocations="49" avgMicrosecondsPerInvocation="1335" maxMicrosecondsPerInvocation="6396" standardDeviationMircosecondsPerInvocation="1682"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="63" invocations="146" avgMicrosecondsPerInvocation="435" maxMicrosecondsPerInvocation="6798" standardDeviationMircosecondsPerInvocation="715"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="54" invocations="99" avgMicrosecondsPerInvocation="546" maxMicrosecondsPerInvocation="2396" standardDeviationMircosecondsPerInvocation="429"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="49" invocations="146" avgMicrosecondsPerInvocation="341" maxMicrosecondsPerInvocation="10157" standardDeviationMircosecondsPerInvocation="970"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="49" invocations="49" avgMicrosecondsPerInvocation="1012" maxMicrosecondsPerInvocation="6166" standardDeviationMircosecondsPerInvocation="1222"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="49" invocations="347" avgMicrosecondsPerInvocation="141" maxMicrosecondsPerInvocation="3259" standardDeviationMircosecondsPerInvocation="335"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="46" invocations="146" avgMicrosecondsPerInvocation="315" maxMicrosecondsPerInvocation="3817" standardDeviationMircosecondsPerInvocation="466"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FindInconsistentSync2" totalMilliseconds="43" invocations="49" avgMicrosecondsPerInvocation="897" maxMicrosecondsPerInvocation="5372" standardDeviationMircosecondsPerInvocation="1068"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="42" invocations="49" avgMicrosecondsPerInvocation="875" maxMicrosecondsPerInvocation="4157" standardDeviationMircosecondsPerInvocation="963"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="42" invocations="146" avgMicrosecondsPerInvocation="289" maxMicrosecondsPerInvocation="4256" standardDeviationMircosecondsPerInvocation="496"/>
-      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="40" invocations="5596" avgMicrosecondsPerInvocation="7" maxMicrosecondsPerInvocation="1260" standardDeviationMircosecondsPerInvocation="27"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="40" invocations="327" avgMicrosecondsPerInvocation="123" maxMicrosecondsPerInvocation="1118" standardDeviationMircosecondsPerInvocation="182"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="438" invocations="1112" avgMicrosecondsPerInvocation="394" maxMicrosecondsPerInvocation="30131" standardDeviationMircosecondsPerInvocation="1178"/>
+      <ClassProfile name="de.tobject.findbugs.builder.FindBugs2Eclipse" totalMilliseconds="392" invocations="2" avgMicrosecondsPerInvocation="196303" maxMicrosecondsPerInvocation="226696" standardDeviationMircosecondsPerInvocation="30390"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="233" invocations="1115" avgMicrosecondsPerInvocation="209" maxMicrosecondsPerInvocation="10529" standardDeviationMircosecondsPerInvocation="356"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="188" invocations="327" avgMicrosecondsPerInvocation="575" maxMicrosecondsPerInvocation="5443" standardDeviationMircosecondsPerInvocation="956"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="184" invocations="371" avgMicrosecondsPerInvocation="497" maxMicrosecondsPerInvocation="6025" standardDeviationMircosecondsPerInvocation="1011"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="181" invocations="370" avgMicrosecondsPerInvocation="491" maxMicrosecondsPerInvocation="9401" standardDeviationMircosecondsPerInvocation="963"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="163" invocations="347" avgMicrosecondsPerInvocation="471" maxMicrosecondsPerInvocation="6631" standardDeviationMircosecondsPerInvocation="858"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="158" invocations="146" avgMicrosecondsPerInvocation="1085" maxMicrosecondsPerInvocation="23464" standardDeviationMircosecondsPerInvocation="2810"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="155" invocations="146" avgMicrosecondsPerInvocation="1063" maxMicrosecondsPerInvocation="18953" standardDeviationMircosecondsPerInvocation="2063"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="146" invocations="599" avgMicrosecondsPerInvocation="245" maxMicrosecondsPerInvocation="35470" standardDeviationMircosecondsPerInvocation="1464"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="126" invocations="339" avgMicrosecondsPerInvocation="373" maxMicrosecondsPerInvocation="6894" standardDeviationMircosecondsPerInvocation="804"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="113" invocations="235" avgMicrosecondsPerInvocation="483" maxMicrosecondsPerInvocation="8603" standardDeviationMircosecondsPerInvocation="934"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="92" invocations="347" avgMicrosecondsPerInvocation="267" maxMicrosecondsPerInvocation="2785" standardDeviationMircosecondsPerInvocation="377"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.HugeSharedStringConstants" totalMilliseconds="65" invocations="49" avgMicrosecondsPerInvocation="1341" maxMicrosecondsPerInvocation="63294" standardDeviationMircosecondsPerInvocation="8942"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildStringPassthruGraph" totalMilliseconds="64" invocations="146" avgMicrosecondsPerInvocation="443" maxMicrosecondsPerInvocation="40126" standardDeviationMircosecondsPerInvocation="3309"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="64" invocations="49" avgMicrosecondsPerInvocation="1322" maxMicrosecondsPerInvocation="14034" standardDeviationMircosecondsPerInvocation="2561"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.LoadOfKnownNullValue" totalMilliseconds="42" invocations="49" avgMicrosecondsPerInvocation="876" maxMicrosecondsPerInvocation="3908" standardDeviationMircosecondsPerInvocation="1002"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="42" invocations="49" avgMicrosecondsPerInvocation="863" maxMicrosecondsPerInvocation="5133" standardDeviationMircosecondsPerInvocation="991"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="40" invocations="146" avgMicrosecondsPerInvocation="278" maxMicrosecondsPerInvocation="4466" standardDeviationMircosecondsPerInvocation="460"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindInconsistentSync2" totalMilliseconds="38" invocations="49" avgMicrosecondsPerInvocation="789" maxMicrosecondsPerInvocation="6606" standardDeviationMircosecondsPerInvocation="1104"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="37" invocations="1022" avgMicrosecondsPerInvocation="36" maxMicrosecondsPerInvocation="1305" standardDeviationMircosecondsPerInvocation="69"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="36" invocations="49" avgMicrosecondsPerInvocation="753" maxMicrosecondsPerInvocation="4994" standardDeviationMircosecondsPerInvocation="954"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="36" invocations="146" avgMicrosecondsPerInvocation="247" maxMicrosecondsPerInvocation="4568" standardDeviationMircosecondsPerInvocation="485"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="35" invocations="99" avgMicrosecondsPerInvocation="361" maxMicrosecondsPerInvocation="1645" standardDeviationMircosecondsPerInvocation="290"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="33" invocations="327" avgMicrosecondsPerInvocation="101" maxMicrosecondsPerInvocation="1048" standardDeviationMircosecondsPerInvocation="154"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="32" invocations="347" avgMicrosecondsPerInvocation="94" maxMicrosecondsPerInvocation="1863" standardDeviationMircosecondsPerInvocation="197"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="32" invocations="146" avgMicrosecondsPerInvocation="224" maxMicrosecondsPerInvocation="2746" standardDeviationMircosecondsPerInvocation="419"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DefaultEncodingDetector" totalMilliseconds="32" invocations="49" avgMicrosecondsPerInvocation="655" maxMicrosecondsPerInvocation="4564" standardDeviationMircosecondsPerInvocation="1026"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ExplicitSerialization" totalMilliseconds="31" invocations="146" avgMicrosecondsPerInvocation="215" maxMicrosecondsPerInvocation="14278" standardDeviationMircosecondsPerInvocation="1279"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="30" invocations="146" avgMicrosecondsPerInvocation="210" maxMicrosecondsPerInvocation="3381" standardDeviationMircosecondsPerInvocation="348"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="29" invocations="377" avgMicrosecondsPerInvocation="78" maxMicrosecondsPerInvocation="6841" standardDeviationMircosecondsPerInvocation="353"/>
     </FindBugsProfile>
   </FindBugsSummary>
   <ClassFeatures></ClassFeatures>
   <History>
-    <AppVersion sequence="0" timestamp="1479458868190" release="" codeSize="0" numClasses="0"/>
+    <AppVersion sequence="0" timestamp="1479462213112" release="" codeSize="0" numClasses="0"/>
   </History>
 </BugCollection>

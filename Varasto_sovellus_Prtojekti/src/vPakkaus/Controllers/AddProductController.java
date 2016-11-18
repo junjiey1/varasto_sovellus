@@ -42,7 +42,7 @@ public class AddProductController implements Nakyma_IF {
 	Scanner input;
 	String[] oneRowOfData;
 	String path, pName, pShelf, clientName, clientAddress, fileName;
-	double pWeight, pVolume, pLength, pWidth, pHeight;
+	double pWeight, pLength, pWidth, pHeight;
 	int pQuantity;
 	Integer pMinTemp, pMaxTemp;
 	float pPrice;

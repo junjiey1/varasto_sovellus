@@ -90,7 +90,7 @@ public class ProductDB {
 	 */
 
 	public ArrayList<Product> findProducts(String nimi) {
-		ArrayList<Product> products = new ArrayList();
+		ArrayList<Product> products = new ArrayList<Product>();
 		Product product;
 
 		try {
@@ -187,8 +187,8 @@ public class ProductDB {
 	 * @return lista tuotteita (ArrayList<String>)
 	 */
 
-	public ArrayList<String> HaeHyllypaikanTuotteet(String hyllypaikka) {
-		ArrayList<String> HP_Tuotteet = new ArrayList();
+	public ArrayList<String> haeHyllypaikanTuotteet(String hyllypaikka) {
+		ArrayList<String> HP_Tuotteet = new ArrayList<String>();
 		try {
 			ps = conn.prepareStatement(
 					"Select tuote.nimi from tuote, tuoterivi WHERE tuoterivi.tuoteID = tuote.tuoteID AND tuoterivi.hyllypaikka = ?;");

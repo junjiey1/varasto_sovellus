@@ -15,7 +15,6 @@ import vPakkaus.Tuotejoukko;
 
 public class DataBase_tests {
 
-	private Connection conn = null;
 	private static DB_AccessObject db;
 
 	@AfterClass
@@ -24,6 +23,7 @@ public class DataBase_tests {
 		try {
 			db.close();
 		} catch (Exception e) {
+
 		}
 	}
 

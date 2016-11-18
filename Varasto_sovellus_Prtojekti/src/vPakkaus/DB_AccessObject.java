@@ -21,8 +21,6 @@ import TietokantaKyselyt.LampotilaDB;
 public class DB_AccessObject {
 	// ACCESS SQL_DB_OBJ.
 	private Connection conn = null;
-	private PreparedStatement ps = null;
-	private ResultSet rs = null;
 
 
 	private LampotilaDB lampotiladb;
@@ -265,7 +263,7 @@ public class DB_AccessObject {
 	}
 
 	public ArrayList<String> haeHyllypaikanTuotteet(String hyllypaikka) {
-		return productdb.HaeHyllypaikanTuotteet(hyllypaikka);
+		return productdb.haeHyllypaikanTuotteet(hyllypaikka);
 	}
 
 	public ArrayList<String> haeTuotteenHyllypaikat(Product product) {

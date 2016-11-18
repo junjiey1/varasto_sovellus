@@ -23,7 +23,7 @@ public class UsersDB {
 	 * @return palauttaa listan, joka sisältää käyttäjä id ja tiedon onnistumisesta (res=1).
 	 */
 
-	public int[] LogIn(String uname, String pword) {
+	public int[] logIn(String uname, String pword) {
 		int res = 0; // Oletetaan, että login epäonnistuu
 
 		PreparedStatement haetiedot = null;

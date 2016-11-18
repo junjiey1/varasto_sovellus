@@ -31,7 +31,8 @@ public class LoginController implements Nakyma_IF {
 	private NayttojenVaihtaja_IF vaihtaja;
 
 	public LoginController() {
-		System.out.println("LOG IN CONTROLLER");
+	  mc = null;
+	  vaihtaja = null;
 	}
 
 	public void initialize() {
@@ -83,7 +84,7 @@ public class LoginController implements Nakyma_IF {
 		if (showpword.isSelected()) {
 			passwordTxt.setText(visiblePasswordTxt.getText());
 		}
-		if (mc.LogIn(uname, pword)) {
+		if (mc.logIn(uname, pword)) {
 			vaihtaja.asetaUudeksiNaytoksi("mainpage", "VarastoSovellus", null);
 			//MainLaunch.windowDestroyer();
 			//MainLaunch.windowConstructor("view/MainPageView.fxml", "VarastoSovellus 1.03", null);

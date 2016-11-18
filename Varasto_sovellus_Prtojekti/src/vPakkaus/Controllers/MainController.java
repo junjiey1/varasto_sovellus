@@ -15,7 +15,7 @@ import vPakkaus.Tuotejoukko;
 public class MainController implements MainController_IF{
 	private DB_AccessObject db;
 	private Nakyma_IF naytto;
-	private int UserID;
+	private int userID;
 	private String username;
 
 	/**
@@ -26,7 +26,7 @@ public class MainController implements MainController_IF{
 		System.out.println("Constructing Main Controller");
 		db = new DB_AccessObject();
 		username = "undefined";
-		UserID = -1;
+		userID = -1;
 	}
 
 	/**
@@ -37,12 +37,12 @@ public class MainController implements MainController_IF{
 	 * @param password Salasana
 	 * @return Palauta booleana, onko sisaankirjautuminen onnistunut.
 	 */
-	public boolean LogIn(String username, String password) {
+	public boolean logIn(String username, String password) {
 		boolean res = false;
-		int[] tulos = db.LogIn(username, password);
+		int[] tulos = db.logIn(username, password);
 		if (tulos[0] == 1) {
 			res = true;
-			UserID = tulos[1];
+			userID = tulos[1];
 			this.username = username;
 			System.out.println("käyttäjä " + this.username);
 		}
@@ -60,9 +60,9 @@ public class MainController implements MainController_IF{
 	 * @param maara Tavaran maara
 	 * @return Palauta booleana, onko lisaaminen onnistunut.
 	 */
-	public boolean AddProduct(Tuotejoukko joukko) {
+	public boolean addProduct(Tuotejoukko joukko) {
 		System.out.println(joukko.getProduct().toString());
-		boolean res = db.Lisaa(joukko);
+		boolean res = db.lisaa(joukko);
 		return res;
 	}
 
@@ -112,7 +112,7 @@ public class MainController implements MainController_IF{
 	 *
 	 * @return Paluta booleana.
 	 */
-	public boolean DeleteProduct(String nimi) {
+	public boolean deleteProduct(String nimi) {
 		boolean res = false;
 		return res;
 	}
@@ -132,16 +132,16 @@ public class MainController implements MainController_IF{
 	 */
 
 	public int getID() {
-		return UserID;
+		return userID;
 	}
 	/**
 	 * Uloskirjautuminen eli poistetaan edellisen kayttajan tiedot.
 	 *
 	 */
 
-	public void LogOut() {
+	public void logOut() {
 		System.out.println("logged  out. Deleting saved user information...");
-		UserID = -1;
+		userID = -1;
 		username = "undefined";
 	}
 
@@ -158,7 +158,7 @@ public class MainController implements MainController_IF{
 	}
 
 	@Override
-	public void TallennaAsiakas(Asiakas asiakas) {
+	public void tallennaAsiakas(Asiakas asiakas) {
 		if(db.addAsiakas(asiakas)){
 			naytto.paivita("Asiakas nimellä " + asiakas.getNimi() + " lisättiin onnistuneesti");
 			naytto.paivita(db.haeAsiakas(asiakas.getNimi()));

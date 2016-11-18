@@ -12,7 +12,7 @@ import TietokantaKyselyt.HyllyDB;
 import TietokantaKyselyt.ProductDB;
 import TietokantaKyselyt.TuoteriviDB;
 import TietokantaKyselyt.UsersDB;
-import TietokantaKyselyt.lampotilaDB;
+import TietokantaKyselyt.LampotilaDB;
 
 /**
  * Luokka vastaa tietokantayhteydesta ja kyselyista.
@@ -20,12 +20,12 @@ import TietokantaKyselyt.lampotilaDB;
  */
 public class DB_AccessObject {
 	// ACCESS SQL_DB_OBJ.
-	private static Connection conn = null;
+	private Connection conn = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
 
-	private lampotilaDB lampotiladb;
+	private LampotilaDB lampotiladb;
 	private AsiakasDB asiakasdb;
 	private UsersDB usersdb;
 	private ProductDB productdb;
@@ -56,10 +56,10 @@ public class DB_AccessObject {
 			System.out.println("JDBC-ajurin lataus epäonnistui");
 		}
 		try {
-			if (conn.isValid(10)) {
+			if (conn!=null && conn.isValid(10)) {
 				usersdb = new UsersDB(conn);
 				hyllydb = new HyllyDB(conn);
-				lampotiladb = new lampotilaDB(conn);
+				lampotiladb = new LampotilaDB(conn);
 				asiakasdb = new AsiakasDB(conn);
 				productdb = new ProductDB(conn, lampotiladb);
 				tuoterividb = new TuoteriviDB(conn, productdb, hyllydb);
@@ -79,9 +79,9 @@ public class DB_AccessObject {
 	 *
 	 */
 
-	public int[] LogIn(String uname, String pword) {
+	public int[] logIn(String uname, String pword) {
 
-		return usersdb.LogIn(uname, pword);
+		return usersdb.logIn(uname, pword);
 	}
 
 	/**
@@ -93,17 +93,17 @@ public class DB_AccessObject {
 	 * @return Onnistuuko tavaran lisaaminen (boolean)
 	 */
 
-	public boolean Lisaa(Tuotejoukko joukko) {
+	public boolean lisaa(Tuotejoukko joukko) {
 
-		ArrayList<Boolean> onkoVirheitä = new ArrayList();
+		ArrayList<Boolean> onkoVirheitä = new ArrayList<Boolean>();
 
-		Hyllypaikka hyllypaikka = HaeHylly(joukko.getHylly().getNimi());
+		Hyllypaikka hyllypaikka = haeHylly(joukko.getHylly().getNimi());
 		joukko.setHylly(hyllypaikka);
 
 		// Haetaan hyllypaikan tuotteet
-		ArrayList<String> Hyllyn_tuotteet = HaeHyllypaikanTuotteet(joukko.getHylly().getNimi());
+		ArrayList<String> Hyllyn_tuotteet = haeHyllypaikanTuotteet(joukko.getHylly().getNimi());
 
-		boolean mahtuuko = MahtuukoTuotteetHyllyyn(joukko);
+		boolean mahtuuko = mahtuukoTuotteetHyllyyn(joukko);
 		boolean onkoLampotilaSopiva = checkLampotila(joukko);
 
 		// Jos hyllypaikkaa ei ole olemassa
@@ -126,7 +126,7 @@ public class DB_AccessObject {
 			// lisätään uusi määrä vanhaan määrään
 			int uusimaara = joukko.getMaara() + maarahyllyssa;
 			joukko.setMaara(uusimaara);
-			MuokkaaTuoteriviä(joukko);
+			muokkaaTuoteriviä(joukko);
 
 			System.out.println("Tuotteiden määrää kasvatettu");
 
@@ -158,8 +158,8 @@ public class DB_AccessObject {
 		return lampotiladb.addTemperatures(product);
 	}
 
-	public boolean CreateHyllypaikka(Hyllypaikka hyllypaikka) {
-		return hyllydb.CreateHyllypaikka(hyllypaikka);
+	public boolean createHyllypaikka(Hyllypaikka hyllypaikka) {
+		return hyllydb.createHyllypaikka(hyllypaikka);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class DB_AccessObject {
 
 	public boolean checkLampotila(Tuotejoukko joukko) {
 		boolean lampotila = true;
-		if (joukko.getProduct().getMax_temperature() != null & joukko.getProduct().getMin_temperature() != null) {
+		if (joukko.getProduct().getMax_temperature() != null && joukko.getProduct().getMin_temperature() != null) {
 			if (joukko.getHylly().getLämpötila() <= joukko.getProduct().getMax_temperature()
 					&& joukko.getHylly().getLämpötila() >= joukko.getProduct().getMin_temperature()) {
 				System.out.println("Tuotteen lämpötila on sopiva hyllypaikkaan");
@@ -208,10 +208,10 @@ public class DB_AccessObject {
 	 * @return Mahtuu (true)/ei mahdu (false) (Boolean)
 	 */
 
-	public boolean MahtuukoTuotteetHyllyyn(Tuotejoukko joukko) {
+	public boolean mahtuukoTuotteetHyllyyn(Tuotejoukko joukko) {
 		boolean mahtuuko = true;
 
-		Hyllypaikka hylly = HaeHylly(joukko.getHylly().getNimi());
+		Hyllypaikka hylly = haeHylly(joukko.getHylly().getNimi());
 		// Kesken eräinen tsekkaus ettei yhden tuotteen mitat ole hyllyn mittoja
 		// suurempi
 		// ArrayList<Double> hyllynmitat = new ArrayList();
@@ -222,7 +222,7 @@ public class DB_AccessObject {
 		Double vaadittu_tilavuus = joukko.getMaara() * joukko.getProduct().getProduct_volume();
 		Double käytetty_tilavuus = 0.0;
 
-		Double hyllyn_max_paino = HaeHylly(joukko.getHylly().getNimi()).getMax_paino();
+		Double hyllyn_max_paino = haeHylly(joukko.getHylly().getNimi()).getMax_paino();
 		Double vaadittu_paino = joukko.getMaara() * joukko.getProduct().getProduct_weight();
 		Double käytetty_paino = 0.0;
 
@@ -260,16 +260,16 @@ public class DB_AccessObject {
 	}
 
 
-	public Hyllypaikka HaeHylly(String tunnus) {
-		return hyllydb.HaeHylly(tunnus);
+	public Hyllypaikka haeHylly(String tunnus) {
+		return hyllydb.haeHylly(tunnus);
 	}
 
-	public ArrayList<String> HaeHyllypaikanTuotteet(String hyllypaikka) {
+	public ArrayList<String> haeHyllypaikanTuotteet(String hyllypaikka) {
 		return productdb.HaeHyllypaikanTuotteet(hyllypaikka);
 	}
 
-	public ArrayList<String> HaeTuotteenHyllypaikat(Product product) {
-		return hyllydb.HaeTuotteenHyllypaikat(product);
+	public ArrayList<String> haeTuotteenHyllypaikat(Product product) {
+		return hyllydb.haeTuotteenHyllypaikat(product);
 	}
 
 	public Product findTemperatures(Product pro) {
@@ -284,8 +284,8 @@ public class DB_AccessObject {
 		return tuoterividb.tuotteidenMaaraHyllyssa(nimi, hyllypaikka);
 	}
 
-	public boolean MuokkaaTuoteriviä(Tuotejoukko tuotejoukko) {
-		return tuoterividb.MuokkaaTuoteriviä(tuotejoukko);
+	public boolean muokkaaTuoteriviä(Tuotejoukko tuotejoukko) {
+		return tuoterividb.muokkaaTuoteriviä(tuotejoukko);
 	}
 
 	public ArrayList<Product> findProducts(String nimi) {

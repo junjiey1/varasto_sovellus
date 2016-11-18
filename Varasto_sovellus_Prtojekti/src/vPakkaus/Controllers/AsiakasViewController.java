@@ -24,6 +24,8 @@ public class AsiakasViewController implements Nakyma_IF{
 
 	public AsiakasViewController(){
 		tehdas = new TaulukkoFactory();
+		mc=null;
+		v=null;
 	}
 
 	/**
@@ -80,7 +82,7 @@ public class AsiakasViewController implements Nakyma_IF{
 	 * Luo Kolumnit käyttöliittymän taulukolle.
 	 */
 	private boolean luoUusiTaulukko(ArrayList<DAO_Objekti> p){
-		if(p.size()<=0 || p == null)
+		if(p == null || p.size()<=0)
 			return false;
 		asiakasTaulukko.getColumns().clear();
 		taulukko = tehdas.annaTaulukko(p.get(0), p);

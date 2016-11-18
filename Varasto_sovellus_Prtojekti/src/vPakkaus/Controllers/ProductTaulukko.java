@@ -13,16 +13,15 @@ import vPakkaus.Product;
 public class ProductTaulukko implements Taulukko_IF{
 
 	private TableView<DAO_Objekti> taulukko;
-	private Product[] PaivitettavatTuotteet;
+	private Product[] paivitettavatTuotteet;
 	private ArrayList<Product> p = new ArrayList<Product>();
 	private String error;
 
 	ProductTaulukko(TableView<DAO_Objekti> tuoteTaulukko, Product[] lista){
 		taulukko = tuoteTaulukko;
-		PaivitettavatTuotteet = lista;
+		paivitettavatTuotteet = lista;
 		int lask = 0;
 		for(Product o : lista){
-			System.out.println(o.getProduct_name());
 			if(o!=null){
 				p.add(o);
 				taulukko.getItems().add(o);
@@ -30,14 +29,12 @@ public class ProductTaulukko implements Taulukko_IF{
 				lask++;
 			}
 		}
-		//taulukko.getItems().add(lista[0]);
-		//taulukko.getItems().add(lista[1]);
 	}
 
 	private ArrayList<Product> convertToArrayList() {
 		ArrayList<Product> res = new ArrayList<Product>();
 		int lask=0;
-		for (Product p : PaivitettavatTuotteet) {
+		for (Product p : paivitettavatTuotteet) {
 			if (p != null){
 				if(!isValid(p)){
 					return null;
@@ -64,7 +61,7 @@ public class ProductTaulukko implements Taulukko_IF{
 	}
 
 	private boolean isEmpty() {
-		for (Product p : PaivitettavatTuotteet) {
+		for (Product p : paivitettavatTuotteet) {
 			if (p != null)
 				return false;
 		}
@@ -73,7 +70,7 @@ public class ProductTaulukko implements Taulukko_IF{
 
 	@Override
 	public boolean paivitaTietokantaan(MainController_IF mc, Nakyma_IF nakyma) {
-		if (PaivitettavatTuotteet == null || isEmpty()) // Tuote lista on tyhjä käyttäjä ei oo muokannut tuotteita
+		if (paivitettavatTuotteet == null || isEmpty()) // Tuote lista on tyhjä käyttäjä ei oo muokannut tuotteita
 			return false;
 		System.out.println("Tyhjä? " + isEmpty());
 		ArrayList<Product> res = convertToArrayList();
@@ -82,9 +79,9 @@ public class ProductTaulukko implements Taulukko_IF{
 			return false;
 		}
 		if (mc.paivitaTuotteet(res)) {
-			for(int i = 0 ; i<PaivitettavatTuotteet.length; i++)
-				if(PaivitettavatTuotteet[i]!=null)
-					PaivitettavatTuotteet[i]=null;
+			for(int i = 0 ; i<paivitettavatTuotteet.length; i++)
+				if(paivitettavatTuotteet[i]!=null)
+					paivitettavatTuotteet[i]=null;
 			//PaivitettavatTuotteet = new Product[p.size()];//Pitäisi nyt käydä aina manuaalisesti tyhjentämässä
 			return true;
 		} else
@@ -102,7 +99,7 @@ public class ProductTaulukko implements Taulukko_IF{
 
 	@Override
 	public DAO_Objekti getObject(int index) {
-		return PaivitettavatTuotteet[index];
+		return paivitettavatTuotteet[index];
 	}
 
 }

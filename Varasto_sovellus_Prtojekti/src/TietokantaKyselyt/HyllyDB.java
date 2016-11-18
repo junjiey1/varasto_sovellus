@@ -33,7 +33,7 @@ public class HyllyDB {
 	 * @return hyllyolio (Hyllypaikka)
 	 */
 
-	public Hyllypaikka HaeHylly(String tunnus) {
+	public Hyllypaikka haeHylly(String tunnus) {
 		Hyllypaikka hyl = null;
 		try {
 			ps = conn.prepareStatement(
@@ -79,7 +79,7 @@ public class HyllyDB {
 	 * @return Onnistuminen/epäonnistuminen (Boolean)
 	 */
 
-	public boolean CreateHyllypaikka(Hyllypaikka hyllypaikka) {
+	public boolean createHyllypaikka(Hyllypaikka hyllypaikka) {
 		int varastoID = 513;
 
 		try {
@@ -115,8 +115,8 @@ public class HyllyDB {
 	 * @return Lista hyllypaikkojen nimistä (ArrayList<String>)
 	 */
 
-	public ArrayList<String> HaeTuotteenHyllypaikat(Product product) {
-		ArrayList<String> tuotteen_hyllypaikat = new ArrayList();
+	public ArrayList<String> haeTuotteenHyllypaikat(Product product) {
+		ArrayList<String> tuotteen_hyllypaikat = new ArrayList<String>();
 		try {
 			ps = conn.prepareStatement(
 					"SELECT tuoterivi.hyllypaikka FROM tuoterivi, tuote WHERE tuoterivi.tuoteID = tuote.tuoteID AND tuote.nimi = ?;");

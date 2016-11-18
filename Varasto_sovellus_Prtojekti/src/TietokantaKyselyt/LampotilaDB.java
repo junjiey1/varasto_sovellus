@@ -13,12 +13,12 @@ import vPakkaus.Tuotejoukko;
  *
  */
 
-public class lampotilaDB {
+public class LampotilaDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
-	public lampotilaDB(Connection conn) {
+	public LampotilaDB(Connection conn) {
 		this.conn = conn;
 		// TODO Auto-generated constructor stub
 	}

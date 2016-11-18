@@ -15,7 +15,6 @@ public class Product implements DAO_Objekti{
 	private float product_price;
 	private int ID;
 	private boolean temp;
-	private ArrayList<String> muuttujienNimet = new ArrayList<String>();
 
 	/**
 	 * Tavaran konstruktori,missä on kaikki tavaran liittyvät tiedot.

@@ -18,9 +18,9 @@ public class ProductDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
-	private lampotilaDB lampotiladb;
+	private LampotilaDB lampotiladb;
 
-	public ProductDB(Connection conn, lampotilaDB lampotiladb) {
+	public ProductDB(Connection conn, LampotilaDB lampotiladb) {
 		this.conn = conn;
 		this.lampotiladb = lampotiladb;
 		// TODO Auto-generated constructor stub

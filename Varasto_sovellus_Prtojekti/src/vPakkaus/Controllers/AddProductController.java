@@ -23,7 +23,7 @@ import vPakkaus.Tuotejoukko;
  * Kontrolleri tavaran lisaamiselle.
  *
  */
-public class addProductController implements Nakyma_IF {
+public class AddProductController implements Nakyma_IF {
 
 	@FXML
 	private TextField productName, quantity, price, weight, volume, whLocation, length, width, height, minTempT, maxTempT;
@@ -48,7 +48,7 @@ public class addProductController implements Nakyma_IF {
 	float pPrice;
 	private HashMap<String, String> hm;
 
-	public addProductController(){
+	public AddProductController(){
 		pMinTemp=pMaxTemp=null;
 	}
 
@@ -62,7 +62,7 @@ public class addProductController implements Nakyma_IF {
 	 * @throws IOException
 	 *             Jos lisaaminen epaonnistunut
 	 */
-	public void AddProductManually() throws IOException {
+	public void addProductManually() throws IOException {
 		product_error = true;
 		allGood = true;
 
@@ -96,7 +96,7 @@ public class addProductController implements Nakyma_IF {
 
 			int lisaajan_id = mc.getID();
 			Tuotejoukko joukko = rakennaTuotejoukko();
-			product_error = mc.AddProduct(joukko);
+			product_error = mc.addProduct(joukko);
 			if (!product_error) {
 				product_error_handler();
 			} else
@@ -212,13 +212,13 @@ public class addProductController implements Nakyma_IF {
 				pQuantity = Integer.parseInt(oneRowOfData[7]);
 				pMinTemp = Integer.parseInt(oneRowOfData[8]);
 				pMaxTemp = Integer.parseInt(oneRowOfData[9]);
-				product_error = mc.AddProduct(rakennaTuotejoukko());
+				product_error = mc.addProduct(rakennaTuotejoukko());
 
 				if (!product_error) {
 					product_error_handler();
 					break;
 				}
-				System.out.println(clientName + "  " + clientAddress + " " + pName + " " + pWeight + " " + pVolume + " "
+				System.out.println(clientName + "  " + clientAddress + " " + pName + " " + pWeight + " " + " "
 						+ pShelf + " " + pPrice + " " + pQuantity);
 			}
 		}

@@ -26,6 +26,11 @@ public class AsiakasControlleri implements Nakyma_IF {
 	private Asiakas a;
 	private boolean muokataanOlemassaOlevaa = false;
 
+	public AsiakasControlleri(){
+	  vaihtaja=null;
+	  mc=null;
+	}
+
 	@Override
 	public void setMainController(MainController_IF m) {
 		mc = m;
@@ -103,7 +108,7 @@ public class AsiakasControlleri implements Nakyma_IF {
 				a = new Asiakas(Customer_Name, Customer_Street,Customer_City,
 					ContactP_Email, ContactP_Phone,postalNumber
 				);
-				mc.TallennaAsiakas(a);
+				mc.tallennaAsiakas(a);
 				vaihtaja.asetaUudeksiNaytoksi("customer", "ASIAKAS : " + a.getNimi() ,a);
 				//muokataanOlemassaOlevaa = true;
 			}else{

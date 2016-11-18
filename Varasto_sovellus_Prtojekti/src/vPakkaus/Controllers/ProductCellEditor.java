@@ -4,12 +4,12 @@ import vPakkaus.Product;
 
 public class ProductCellEditor extends EditingCell{
 
-	private Product[] PaivitettavatTuotteet;
+	private Product[] paivitettavatTuotteet;
 	private Product muokattava;
 
 	public ProductCellEditor(int n, Product[] PaivitettavatTuotteet) {
 		super(n);
-		this.PaivitettavatTuotteet = PaivitettavatTuotteet;
+		this.paivitettavatTuotteet = PaivitettavatTuotteet;
 	}
 	@Override
 	public void textFieldHandelerMethod() {
@@ -107,7 +107,7 @@ public class ProductCellEditor extends EditingCell{
 			case (4):
 				p.setProduct_price(((Float) newValue).floatValue());
 		}
-		PaivitettavatTuotteet[i] = p;
+		paivitettavatTuotteet[i] = p;
 		this.cancelEdit();
 	}
 	@Override

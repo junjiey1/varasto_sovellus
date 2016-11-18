@@ -140,12 +140,11 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 	                new Callback<TableColumn.CellDataFeatures<DAO_Objekti, Object>,
 	                ObservableValue<Object>>() {
 
-				@Override
-				public ObservableValue<Object> call(CellDataFeatures<DAO_Objekti, Object> arg0) {
-					// TODO Auto-generated method stub
-					return new ReadOnlyObjectWrapper<Object>(arg0.getValue());
-				}
-	        });
+            				@Override
+            				public ObservableValue<Object> call(CellDataFeatures<DAO_Objekti, Object> arg0) {
+            					return new ReadOnlyObjectWrapper<Object>(arg0.getValue());
+            				}
+        });
 		}
 		return new ProductTaulukko(product_taulukko, PaivitettavatTuotteet);
 	}

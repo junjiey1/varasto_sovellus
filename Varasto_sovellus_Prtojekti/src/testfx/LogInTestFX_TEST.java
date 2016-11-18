@@ -14,7 +14,7 @@ public class LogInTestFX_TEST extends GuiTest{
 
 
 	@Test
-	public void LoginOikeatTunnukset() {
+	public void loginOikeatTunnukset() {
 		click("#usernameTxt").type("ww");
 		click("#showpword");
 		click("#passwordTxt").type("w");
@@ -25,7 +25,7 @@ public class LogInTestFX_TEST extends GuiTest{
 	}
 
 	@Test
-	public void LoginVaarillaTunnuksillaPitaaEpaonnistua() {
+	public void loginVaarillaTunnuksillaPitaaEpaonnistua() {
 		click("#usernameTxt").type("eisaisionnistua");
 		click("#passwordTxt").type("kayttaja");
 		click("#loginButton");

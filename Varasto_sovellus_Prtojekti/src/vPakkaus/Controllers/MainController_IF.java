@@ -8,14 +8,14 @@ import vPakkaus.Tuotejoukko;
 
 public interface MainController_IF {
 	public void asetaAktiiviseksiNaytoksi(Nakyma_IF naytto);
-	boolean LogIn(String username, String password);
-	boolean AddProduct(Tuotejoukko joukko);
+	boolean logIn(String username, String password);
+	boolean addProduct(Tuotejoukko joukko);
 	ArrayList<Product> haeTuote(String nimi);
 	public int getID();
 	public String getName();
 	public boolean paivitaTuotteet(ArrayList<Product> products);
 	public void haeAsiakkaat(String nimi);
-	public void TallennaAsiakas(Asiakas asiakas);
-	public void LogOut();
+	public void tallennaAsiakas(Asiakas asiakas);
+	public void logOut();
 	public void updateAsiakas(Asiakas a);
 }

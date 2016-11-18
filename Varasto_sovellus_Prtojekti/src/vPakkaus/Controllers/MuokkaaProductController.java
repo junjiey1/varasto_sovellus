@@ -41,7 +41,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	private int mode;
 	private MainController_IF mc;
-	private ArrayList<DAO_Objekti> p = new ArrayList<DAO_Objekti>();
+	private ArrayList<DAO_Objekti> p;
 	boolean hae;
 	private NayttojenVaihtaja_IF vaihtaja;
 	private TaulukkoFactory tehdas;
@@ -49,6 +49,11 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 
 
+
+	public MuokkaaProductController(){
+	  vaihtaja=null;
+	  p = new ArrayList<DAO_Objekti>();
+	}
 
 	public void initialize() {
 		mode = 1;
@@ -59,7 +64,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 		tehdas = new TaulukkoFactory();
 	}
 
-	public void Reset() {
+	public void reset() {
 		int length = tuoteTable.getItems().size(); // Hae taulun rivien määrä
 		if (length > 0) {// Jos on rivejä
 			for (; 0 < length;) {// Poistetaan yksi kerrallaan
@@ -78,7 +83,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 	}
 
 	private boolean luoUusiTaulukko(){
-		if(p.size()<=0 || p == null)
+		if(p == null || p.size()<=0)
 			return false;
 		tuoteTable.getColumns().clear();
 		taulukko = tehdas.annaTaulukko(p.get(0), p);
@@ -86,14 +91,14 @@ public class MuokkaaProductController implements Nakyma_IF {
 		return true;
 	}
 
-	public void SearchManually() throws IOException {
+	public void searchManually() throws IOException {
 		hae = true;
 		if (productName.getText().isEmpty()) {
 			hae = false;
 		}
 		if (hae) {
-			Reset();
-			HaeTuoteet();
+			reset();
+			haeTuoteet();
 			if(luoUusiTaulukko()){
 				täytäTaulukko();
 			}else{
@@ -110,7 +115,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 		mc = m;
 	}
 
-	public void HaeTuoteet() {
+	public void haeTuoteet() {
 		p.addAll(mc.haeTuote(productName.getText()));
 	}
 
@@ -140,7 +145,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 			huomautus.showAndWait();
 		}
 
-			Reset();
+			reset();
 			täytäTaulukko();
 
 	}

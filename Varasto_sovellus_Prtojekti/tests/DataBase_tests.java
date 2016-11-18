@@ -36,20 +36,20 @@ public class DataBase_tests {
 	@Test
 	public void LogIn_VäärätTunnukset() {
 		System.out.println("\nTest : LogIn_VäärätTunnukset()\n");
-		int result = db.LogIn("randomia", "igszsg")[0];
+		int result = db.logIn("randomia", "igszsg")[0];
 		assertEquals("LogIn_VäärätTunnukset() testi EPÄONNISTUI!", result, 0);
 	}
 
 	@Test
 	public void LogIn_KäyttäjänID() {
 		System.out.println("\nTest : LogIn_KäyttäjänID()");
-		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!", db.LogIn("testi", "testi")[1], 7);
+		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!", db.logIn("testi", "testi")[1], 7);
 	}
 
 	@Test
 	public void LogIn_AidotTunnukset() {
 		System.out.println("\nTest : LogIn_AidotTunnukset()\n");
-		int result = db.LogIn("testi", "testi")[0];
+		int result = db.logIn("testi", "testi")[0];
 		assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!", result, 1);
 	}
 
@@ -86,10 +86,10 @@ public class DataBase_tests {
 		Product product = new Product("testi", 1.0, 10.0, 10.0, 10.0, 5.0f);
 		Hyllypaikka hyllypaikka = new Hyllypaikka("a-3", 10, 10, 100, -5, 2000);
 		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, 11);
-		boolean result = db.MahtuukoTuotteetHyllyyn(joukko);
+		boolean result = db.mahtuukoTuotteetHyllyyn(joukko);
 		assertEquals("Tavaran lisaaminen onnistui!", result, false);
 		Tuotejoukko joukko1 = new Tuotejoukko(product, hyllypaikka, 9);
-		result = db.MahtuukoTuotteetHyllyyn(joukko1);
+		result = db.mahtuukoTuotteetHyllyyn(joukko1);
 		assertEquals("Tavaran lisaaminen onnistui!", result, true);
 	}
 
@@ -102,7 +102,7 @@ public class DataBase_tests {
 		Hyllypaikka hyllypaikka = new Hyllypaikka("a-1");
 		int maara = 2;
 		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, maara);
-		boolean result = db.Lisaa(joukko);
+		boolean result = db.lisaa(joukko);
 		assertEquals("Tavaran lisaaminen onnistui!", result, true);
 	}
 

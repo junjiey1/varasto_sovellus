@@ -27,7 +27,6 @@ public class MainPageController implements Nakyma_IF{
 	//private AnchorPane APLayout;
 	private MainController_IF mc;
 	private Tab activeTab;
-	private String resource;
 	private NayttojenVaihtaja_IF vaihtaja;
 
 	public MainPageController(){
@@ -46,19 +45,14 @@ public class MainPageController implements Nakyma_IF{
 		}
 		if (tab4.isSelected()) {
 			activeTab = tab4;
-			//vaihtaja.asetaUudeksiNaytoksi("addpage", "VarastoSovellus");
-			resource = "view/addProduct.fxml";
 		}
 		if (tab5.isSelected()) {
 			activeTab = tab5;
-			//vaihtaja.asetaUudeksiNaytoksi("addpage", "VarastoSovellus");
-			resource = "view/addProduct.fxml";
 		}
-		//MainLaunch.windowConstructor(resource, "VarastoSovellus 1.01", activeTab);
 	}
 
 	public void logOut() throws IOException {
-		mc.LogOut(); // Poistaa tallennetut käyttäjän nimen ja ID:n
+		mc.logOut(); // Poistaa tallennetut käyttäjän nimen ja ID:n
 		vaihtaja.asetaUudeksiNaytoksi("login", "VarastoSovellus", null);
 	}
 

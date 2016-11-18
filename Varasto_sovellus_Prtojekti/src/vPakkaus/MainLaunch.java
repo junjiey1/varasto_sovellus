@@ -23,10 +23,8 @@ import vPakkaus.Controllers.SetMainController;
 
 public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 
-	private static Stage MainStage;
-	private static FXMLLoader loader;
-	private static AnchorPane APLayout;
-	private static MainController mc;
+	private Stage mainStage;
+	private MainController mc;
 
 	private ViewFactory_IF tehdas;
 	private HashMap<String, AnchorPane> anchorMap;
@@ -46,10 +44,10 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		tehdas = new AnchorPaneFactory(mc);
 		lataaAnchorPanet();
 		luoNakymat();
-		MainStage = primaStage;
-		MainStage.setTitle("test");
-		MainStage.setScene(sceneMap.get("login"));
-		MainStage.show();
+		mainStage = primaStage;
+		mainStage.setTitle("test");
+		mainStage.setScene(sceneMap.get("login"));
+		mainStage.show();
 		//windowConstructor("view/LoginView.fxml", "LOG IN", null);
 	}
 
@@ -118,9 +116,9 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 				if(preData!=null)
 					luodutNakymaKontrollerit.get(nimi).paivita(preData);
 			}
-			MainStage.setScene(scene);
-			MainStage.setTitle(otsikko);
-			MainStage.show();
+			mainStage.setScene(scene);
+			mainStage.setTitle(otsikko);
+			mainStage.show();
 		}
 	}
 

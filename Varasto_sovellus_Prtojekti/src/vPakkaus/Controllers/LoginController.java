@@ -2,10 +2,12 @@ package vPakkaus.Controllers;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import vPakkaus.LanguageUtil;
 import vPakkaus.MainLaunch;
 
 /**
@@ -23,7 +25,13 @@ public class LoginController implements Nakyma_IF {
 	@FXML
 	private Label incorrectLabel;
 	@FXML
-    private TextField visiblePasswordTxt;
+  private TextField visiblePasswordTxt;
+	@FXML
+	private Button loginButton;
+	@FXML
+	private Label passlabel;
+	@FXML
+	private Label userlabel;
 
 	private String uname, pword;
 	private MainController_IF mc;
@@ -119,6 +127,13 @@ public class LoginController implements Nakyma_IF {
 	@Override
 	public void esiValmistelut() {
 		passwordTxt.setText("");
+		passwordTxt.setPromptText(LanguageUtil.getMessageFromResource("password"));
 		usernameTxt.setText("");
+		usernameTxt.setPromptText(LanguageUtil.getMessageFromResource("username"));
+		incorrectLabel.setText(LanguageUtil.getMessageFromResource("wrongvalidations"));
+		loginButton.setText(LanguageUtil.getMessageFromResource("login"));
+		passlabel.setText(LanguageUtil.getMessageFromResource("password"));
+		userlabel.setText(LanguageUtil.getMessageFromResource("username"));
+		showpword.setText(LanguageUtil.getMessageFromResource("showpassword"));
 	}
 }

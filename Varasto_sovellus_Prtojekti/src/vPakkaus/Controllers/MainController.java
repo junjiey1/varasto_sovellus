@@ -30,6 +30,18 @@ public class MainController implements MainController_IF{
 	}
 
 	/**
+	 * Tarkistaa jos malliin on asetettu virhe viesti. Jos virhe viesti on asetettu tämä metodi välittää
+	 * virhe viestin sisällön aktiiviselle näytölle. Jos virhettä ei ole asetettu tämä funktio ei tee mitään
+	 */
+	private void checkForErrorMessage(){
+	  if(db.getErrorMsg()!=null){ //jos error viesti != null on tapahtunut virhe tietokanta operaatiossa
+      String syy = db.getErrorMsg(); //Hae virheviestin sisältö
+      db.setErrorMsg(null);//Nollaa virheviesti muuttuja mallissa
+      naytto.virheIlmoitus(syy);//Välitä virheilmoitus aktiivisellenäytölle
+    }
+	}
+
+	/**
 	 * Sisaankirjautuminen
 	 * Pyytää mallia hakemaan käyttäjä tiedot annetulla käyttäjä nimellä. Palauttaa edelleen mallilta saadun boolean arvon
 	 * true jos identifointi onnistui muuten false.
@@ -44,7 +56,6 @@ public class MainController implements MainController_IF{
 			res = true;
 			userID = tulos[1];
 			this.username = username;
-			System.out.println("käyttäjä " + this.username);
 		}
 		return res;
 	}
@@ -63,6 +74,7 @@ public class MainController implements MainController_IF{
 	public boolean addProduct(Tuotejoukko joukko) {
 		System.out.println(joukko.getProduct().toString());
 		boolean res = db.lisaa(joukko);
+		checkForErrorMessage();
 		return res;
 	}
 
@@ -75,12 +87,13 @@ public class MainController implements MainController_IF{
 	public ArrayList<Product> haeTuote(String nimi) {
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
-		//naytto.paivita("lol");
+		checkForErrorMessage();
 		return res;
 	}
 
 	public ArrayList<Hyllypaikka> haeHyllypaikka(String nimi){
 		ArrayList<Hyllypaikka> res = null;
+		checkForErrorMessage();
 		return res;
 	}
 
@@ -93,6 +106,7 @@ public class MainController implements MainController_IF{
 	 */
 	public boolean paivitaTuotteet(ArrayList<Product> products){
 		boolean res = db.updateProducts(products);
+		checkForErrorMessage();
 		return res;
 	}
 
@@ -154,6 +168,7 @@ public class MainController implements MainController_IF{
 	@Override
 	public void haeAsiakkaat(String nimi) {
 		ArrayList<Asiakas> lista = db.haeAsiakkaat(nimi);
+		checkForErrorMessage();
 		naytto.paivita(lista);
 	}
 
@@ -163,6 +178,7 @@ public class MainController implements MainController_IF{
 			naytto.paivita("Asiakas nimellä " + asiakas.getNimi() + " lisättiin onnistuneesti");
 			naytto.paivita(db.haeAsiakas(asiakas.getNimi()));
 		}else{
+		  checkForErrorMessage();
 			naytto.virheIlmoitus("Asiakas nimellä " + asiakas.getNimi() + " lisääminen epäonnistui");
 		}
 	}
@@ -174,5 +190,6 @@ public class MainController implements MainController_IF{
 			naytto.paivita("Päivitys onnistui!");
 		else
 			naytto.virheIlmoitus("Päivitys epäonnistui!");
+		checkForErrorMessage();
 	}
 }

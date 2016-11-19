@@ -95,7 +95,7 @@
       <Button layoutX="231.0" layoutY="314.0" mnemonicParsing="false" onAction="#removeAllProducts" prefHeight="30.0" prefWidth="67.0" text="CLEAR" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="28.0" prefHeight="17.0" prefWidth="203.0" text="ADD PRODUCTS AUTOMATICALLY" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="28.0" prefHeight="17.0" prefWidth="203.0" text="ADD PRODUCTS MANUALLY" />
-      <Button layoutX="369.0" layoutY="405.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="30.0" prefWidth="70.0" text="CLEAR" />
+      <Button layoutX="369.0" layoutY="405.0" mnemonicParsing="false" onAction="#resetoi" prefHeight="30.0" prefWidth="70.0" text="CLEAR" />
       <Button layoutX="394.0" layoutY="256.0" mnemonicParsing="false" onAction="#showTemperatures" prefHeight="30.0" text="TEMPERATURES" />
       <TextField fx:id="minTempT" alignment="CENTER" layoutX="370.0" layoutY="306.0" prefHeight="28.0" prefWidth="70.0" visible="false" />
       <TextField fx:id="maxTempT" alignment="CENTER" layoutX="450.0" layoutY="306.0" prefHeight="28.0" prefWidth="70.0" visible="false" />

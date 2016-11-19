@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vPakkaus.DB_AccessObject;
 import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
 
@@ -18,10 +19,11 @@ public class HyllyDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
+	private DB_AccessObject db;
 
-	public HyllyDB(Connection conn) {
+	public HyllyDB(Connection conn, DB_AccessObject db) {
 		this.conn = conn;
-		// TODO Auto-generated constructor stub
+		this.db = db;
 	}
 
 	/**
@@ -56,7 +58,7 @@ public class HyllyDB {
 				ps.close();
 				rs.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				db.setErrorMsg(e.getMessage());
 				e.printStackTrace();
 			}
 		}
@@ -100,6 +102,7 @@ public class HyllyDB {
 
 		} catch (SQLException e) {
 			System.out.println("Lisäys epäonnistui hyllypaikkataulukkoon!");
+			db.setErrorMsg(e.getMessage());
 			e.printStackTrace();
 			return false;
 		}
@@ -134,7 +137,7 @@ public class HyllyDB {
 				ps.close();
 				rs.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+			  db.setErrorMsg(e.getMessage());
 				e.printStackTrace();
 			}
 		}

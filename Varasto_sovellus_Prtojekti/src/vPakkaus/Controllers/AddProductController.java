@@ -9,9 +9,11 @@ import javax.swing.JOptionPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import vPakkaus.Hyllypaikka;
@@ -94,16 +96,16 @@ public class AddProductController implements Nakyma_IF {
 
 		if (allGood) {
 
-			int lisaajan_id = mc.getID();
+			//int lisaajan_id = mc.getID();
 			Tuotejoukko joukko = rakennaTuotejoukko();
 			product_error = mc.addProduct(joukko);
 			if (!product_error) {
-				product_error_handler();
+				virheIlmoitus("Tuotteiden muuttujissa havaittiin virhe!\nTarkista asettamiesi muuttujien arvot...");
 			} else
 				JOptionPane.showMessageDialog(null, "uusi tuote lisättiin onnistuneesti", "Lisäys onnistui",
 						JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			System.out.println("joku kenttä on tyhjä tai väärin täytetty");
+		  virheIlmoitus("Tuotteiden muuttujissa havaittiin virhe!\nTarkista asettamiesi muuttujien arvot...");
 		}
 	}
 
@@ -215,7 +217,7 @@ public class AddProductController implements Nakyma_IF {
 				product_error = mc.addProduct(rakennaTuotejoukko());
 
 				if (!product_error) {
-					product_error_handler();
+				  virheIlmoitus("Tuotteiden muuttujissa havaittiin virhe!");
 					break;
 				}
 				System.out.println(clientName + "  " + clientAddress + " " + pName + " " + pWeight + " " + " "
@@ -254,23 +256,9 @@ public class AddProductController implements Nakyma_IF {
 		return new Tuotejoukko(product, hylly, pQuantity);
 	}
 
-	public void clearAll(){
-		productName.setText("");
-		quantity.setText("");
-		price.setText("");
-		weight.setText("");
-		volume.setText("");
-		whLocation.setText("");
-		length.setText("");
-		width.setText("");
-		height.setText("");
-		minTempT.setText("");
-		maxTempT.setText("");
-	}
-
-	public void product_error_handler() {
-		JOptionPane.showMessageDialog(null, "Error occured while adding product, please check product information.");
-	}
+//	public void product_error_handler() {
+//		JOptionPane.showMessageDialog(null, "Error occured while adding product, please check product information.");
+//	}
 
 	@Override
 	public void paivita(Object data) {
@@ -279,18 +267,31 @@ public class AddProductController implements Nakyma_IF {
 
 	@Override
 	public void resetoi() {
-		// TODO Auto-generated method stub
-
+	  productName.setText("");
+    quantity.setText("");
+    price.setText("");
+    weight.setText("");
+    volume.setText("");
+    whLocation.setText("");
+    length.setText("");
+    width.setText("");
+    height.setText("");
+    minTempT.setText("");
+    maxTempT.setText("");
 	}
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-
+	  Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setContentText(viesti.toString());
+    alert.showAndWait();
 	}
 
 	@Override
 	public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
 		this.vaihtaja = vaihtaja;
+		vaihtaja.rekisteröiNakymaKontrolleri(this, "addpage");
 	}
 
 	@Override

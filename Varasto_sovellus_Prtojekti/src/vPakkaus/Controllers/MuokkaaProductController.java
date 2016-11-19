@@ -14,6 +14,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,6 +39,8 @@ public class MuokkaaProductController implements Nakyma_IF {
 	private Button hyllyButton;
 	@FXML
 	private Button tuoteButton;
+	@FXML
+	private Label label1;
 
 	private int mode;
 	private MainController_IF mc;
@@ -51,7 +54,8 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 
 	public MuokkaaProductController(){
-	  vaihtaja=null;
+	  vaihtaja = null;
+	  mc = null;
 	  p = new ArrayList<DAO_Objekti>();
 	}
 
@@ -129,42 +133,43 @@ public class MuokkaaProductController implements Nakyma_IF {
 		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == buttonTypeOne){
-			taulukko.paivitaTietokantaan(mc, this);
-			Alert info = new Alert(AlertType.INFORMATION);
-			info.setTitle("Päivitys onnistuu");
-			info.setHeaderText("Päivitys onnistui");
-			info.setContentText("Tiedot päivitetty onnistuneesti");
-
-			info.showAndWait();
-		} else{
-			Alert huomautus = new Alert(AlertType.ERROR);
-			huomautus.setTitle("Error");
-			huomautus.setHeaderText("Tietokantaa ei voitu päivittää!");
-			huomautus.setContentText("Virhe havaittu tietokannan päivityksessä");
-
-			huomautus.showAndWait();
+			if(taulukko.paivitaTietokantaan(mc, this)){
+  			Alert info = new Alert(AlertType.INFORMATION);
+  			info.setTitle("Päivitys onnistuu");
+  			info.setHeaderText("Päivitys onnistui");
+  			info.setContentText("Tiedot päivitetty onnistuneesti");
+  			info.showAndWait();
+  			reset();
+        täytäTaulukko();
+  		} else{
+  			Alert huomautus = new Alert(AlertType.ERROR);
+  			huomautus.setTitle("Error");
+  			huomautus.setHeaderText("Tietokantaa ei voitu päivittää!");
+  			huomautus.setContentText("Virhe havaittu tietokannan päivityksessä");
+  			huomautus.showAndWait();
+  		}
 		}
-
-			reset();
-			täytäTaulukko();
-
 	}
 
 	public void switchMode(){
 		switch(mode){//F75757
 			case 1:
 				mode = 2;
-				//tuoteButton.setDisable(true);
 				//hyllyButton.setDisable(false);
-				hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
-				tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
+        //tuoteButton.setDisable(true);
+				label1.setText("Etsitään tuotteita");
+				productName.setPromptText("Tuotteen nimi");
+				tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
+        hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
 				break;
 			case 2:
 				mode = 1;
-				//hyllyButton.setDisable(true);
 				//tuoteButton.setDisable(false);
-				tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
-				hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
+        //hyllyButton.setDisable(true);
+				label1.setText("Etsitään hyllypaikkoja");
+				productName.setPromptText("Hyllypaikan nimi");
+				hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
+        tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
 		}
 	}
 
@@ -190,7 +195,6 @@ public class MuokkaaProductController implements Nakyma_IF {
 		alert.setTitle("Error");
 		alert.setContentText(viesti.toString());
 		alert.showAndWait();
-
 	}
 
 

@@ -1,8 +1,11 @@
 package vPakkaus;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +40,11 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	 */
 	@Override
 	public void start(Stage primaStage) throws IOException {
+	  System.out.println("Ladataan kieli");
+	  //Util-luokka lataa käyttäjän asettaman kielen arvon languageSettings.properties tiedostosta
+	  //ko. properties tiedoston arvoista rakennetaan sitten ResourceBundle
+	  LanguageUtil.buildResourceBundleFromLanguageSettingsPropertiesFile();
+
 		anchorMap = new HashMap<String, AnchorPane>(); //Tänne tallenetaan fxml tiedoista luodut Anchorpanet
 		sceneMap = new HashMap<String, Scene>(); //Tänne tallennetaan jokainen Scene-olio
 		luodutNakymaKontrollerit = new HashMap<String, Nakyma_IF>(); //Tänne jokainen FXML näkymä-luokan kontrolleri instanssi
@@ -45,10 +53,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		lataaAnchorPanet();
 		luoNakymat();
 		mainStage = primaStage;
-		mainStage.setTitle("test");
-		mainStage.setScene(sceneMap.get("login"));
-		mainStage.show();
-		//windowConstructor("view/LoginView.fxml", "LOG IN", null);
+		asetaUudeksiNaytoksi("login", "LOGIN", null);
 	}
 
 	/**
@@ -92,7 +97,6 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	 *             Jos kaynnistaminen epaonnistuu.
 	 */
 	public static void main(String[] args) throws IOException {
-		System.out.println("main");
 		launch(args);
 	}
 

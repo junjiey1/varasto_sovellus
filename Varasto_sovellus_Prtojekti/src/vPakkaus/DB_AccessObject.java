@@ -22,7 +22,7 @@ public class DB_AccessObject {
 	// ACCESS SQL_DB_OBJ.
 	private Connection conn = null;
 
-
+	private String errorMsg;
 	private LampotilaDB lampotiladb;
 	private AsiakasDB asiakasdb;
 	private UsersDB usersdb;
@@ -36,6 +36,7 @@ public class DB_AccessObject {
 	 */
 
 	public DB_AccessObject() {
+	  errorMsg = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			// conn =
@@ -56,10 +57,10 @@ public class DB_AccessObject {
 		try {
 			if (conn!=null && conn.isValid(10)) {
 				usersdb = new UsersDB(conn);
-				hyllydb = new HyllyDB(conn);
+				hyllydb = new HyllyDB(conn, this);
 				lampotiladb = new LampotilaDB(conn);
 				asiakasdb = new AsiakasDB(conn);
-				productdb = new ProductDB(conn, lampotiladb);
+				productdb = new ProductDB(conn, lampotiladb, this);
 				tuoterividb = new TuoteriviDB(conn, productdb, hyllydb);
 			}
 		} catch (SQLException e) {
@@ -72,6 +73,8 @@ public class DB_AccessObject {
 
 	// -----METODIT-----//
 
+
+
 	/**
 	 * Kirjautuminen, tarkistaa löytyykö vastaava käyttäjätunnus ja salasana tietokannasta.
 	 *
@@ -83,6 +86,25 @@ public class DB_AccessObject {
 	}
 
 	/**
+	 * Hae virhe viesti.
+	 * @return virhe viesti
+	 */
+	public String getErrorMsg() {
+    return errorMsg;
+  }
+
+
+
+	/**
+   * Aseta virhe viesti.
+   */
+  public void setErrorMsg(String errorMsg) {
+    this.errorMsg = errorMsg;
+  }
+
+
+
+  /**
 	 * Lisaa tuotejoukon tietokantaan.
 	 *
 	 * @param joukko
@@ -96,6 +118,14 @@ public class DB_AccessObject {
 		ArrayList<Boolean> onkoVirheitä = new ArrayList<Boolean>();
 
 		Hyllypaikka hyllypaikka = haeHylly(joukko.getHylly().getNimi());
+		// Jos hyllypaikkaa ei ole olemassa
+		if(hyllypaikka==null){
+		  //Error viestille asetetaan arvo.
+      //PääKontrolleri huomaa tämän ja välittää viestin Näytölle
+		  errorMsg = "Hyllypaikkaa annetulla arvolla" + joukko.getHylly().getNimi() + " ei löytynyt";
+		  //Poistutaan funktiosta ja palautetaan false
+		  return false;
+		}
 		joukko.setHylly(hyllypaikka);
 
 		// Haetaan hyllypaikan tuotteet
@@ -104,17 +134,20 @@ public class DB_AccessObject {
 		boolean mahtuuko = mahtuukoTuotteetHyllyyn(joukko);
 		boolean onkoLampotilaSopiva = checkLampotila(joukko);
 
-		// Jos hyllypaikkaa ei ole olemassa
-		if (hyllypaikka == null) {
-			System.out.println("hyllypaikkaa ei ole olemassa");
-			onkoVirheitä.add(false);
-		} else if (!mahtuuko) {
+		if (!mahtuuko) {
 			System.out.println("Tuotteet eivät mahdu hyllyyn");
 			onkoVirheitä.add(false);
+			//Error viestille asetetaan arvo.
+      //PääKontrolleri huomaa tämän ja välittää viestin Näytölle
+			errorMsg = "Tuotteet eivät mahdu hyllyyn";
+
 			// Jos tuotetta on jo hyllypaikassa
 		} else if (!onkoLampotilaSopiva) {
 			System.out.println("Tuotteen lämpötila ei ole sopiva kyseiseen hyllypaikkaan");
 			onkoVirheitä.add(false);
+			//Error viestille asetetaan arvo.
+      //PääKontrolleri huomaa tämän ja välittää virheviestin Näytölle
+      errorMsg = "Tuotteen lämpötila ei ole sopiva kyseiseen hyllypaikkaan";
 		} else if (Hyllyn_tuotteet.contains(joukko.getProduct().getProduct_name())) {
 			System.out.println("Tuotetta on jo hyllyssä");
 
@@ -133,7 +166,8 @@ public class DB_AccessObject {
 			Product product = findProduct(joukko.getProduct().getProduct_name());
 			// Jos kyseistä tuotetta ei ole vielä olemassa ollenkaan
 			if (product == null) {
-				addProductToTuoteTable(joukko.getProduct());
+				if(!addProductToTuoteTable(joukko.getProduct())) //Jos tuotteen lisäyksessä tapahtui virhe
+				  return false;
 				joukko.getProduct().setID(findProduct(joukko.getProduct().getProduct_name()).getID());
 				if (joukko.getProduct().getMax_temperature() != null
 						&& joukko.getProduct().getMin_temperature() != null)

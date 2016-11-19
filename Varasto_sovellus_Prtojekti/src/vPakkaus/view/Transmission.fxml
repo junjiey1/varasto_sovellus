@@ -14,22 +14,22 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="570.0" prefWidth="815.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller">
+<AnchorPane prefHeight="570.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller">
    <children>
-      <TabPane layoutY="35.0" prefHeight="534.0" prefWidth="815.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="244.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane layoutY="35.0" prefHeight="570.0" prefWidth="815.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="244.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab closable="false" text="1. Aseta PVM ja Valitse asiakas">
+          <Tab closable="false" text="1. Select the Date and Customer">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
                      <children>
                         <DatePicker layoutX="24.0" layoutY="47.0" />
-                        <Label layoutX="24.0" layoutY="14.0" prefHeight="33.0" prefWidth="81.0" text="Päivämäärä:" />
-                        <Label layoutX="26.0" layoutY="78.0" prefHeight="39.0" prefWidth="135.0" text="Asiakas nimi:" />
+                        <Label layoutX="24.0" layoutY="14.0" prefHeight="33.0" prefWidth="81.0" text="Date:" />
+                        <Label layoutX="26.0" layoutY="78.0" prefHeight="39.0" prefWidth="135.0" text="Customer name:" />
                         <TextField layoutX="25.0" layoutY="117.0" prefHeight="31.0" prefWidth="217.0" />
                         <TableView layoutX="289.0" layoutY="31.0" prefHeight="485.0" prefWidth="497.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Asiakas nimi" />
-                            <TableColumn prefWidth="134.0" text="Osoite" />
+                            <TableColumn prefWidth="75.0" text="Name" />
+                            <TableColumn prefWidth="134.0" text="Address" />
                           </columns>
                            <opaqueInsets>
                               <Insets />
@@ -53,9 +53,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Valittu päivämäärä: " />
+                              <Label text="Selected date: " />
                               <Label prefHeight="21.0" prefWidth="204.0" GridPane.rowIndex="1" />
-                              <Label prefHeight="21.0" prefWidth="256.0" text="Valittu asiakas:" GridPane.rowIndex="2" />
+                              <Label prefHeight="21.0" prefWidth="256.0" text="Selected customer:" GridPane.rowIndex="2" />
                               <Label GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
@@ -63,12 +63,12 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab closable="false" text="2. Valitse tuotteet">
+          <Tab closable="false" text="2. Select product">
                <content>
                   <fx:include source="Trans_selectProduct.fxml" />
                </content>
           </Tab>
-            <Tab text="3. Vahvistus">
+            <Tab text="3. Confirm">
                <content>
                   <fx:include source="Trans_confirm.fxml" />
                </content>

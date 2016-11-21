@@ -127,7 +127,7 @@
             <classpath refid="Varasto_sovellus_Prtojekti.classpath"/>
         </junit>
     </target>
-    <target name="Product_Test">
+    <target name="Product_Test" depends="build">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>

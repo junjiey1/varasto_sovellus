@@ -141,11 +141,11 @@
         </java>
     </target>
     <target name="junitreport">
-        <junitreport todir="./Varasto_sovellus_Prtojekti/report">
-            <fileset dir="./Varasto_sovellus_Prtojekti/report">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
                 <include name="TEST-*.xml"/>
             </fileset>
-            <report format="frames" todir="./report/html"/>
+            <report format="frames" todir="${junit.output.dir}"/>
         </junitreport>
     </target>
 </project>

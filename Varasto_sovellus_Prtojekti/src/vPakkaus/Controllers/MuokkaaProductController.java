@@ -102,7 +102,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 		}
 		if (hae) {
 			reset();
-			haeTuoteet();
+			haeKohteetTietokannasta();
 			if(luoUusiTaulukko()){
 				täytäTaulukko();
 			}else{
@@ -119,8 +119,11 @@ public class MuokkaaProductController implements Nakyma_IF {
 		mc = m;
 	}
 
-	public void haeTuoteet() {
-		p.addAll(mc.haeTuote(productName.getText()));
+	public void haeKohteetTietokannasta() {
+	  if(mode==2)
+	    p.addAll(mc.haeTuote(productName.getText()));
+	  else if(mode==1)
+	    p.addAll(mc.haeHyllypaikka(productName.getText()));
 	}
 
 	public void paivitaTuotteet() {

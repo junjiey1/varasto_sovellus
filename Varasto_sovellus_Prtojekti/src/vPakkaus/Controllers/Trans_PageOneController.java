@@ -1,16 +1,19 @@
 package vPakkaus.Controllers;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
 
@@ -117,22 +120,27 @@ public class Trans_PageOneController implements Nakyma_IF{
   }
 
   public void valittuAsiakas(){
-//    if(asiakasTaulukko.getSelectionModel().getSelectedItem()!=null){
-//      namelabel.setText(asiakasTaulukko.getItems().toString());
-//    }else
-//      virheIlmoitus("Et ole valinnut tarkasteltavaa asiakasta taulukosta");
-//
-//    if (date.getValue() != null) {
-//      String dateFormat = date.toString();
-//      datelabel.setText(dateFormat);
-//  } else {
-//    datelabel.setText("");
-//  }
+    if(asiakasTaulukko.getSelectionModel().getSelectedItem()!=null){
+      Asiakas a = (Asiakas)asiakasTaulukko.getSelectionModel().getSelectedItem();
+      namelabel.setText(a.getNimi());
+    }else
+      virheIlmoitus("Et ole valinnut tarkasteltavaa asiakasta taulukosta");
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+    if (date.getValue() != null) {
+      //String dateFormat = date.get;
+      datelabel.setText(formatter.format(date.getValue()));
+    } else {
+      datelabel.setText("");
+    }
   }
 
   @Override
   public void virheIlmoitus(Object viesti) {
-
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setContentText(viesti.toString());
+    alert.showAndWait();
   }
 
   @Override

@@ -30,7 +30,7 @@ public class DataBase_tests {
 	@Before
 	public void luoDB_AccesObject() {
 		db = new DB_AccessObject();
-		}
+	}
 
 
 	@Test
@@ -99,8 +99,8 @@ public class DataBase_tests {
 		Product product = new Product("Liha1", 1.0, 1.0, 1.0, 1.0, 1.0f);
 		product.setMax_temperature(15);
 		product.setMin_temperature(-5);
-		Hyllypaikka hyllypaikka = new Hyllypaikka("a-1");
-		int maara = 2;
+		Hyllypaikka hyllypaikka = new Hyllypaikka("ab-13");
+		int maara = 0;
 		Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, maara);
 		boolean result = db.lisaa(joukko);
 		assertEquals("Tavaran lisaaminen onnistui!", result, true);

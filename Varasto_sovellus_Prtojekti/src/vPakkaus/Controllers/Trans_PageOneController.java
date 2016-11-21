@@ -66,16 +66,16 @@ public class Trans_PageOneController implements Nakyma_IF{
 
 
 
-  @FXML
-  private void getDate(ActionEvent event) {
-
-
-    if (date.getValue() != null) {
-        datelabel.setText(date.toString());
-    } else {
-      datelabel.setText("");
-    }
-}
+//  @FXML
+//  private void getDate(ActionEvent event) {
+//
+//
+//    if (date.getValue() != null) {
+//        datelabel.setText(date.toString());
+//    } else {
+//      datelabel.setText("");
+//    }
+//}
   @Override
   public void paivita(Object data) {
     resetoi();

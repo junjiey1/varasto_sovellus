@@ -34,7 +34,7 @@ public class MainController implements MainController_IF{
 	 * virhe viestin sisällön aktiiviselle näytölle. Jos virhettä ei ole asetettu tämä funktio ei tee mitään
 	 */
 	private void checkForErrorMessage(){
-	  if(db.getErrorMsg()!=null){ //jos error viesti != null on tapahtunut virhe tietokanta operaatiossa
+	  if (db.getErrorMsg() != null){ //jos error viesti != null on tapahtunut virhe tietokanta operaatiossa
       String syy = db.getErrorMsg(); //Hae virheviestin sisältö
       db.setErrorMsg(null);//Nollaa virheviesti muuttuja mallissa
       naytto.virheIlmoitus(syy);//Välitä virheilmoitus aktiivisellenäytölle
@@ -93,6 +93,8 @@ public class MainController implements MainController_IF{
 
 	public ArrayList<Hyllypaikka> haeHyllypaikka(String nimi){
 		ArrayList<Hyllypaikka> res = null;
+		res = new ArrayList<Hyllypaikka>();
+		res.add(db.haeHylly(nimi));
 		checkForErrorMessage();
 		return res;
 	}

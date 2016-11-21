@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.layout.Region;
 import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
@@ -36,22 +37,26 @@ public class AddProductController implements Nakyma_IF {
 
     private NayttojenVaihtaja_IF vaihtaja;
 	private MainController_IF mc;
-	boolean allGood, product_error;
+	boolean allGood, noErrorsEncountered;
 
-	ObservableList<String> productTextFiles = FXCollections.observableArrayList();
+	private ObservableList<String> productTextFiles = FXCollections.observableArrayList();
 
-	File file;
-	Scanner input;
-	String[] oneRowOfData;
-	String path, pName, pShelf, clientName, clientAddress, fileName;
-	double pWeight, pLength, pWidth, pHeight;
-	int pQuantity;
-	Integer pMinTemp, pMaxTemp;
-	float pPrice;
+	private File file;
+	private Scanner input;
+	private String[] oneRowOfData;
+	private String path, pName, pShelf, clientName, clientAddress, fileName, errorLog;
+	private double pWeight, pLength, pWidth, pHeight;
+	private int pQuantity, fileRow;
+	private Integer pMinTemp, pMaxTemp;
+	private float pPrice;
 	private HashMap<String, String> hm;
+	private boolean lisataanManuaalisesti;
 
 	public AddProductController(){
 		pMinTemp=pMaxTemp=null;
+		lisataanManuaalisesti = false;
+		errorLog="";
+		fileRow=1;
 	}
 
 	public void setMainController(MainController_IF m) {
@@ -65,7 +70,7 @@ public class AddProductController implements Nakyma_IF {
 	 *             Jos lisaaminen epaonnistunut
 	 */
 	public void addProductManually() throws IOException {
-		product_error = true;
+		noErrorsEncountered = true;
 		allGood = true;
 
 		if (productName.getText().isEmpty() || quantity.getText().isEmpty() || price.getText().isEmpty()
@@ -73,33 +78,14 @@ public class AddProductController implements Nakyma_IF {
 			allGood = false;
 		}
 
-		try {
-			pName = productName.getText();
-			pWeight = Double.parseDouble(weight.getText());
-			pWidth = Double.parseDouble(width.getText());
-			pHeight = Double.parseDouble(height.getText());
-			pQuantity = Integer.parseInt(quantity.getText());
-			pPrice = Float.parseFloat(price.getText());
-			pShelf = whLocation.getText();
-			pLength = Double.parseDouble(length.getText());
-			if(minTempT.getText().equals("") || maxTempT.getText().equals("")){
-				//jompikumpi lämpötila tyhjä ei hyväksytä
-				pMinTemp=pMaxTemp=null;
-			}else{
-				pMinTemp = Integer.parseInt(minTempT.getText());
-				pMaxTemp = Integer.parseInt(maxTempT.getText());
-			}
-
-		} catch (NumberFormatException ex) {
-			allGood = false;
-		}
+		allGood = validoiTekstikentanMuuttujat();
 
 		if (allGood) {
 
 			//int lisaajan_id = mc.getID();
 			Tuotejoukko joukko = rakennaTuotejoukko();
-			product_error = mc.addProduct(joukko);
-			if (!product_error) {
+			noErrorsEncountered = mc.addProduct(joukko);
+			if (!noErrorsEncountered) {
 				virheIlmoitus("Tuotteiden muuttujissa havaittiin virhe!\nTarkista asettamiesi muuttujien arvot...");
 			} else
 				JOptionPane.showMessageDialog(null, "uusi tuote lisättiin onnistuneesti", "Lisäys onnistui",
@@ -133,6 +119,50 @@ public class AddProductController implements Nakyma_IF {
 		for (String s : productTextFiles) {
 			readFromFile(hm.get(s));
 		}
+	}
+
+	private boolean validoiTekstikentanMuuttujat(){
+	   try {
+	      pName = productName.getText();
+	      pWeight = Double.parseDouble(weight.getText());
+	      pWidth = Double.parseDouble(width.getText());
+	      pHeight = Double.parseDouble(height.getText());
+	      pQuantity = Integer.parseInt(quantity.getText());
+	      pPrice = Float.parseFloat(price.getText());
+	      pShelf = whLocation.getText();
+	      pLength = Double.parseDouble(length.getText());
+	      if(minTempT.getText().equals("") || maxTempT.getText().equals("")){
+	        //jompikumpi lämpötila tyhjä ei hyväksytä
+	        pMinTemp=pMaxTemp=null;
+	      }else{
+	        pMinTemp = Integer.parseInt(minTempT.getText());
+	        pMaxTemp = Integer.parseInt(maxTempT.getText());
+	      }
+	      System.out.println("true");
+	      return true;
+	    } catch (NumberFormatException ex) {
+	      allGood = false;
+	      //virheIlmoitus("Tuotteen " + pName + " muuttujissa havaittiin virhe!");
+	      return false;
+	    }
+	}
+
+	private boolean validoiListanMuuttujat(String[] rowOfData){
+	  try{
+  	  pName = oneRowOfData[0];
+  	  pWeight = Double.parseDouble(oneRowOfData[1]);
+  	  pLength = Double.parseDouble(oneRowOfData[2]);
+  	  pWidth = Double.parseDouble(oneRowOfData[3]);
+  	  pHeight = Double.parseDouble(oneRowOfData[4]);
+  	  pShelf = oneRowOfData[5];
+  	  pPrice = Float.parseFloat(oneRowOfData[6]);
+  	  pQuantity = Integer.parseInt(oneRowOfData[7]);
+  	  pMinTemp = Integer.parseInt(oneRowOfData[8]);
+  	  pMaxTemp = Integer.parseInt(oneRowOfData[9]);
+	    return true;
+	  }catch (NumberFormatException ex) {
+      return false;
+    }
 	}
 
 	/**
@@ -194,37 +224,31 @@ public class AddProductController implements Nakyma_IF {
 	 *             ilmoittaa error, jos on epaonnistunut.
 	 */
 	public void readFromFile(String name) throws FileNotFoundException {
-		product_error = true;
-		file = new File(name);
+		noErrorsEncountered = true;
+		lisataanManuaalisesti = true;
+		file = new File(name); //Ei pysty lukemaan kahta eri tiedostoa joiden nimet eroavat. Antaa null pointer exception
 		input = new Scanner(file);
-
+		fileRow=1;
 		while (input.hasNext()) {
 			oneRowOfData = input.nextLine().split(",");
 			if (oneRowOfData.length == 2) {
 				clientName = oneRowOfData[0];
 				clientAddress = oneRowOfData[1];
 			} else {
-				pName = oneRowOfData[0];
-				pWeight = Double.parseDouble(oneRowOfData[1]);
-				pLength = Double.parseDouble(oneRowOfData[2]);
-				pWidth = Double.parseDouble(oneRowOfData[3]);
-				pHeight = Double.parseDouble(oneRowOfData[4]);
-				pShelf = oneRowOfData[5];
-				pPrice = Float.parseFloat(oneRowOfData[6]);
-				pQuantity = Integer.parseInt(oneRowOfData[7]);
-				pMinTemp = Integer.parseInt(oneRowOfData[8]);
-				pMaxTemp = Integer.parseInt(oneRowOfData[9]);
-				product_error = mc.addProduct(rakennaTuotejoukko());
-
-				if (!product_error) {
-				  virheIlmoitus("Tuotteiden muuttujissa havaittiin virhe!");
-					break;
-				}
-				System.out.println(clientName + "  " + clientAddress + " " + pName + " " + pWeight + " " + " "
-						+ pShelf + " " + pPrice + " " + pQuantity);
+			  if(!validoiListanMuuttujat(oneRowOfData))
+			    virheIlmoitus("Rivillä : " + fileRow + " Tuotteen " + pName + " muuttujissa havaittiin virhe!");
+			  else
+			    noErrorsEncountered = mc.addProduct(rakennaTuotejoukko());   //Jos mc.addProduct antaa errorin niin pääkontrolleri lähettää tälle luokalle errorin mikä lisätään errorLogiin
 			}
+			fileRow++;
 		}
+		lisataanManuaalisesti = false;
 		input.close();
+		if(!errorLog.equals("")){ //jos errorLogi ei ole tyhjä niin lisäys operaation yhteydessä tapahtui virhe
+		  errorLog = "Seuraavia tuotteita ei voitu lisätä tiedostosta" + fileName + ":\n".concat(errorLog);
+		  virheIlmoitus(errorLog);
+		  errorLog="";
+		}
 	}
 
 	public void showTemperatures(){
@@ -282,10 +306,17 @@ public class AddProductController implements Nakyma_IF {
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-	  Alert alert = new Alert(AlertType.ERROR);
-    alert.setTitle("Error");
-    alert.setContentText(viesti.toString());
-    alert.showAndWait();
+	  if(lisataanManuaalisesti){
+	      errorLog = errorLog.concat("Virhe rivillä " + fileRow + " : " + viesti.toString() + "\n");
+	  }else{
+  	  Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Error");
+      String version = System.getProperty("java.version");
+      String content = String.format(viesti.toString(), version);
+      alert.setContentText(content);
+      //alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+      alert.showAndWait();
+    }
 	}
 
 	@Override
@@ -296,7 +327,7 @@ public class AddProductController implements Nakyma_IF {
 
 	@Override
 	public void esiValmistelut() {
-
+	  productName.setPromptText("Tuotteen nimi");
 	}
 
 }

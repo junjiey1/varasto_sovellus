@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.util.Callback;
 import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
+import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -24,6 +25,8 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 			return rakennaProductTaulukko(lista);
 		else if(obj instanceof Asiakas)
 			return rakennaAsiakasTaulukko(lista);
+		else if(obj instanceof Hyllypaikka)
+		  return rakennaHyllypaikkaTaulukko(lista);
 		return null;
 	}
 
@@ -46,6 +49,57 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 		return new AsiakasTaulukko(asiakas_taulukko);
 	}
 
+	private Taulukko_IF rakennaHyllypaikkaTaulukko(ArrayList<DAO_Objekti> lista){
+	  TableView<DAO_Objekti> hylly_taulukko = new TableView<DAO_Objekti>();
+	  TableColumn<DAO_Objekti, String> t1 = new TableColumn<DAO_Objekti, String>();//Nimi
+	  TableColumn<DAO_Objekti, Double> t2 = new TableColumn<DAO_Objekti, Double>();//Leveys
+    TableColumn<DAO_Objekti, Double> t3 = new TableColumn<DAO_Objekti, Double>();//Pituus
+    TableColumn<DAO_Objekti, Double> t4 = new TableColumn<DAO_Objekti, Double>();//Korkeus
+    TableColumn<DAO_Objekti, Double> t5 = new TableColumn<DAO_Objekti, Double>();//MaxPaino
+    t1.setText("Nimi");
+    t2.setText("Leveys");
+    t3.setText("Pituus");
+    t4.setText("Korkeus");
+    t5.setText("MaxPaino");
+    Hyllypaikka[] PaivitettavatHyllyt = new Hyllypaikka[lista.size()];
+    System.out.println("koko " + lista.size());
+    for(int i = 0; i<lista.size(); i++)
+      if((Hyllypaikka)lista.get(i)!=null)
+        PaivitettavatHyllyt[i] = (Hyllypaikka)lista.get(i);
+
+    Callback<TableColumn<DAO_Objekti, String>, TableCell<DAO_Objekti, String>> cellFactory2 = new Callback<TableColumn<DAO_Objekti, String>, TableCell<DAO_Objekti, String>>() {
+      public TableCell call(TableColumn p) {
+        return new HyllyCellEditor(2,PaivitettavatHyllyt);
+      }
+    };
+
+    Callback<TableColumn<DAO_Objekti, Double>, TableCell<DAO_Objekti, Double>> cellFactory3 = new Callback<TableColumn<DAO_Objekti, Double>, TableCell<DAO_Objekti, Double>>() {
+      public TableCell call(TableColumn p) {
+        EditingCell e = new HyllyCellEditor(3,PaivitettavatHyllyt);
+        return e;
+      }
+    };
+
+    t1.setCellFactory(cellFactory2);
+    t2.setCellFactory(cellFactory3);
+    t3.setCellFactory(cellFactory3);
+    t4.setCellFactory(cellFactory3);
+    t5.setCellFactory(cellFactory3);
+    hylly_taulukko.getColumns().add(t1);
+    hylly_taulukko.getColumns().add(t2);
+    hylly_taulukko.getColumns().add(t3);
+    hylly_taulukko.getColumns().add(t4);
+    hylly_taulukko.getColumns().add(t5);
+
+    for(int i = 0; i<PaivitettavatHyllyt.length;i++){
+      t1.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("nimi"));
+      t2.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("leveys"));
+      t3.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("pituus"));
+      t4.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("korkeus"));
+      t5.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("max_paino"));
+    }
+    return new HyllyTaulukko(hylly_taulukko, PaivitettavatHyllyt);
+	}
 
 	private Taulukko_IF rakennaProductTaulukko(ArrayList<DAO_Objekti> lista){
 		TableView<DAO_Objekti> product_taulukko = new TableView<DAO_Objekti>();

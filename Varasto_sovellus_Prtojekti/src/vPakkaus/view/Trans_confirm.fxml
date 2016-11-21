@@ -22,6 +22,8 @@
                </columnResizePolicy>
             </TableView>
             <Button layoutX="691.0" layoutY="489.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="110.0" text="Confirm" />
+            <Button layoutX="14.0" layoutY="489.0" mnemonicParsing="false" text="Back" />
+            <Button layoutX="71.0" layoutY="489.0" mnemonicParsing="false" text="Cancel" />
          </children>
       </AnchorPane>
    </children>

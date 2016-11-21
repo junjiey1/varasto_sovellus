@@ -3,6 +3,7 @@ package vPakkaus.Controllers;
 import java.util.ArrayList;
 
 import vPakkaus.Asiakas;
+import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
 
@@ -14,6 +15,7 @@ public interface MainController_IF {
 	public int getID();
 	public String getName();
 	public boolean paivitaTuotteet(ArrayList<Product> products);
+	public ArrayList<Hyllypaikka> haeHyllypaikka(String nimi);
 	public void haeAsiakkaat(String nimi);
 	public void tallennaAsiakas(Asiakas asiakas);
 	public void logOut();

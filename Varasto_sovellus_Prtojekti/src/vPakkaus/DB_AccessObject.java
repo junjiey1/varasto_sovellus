@@ -122,7 +122,7 @@ public class DB_AccessObject {
 		if(hyllypaikka==null){
 		  //Error viestille asetetaan arvo.
       //PääKontrolleri huomaa tämän ja välittää viestin Näytölle
-		  errorMsg = "Hyllypaikkaa annetulla arvolla" + joukko.getHylly().getNimi() + " ei löytynyt";
+		  errorMsg = "Hyllypaikkaa annetulla arvolla " + joukko.getHylly().getNimi() + " ei löytynyt";
 		  //Poistutaan funktiosta ja palautetaan false
 		  return false;
 		}
@@ -139,8 +139,7 @@ public class DB_AccessObject {
 			onkoVirheitä.add(false);
 			//Error viestille asetetaan arvo.
       //PääKontrolleri huomaa tämän ja välittää viestin Näytölle
-			errorMsg = "Tuotteet eivät mahdu hyllyyn";
-
+			errorMsg = "Tuote " + joukko.getProduct().getProduct_name() + " ei mahdu hyllyyn " + joukko.getHylly().getNimi() ;
 			// Jos tuotetta on jo hyllypaikassa
 		} else if (!onkoLampotilaSopiva) {
 			System.out.println("Tuotteen lämpötila ei ole sopiva kyseiseen hyllypaikkaan");

@@ -4,17 +4,17 @@ import vPakkaus.Product;
 
 public class ProductCellEditor extends EditingCell{
 
-	private Product[] PaivitettavatTuotteet;
+	private Product[] paivitettavatTuotteet;
 	private Product muokattava;
 
 	public ProductCellEditor(int n, Product[] PaivitettavatTuotteet) {
 		super(n);
-		this.PaivitettavatTuotteet = PaivitettavatTuotteet;
+		this.paivitettavatTuotteet = PaivitettavatTuotteet;
 	}
 	@Override
 	public void textFieldHandelerMethod() {
 		String s = getTextField().getText();
-		System.out.println(s + " " + getDatatyyppi() + " indeksi " + getIndex() + " NIMI " + getColumnName());
+		//System.out.println(s + " " + getDatatyyppi() + " indeksi " + getIndex() + " NIMI " + getColumnName());
 		try {
 			switch (getDatatyyppi()) { // säilötyn luvun avulla voidaan
 									// päätellä mitä datatyyppiä
@@ -23,37 +23,39 @@ public class ProductCellEditor extends EditingCell{
 				Integer i = this.isInt(s);
 				if (i != null) {
 					setValChanged(true);
+					paivitaTuotteenLampotila(i, getIndex());
 					paivitaSolu(i, getIndex());
 				}
 				break;
 			case (2): // String
 				if (getColumnName().equals("Nimi") && !s.equals(muokattava.getProduct_name())) {
-					setValChanged(true);
+					muokattava.setProduct_name(s);
+				  setValChanged(true);
 					paivitaSolu(s, getIndex());
 				}
 				break;
 			case (3):// Double
 				Double d = isNumeric(s) ? Double.parseDouble(s) : null;
 				if (d != null) {
-					// Meillä atm. kaksi riviä, jotka käyttää Double
-					// arvoa. Paino ja tilavuus
-					if (getColumnName().equals("Paino") && d.doubleValue() != muokattava.getProduct_weight()) { // Muokataan
-																											// weight
-																											// solua
-						setValChanged(true);
+					// Meillä atm. neljä riviä, jotka käyttää Double
+					// arvoa. Paino, leveys, pituus ja korkeus
+					if (getColumnName().equals("Paino") && d.doubleValue() != muokattava.getProduct_weight()) {
+						muokattava.setProduct_weight(d);
+					  setValChanged(true);
 						paivitaSolu(d, getIndex());
 					} else if (getColumnName().equals("Leveys")
-							&& d.doubleValue() != muokattava.getProduct_width()) { // Muokataan
-																					// volume
-																					// solua
-						setValChanged(true);
+							&& d.doubleValue() != muokattava.getProduct_width()) {
+						muokattava.setProduct_width(d);
+					  setValChanged(true);
 						paivitaSolu(d, getIndex());
 					} else if(getColumnName().equals("Pituus")
 							&& d.doubleValue() != muokattava.getProduct_length()){
+					  muokattava.setProduct_length(d);
 						setValChanged(true);
 						paivitaSolu(d, getIndex());
 					} else if(getColumnName().equals("Korkeus")
 							&& d.doubleValue() != muokattava.getProduct_height()){
+					  muokattava.setProduct_height(d);
 						setValChanged(true);
 						paivitaSolu(d, getIndex());
 					}
@@ -64,9 +66,13 @@ public class ProductCellEditor extends EditingCell{
 				if (f != null && getColumnName().equals("Hinta")
 						&& Float.compare(f, muokattava.getProduct_price()) != 0) {
 					setValChanged(true);
+					muokattava.setProduct_price(f);
 					paivitaSolu(Float.parseFloat(s), getIndex());
 				}
 				break;
+
+				default:
+				  System.out.println("DEFAULT HAARASSA");
 			}
 			if (isValChangedByUser()) {
 				merkitseRivi();
@@ -77,39 +83,24 @@ public class ProductCellEditor extends EditingCell{
 			System.out.println("VIRHE HAVAITTU!!!");
 		}
 	}
+
+	private void paivitaTuotteenLampotila(Integer uusiArvo, int index){
+	  if (getColumnName().equals("MaxLampo"))
+      muokattava.setMax_temperature(uusiArvo.intValue());
+    else
+      muokattava.setMin_temperature(uusiArvo.intValue());
+    if(muokattava.getMax_temperature()!=null && muokattava.getMin_temperature()!=null)
+      if(!muokattava.getTemp()) //productille ei olla säädetty vielä lämpötila booleaniksi true
+        muokattava.setTemp(true);
+	}
+
 	@Override
 	protected void paivitaSolu(Object newValue, int i) {
 		setText(newValue.toString());
-		Product p = (Product)super.getTableView().getItems().get(i);
-		switch (getDatatyyppi()) {
-			case (1):
-				if (getColumnName().equals("MaxLampo"))
-					p.setMax_temperature(((Integer) newValue).intValue());
-				else
-					p.setMin_temperature(((Integer) newValue).intValue());
-				if(p.getMax_temperature()!=null && p.getMin_temperature()!=null)
-					if(!p.getTemp()) //productille ei olla säädetty vielä lämpötila booleaniksi true
-						p.setTemp(true);
-				break;
-			case (2):
-				p.setProduct_name(newValue.toString());
-				break;
-			case (3):
-				if (getColumnName().equals("Paino")) {
-					p.setProduct_weight(((Double) newValue).doubleValue());
-				} else if (getColumnName().equals("Leveys")){
-					p.setProduct_width(((Double) newValue).doubleValue());
-				} else if(getColumnName().equals("Pituus")){
-					p.setProduct_length(((Double) newValue).doubleValue());
-				} else if(getColumnName().equals("Korkeus"))
-					p.setProduct_height(((Double) newValue).doubleValue());
-				break;
-			case (4):
-				p.setProduct_price(((Float) newValue).floatValue());
-		}
-		PaivitettavatTuotteet[i] = p;
+		paivitettavatTuotteet[i] = muokattava;
 		this.cancelEdit();
 	}
+
 	@Override
 	public void setEditoitavaInstance() {
 		muokattava = (Product) getTableRow().getItem();

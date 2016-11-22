@@ -1,8 +1,11 @@
 package vPakkaus;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,10 +26,8 @@ import vPakkaus.Controllers.SetMainController;
 
 public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 
-	private static Stage MainStage;
-	private static FXMLLoader loader;
-	private static AnchorPane APLayout;
-	private static MainController mc;
+	private Stage mainStage;
+	private MainController mc;
 
 	private ViewFactory_IF tehdas;
 	private HashMap<String, AnchorPane> anchorMap;
@@ -39,6 +40,11 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	 */
 	@Override
 	public void start(Stage primaStage) throws IOException {
+	  System.out.println("Ladataan kieli");
+	  //Util-luokka lataa käyttäjän asettaman kielen arvon languageSettings.properties tiedostosta
+	  //ko. properties tiedoston arvoista rakennetaan sitten ResourceBundle
+	  LanguageUtil.buildResourceBundleFromLanguageSettingsPropertiesFile();
+
 		anchorMap = new HashMap<String, AnchorPane>(); //Tänne tallenetaan fxml tiedoista luodut Anchorpanet
 		sceneMap = new HashMap<String, Scene>(); //Tänne tallennetaan jokainen Scene-olio
 		luodutNakymaKontrollerit = new HashMap<String, Nakyma_IF>(); //Tänne jokainen FXML näkymä-luokan kontrolleri instanssi
@@ -46,11 +52,8 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		tehdas = new AnchorPaneFactory(mc);
 		lataaAnchorPanet();
 		luoNakymat();
-		MainStage = primaStage;
-		MainStage.setTitle("test");
-		MainStage.setScene(sceneMap.get("login"));
-		MainStage.show();
-		//windowConstructor("view/LoginView.fxml", "LOG IN", null);
+		mainStage = primaStage;
+		asetaUudeksiNaytoksi("login", "LOGIN", null);
 	}
 
 	/**
@@ -65,6 +68,9 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		anchorMap.put("customer",tehdas.annaNakyma("view/addCustomer.fxml", this));
 		anchorMap.put("customerview",tehdas.annaNakyma("view/customerView.fxml", this));
 		anchorMap.put("ManagementMainMenu",tehdas.annaNakyma("view/WarehouseManagement_MainMenu.fxml", this));
+		anchorMap.put("Transmission",tehdas.annaNakyma("view/Transmission.fxml", this));
+		anchorMap.put("Trans_SelectProduct",tehdas.annaNakyma("view/Trans_SelectProduct.fxml", this));
+		anchorMap.put("Trans_confirm",tehdas.annaNakyma("view/Trans_confirm.fxml", this));
 	}
 
 	/**
@@ -77,6 +83,9 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		sceneMap.put("customer", new Scene(anchorMap.get("customer")));
 		sceneMap.put("customerview", new Scene(anchorMap.get("customerview")));
 		sceneMap.put("ManagementMainMenu", new Scene(anchorMap.get("ManagementMainMenu")));
+		sceneMap.put("Transmission", new Scene(anchorMap.get("Transmission")));
+//		sceneMap.put("Trans_selectProduct", new Scene(anchorMap.get("Trans_selectProduct")));
+//		sceneMap.put("Trans_confirm", new Scene(anchorMap.get("Trans_confirm")));
 	}
 
 	/**
@@ -88,7 +97,6 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	 *             Jos kaynnistaminen epaonnistuu.
 	 */
 	public static void main(String[] args) throws IOException {
-		System.out.println("main");
 		launch(args);
 	}
 
@@ -112,9 +120,9 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 				if(preData!=null)
 					luodutNakymaKontrollerit.get(nimi).paivita(preData);
 			}
-			MainStage.setScene(scene);
-			MainStage.setTitle(otsikko);
-			MainStage.show();
+			mainStage.setScene(scene);
+			mainStage.setTitle(otsikko);
+			mainStage.show();
 		}
 	}
 

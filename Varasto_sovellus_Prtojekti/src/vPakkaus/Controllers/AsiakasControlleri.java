@@ -18,13 +18,18 @@ public class AsiakasControlleri implements Nakyma_IF {
 	private TextField customerName, customerStreet, customerPostalCode, customerCity, customerState,
 			contactPersonFname, contactPersonLname, contactPersonEmail, contactPersonPhone;
 
-	private String Customer_Name, Customer_Street, Customer_Postal, Customer_City, Customer_State,
-			ContactP_F_Name, ContactP_L_Name, ContactP_Email, ContactP_Phone, postalNumber;
+	private String Customer_Name, Customer_Street, Customer_City,
+			  ContactP_Email, ContactP_Phone, postalNumber;
 
 	private MainController_IF mc;
 	private NayttojenVaihtaja_IF vaihtaja;
 	private Asiakas a;
 	private boolean muokataanOlemassaOlevaa = false;
+
+	public AsiakasControlleri(){
+	  vaihtaja=null;
+	  mc=null;
+	}
 
 	@Override
 	public void setMainController(MainController_IF m) {
@@ -103,7 +108,7 @@ public class AsiakasControlleri implements Nakyma_IF {
 				a = new Asiakas(Customer_Name, Customer_Street,Customer_City,
 					ContactP_Email, ContactP_Phone,postalNumber
 				);
-				mc.TallennaAsiakas(a);
+				mc.tallennaAsiakas(a);
 				vaihtaja.asetaUudeksiNaytoksi("customer", "ASIAKAS : " + a.getNimi() ,a);
 				//muokataanOlemassaOlevaa = true;
 			}else{
@@ -151,18 +156,18 @@ public class AsiakasControlleri implements Nakyma_IF {
 		}else{
 			Customer_City = customerCity.getText();
 		}
-		if (contactPersonFname.getText().isEmpty()){
-			allGood = false;
-			showError("Contact person first name field", "is empty");
-		}else{
-			ContactP_F_Name = contactPersonFname.getText();
-		}
-		if (contactPersonLname.getText().isEmpty()){
-			allGood = false;
-			showError("Contact person last name field", "is empty");
-		}else{
-			ContactP_L_Name = contactPersonLname.getText();
-		}
+//		if (contactPersonFname.getText().isEmpty()){
+//			allGood = false;
+//			showError("Contact person first name field", "is empty");
+//		}else{
+//			ContactP_F_Name = contactPersonFname.getText();
+//		}
+//		if (contactPersonLname.getText().isEmpty()){
+//			allGood = false;
+//			showError("Contact person last name field", "is empty");
+//		}else{
+//			ContactP_L_Name = contactPersonLname.getText();
+//		}
 		if (contactPersonEmail.getText().isEmpty()){
 			allGood = false;
 			showError("Contact person email field", "is empty");

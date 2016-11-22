@@ -16,10 +16,10 @@ import vPakkaus.Controllers.NayttojenVaihtaja_IF;
  *ViewFactoryn konkreettinen luokka. Rakentaa annetusta fxml-tiedoston nimestä Anchorpaneja
  */
 public class AnchorPaneFactory implements ViewFactory_IF{
-	private MainController_IF PaaKontrolleri;
+	private MainController_IF paaKontrolleri;
 
 	public AnchorPaneFactory(MainController_IF PaaKontrolleri){
-		this.PaaKontrolleri = PaaKontrolleri;
+		this.paaKontrolleri = PaaKontrolleri;
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class AnchorPaneFactory implements ViewFactory_IF{
 				System.out.println("ON NULL");
 				return null;
 			}
-			nakyma.setMainController(PaaKontrolleri);
+			nakyma.setMainController(paaKontrolleri);
 			nakyma.setNaytonVaihtaja(vaihtaja);
 		} catch (IOException e) {
 			e.printStackTrace();

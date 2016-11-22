@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.MysqlIO;
+
+import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
 
 /**
@@ -18,12 +21,13 @@ public class ProductDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
-	private lampotilaDB lampotiladb;
+	private LampotilaDB lampotiladb;
+	private DB_AccessObject db;
 
-	public ProductDB(Connection conn, lampotilaDB lampotiladb) {
+	public ProductDB(Connection conn, LampotilaDB lampotiladb, DB_AccessObject db) {
 		this.conn = conn;
 		this.lampotiladb = lampotiladb;
-		// TODO Auto-generated constructor stub
+		this.db = db;
 	}
 
 	/**
@@ -70,6 +74,7 @@ public class ProductDB {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
+				db.setErrorMsg(e.getMessage());
 				error = false;
 			}
 
@@ -90,7 +95,7 @@ public class ProductDB {
 	 */
 
 	public ArrayList<Product> findProducts(String nimi) {
-		ArrayList<Product> products = new ArrayList();
+		ArrayList<Product> products = new ArrayList<Product>();
 		Product product;
 
 		try {
@@ -127,13 +132,14 @@ public class ProductDB {
 					product = lampotiladb.findTemperatures(p);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			db.setErrorMsg(e.getMessage());
 		} finally {
 			try {
 				ps.close();
 				rs.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				db.setErrorMsg(e.getMessage());
 			}
 		}
 
@@ -172,7 +178,9 @@ public class ProductDB {
 
 		} catch (SQLException e) {
 			System.out.println("Lisäys epäonnistui tuotetaulukkoon!");
-			e.printStackTrace();
+			db.setErrorMsg(e.getMessage());
+			System.out.println(e.getMessage());
+			//e.printStackTrace();
 			return false;
 		}
 		return true;
@@ -187,8 +195,8 @@ public class ProductDB {
 	 * @return lista tuotteita (ArrayList<String>)
 	 */
 
-	public ArrayList<String> HaeHyllypaikanTuotteet(String hyllypaikka) {
-		ArrayList<String> HP_Tuotteet = new ArrayList();
+	public ArrayList<String> haeHyllypaikanTuotteet(String hyllypaikka) {
+		ArrayList<String> HP_Tuotteet = new ArrayList<String>();
 		try {
 			ps = conn.prepareStatement(
 					"Select tuote.nimi from tuote, tuoterivi WHERE tuoterivi.tuoteID = tuote.tuoteID AND tuoterivi.hyllypaikka = ?;");
@@ -201,12 +209,13 @@ public class ProductDB {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			db.setErrorMsg(e.getMessage());
 		} finally {
 			try {
 				ps.close();
 				rs.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+			  db.setErrorMsg(e.getMessage());
 				e.printStackTrace();
 			}
 		}
@@ -251,12 +260,13 @@ public class ProductDB {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			db.setErrorMsg(e.getMessage());
 		} finally {
 			try {
 				ps.close();
 				rs.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+			  db.setErrorMsg(e.getMessage());
 				e.printStackTrace();
 			}
 		}

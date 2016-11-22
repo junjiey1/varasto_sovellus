@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane minHeight="460.0" minWidth="700.0" prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.addProductController">
+<AnchorPane minHeight="460.0" minWidth="700.0" prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.AddProductController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="432.0" layoutX="2.0" layoutY="17.0" stroke="#cecece" strokeType="INSIDE" width="343.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="432.0" layoutX="356.0" layoutY="17.0" stroke="#cecece" strokeType="INSIDE" width="343.0" />
@@ -87,7 +87,7 @@
             <Label text="HEIGHT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button defaultButton="true" layoutX="369.0" layoutY="356.0" mnemonicParsing="false" onAction="#AddProductManually" prefHeight="30.0" text="ADD NEW PRODUCT" />
+      <Button defaultButton="true" layoutX="369.0" layoutY="356.0" mnemonicParsing="false" onAction="#addProductManually" prefHeight="30.0" text="ADD NEW PRODUCT" />
       <ListView fx:id="productList" layoutX="18.0" layoutY="125.0" onDragEntered="#handleFilesDragDropped" prefHeight="310.0" prefWidth="203.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="102.0" prefHeight="17.0" prefWidth="203.0" text="Drag text files here" />
       <Button layoutX="231.0" layoutY="216.0" mnemonicParsing="false" onAction="#addAllFromFile" prefHeight="30.0" prefWidth="67.0" text="ADD ALL" />
@@ -95,7 +95,7 @@
       <Button layoutX="231.0" layoutY="314.0" mnemonicParsing="false" onAction="#removeAllProducts" prefHeight="30.0" prefWidth="67.0" text="CLEAR" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="28.0" prefHeight="17.0" prefWidth="203.0" text="ADD PRODUCTS AUTOMATICALLY" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="28.0" prefHeight="17.0" prefWidth="203.0" text="ADD PRODUCTS MANUALLY" />
-      <Button layoutX="369.0" layoutY="405.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="30.0" prefWidth="70.0" text="CLEAR" />
+      <Button layoutX="369.0" layoutY="405.0" mnemonicParsing="false" onAction="#resetoi" prefHeight="30.0" prefWidth="70.0" text="CLEAR" />
       <Button layoutX="394.0" layoutY="256.0" mnemonicParsing="false" onAction="#showTemperatures" prefHeight="30.0" text="TEMPERATURES" />
       <TextField fx:id="minTempT" alignment="CENTER" layoutX="370.0" layoutY="306.0" prefHeight="28.0" prefWidth="70.0" visible="false" />
       <TextField fx:id="maxTempT" alignment="CENTER" layoutX="450.0" layoutY="306.0" prefHeight="28.0" prefWidth="70.0" visible="false" />

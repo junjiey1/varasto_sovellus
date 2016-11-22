@@ -60,7 +60,7 @@ public class TuoteriviDB {
 			}
 
 			for (int i = 0; i < nimet.size(); i++) {
-				Tuotejoukko tuotejoukko = new Tuotejoukko(productdb.findProduct(nimet.get(i)), hyllydb.HaeHylly(hyllynimi),
+				Tuotejoukko tuotejoukko = new Tuotejoukko(productdb.findProduct(nimet.get(i)), hyllydb.haeHylly(hyllynimi),
 						määrät.get(i));
 				tj.add(tuotejoukko);
 			}
@@ -156,7 +156,7 @@ public class TuoteriviDB {
 	 * @return Onnistuminen/epäonnistuminen (Boolean)
 	 */
 
-	public boolean MuokkaaTuoteriviä(Tuotejoukko tuotejoukko) {
+	public boolean muokkaaTuoteriviä(Tuotejoukko tuotejoukko) {
 		boolean error = false;
 
 		try {

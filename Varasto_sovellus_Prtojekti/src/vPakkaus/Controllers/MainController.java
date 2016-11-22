@@ -15,7 +15,7 @@ import vPakkaus.Tuotejoukko;
 public class MainController implements MainController_IF{
 	private DB_AccessObject db;
 	private Nakyma_IF naytto;
-	private int UserID;
+	private int userID;
 	private String username;
 
 	/**
@@ -26,7 +26,19 @@ public class MainController implements MainController_IF{
 		System.out.println("Constructing Main Controller");
 		db = new DB_AccessObject();
 		username = "undefined";
-		UserID = -1;
+		userID = -1;
+	}
+
+	/**
+	 * Tarkistaa jos malliin on asetettu virhe viesti. Jos virhe viesti on asetettu tämä metodi välittää
+	 * virhe viestin sisällön aktiiviselle näytölle. Jos virhettä ei ole asetettu tämä funktio ei tee mitään
+	 */
+	private void checkForErrorMessage(){
+	  if (db.getErrorMsg() != null){ //jos error viesti != null on tapahtunut virhe tietokanta operaatiossa
+      String syy = db.getErrorMsg(); //Hae virheviestin sisältö
+      db.setErrorMsg(null);//Nollaa virheviesti muuttuja mallissa
+      naytto.virheIlmoitus(syy);//Välitä virheilmoitus aktiivisellenäytölle
+    }
 	}
 
 	/**
@@ -37,14 +49,13 @@ public class MainController implements MainController_IF{
 	 * @param password Salasana
 	 * @return Palauta booleana, onko sisaankirjautuminen onnistunut.
 	 */
-	public boolean LogIn(String username, String password) {
+	public boolean logIn(String username, String password) {
 		boolean res = false;
-		int[] tulos = db.LogIn(username, password);
+		int[] tulos = db.logIn(username, password);
 		if (tulos[0] == 1) {
 			res = true;
-			UserID = tulos[1];
+			userID = tulos[1];
 			this.username = username;
-			System.out.println("käyttäjä " + this.username);
 		}
 		return res;
 	}
@@ -60,9 +71,10 @@ public class MainController implements MainController_IF{
 	 * @param maara Tavaran maara
 	 * @return Palauta booleana, onko lisaaminen onnistunut.
 	 */
-	public boolean AddProduct(Tuotejoukko joukko) {
+	public boolean addProduct(Tuotejoukko joukko) {
 		System.out.println(joukko.getProduct().toString());
-		boolean res = db.Lisaa(joukko);
+		boolean res = db.lisaa(joukko);
+		checkForErrorMessage();
 		return res;
 	}
 
@@ -75,13 +87,23 @@ public class MainController implements MainController_IF{
 	public ArrayList<Product> haeTuote(String nimi) {
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
-		//naytto.paivita("lol");
+		checkForErrorMessage();
 		return res;
 	}
 
 	public ArrayList<Hyllypaikka> haeHyllypaikka(String nimi){
 		ArrayList<Hyllypaikka> res = null;
+		res = new ArrayList<Hyllypaikka>();
+		res.add(db.haeHylly(nimi));
+		checkForErrorMessage();
 		return res;
+	}
+
+	public boolean paivitaHylly(Hyllypaikka h){
+	  boolean allGood = db.paivitaHylly(h);
+	  checkForErrorMessage();
+	  System.out.println(allGood);
+	  return allGood;
 	}
 
 	/**
@@ -93,8 +115,9 @@ public class MainController implements MainController_IF{
 	 */
 	public boolean paivitaTuotteet(ArrayList<Product> products){
 
-//		boolean res = db.updateProducts(products);
-		boolean res = db.TarkistaHyllynTila(products);
+		boolean res = db.NewProductInformationValidation(products);
+		checkForErrorMessage();
+
 		return res;
 	}
 
@@ -114,7 +137,7 @@ public class MainController implements MainController_IF{
 	 *
 	 * @return Paluta booleana.
 	 */
-	public boolean DeleteProduct(String nimi) {
+	public boolean deleteProduct(String nimi) {
 		boolean res = false;
 		return res;
 	}
@@ -134,16 +157,16 @@ public class MainController implements MainController_IF{
 	 */
 
 	public int getID() {
-		return UserID;
+		return userID;
 	}
 	/**
 	 * Uloskirjautuminen eli poistetaan edellisen kayttajan tiedot.
 	 *
 	 */
 
-	public void LogOut() {
+	public void logOut() {
 		System.out.println("logged  out. Deleting saved user information...");
-		UserID = -1;
+		userID = -1;
 		username = "undefined";
 	}
 
@@ -156,15 +179,17 @@ public class MainController implements MainController_IF{
 	@Override
 	public void haeAsiakkaat(String nimi) {
 		ArrayList<Asiakas> lista = db.haeAsiakkaat(nimi);
+		checkForErrorMessage();
 		naytto.paivita(lista);
 	}
 
 	@Override
-	public void TallennaAsiakas(Asiakas asiakas) {
+	public void tallennaAsiakas(Asiakas asiakas) {
 		if(db.addAsiakas(asiakas)){
 			naytto.paivita("Asiakas nimellä " + asiakas.getNimi() + " lisättiin onnistuneesti");
 			naytto.paivita(db.haeAsiakas(asiakas.getNimi()));
 		}else{
+		  checkForErrorMessage();
 			naytto.virheIlmoitus("Asiakas nimellä " + asiakas.getNimi() + " lisääminen epäonnistui");
 		}
 	}
@@ -176,5 +201,6 @@ public class MainController implements MainController_IF{
 			naytto.paivita("Päivitys onnistui!");
 		else
 			naytto.virheIlmoitus("Päivitys epäonnistui!");
+		checkForErrorMessage();
 	}
 }

@@ -101,7 +101,6 @@ public class AsiakasDB {
 			ps.setString(1, nimi);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("asiakasnumero");
 				String name = rs.getString("nimi");
 				String osoite = rs.getString("osoite");
 				String post = rs.getString("postinumero");
@@ -147,9 +146,7 @@ public class AsiakasDB {
 
 			ps.setString(1, nimi);
 			rs = ps.executeQuery();
-
 			while (rs.next()) {
-				int id = rs.getInt("asiakasnumero");
 				String name = rs.getString("nimi");
 				String osoite = rs.getString("osoite");
 				String post = rs.getString("postinumero");

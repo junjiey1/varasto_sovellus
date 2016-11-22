@@ -115,17 +115,23 @@ public class HyllyDB {
 	 * @return Lista hyllypaikkojen nimistä (ArrayList<String>)
 	 */
 
-	public ArrayList<String> HaeTuotteenHyllypaikat(Product product) {
-		ArrayList<String> tuotteen_hyllypaikat = new ArrayList();
+	public ArrayList<Hyllypaikka> HaeTuotteenHyllypaikat(Product product) {
+		ArrayList<Hyllypaikka> tuotteen_hyllypaikat = new ArrayList();
 		try {
 			ps = conn.prepareStatement(
-					"SELECT tuoterivi.hyllypaikka FROM tuoterivi, tuote WHERE tuoterivi.tuoteID = tuote.tuoteID AND tuote.nimi = ?;");
+					"SELECT hyllypaikka.tunnus, hyllypaikka.pituus, hyllypaikka.leveys, hyllypaikka.korkeus, hyllypaikka.maksimi_paino, hyllypaikka.lampotila, hyllypaikka.varastoID from hyllypaikka, tuoterivi, tuote WHERE hyllypaikka.tunnus = tuoterivi.hyllypaikka AND tuoterivi.tuoteID = tuote.tuoteID AND tuote.nimi = ?;");
 			ps.setString(1, product.getProduct_name());
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				String hp_nimi = rs.getString("nimi");
-
-				tuotteen_hyllypaikat.add(hp_nimi);
+				String nimi = rs.getString("tunnus");
+				double pituus = rs.getDouble("pituus");
+				double leveys = rs.getDouble("leveys");
+				double korkeus = rs.getDouble("korkeus");
+				double max_paino = rs.getDouble("maksimi_paino");
+				int lampotila = rs.getInt("lampotila");
+				int varastoID = rs.getInt("varastoID");
+				Hyllypaikka hp = new Hyllypaikka(nimi, pituus, leveys, korkeus, lampotila, max_paino);
+				tuotteen_hyllypaikat.add(hp);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

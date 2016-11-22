@@ -24,7 +24,6 @@ public class DB_AccessObject {
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
-
 	private lampotilaDB lampotiladb;
 	private AsiakasDB asiakasdb;
 	private UsersDB usersdb;
@@ -70,12 +69,11 @@ public class DB_AccessObject {
 		}
 	}
 
-
-
 	// -----METODIT-----//
 
 	/**
-	 * Kirjautuminen, tarkistaa löytyykö vastaava käyttäjätunnus ja salasana tietokannasta.
+	 * Kirjautuminen, tarkistaa löytyykö vastaava käyttäjätunnus ja salasana
+	 * tietokannasta.
 	 *
 	 */
 
@@ -163,11 +161,12 @@ public class DB_AccessObject {
 	}
 
 	/**
-	 * Mikali tuotteelle on asetettu lampotila. Tarkistetaan voiko se lampotilansa perusteella sijaita
-	 * tuotejoukon sisaltamassa hyllypaikassa.
+	 * Mikali tuotteelle on asetettu lampotila. Tarkistetaan voiko se
+	 * lampotilansa perusteella sijaita tuotejoukon sisaltamassa hyllypaikassa.
 	 *
 	 * @param tuotejoukko
-	 * 		tuotejoukko, joka sisaltaa hyllypaikan ja tuotteen (Tuotejoukko)
+	 *            tuotejoukko, joka sisaltaa hyllypaikan ja tuotteen
+	 *            (Tuotejoukko)
 	 *
 	 * @return Mahtuu(true)/Ei mahdu(false) (Boolean)
 	 */
@@ -188,22 +187,67 @@ public class DB_AccessObject {
 		return lampotila;
 	}
 
-//	public ArrayList<Object> CheckPaivitys(ArrayList<Product> products) {
-//		ArrayList<Object> ar = new ArrayList();
-//		for (Product p : products) {
-//		ArrayList<String> hpt = db.HaeTuotteenHyllypaikat(p);
-//		for (String hp : hpt) {
-//			if (db.HaeHylly(hp).getLämpötila() < p.get
-//		}
-//	}
-//		return ar;
-//	}
+	public Double haeHyllynKäytettyTilavuus(String hyllynimi) {
+		double käytettytilavuus = 0;
+		ArrayList<Tuotejoukko> tuotejoukot = haeHyllynTuotejoukot(hyllynimi);
+
+		for (Tuotejoukko t : tuotejoukot) {
+			käytettytilavuus = käytettytilavuus + t.getMaara() * t.getProduct().getProduct_volume();
+		}
+
+		return käytettytilavuus;
+	}
+
+	public Boolean TarkistaHyllynTila(ArrayList<Product> products) {
+		boolean Onnistuuko = true;
+		ArrayList<Object> ar = new ArrayList();
+		for (Product p : products) {
+			ArrayList<Hyllypaikka> hpt = HaeTuotteenHyllypaikat(findProductWithID(p.getID()));
+			for(Hyllypaikka hp : hpt) {
+			System.out.println(hp.getNimi());
+			}
+			for (Hyllypaikka hp : hpt) {
+
+				System.out.println("...");
+				p.toString();
+				Product vanha_product = findProductWithID(p.getID());
+				vanha_product.toString();
+
+				System.out.println(vanha_product.toString() + vanha_product.getProduct_height() +" "+ vanha_product.getProduct_length() +" "+ vanha_product.getProduct_width());
+				System.out.println(p.toString() + p.getProduct_height() +" "+ p.getProduct_length() +" "+ p.getProduct_width());
+				int tuotteen_maara = tuotteidenMaaraHyllyssa(vanha_product.getProduct_name(), hp.getNimi());
+				double hyllyn_tilavuus = hp.getKorkeus() * hp.getLeveys() * hp.getPituus();
+				double hyllyn_käytetty_tilavuus = haeHyllynKäytettyTilavuus(hp.getNimi());
+				double hylly_jäljellä_oleva_tilavuus = hyllyn_tilavuus - hyllyn_käytetty_tilavuus;
+				double uusien_tuotteiden_tilavuus = p.getProduct_length()*p.getProduct_width()*p.getProduct_height()*tuotteen_maara;
+				double vanhojen_tuotteiden_tilavuus = vanha_product.getProduct_length()*vanha_product.getProduct_width()*vanha_product.getProduct_height()*tuotteen_maara;
+				double muutos = uusien_tuotteiden_tilavuus - vanhojen_tuotteiden_tilavuus;
+				if (muutos > hylly_jäljellä_oleva_tilavuus) {
+					System.out.println("määrä "+tuotteen_maara);
+					System.out.println("uusien tuotteiden tilavuus "+uusien_tuotteiden_tilavuus);
+					System.out.println("vanhojen tuotteiden tilavuus "+vanhojen_tuotteiden_tilavuus);
+					System.out.println(p.getProduct_name() + "hyllypaikka " +hp.getNimi()+ " muutos " +muutos+ " jäljellä oleva tilavuus "+hylly_jäljellä_oleva_tilavuus);
+					System.out.println("fail");
+					Onnistuuko = false;
+				} else {
+					System.out.println("määrä "+tuotteen_maara);
+					System.out.println("uusien tuotteiden tilavuus "+uusien_tuotteiden_tilavuus);
+					System.out.println("vanhojen tuotteiden tilavuus "+vanhojen_tuotteiden_tilavuus);
+					System.out.println(p.getProduct_name() + "hyllypaikka " +hp.getNimi()+ " muutos " +muutos+ " jäljellä oleva tilavuus "+hylly_jäljellä_oleva_tilavuus);
+					System.out.println("all fine");
+					updateProducts(products);
+				}
+			}
+		}
+		return Onnistuuko;
+	}
 
 	/**
 	 * Tarkistaa mahtuuko tuotteet hyllyyn
 	 *
 	 * @param tuotejoukko
-	 * 		tuotejoukko, joka sisaltaa hyllypaikan ja tuotteen (Tuotejoukko)
+	 *            tuotejoukko, joka sisaltaa hyllypaikan ja tuotteen
+	 *            (Tuotejoukko)
 	 *
 	 * @return Mahtuu (true)/ei mahdu (false) (Boolean)
 	 */
@@ -247,6 +291,10 @@ public class DB_AccessObject {
 
 	}
 
+	public Product findProductWithID(int id) {
+		return productdb.findProductWithID(id);
+	}
+
 	public boolean addProductToTuoteTable(Product product) {
 		return productdb.addProductToTuoteTable(product);
 	}
@@ -259,7 +307,6 @@ public class DB_AccessObject {
 		return tuoterividb.addProductToTuoteriviTable(joukko);
 	}
 
-
 	public Hyllypaikka HaeHylly(String tunnus) {
 		return hyllydb.HaeHylly(tunnus);
 	}
@@ -268,7 +315,7 @@ public class DB_AccessObject {
 		return productdb.HaeHyllypaikanTuotteet(hyllypaikka);
 	}
 
-	public ArrayList<String> HaeTuotteenHyllypaikat(Product product) {
+	public ArrayList<Hyllypaikka> HaeTuotteenHyllypaikat(Product product) {
 		return hyllydb.HaeTuotteenHyllypaikat(product);
 	}
 

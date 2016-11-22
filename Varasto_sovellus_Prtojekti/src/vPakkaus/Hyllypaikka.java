@@ -29,7 +29,7 @@ public class Hyllypaikka implements DAO_Objekti{
 		this.nimi = nimi;
 	}
 
-	public double getLämpötila() {
+	public int getLämpötila() {
 		return lämpötila;
 	}
 

@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -244,11 +246,40 @@ public class AddProductController implements Nakyma_IF {
 		}
 		lisataanManuaalisesti = false;
 		input.close();
-		if(!errorLog.equals("")){ //jos errorLogi ei ole tyhjä niin lisäys operaation yhteydessä tapahtui virhe
+		boolean err;
+		String text;
+		if(!errorLog.equals("")){
+		  text = "Joitakin tuotteita ei voitu lisätä!";
+		  err = true;
+		}else{
+		  text = "Tuotteet lisättiin onnistuneesti!";
+      err = false;
+		}
+
+		if(showInfoToUser(text, err)){ //jos errorLogi ei ole tyhjä niin lisäys operaation yhteydessä tapahtui virhe
 		  errorLog = "Seuraavia tuotteita ei voitu lisätä tiedostosta" + fileName + ":\n".concat(errorLog);
 		  virheIlmoitus(errorLog);
-		  errorLog="";
 		}
+		errorLog="";
+	}
+
+	private boolean showInfoToUser(String text, boolean errorOccured){
+	  Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("TIEDOTE");
+    alert.setContentText(text);
+    ButtonType buttonTypeOne = ButtonType.OK;
+    alert.getButtonTypes().setAll(buttonTypeOne);
+    if(errorOccured){
+      ButtonType buttonTypeTwo = new ButtonType("Virheiden lisätiedot");
+      alert.getButtonTypes().add(buttonTypeTwo);
+      Optional<ButtonType> result = alert.showAndWait();
+      if (result.get() == buttonTypeTwo){
+        return true;
+      }
+    }
+    else
+      alert.showAndWait();
+    return false;
 	}
 
 	public void showTemperatures(){
@@ -286,7 +317,6 @@ public class AddProductController implements Nakyma_IF {
 
 	@Override
 	public void paivita(Object data) {
-
 	}
 
 	@Override
@@ -314,7 +344,6 @@ public class AddProductController implements Nakyma_IF {
       String version = System.getProperty("java.version");
       String content = String.format(viesti.toString(), version);
       alert.setContentText(content);
-      //alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
       alert.showAndWait();
     }
 	}

@@ -99,6 +99,13 @@ public class MainController implements MainController_IF{
 		return res;
 	}
 
+	public boolean paivitaHylly(Hyllypaikka h){
+	  boolean allGood = db.paivitaHylly(h);
+	  checkForErrorMessage();
+	  System.out.println(allGood);
+	  return allGood;
+	}
+
 	/**
 	 * Paivita tavarat
 	 *

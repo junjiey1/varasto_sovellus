@@ -34,10 +34,24 @@ public class HyllyTaulukko implements Taulukko_IF{
     return hyllyTaulu;
   }
 
+  private boolean isEmpty() {
+    for (Hyllypaikka p : paivitettavat) {
+      if (p != null)
+        return false;
+    }
+    return true;
+  }
+
   @Override
   public boolean paivitaTietokantaan(MainController_IF mc, Nakyma_IF nakyma) {
-    // TODO Auto-generated method stub
-    return false;
+    if (paivitettavat == null || isEmpty()) // Hylly lista on tyhjä käyttäjä ei oo muokannut tuotteita
+      return false;
+    for (Hyllypaikka h : paivitettavat) {
+      if(!mc.paivitaHylly(h)){ //Jos tapahtui virhe hyllyn tietojen päivittämisessä
+        return false; //palautetaan false
+      }
+    }
+    return true; //päästään tänne jos kaikki ok
   }
 
   @Override

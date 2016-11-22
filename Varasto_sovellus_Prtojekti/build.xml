@@ -156,7 +156,7 @@
   	        <!-- Fail this target if FindBugs is not installed. -->
   	        <available file="${findbugs.home.dir}/findbugs.jar" property="findbugs.available" />
   	        <fail unless="findbugs.available"
-  	              message="Error: FINDBUGS_HOME not set or findbugs.jar not found."
+  	              message="Error: FINDBUGS_HOME not set or findbugs.jar not found. ${findbugs.home.dir}/findbugs.jar"
   	        />
   	        <taskdef name="findbugs"
   	                 classname="edu.umd.cs.findbugs.anttask.FindBugsTask"

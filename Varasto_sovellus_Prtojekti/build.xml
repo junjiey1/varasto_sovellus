@@ -152,7 +152,7 @@
         </junitreport>
     </target>
   	<target name="findbugs" depends="build" description="Run code analysis over code to check for problems."
-  	    >
+  	    ><!---->
   	        <!-- Fail this target if FindBugs is not installed. -->
   	        <available file="${findbugs.home.dir}/lib/findbugs.jar" property="findbugs.available" />
   	        <!--<fail unless="findbugs.available"

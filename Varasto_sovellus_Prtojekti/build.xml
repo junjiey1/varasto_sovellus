@@ -171,7 +171,7 @@
   	                  outputFile="${report.findbugs.dir}/findbugs.xml">
   	            <class location="${bin.dir}" />
   	            <auxClasspath>
-  	                <fileset file="./Varasto_sovellus_Prtojekti/Junit/junit.jar" />
+  	                <fileset file="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/Junit/junit.jar" />
   	            </auxClasspath>
   	        </findbugs>
   	    </target>

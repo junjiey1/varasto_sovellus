@@ -154,13 +154,13 @@
   	<target name="findbugs" depends="build" description="Run code analysis over code to check for problems."
   	    >
   	        <!-- Fail this target if FindBugs is not installed. -->
-  	        <available file="${findbugs.home.dir}/findbugs.jar" property="findbugs.available" />
+  	        <available file="${findbugs.home.dir}/lib/findbugs.jar" property="findbugs.available" />
   	        <!--<fail unless="findbugs.available"
   	              message="Error: FINDBUGS_HOME not set or findbugs.jar not found. ${findbugs.home.dir}/findbugs.jar"
   	        />-->
   	        <taskdef name="findbugs"
   	                 classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
-  	                 classpath="${findbugs.home.dir}/findbugs-ant.jar"
+  	                 classpath="${findbugs.home.dir}/lib/findbugs-ant.jar"
   	        />
 
   	        <!-- Run FindBugs. -->

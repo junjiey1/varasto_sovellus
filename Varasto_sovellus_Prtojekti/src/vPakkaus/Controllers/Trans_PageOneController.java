@@ -30,6 +30,8 @@ public class Trans_PageOneController implements Nakyma_IF{
   @FXML
   private Tab confirm;
   @FXML
+  private Tab page_1;
+  @FXML
   private Button next;
   @FXML
   private Label datelabel;
@@ -162,7 +164,8 @@ public class Trans_PageOneController implements Nakyma_IF{
       activeTab = selectProduct;
       activeTab.setContent(vaihtaja.getAnchorPane("Trans_SelectProduct"));
       trans_tabPane.getSelectionModel().select(1);
-      
+      page_1.setDisable(true);
+
   }
 
 

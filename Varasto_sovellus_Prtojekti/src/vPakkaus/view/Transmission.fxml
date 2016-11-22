@@ -16,7 +16,7 @@
    <children>
       <TabPane fx:id="trans_tabPane" layoutX="-27.0" layoutY="6.0" prefHeight="560.0" prefWidth="815.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="249.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Select customer and date">
+          <Tab fx:id="page_1" text="Select customer and date">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

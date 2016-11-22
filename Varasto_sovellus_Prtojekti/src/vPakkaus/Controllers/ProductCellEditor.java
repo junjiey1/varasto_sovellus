@@ -14,7 +14,7 @@ public class ProductCellEditor extends EditingCell{
 	@Override
 	public void textFieldHandelerMethod() {
 		String s = getTextField().getText();
-		System.out.println(s + " " + getDatatyyppi() + " indeksi " + getIndex() + " NIMI " + getColumnName());
+		//System.out.println(s + " " + getDatatyyppi() + " indeksi " + getIndex() + " NIMI " + getColumnName());
 		try {
 			switch (getDatatyyppi()) { // säilötyn luvun avulla voidaan
 									// päätellä mitä datatyyppiä
@@ -39,17 +39,13 @@ public class ProductCellEditor extends EditingCell{
 				if (d != null) {
 					// Meillä atm. neljä riviä, jotka käyttää Double
 					// arvoa. Paino, leveys, pituus ja korkeus
-					if (getColumnName().equals("Paino") && d.doubleValue() != muokattava.getProduct_weight()) { // Muokataan
-																											// weight
-																											// solua
+					if (getColumnName().equals("Paino") && d.doubleValue() != muokattava.getProduct_weight()) {
 						muokattava.setProduct_weight(d);
 					  setValChanged(true);
 						paivitaSolu(d, getIndex());
 					} else if (getColumnName().equals("Leveys")
-							&& d.doubleValue() != muokattava.getProduct_width()) { // Muokataan
-																					// volume
-																					// solua
-					  muokattava.setProduct_width(d);
+							&& d.doubleValue() != muokattava.getProduct_width()) {
+						muokattava.setProduct_width(d);
 					  setValChanged(true);
 						paivitaSolu(d, getIndex());
 					} else if(getColumnName().equals("Pituus")

@@ -53,6 +53,7 @@ public class HyllyDB {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			db.setErrorMsg(e.getMessage());
 		} finally {
 			try {
 				ps.close();
@@ -132,6 +133,7 @@ public class HyllyDB {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			db.setErrorMsg(e.getMessage());
 		} finally {
 			try {
 				ps.close();
@@ -141,8 +143,31 @@ public class HyllyDB {
 				e.printStackTrace();
 			}
 		}
-
 		return tuotteen_hyllypaikat;
+	}
+
+	public boolean paivitaHyllynTiedot(Hyllypaikka h){
+	   try {
+	      ps = conn.prepareStatement("UPDATE hyllypaikka SET pituus = ?, leveys = ?, korkeus = ?, maksimi_paino = ?, lampotila = ? WHERE tunnus = ? ");
+        ps.setDouble(1, h.getLeveys());
+        ps.setDouble(2, h.getLeveys());
+        ps.setDouble(3, h.getKorkeus());
+        ps.setDouble(4, h.getMax_paino());
+        ps.setInt(5, h.getLämpötila());
+        ps.setString(6, h.getNimi());
+	      ps.executeUpdate();
+	      ps.close();
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      db.setErrorMsg(e.getMessage());
+	      try {
+          ps.close();
+        } catch (SQLException e1) {
+          e1.printStackTrace();
+        }
+	      return false;
+	    }
+	   return true;
 	}
 
 }

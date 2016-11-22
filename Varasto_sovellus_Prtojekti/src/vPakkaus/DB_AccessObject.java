@@ -295,6 +295,10 @@ public class DB_AccessObject {
 		return hyllydb.haeHylly(tunnus);
 	}
 
+	public boolean paivitaHylly(Hyllypaikka h){
+	  return hyllydb.paivitaHyllynTiedot(h);
+	}
+
 	public ArrayList<String> haeHyllypaikanTuotteet(String hyllypaikka) {
 		return productdb.haeHyllypaikanTuotteet(hyllypaikka);
 	}

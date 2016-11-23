@@ -5,10 +5,19 @@ public class Tuotejoukko implements DAO_Objekti{
 	private Hyllypaikka hylly;
 	private int maara;
 
+	//Näitä muuttujia tarvitaan jotta voidaan helposti asettaa Javafx taulukoihin Product ja Hyllypaikka olioiden nimet
+	//Ei tarvita gettereitä ja settereitä näille
+	private String tuotteenNimi;
+	private String hyllynNimi;
+
 	public Tuotejoukko(Product p, Hyllypaikka h, int maara){
 		product = p;
 		hylly = h;
 		this.maara = maara;
+		if(p!=null)
+		  tuotteenNimi = p.getProduct_name();
+		if(h!=null)
+		  hyllynNimi = h.getNimi();
 	}
 
 	public Product getProduct() {

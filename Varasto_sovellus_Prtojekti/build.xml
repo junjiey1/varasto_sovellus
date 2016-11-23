@@ -10,7 +10,7 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
-  	<property name="bin.dir" location="./Varasto_sovellus_Prtojekti/bin" />
+  	<property name="bin.dir" location="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/bin" />
   	<property name="findbugs.home.dir" value="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/findbugs" />
   	<property name="report.findbugs.dir" value="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti" />
     <path id="JUnit 4.libraryclasspath">
@@ -175,7 +175,7 @@
   	            	<fileset file="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/Junit/org.hamcrest.core_1.3.0.v201303031735.jar" />
   	            	-->
             	</auxClasspath>
-  	        	<sourcePath path="src"/>
+  	        	<sourcePath path="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/src"/>
   	        </findbugs>
   	    </target>
 

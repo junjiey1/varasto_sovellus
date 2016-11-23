@@ -2,6 +2,8 @@ package vPakkaus.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import vPakkaus.DAO_Objekti;
@@ -16,8 +18,18 @@ public class Trans_SelectProducts implements Nakyma_IF{
   private Button hae;
   @FXML
   private TextField tuoteNimi;
+  @FXML
+  private Tab selectProduct;
+  @FXML
+  private Tab confirm;
+  @FXML
+  private Tab page_1;
+  @FXML
+  private TabPane trans_tabPane;
 
   private MainController_IF mc;
+  private NayttojenVaihtaja_IF vaihtaja;
+  private Tab activeTab;
 
 
   public void haeTuotteRyhmia(){
@@ -50,6 +62,19 @@ public class Trans_SelectProducts implements Nakyma_IF{
     // TODO Auto-generated method stub
 
   }
+
+  public void back(){
+    page_1.setDisable(false);
+
+    activeTab = page_1;
+    activeTab.setContent(vaihtaja.getAnchorPane("Transmission"));
+    trans_tabPane.getSelectionModel().select(0);
+    selectProduct.setDisable(true);
+  }
+  public void next(){
+
+  }
+
 
   @Override
   public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {

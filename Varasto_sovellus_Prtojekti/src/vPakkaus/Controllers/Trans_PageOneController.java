@@ -1,5 +1,6 @@
 package vPakkaus.Controllers;
 
+import java.beans.EventHandler;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+//import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
@@ -33,6 +36,8 @@ public class Trans_PageOneController implements Nakyma_IF{
   private Tab page_1;
   @FXML
   private Button next;
+  @FXML
+  private Button selectBtn;
   @FXML
   private Label datelabel;
   @FXML
@@ -58,32 +63,6 @@ public class Trans_PageOneController implements Nakyma_IF{
     mc = m;
   }
 
-  public void tabChoose() throws IOException {
-
-    if (selectProduct.isSelected()) {
-      activeTab = selectProduct;
-      activeTab.setContent(vaihtaja.getAnchorPane("Trans_SelectProduct"));
-    }
-    if (confirm.isSelected()) {
-      activeTab = confirm;
-      activeTab.setContent(vaihtaja.getAnchorPane("Trans_confirm"));
-    }
-  }
-
-
-
-
-
-//  @FXML
-//  private void getDate(ActionEvent event) {
-//
-//
-//    if (date.getValue() != null) {
-//        datelabel.setText(date.toString());
-//    } else {
-//      datelabel.setText("");
-//    }
-//}
   @Override
   public void paivita(Object data) {
     resetoi();
@@ -122,6 +101,10 @@ public class Trans_PageOneController implements Nakyma_IF{
       }
     }
     asiakasTaulukko.refresh(); // Varmuuden vuoksi päivitetään TableView
+    date.getEditor().clear(); //tyhjentä valittu päivä
+    namelabel.setText(null);
+    datelabel.setText(null);
+
   }
 
   public void valittuAsiakas(){
@@ -157,12 +140,18 @@ public class Trans_PageOneController implements Nakyma_IF{
 
   public void back(){//Button Callback funktio
     vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
+
+
+    resetoi();
+
   }
 
   public void next(){
-
-    if(date.getValue()==null || asiakasTaulukko.getSelectionModel().getSelectedItem()==null){
+    boolean selected= selectBtn.pressedProperty() != null;
+    if(date.getValue()==null || asiakasTaulukko.getSelectionModel().getSelectedItem()==null&& !selected){
       virheIlmoitus("Kenttä ei voi olla tyhjä");
+
+
     }else{
 
       selectProduct.setDisable(false);

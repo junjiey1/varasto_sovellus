@@ -161,7 +161,7 @@
   		<taskdef name="findbugs"
   		    classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
   		    <classpath>
-  		       <fileset dir="${findbugs.home.dir}/lib"/>
+  		       <fileset dir="${findbugs.home.dir}/lib/findbugs.jar"/>
   		    </classpath>
   		</taskdef>
 

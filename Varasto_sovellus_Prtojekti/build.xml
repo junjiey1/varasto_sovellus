@@ -12,7 +12,7 @@
     <property name="source" value="1.8"/>
   	<property name="bin.dir" location="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/bin" />
   	<property name="findbugs.home.dir" value="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/findbugs" />
-  	<property name="report.findbugs.dir" value="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti" />
+  	<property name="report.findbugs.dir" value="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/findbugs" />
     <path id="JUnit 4.libraryclasspath">
         <pathelement location="${ECLIPSE_HOME}plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
         <pathelement location="${ECLIPSE_HOME}plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
@@ -158,10 +158,12 @@
   	        <!--<fail unless="findbugs.available"
   	              message="Error: FINDBUGS_HOME not set or findbugs.jar not found. ${findbugs.home.dir}/findbugs.jar"
   	        />-->
-  	        <taskdef name="findbugs"
-  	                 classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
-  	                 classpath="${findbugs.home.dir}/lib/findbugs-ant.jar"
-  	        />
+  		<taskdef name="findbugs"
+  		    classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
+  		    <classpath>
+  		       <fileset dir="${findbugs.home.dir}/lib"/>
+  		    </classpath>
+  		</taskdef>
 
   	        <!-- Run FindBugs. -->
   	        <mkdir dir="${report.findbugs.dir}" />

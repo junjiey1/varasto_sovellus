@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -29,6 +30,8 @@ public class Trans_PageOneController implements Nakyma_IF{
   @FXML
   private Tab confirm;
   @FXML
+  private Tab page_1;
+  @FXML
   private Button next;
   @FXML
   private Label datelabel;
@@ -36,6 +39,8 @@ public class Trans_PageOneController implements Nakyma_IF{
   private Label namelabel;
   @FXML
   private TableView<DAO_Objekti> asiakasTaulukko;
+  @FXML
+  private TabPane trans_tabPane;
   private Taulukko_IF taulukko;
   private TaulukkoFactory tehdas;
   private Tab activeTab;
@@ -155,16 +160,18 @@ public class Trans_PageOneController implements Nakyma_IF{
   }
 
   public void next(){
-
-    if (next.isPressed()) {
+      selectProduct.setDisable(false);
       activeTab = selectProduct;
       activeTab.setContent(vaihtaja.getAnchorPane("Trans_SelectProduct"));
-    }
+      trans_tabPane.getSelectionModel().select(1);
+      page_1.setDisable(true);
+
   }
 
 
   @Override
   public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
+
     this.vaihtaja = vaihtaja;
     vaihtaja.rekisteröiNakymaKontrolleri(this, "Transmission");
   }

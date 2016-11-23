@@ -174,6 +174,7 @@
   	                <fileset file="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/Junit/junit.jar" />
   	            	<fileset file="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/Junit/org.hamcrest.core_1.3.0.v201303031735.jar" />
   	            </auxClasspath>
+  	        	<sourcePath path="src"/>
   	        </findbugs>
   	    </target>
 

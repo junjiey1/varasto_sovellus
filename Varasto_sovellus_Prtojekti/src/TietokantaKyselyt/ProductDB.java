@@ -273,4 +273,53 @@ public class ProductDB {
 		return product;
 	}
 
+	/**
+	 * Haetaan tuote tietokannasta IDn perusteella
+	 *
+	 * @param nimi
+	 * 		Tuotteen nimi (String)
+	 *
+	 * @return Product-olio (Product)
+	 */
+
+	public Product findProductWithID(int ID) {
+		Product product = null;
+		try {
+			ps = conn.prepareStatement(
+					"SELECT tuote.tuoteID, tuote.nimi, tuote.hinta, tuote.paino, tuote.pituus, tuote.leveys, tuote.korkeus, tuote.lampotila_boolean FROM tuote WHERE tuote.tuoteID = ?");
+
+			// Asetetaan argumentit sql-kyselyyn
+			ps.setInt(1, ID);
+			rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
+			// tietokanta rivi
+
+			while (rs.next()) {
+				int id = rs.getInt("tuoteID");
+				String name = rs.getString("nimi");
+				double paino = rs.getDouble("paino");
+				double pituus = rs.getDouble("pituus");
+				double leveys = rs.getDouble("leveys");
+				double korkeus = rs.getDouble("korkeus");
+				float hinta = rs.getFloat("hinta");
+				float lampotila_boolean = rs.getFloat("lampotila_boolean");
+				product = new Product(name, paino, leveys, korkeus, pituus, hinta);
+				product.setID(id);
+				if (lampotila_boolean == 1)
+					product.setTemp(true);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return product;
+	}
+
 }

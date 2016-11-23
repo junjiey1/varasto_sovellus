@@ -114,8 +114,10 @@ public class MainController implements MainController_IF{
 	 * @return palauttaa boolean arvon jos päivitys onnistui
 	 */
 	public boolean paivitaTuotteet(ArrayList<Product> products){
-		boolean res = db.updateProducts(products);
+
+		boolean res = db.NewProductInformationValidation(products);
 		checkForErrorMessage();
+
 		return res;
 	}
 

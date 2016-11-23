@@ -50,7 +50,7 @@
                               <Label text="Selected name:" />
                            </children>
                         </GridPane>
-                        <Button layoutX="216.0" layoutY="157.0" mnemonicParsing="false" onAction="#valittuAsiakas" prefHeight="31.0" prefWidth="68.0" text="Select" />
+                        <Button layoutX="32.0" layoutY="181.0" mnemonicParsing="false" onAction="#valittuAsiakas" prefHeight="31.0" prefWidth="68.0" text="Select" />
                      </children>
                   </AnchorPane>
             </content>

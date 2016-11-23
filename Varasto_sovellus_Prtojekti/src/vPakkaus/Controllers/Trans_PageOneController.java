@@ -160,11 +160,19 @@ public class Trans_PageOneController implements Nakyma_IF{
   }
 
   public void next(){
+
+    if(date.getValue()==null || asiakasTaulukko.getSelectionModel().getSelectedItem()==null){
+      virheIlmoitus("Kenttä ei voi olla tyhjä");
+    }else{
+
       selectProduct.setDisable(false);
       activeTab = selectProduct;
       activeTab.setContent(vaihtaja.getAnchorPane("Trans_SelectProduct"));
       trans_tabPane.getSelectionModel().select(1);
       page_1.setDisable(true);
+    }
+
+
 
   }
 

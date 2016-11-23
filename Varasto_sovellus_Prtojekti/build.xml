@@ -170,7 +170,6 @@
   	        <!-- Run FindBugs. -->
   	        <mkdir dir="${report.findbugs.dir}" />
   	        <findbugs home="${findbugs.home.dir}"
-  	                  workHard="true"
   	                  output="xml:withMessages"
   	                  outputFile="${report.findbugs.dir}/findbugs.xml">
   	            <class location="${bin.dir}" />
@@ -183,7 +182,7 @@
   	        </findbugs>
   	    </target>
 
-      <!--	<target name="report.findbugs" description="Generate a report on error analysis.">
+      <!-- workHard="true"	<target name="report.findbugs" description="Generate a report on error analysis.">
   	        <xslt in="${report.findbugs.dir}/findbugs.xml"
   	              style="${findbugs.home.dir}/src/xsl/fancy.xsl"
   	              out="${report.findbugs.dir}/findbugs-default.html"

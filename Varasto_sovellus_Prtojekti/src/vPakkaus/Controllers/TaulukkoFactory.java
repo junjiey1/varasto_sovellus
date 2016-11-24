@@ -34,7 +34,6 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 	}
 
 	private Taulukko_IF rakennaTuotejoukkoTaulukko(ArrayList<DAO_Objekti> lista){
-	  System.out.println("oooooooooooooo");
 	  TableView<DAO_Objekti> joukko_taulukko = new TableView<DAO_Objekti>();
 	  TableColumn<DAO_Objekti, String> nimi = new TableColumn<DAO_Objekti, String>();//Nimi
 	  TableColumn<DAO_Objekti, String> sijainti = new TableColumn<DAO_Objekti, String>();//Sijainti
@@ -46,11 +45,13 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 	  joukko_taulukko.getColumns().add(sijainti);
 	  joukko_taulukko.getColumns().add(maara);
 	  for(DAO_Objekti dao : lista){
+	    System.out.println("item");
       nimi.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("tuotteenNimi"));
       sijainti.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("hyllynNimi"));
       maara.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Integer>("maara"));
     }
-    return null;
+	  joukko_taulukko.getItems().addAll(lista);
+    return new TuoteJoukkoTable(joukko_taulukko);
 
 	}
 
@@ -226,5 +227,27 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 		}
 		return new ProductTaulukko(product_taulukko, PaivitettavatTuotteet);
 	}
+
+  @Override
+  public TableView<DAO_Objekti> buildHelperTable(ArrayList<DAO_Objekti> lista) {
+    TableView<DAO_Objekti> joukko_taulukko = new TableView<DAO_Objekti>();
+    TableColumn<DAO_Objekti, String> nimi = new TableColumn<DAO_Objekti, String>();//Nimi
+    //TableColumn<DAO_Objekti, String> sijainti = new TableColumn<DAO_Objekti, String>();//Sijainti
+    TableColumn<DAO_Objekti, Integer> maara = new TableColumn<DAO_Objekti, Integer>();//Määrä
+    nimi.setText("Nimi");
+    //sijainti.setText("Sijainti");
+    maara.setText("Määrä");
+    joukko_taulukko.getColumns().add(nimi);
+    //joukko_taulukko.getColumns().add(sijainti);
+    joukko_taulukko.getColumns().add(maara);
+    //for(DAO_Objekti dao : lista){
+      //System.out.println("item");
+      nimi.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("tuotteenNimi"));
+      //sijainti.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("hyllynNimi"));
+      maara.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Integer>("maara"));
+    //}
+    //joukko_taulukko.getItems().addAll(lista);
+    return joukko_taulukko;
+  }
 
 }

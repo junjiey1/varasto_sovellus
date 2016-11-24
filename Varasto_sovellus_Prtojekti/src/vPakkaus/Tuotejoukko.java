@@ -20,7 +20,17 @@ public class Tuotejoukko implements DAO_Objekti{
 		  hyllynNimi = h.getNimi();
 	}
 
-	public Product getProduct() {
+
+
+	public String getTuotteenNimi() {
+    return tuotteenNimi;
+  }
+
+  public String getHyllynNimi() {
+    return hyllynNimi;
+  }
+
+  public Product getProduct() {
 		return product;
 	}
 

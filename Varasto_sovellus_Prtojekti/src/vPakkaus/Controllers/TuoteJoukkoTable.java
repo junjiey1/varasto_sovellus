@@ -5,10 +5,11 @@ import vPakkaus.DAO_Objekti;
 
 public class TuoteJoukkoTable implements Taulukko_IF{
 
-  private TableView<DAO_Objekti> taulukko;
+  private TableView<DAO_Objekti> taulukkoTuoteRyhmille;
+  //private TableView<DAO_Objekti> taulukkoLahetyksenTuotteille;
 
   public TuoteJoukkoTable(TableView<DAO_Objekti> tuoteTaulukko){
-    taulukko = tuoteTaulukko;
+    taulukkoTuoteRyhmille = tuoteTaulukko;
   }
 
   @Override
@@ -18,7 +19,7 @@ public class TuoteJoukkoTable implements Taulukko_IF{
 
   @Override
   public TableView<DAO_Objekti> getTaulukko() {
-    return taulukko;
+    return taulukkoTuoteRyhmille;
   }
 
   @Override
@@ -28,7 +29,7 @@ public class TuoteJoukkoTable implements Taulukko_IF{
 
   @Override
   public DAO_Objekti getObject(int index) {
-    return taulukko.getItems().get(index);
+    return taulukkoTuoteRyhmille.getItems().get(index);
   }
 
 }

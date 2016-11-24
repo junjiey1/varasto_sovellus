@@ -158,8 +158,6 @@ public class MuokkaaProductController implements Nakyma_IF {
 		switch(mode){//F75757
 			case 1:
 				mode = 2;
-				//hyllyButton.setDisable(false);
-        //tuoteButton.setDisable(true);
 				label1.setText("Etsitään tuotteita");
 				productName.setPromptText("Tuotteen nimi");
 				tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
@@ -167,8 +165,6 @@ public class MuokkaaProductController implements Nakyma_IF {
 				break;
 			case 2:
 				mode = 1;
-				//tuoteButton.setDisable(false);
-        //hyllyButton.setDisable(true);
 				label1.setText("Etsitään hyllypaikkoja");
 				productName.setPromptText("Hyllypaikan nimi");
 				hyllyButton.setStyle("-fx-font: 13 arial; -fx-base: #b6e7c9;");//F75757
@@ -188,7 +184,6 @@ public class MuokkaaProductController implements Nakyma_IF {
 
 	@Override
 	public void resetoi() {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -81,11 +81,13 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
     TableColumn<DAO_Objekti, Double> t3 = new TableColumn<DAO_Objekti, Double>();//Pituus
     TableColumn<DAO_Objekti, Double> t4 = new TableColumn<DAO_Objekti, Double>();//Korkeus
     TableColumn<DAO_Objekti, Double> t5 = new TableColumn<DAO_Objekti, Double>();//MaxPaino
+    TableColumn<DAO_Objekti, Integer> t6 = new TableColumn<DAO_Objekti, Integer>();
     t1.setText("Nimi");
     t2.setText("Leveys");
     t3.setText("Pituus");
     t4.setText("Korkeus");
     t5.setText("MaxPaino");
+    t6.setText("Lämpötila");
     Hyllypaikka[] PaivitettavatHyllyt = new Hyllypaikka[lista.size()];
     System.out.println("koko " + lista.size());
     for(int i = 0; i<lista.size(); i++)
@@ -94,7 +96,13 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 
     Callback<TableColumn<DAO_Objekti, String>, TableCell<DAO_Objekti, String>> cellFactory2 = new Callback<TableColumn<DAO_Objekti, String>, TableCell<DAO_Objekti, String>>() {
       public TableCell call(TableColumn p) {
-        return new HyllyCellEditor(2,PaivitettavatHyllyt);
+        return new HyllyCellEditor(-1,PaivitettavatHyllyt);
+      }
+    };
+
+    Callback<TableColumn<DAO_Objekti, Integer>, TableCell<DAO_Objekti, Integer>> cellFactory = new Callback<TableColumn<DAO_Objekti, Integer>, TableCell<DAO_Objekti, Integer>>() {
+      public TableCell call(TableColumn p) {
+        return new HyllyCellEditor(1,PaivitettavatHyllyt);
       }
     };
 
@@ -110,11 +118,13 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
     t3.setCellFactory(cellFactory3);
     t4.setCellFactory(cellFactory3);
     t5.setCellFactory(cellFactory3);
+    t6.setCellFactory(cellFactory);
     hylly_taulukko.getColumns().add(t1);
     hylly_taulukko.getColumns().add(t2);
     hylly_taulukko.getColumns().add(t3);
     hylly_taulukko.getColumns().add(t4);
     hylly_taulukko.getColumns().add(t5);
+    hylly_taulukko.getColumns().add(t6);
 
     for(int i = 0; i<PaivitettavatHyllyt.length;i++){
       t1.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("nimi"));
@@ -122,6 +132,7 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
       t3.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("pituus"));
       t4.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("korkeus"));
       t5.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Double>("max_paino"));
+      t6.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Integer>("lämpötila"));
     }
     return new HyllyTaulukko(hylly_taulukko, PaivitettavatHyllyt);
 	}

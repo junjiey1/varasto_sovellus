@@ -2,21 +2,41 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.WareHouseManagement_MainMenu_Controller">
    <children>
       <AnchorPane layoutY="7.0" prefHeight="321.0" prefWidth="357.0">
          <children>
-            <Button layoutX="114.0" layoutY="112.0" mnemonicParsing="false" onAction="#aktivoiAsiakasIkkuna" prefHeight="37.0" prefWidth="130.0" text="1. Asiakkaat" />
-            <Button layoutX="114.0" layoutY="170.0" mnemonicParsing="false" onAction="#aktivoiTransmission" prefHeight="37.0" prefWidth="130.0" text="2. Lähetykset" />
             <Button layoutX="14.0" layoutY="276.0" mnemonicParsing="false" onAction="#aktivoiMainPageIkkuna" text="Back" />
-            <Label alignment="CENTER" layoutX="77.0" layoutY="30.0" prefHeight="21.0" prefWidth="197.0" text="Menu" textFill="#321ee1">
+            <Label alignment="CENTER" layoutX="72.0" layoutY="14.0" prefHeight="21.0" prefWidth="197.0" text="Menu" textFill="#321ee1">
                <font>
                   <Font size="23.0" />
                </font>
             </Label>
+            <GridPane layoutX="114.0" layoutY="78.0" prefHeight="165.0" prefWidth="147.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#aktivoiAsiakasIkkuna" prefHeight="37.0" prefWidth="130.0" text="1. Asiakkaat" />
+                  <Button mnemonicParsing="false" onAction="#aktivoiTransmission" prefHeight="37.0" prefWidth="130.0" text="2. Lähetykset" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#aktivoiGraphs" prefHeight="37.0" prefWidth="130.0" text="3.Kuvaajat" GridPane.rowIndex="2" />
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </GridPane>
          </children>
       </AnchorPane>
    </children>

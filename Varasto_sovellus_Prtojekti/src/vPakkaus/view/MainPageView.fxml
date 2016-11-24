@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -11,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MainPageController">
    <children>
-      <TabPane layoutX="6.0" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="100.0" tabMinHeight="25.0" tabMinWidth="124.0">
+      <TabPane minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="100.0" tabMinHeight="25.0" tabMinWidth="124.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
         <tabs>
           <Tab fx:id="homeTab" text="MAIN">
                <content>
@@ -24,7 +25,7 @@
                         </Label>
                         <Button fx:id="logout" layoutX="22.0" layoutY="107.0" mnemonicParsing="false" onAction="#logOut" prefHeight="28.0" prefWidth="96.0" text="LOG OUT" />
                         <Button fx:id="chooselanguage" layoutX="22.0" layoutY="137.0" mnemonicParsing="false" onAction="#changeLan" prefHeight="28.0" prefWidth="96.0" text="choose language" />
-                        <ImageView fitHeight="318.0" fitWidth="388.0" layoutX="299.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="318.0" fitWidth="388.0" layoutX="299.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="299.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="68.0">
                            <image>
                               <Image url="@../images/wh.jpg" />
                            </image>
@@ -41,6 +42,9 @@
                         </Label>
                         <Button fx:id="management" layoutX="22.0" layoutY="228.0" mnemonicParsing="false" onAction="#whManagement" prefHeight="28.0" text="WAREHOUSE MANAGEMENT" />
                      </children>
+                     <padding>
+                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                     </padding>
                   </AnchorPane>
                </content>
             </Tab>

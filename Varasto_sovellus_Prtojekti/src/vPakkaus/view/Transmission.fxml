@@ -55,8 +55,14 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="selectProduct" disable="true" text="Select product" />
-            <Tab fx:id="confirm" disable="true" text="confirm" />
+          <Tab fx:id="selectProduct" disable="true" text="Select product">
+               <content>
+                  <fx:include source="Trans_SelectProduct.fxml" />
+               </content></Tab>
+            <Tab fx:id="confirm" disable="true" text="confirm">
+               <content>
+                  <fx:include source="Trans_confirm.fxml" />
+               </content></Tab>
         </tabs>
       </TabPane>
    </children>

@@ -8,16 +8,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="460.0" minWidth="700.0" prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MuokkaaProductController">
    <children>
-      <Label fx:id="label1" layoutX="28.0" layoutY="38.0" text="Name" />
-      <TextField fx:id="productName" layoutX="28.0" layoutY="67.0" />
-      <Button fx:id="searchbtn" layoutX="150.0" layoutY="108.0" mnemonicParsing="false" onAction="#searchManually" text="Search" />
-      <Button fx:id="hyllyButton" layoutX="200.0" layoutY="20.0" mnemonicParsing="false" onAction="#switchMode" text="Hyllypaikat" />
-      <Button fx:id="tuoteButton" layoutX="130.0" layoutY="20.0" mnemonicParsing="false" onAction="#switchMode" text="Tuotteet" />
+      <Label fx:id="label1" layoutX="28.0" layoutY="76.0" text="Name" />
+      <TextField fx:id="productName" layoutX="28.0" layoutY="97.0" />
+      <Button fx:id="searchbtn" layoutX="214.0" layoutY="97.0" mnemonicParsing="false" onAction="#searchManually" text="Search" />
+      <Button fx:id="hyllyButton" layoutX="206.0" layoutY="28.0" mnemonicParsing="false" onAction="#switchMode" text="Hyllypaikat" />
+      <Button fx:id="tuoteButton" layoutX="129.0" layoutY="28.0" mnemonicParsing="false" onAction="#switchMode" text="Tuotteet" />
       <Label layoutX="307.0" layoutY="6.0" text="Details:" />
       <TableView fx:id="tuoteTable" editable="true" layoutX="307.0" layoutY="23.0" prefHeight="430.0" prefWidth="385.0">
       </TableView>
-      <Label layoutX="28.0" layoutY="17.0" text="Filter Table" />
-      <Button fx:id="paivita" layoutX="151.0" layoutY="178.0" mnemonicParsing="false" onAction="#paivitaTuotteet" text="Paivita" />
-      <Button fx:id="tyhjenta" layoutX="151.0" layoutY="215.0" mnemonicParsing="false" onAction="#reset" prefHeight="31.0" prefWidth="64.0" text="Clear" />
+      <Label layoutX="28.0" layoutY="18.0" text="Filter Table" />
+      <Button fx:id="paivita" layoutX="215.0" layoutY="215.0" mnemonicParsing="false" onAction="#paivitaTuotteet" text="Paivita" />
+      <Button fx:id="tyhjenta" layoutX="215.0" layoutY="256.0" mnemonicParsing="false" onAction="#reset" prefHeight="31.0" prefWidth="64.0" text="Clear" />
    </children>
 </AnchorPane>

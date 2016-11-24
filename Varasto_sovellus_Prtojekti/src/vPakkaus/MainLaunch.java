@@ -48,11 +48,13 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		anchorMap = new HashMap<String, AnchorPane>(); //Tänne tallenetaan fxml tiedoista luodut Anchorpanet
 		sceneMap = new HashMap<String, Scene>(); //Tänne tallennetaan jokainen Scene-olio
 		luodutNakymaKontrollerit = new HashMap<String, Nakyma_IF>(); //Tänne jokainen FXML näkymä-luokan kontrolleri instanssi
+
 		mc = new MainController();
 		tehdas = new AnchorPaneFactory(mc);
 		lataaAnchorPanet();
 		luoNakymat();
 		mainStage = primaStage;
+		//primaStage.setResizable(false);
 		asetaUudeksiNaytoksi("login", "LOGIN", null);
 	}
 
@@ -71,6 +73,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		anchorMap.put("Transmission",tehdas.annaNakyma("view/Transmission.fxml", this));
 		anchorMap.put("Trans_SelectProduct",tehdas.annaNakyma("view/Trans_SelectProduct.fxml", this));
 		anchorMap.put("Trans_confirm",tehdas.annaNakyma("view/Trans_confirm.fxml", this));
+    anchorMap.put("Graphs",tehdas.annaNakyma("view/GraphView.fxml", this));
 	}
 
 	/**
@@ -84,6 +87,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		sceneMap.put("customerview", new Scene(anchorMap.get("customerview")));
 		sceneMap.put("ManagementMainMenu", new Scene(anchorMap.get("ManagementMainMenu")));
 		sceneMap.put("Transmission", new Scene(anchorMap.get("Transmission")));
+		sceneMap.put("Graphs", new Scene(anchorMap.get("Graphs")));
 //		sceneMap.put("Trans_selectProduct", new Scene(anchorMap.get("Trans_selectProduct")));
 //		sceneMap.put("Trans_confirm", new Scene(anchorMap.get("Trans_confirm")));
 	}

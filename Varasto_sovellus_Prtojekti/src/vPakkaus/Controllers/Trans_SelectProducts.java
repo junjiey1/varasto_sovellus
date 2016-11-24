@@ -63,7 +63,7 @@ public class Trans_SelectProducts implements Nakyma_IF{
 
   }
 
-  public void back(){
+  public void back_to(){
     page_1.setDisable(false);
 
     activeTab = page_1;
@@ -71,13 +71,20 @@ public class Trans_SelectProducts implements Nakyma_IF{
     trans_tabPane.getSelectionModel().select(0);
     selectProduct.setDisable(true);
   }
-  public void next(){
 
+  public void next_confirm(){
+
+    confirm.setDisable(false);
+    activeTab = confirm;
+    activeTab.setContent(vaihtaja.getAnchorPane("Trans_confirm"));
+    trans_tabPane.getSelectionModel().select(2);
+    selectProduct.setDisable(true);
   }
 
 
   @Override
   public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
+    this.vaihtaja = vaihtaja;
     vaihtaja.rekisteröiNakymaKontrolleri(this, "Trans_SelectProduct");
   }
 

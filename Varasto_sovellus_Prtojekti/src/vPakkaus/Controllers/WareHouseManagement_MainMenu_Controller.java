@@ -41,6 +41,9 @@ public class WareHouseManagement_MainMenu_Controller implements Nakyma_IF{
 	public void aktivoiTransmission(){
 		vaihtaja.asetaUudeksiNaytoksi("Transmission", "Lahetys", null);
 	}
+	 public void aktivoiGraphs(){
+	    vaihtaja.asetaUudeksiNaytoksi("Graphs", "Kuvaaja", null);
+	  }
 
 	public void back(){//Button Callback funktio
 		vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);

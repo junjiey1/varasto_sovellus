@@ -49,6 +49,7 @@ public class Trans_PageOneController implements Nakyma_IF{
   private Taulukko_IF taulukko;
   private TaulukkoFactory tehdas;
   private Tab activeTab;
+  private boolean selected;
 
 
   public Trans_PageOneController(){
@@ -108,11 +109,14 @@ public class Trans_PageOneController implements Nakyma_IF{
   }
 
   public void valittuAsiakas(){
+    selected=false;
     if(asiakasTaulukko.getSelectionModel().getSelectedItem()!=null){
       Asiakas a = (Asiakas)asiakasTaulukko.getSelectionModel().getSelectedItem();
       namelabel.setText(a.getNimi());
+      selected=true;
     }else
       virheIlmoitus("Et ole valinnut tarkasteltavaa asiakasta taulukosta");
+      selected=false;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
     if (date.getValue() != null) {
@@ -121,6 +125,7 @@ public class Trans_PageOneController implements Nakyma_IF{
     } else {
       datelabel.setText("");
     }
+
   }
 
   @Override
@@ -147,8 +152,7 @@ public class Trans_PageOneController implements Nakyma_IF{
   }
 
   public void next(){
-    boolean selected= selectBtn.pressedProperty() != null;
-    if(date.getValue()==null || asiakasTaulukko.getSelectionModel().getSelectedItem()==null&& !selected){
+    if(date.getValue()==null || asiakasTaulukko.getSelectionModel().getSelectedItem()==null && selected==false){
       virheIlmoitus("Kenttä ei voi olla tyhjä");
 
 

@@ -322,4 +322,17 @@ public class ProductDB {
 		return product;
 	}
 
+	 public boolean deleteProduct(Product p) {
+	    try {
+	      ps = conn.prepareStatement("DELETE FROM tuote WHERE tuoteID = ?");
+	      ps.setInt(1, p.getID());
+	      ps.executeUpdate();
+	      ps.close();
+	      return true;
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      return false;
+	    }
+	  }
+
 }

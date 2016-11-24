@@ -179,4 +179,17 @@ public class HyllyDB {
 	   return true;
 	}
 
+  public boolean deleteHyllypaikka(Hyllypaikka h) {
+    try {
+      ps = conn.prepareStatement("DELETE FROM hyllypaikka WHERE tunnus = ?");
+      ps.setString(1, h.getNimi());
+      ps.executeUpdate();
+      ps.close();
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
 }

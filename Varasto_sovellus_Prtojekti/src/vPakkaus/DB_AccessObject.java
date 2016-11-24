@@ -435,9 +435,30 @@ public class DB_AccessObject {
     return asiakasdb.haeAsiakas(nimi);
   }
 
+  public boolean deleteHyllypaikka(Hyllypaikka h) {
+    return hyllydb.deleteHyllypaikka(h);
+  }
+
+  public boolean deleteAsiakas(Asiakas a) {
+    return asiakasdb.deleteAsiakas(a);
+  }
+
+  public boolean deleteProduct(Product p) {
+    return productdb.deleteProduct(p);
+  }
+
+  public boolean deleteTuoterivi(Tuotejoukko tj) {
+    return tuoterividb.deleteTuoterivi(tj);
+  }
+
   public ArrayList<Asiakas> haeAsiakkaat(String nimi) {
     return asiakasdb.haeAsiakkaat(nimi);
   }
+
+  public ArrayList<Tuotejoukko> haeTuotteenKaikkiTuoterivit(Product p) {
+    return tuoterividb.haeTuotteenKaikkiTuoterivit(p);
+  }
+
   // /**
   // * Sulje tietokanta yhteys.
   // *

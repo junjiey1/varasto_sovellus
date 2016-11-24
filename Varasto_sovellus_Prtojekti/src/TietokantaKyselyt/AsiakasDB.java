@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vPakkaus.Asiakas;
+import vPakkaus.Product;
 
 /**
  * Luokka vastaa Asiakas tietokantataulun kyselyistä
@@ -170,5 +171,18 @@ public class AsiakasDB {
 
 		return asiakkaat;
 	}
+
+  public boolean deleteAsiakas(Asiakas a) {
+    try {
+      ps = conn.prepareStatement("DELETE FROM asiakas WHERE asiakasnumero = ?");
+      ps.setInt(1, a.getID());
+      ps.executeUpdate();
+      ps.close();
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
 
 }

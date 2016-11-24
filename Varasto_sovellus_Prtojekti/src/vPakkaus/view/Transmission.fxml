@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="560.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.Trans_PageOneController">
    <children>
-      <TabPane fx:id="trans_tabPane" layoutX="-27.0" layoutY="6.0" prefHeight="560.0" prefWidth="815.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="249.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="trans_tabPane" prefHeight="560.0" prefWidth="815.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="249.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab fx:id="page_1" text="Select customer and date">
             <content>
@@ -50,13 +50,13 @@
                               <Label text="Selected name:" />
                            </children>
                         </GridPane>
-                        <Button layoutX="216.0" layoutY="157.0" mnemonicParsing="false" onAction="#valittuAsiakas" prefHeight="31.0" prefWidth="68.0" text="Select" />
+                        <Button fx:id="selectBtn" layoutX="32.0" layoutY="181.0" mnemonicParsing="false" onAction="#valittuAsiakas" prefHeight="31.0" prefWidth="68.0" text="Select" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="selectProduct" disable="true" onSelectionChanged="#tabChoose" text="Select product" />
-            <Tab fx:id="confirm" disable="true" onSelectionChanged="#tabChoose" text="confirm" />
+          <Tab fx:id="selectProduct" disable="true" text="Select product" />
+            <Tab fx:id="confirm" disable="true" text="confirm" />
         </tabs>
       </TabPane>
    </children>

@@ -10,16 +10,16 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
-  	<property name="bin.dir" location="./Varasto_sovellus_Prtojekti/bin" />
+  	<property name="bin.dir" location="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/bin" />
   	<property name="findbugs.home.dir" value="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/findbugs" />
-  	<property name="report.findbugs.dir" value="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti" />
+  	<property name="report.findbugs.dir" value="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/findbugs" />
     <path id="JUnit 4.libraryclasspath">
         <pathelement location="${ECLIPSE_HOME}plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
         <pathelement location="${ECLIPSE_HOME}plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
     </path>
     <path id="Varasto_sovellus_Prtojekti.classpath">
         <pathelement location="bin"/>
-        <path refid="JUnit 4.libraryclasspath"/>
+        <!--<path refid="JUnit 4.libraryclasspath"/>-->
         <pathelement location="sql_connector/mysql-connector-java-5.1.38-bin.jar"/>
         <pathelement location="Junit/junit.jar"/>
         <pathelement location="TestFx/testFx-3.1.2.jar"/>
@@ -158,26 +158,31 @@
   	        <!--<fail unless="findbugs.available"
   	              message="Error: FINDBUGS_HOME not set or findbugs.jar not found. ${findbugs.home.dir}/findbugs.jar"
   	        />-->
-  	        <taskdef name="findbugs"
-  	                 classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
-  	                 classpath="${findbugs.home.dir}/lib/findbugs-ant.jar"
-  	        />
+  		<taskdef name="findbugs"
+  		    classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
+  		    <classpath>
+  		       	<fileset dir="${findbugs.home.dir}/lib">
+  		       		<include name="*.jar"/>
+	    		</fileset>
+  		    </classpath>
+  		</taskdef>
 
   	        <!-- Run FindBugs. -->
   	        <mkdir dir="${report.findbugs.dir}" />
   	        <findbugs home="${findbugs.home.dir}"
-  	                  workHard="true"
   	                  output="xml:withMessages"
   	                  outputFile="${report.findbugs.dir}/findbugs.xml">
   	            <class location="${bin.dir}" />
-  	            <auxClasspath>
-  	                <fileset file="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/Junit/junit.jar" />
+  	            <auxClasspath refid="Varasto_sovellus_Prtojekti.classpath">
+  	                <!--<fileset file="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/Junit/junit.jar" />
   	            	<fileset file="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/Junit/org.hamcrest.core_1.3.0.v201303031735.jar" />
-  	            </auxClasspath>
+  	            	-->
+            	</auxClasspath>
+  	        	<sourcePath path="/opt/bitnami/apps/jenkins/jenkins_home/jobs/S2016 Varastosovellus/workspace/Varasto_sovellus_Prtojekti/src"/>
   	        </findbugs>
   	    </target>
 
-      <!--	<target name="report.findbugs" description="Generate a report on error analysis.">
+      <!-- workHard="true"	<target name="report.findbugs" description="Generate a report on error analysis.">
   	        <xslt in="${report.findbugs.dir}/findbugs.xml"
   	              style="${findbugs.home.dir}/src/xsl/fancy.xsl"
   	              out="${report.findbugs.dir}/findbugs-default.html"

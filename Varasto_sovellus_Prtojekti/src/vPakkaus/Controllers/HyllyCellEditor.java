@@ -24,8 +24,11 @@ public class HyllyCellEditor extends EditingCell{
     //System.out.println(s + " " + getDatatyyppi() + " indeksi " + getIndex() + " NIMI " + getColumnName());
     try {
       switch (getDatatyyppi()) { // säilötyn luvun avulla voidaan
-          case 2:
-            System.out.println("Ei tee mitään atm");
+          case 1:
+            System.out.println("yrittää");
+            int newLampotila = Integer.parseInt(s);
+            muokattava.setLämpötila(newLampotila);
+            setValChanged(true);
             break;
 
           case 3:
@@ -39,12 +42,14 @@ public class HyllyCellEditor extends EditingCell{
                 paivitaSolu(d, getIndex());
               } else if (getColumnName().equals("Leveys")
                   && d.doubleValue() != muokattava.getLeveys()) {
+                System.out.println("saatu leveys : " + muokattava.getLeveys() + " " + d);
                 muokattava.setLeveys(d);
                 setValChanged(true);
                 paivitaSolu(d, getIndex());
               } else if(getColumnName().equals("Pituus")
                   && d.doubleValue() != muokattava.getPituus()){
-                muokattava.setPituus(d);;
+                System.out.println("saatu pituus : " + muokattava.getPituus() + " " + d);
+                muokattava.setPituus(d);
                 setValChanged(true);
                 paivitaSolu(d, getIndex());
               } else if(getColumnName().equals("Korkeus")

@@ -19,7 +19,7 @@
     </path>
     <path id="Varasto_sovellus_Prtojekti.classpath">
         <pathelement location="bin"/>
-        <path refid="JUnit 4.libraryclasspath"/>
+        <!--<path refid="JUnit 4.libraryclasspath"/>-->
         <pathelement location="sql_connector/mysql-connector-java-5.1.38-bin.jar"/>
         <pathelement location="Junit/junit.jar"/>
         <pathelement location="TestFx/testFx-3.1.2.jar"/>

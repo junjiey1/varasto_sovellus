@@ -48,6 +48,8 @@ abstract class EditingCell extends TableCell<DAO_Objekti, Object> {
 	*/
 	@Override
 	public void startEdit() {
+	  if(datatyyppi == -1) //Ei muokattava solu
+      return;
 		if (!isEmpty()) {
 			valChangedByUser = false;
 			super.startEdit();
@@ -202,10 +204,6 @@ abstract class EditingCell extends TableCell<DAO_Objekti, Object> {
 
 	public String getColumnName() {
 		return columnName;
-	}
-
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
 	}
 
 	public boolean isValChangedByUser() {

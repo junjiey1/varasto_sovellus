@@ -158,7 +158,7 @@ public class HyllyDB {
 	public boolean paivitaHyllynTiedot(Hyllypaikka h){
 	   try {
 	      ps = conn.prepareStatement("UPDATE hyllypaikka SET pituus = ?, leveys = ?, korkeus = ?, maksimi_paino = ?, lampotila = ? WHERE tunnus = ? ");
-        ps.setDouble(1, h.getLeveys());
+        ps.setDouble(1, h.getPituus());
         ps.setDouble(2, h.getLeveys());
         ps.setDouble(3, h.getKorkeus());
         ps.setDouble(4, h.getMax_paino());
@@ -178,5 +178,18 @@ public class HyllyDB {
 	    }
 	   return true;
 	}
+
+  public boolean deleteHyllypaikka(Hyllypaikka h) {
+    try {
+      ps = conn.prepareStatement("DELETE FROM hyllypaikka WHERE tunnus = ?");
+      ps.setString(1, h.getNimi());
+      ps.executeUpdate();
+      ps.close();
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
 
 }

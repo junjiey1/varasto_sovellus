@@ -3,6 +3,8 @@ package vPakkaus.Controllers;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -24,21 +26,12 @@ public class Trans_SelectProducts implements Nakyma_IF{
   @FXML
   private TextField tuoteNimi;
   @FXML
-  private Tab selectProduct;
-  @FXML
-  private Tab confirm;
-  @FXML
-  private Tab page_1;
-  @FXML
-  private TabPane trans_tabPane;
-  @FXML
   private TextField maara;
 
   private Taulukko_IF taulukko;
   private MainController_IF mc;
   private TaulukkoFactory tehdas;
   private NayttojenVaihtaja_IF vaihtaja;
-  private Tab activeTab;
   private ArrayList<Tuotejoukko> paivitettavatJoukot;
 
   public Trans_SelectProducts(){
@@ -78,21 +71,13 @@ public class Trans_SelectProducts implements Nakyma_IF{
   }
 
   public void haeTuotteRyhmia(){
-    resetTables(tuoteTaulukko);
-    ArrayList<Tuotejoukko> p = new ArrayList<Tuotejoukko>();
-    p.add(new Tuotejoukko(new Product("lol", 1.2,1.2,1.2,3.3,1f), new Hyllypaikka("A-4", 9.9, 9.9, 9.9, 10, 2000), 10));
-    p.add(new Tuotejoukko(new Product("lol", 1.2,1.2,1.2,3.3,1f), new Hyllypaikka("A-3", 9.9, 9.9, 9.9, 10, 2000), 10));
-    p.add(new Tuotejoukko(new Product("liha", 1.2,1.2,1.2,3.3,1f), new Hyllypaikka("A-3", 9.9, 9.9, 9.9, 10, 2000), 10));
-    Object o = (Object)p;
-    if(luoUusiTaulukko((ArrayList<DAO_Objekti>)o)){
-      täytäTaulukko();
-    }
+    mc.haeTuotejoukot(tuoteNimi.getText());
   }
 
   public void lisaaTuotteitaLahetykseen(){
     Tuotejoukko dao = (Tuotejoukko)tuoteTaulukko.getSelectionModel().getSelectedItem();
     if(dao==null || maara.getText().equals("")){
-      System.out.println("ei määritelty");
+      virheIlmoitus("Tuotetta ei ole valittu tai määrä ei ole annettu");
       return;
     }
     int arvo;
@@ -100,15 +85,15 @@ public class Trans_SelectProducts implements Nakyma_IF{
       arvo = Integer.parseInt(maara.getText());
     }catch(NumberFormatException e){
       //Ei ole int
-      System.out.println("ei int");
+      virheIlmoitus("Anna kokonaisluku siirrettävien tuotteiden määräksi");
       return;
     }
     if(arvo>dao.getMaara()){ //Haluttu määrä on suurempi kuin hyllyssä olevan tuotteen määrä
-      System.out.println("liian suuri arvo");
+      virheIlmoitus("Annoit siirrettävien määräksi " + arvo + ", mutta tämä ylittää hyllypaikassa olevien tuotteiden arvon " + dao.getMaara());
       return;
     }
     if(arvo<1){ //Haluttu tuotteiden lisäys määrä <=0. Ei voida hyväksyä
-
+      virheIlmoitus("Antamasi määrä on <=0.");
       return;
     }
     dao.setMaara(dao.getMaara()-arvo);
@@ -149,11 +134,28 @@ public class Trans_SelectProducts implements Nakyma_IF{
 
   @Override
   public void paivita(Object data) {
-
+    resetTables(tuoteTaulukko);
+    ArrayList<DAO_Objekti> list = new ArrayList<DAO_Objekti>();
+    list.addAll((ArrayList<DAO_Objekti>)data);
+    if(paivitettavatJoukot.size()>0){
+      for(int i = 0; i<paivitettavatJoukot.size();i++){
+        for(int j = 0; j<list.size();j++){
+          Tuotejoukko ttj = (Tuotejoukko)list.get(j);
+          if(paivitettavatJoukot.get(i).getTuotteenNimi().equals(ttj.getTuotteenNimi())){
+            if(paivitettavatJoukot.get(i).getHyllynNimi().equals(ttj.getHyllynNimi()))
+              list.set(j, paivitettavatJoukot.get(i));
+          }
+        }
+      }
+    }
+    if(luoUusiTaulukko(list)){
+      täytäTaulukko();
+    }
   }
 
   @Override
   public void resetoi() {
+    System.out.println("Reset");
     paivitettavatJoukot = new ArrayList<Tuotejoukko>(); //Luodaan uusi päivitettavat lista
     resetTables(tuoteTaulukko);
     resetTables(lahetysTuotteet);
@@ -162,7 +164,10 @@ public class Trans_SelectProducts implements Nakyma_IF{
 
   @Override
   public void virheIlmoitus(Object viesti) {
-
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setContentText(viesti.toString());
+    alert.showAndWait();
   }
 
   @Override
@@ -171,22 +176,11 @@ public class Trans_SelectProducts implements Nakyma_IF{
   }
 
   public void back_to(){
-    page_1.setDisable(false);
-
-    activeTab = page_1;
-    activeTab.setContent(vaihtaja.getAnchorPane("Transmission"));
-    trans_tabPane.getSelectionModel().select(0);
-    selectProduct.setDisable(true);
+    vaihtaja.asetaUudeksiNaytoksi("Transmission", null, null);
   }
 
-
   public void next_confirm(){
-
-    confirm.setDisable(false);
-    activeTab = confirm;
-    activeTab.setContent(vaihtaja.getAnchorPane("Trans_confirm"));
-    trans_tabPane.getSelectionModel().select(2);
-    selectProduct.setDisable(true);
+    vaihtaja.asetaUudeksiNaytoksi("confirm_tab", null, null);
   }
 
 
@@ -195,5 +189,4 @@ public class Trans_SelectProducts implements Nakyma_IF{
     this.vaihtaja = vaihtaja;
     vaihtaja.rekisteröiNakymaKontrolleri(this, "Trans_SelectProduct");
   }
-
 }

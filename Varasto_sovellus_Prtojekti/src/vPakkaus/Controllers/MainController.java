@@ -173,6 +173,7 @@ public class MainController implements MainController_IF{
 	@Override
 	public void asetaAktiiviseksiNaytoksi(Nakyma_IF naytto) {
 		this.naytto = naytto;
+		System.out.println(naytto.toString());
 		naytto.esiValmistelut();
 	}
 
@@ -203,4 +204,15 @@ public class MainController implements MainController_IF{
 			naytto.virheIlmoitus("Päivitys epäonnistui!");
 		checkForErrorMessage();
 	}
+
+  @Override
+  public void haeTuotejoukot(String nimi) {
+    Product p = db.findProduct(nimi);
+    checkForErrorMessage();
+    if(p==null)
+      return;
+    ArrayList<Tuotejoukko> res = db.haeTuotteenKaikkiTuoterivit(p);
+    checkForErrorMessage();
+    naytto.paivita(res);
+  }
 }

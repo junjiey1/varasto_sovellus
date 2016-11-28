@@ -21,4 +21,5 @@ public interface MainController_IF {
 	public void tallennaAsiakas(Asiakas asiakas);
 	public void logOut();
 	public void updateAsiakas(Asiakas a);
+	public void haeTuotejoukot(String nimi);
 }

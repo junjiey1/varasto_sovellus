@@ -17,7 +17,7 @@
           <MenuItem mnemonicParsing="false" text="Pie chart" />
         </items>
       </MenuButton>
-      <LineChart layoutX="233.0" layoutY="47.0" prefHeight="436.0" prefWidth="568.0">
+      <LineChart fx:id="linechart" layoutX="233.0" layoutY="47.0" prefHeight="436.0" prefWidth="568.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -25,5 +25,6 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
+      <Button layoutX="714.0" layoutY="468.0" mnemonicParsing="false" onAction="#kuvaaja" text="Show" />
    </children>
 </AnchorPane>

@@ -21,7 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
 
-public class Trans_PageOneController extends Trans_MainController implements Nakyma_IF{
+public class Trans_PageOneController implements Nakyma_IF{
   private MainController_IF mc;
   private NayttojenVaihtaja_IF vaihtaja;
   @FXML
@@ -141,14 +141,14 @@ public class Trans_PageOneController extends Trans_MainController implements Nak
   }
 
 
-  @Override
+
   public void back_to() {
     vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
     resetoi();
   }
 
 
-  @Override
+
   public void next_confirm() {
     if(date.getValue()==null || asiakasTaulukko.getSelectionModel().getSelectedItem()==null && selected==false){
       virheIlmoitus("Kenttä ei voi olla tyhjä");

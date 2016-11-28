@@ -35,6 +35,8 @@ public class Trans_SelectProducts implements Nakyma_IF{
   private ArrayList<Tuotejoukko> paivitettavatJoukot;
 
   public Trans_SelectProducts(){
+    mc = null;
+    vaihtaja = null;
     tehdas = new TaulukkoFactory();
     paivitettavatJoukot = new ArrayList<Tuotejoukko>();
   }

@@ -2,10 +2,12 @@ package vPakkaus.Controllers;
 
 public class Trans_confirmController implements Nakyma_IF{
 
+  private NayttojenVaihtaja_IF vaihtaja;
+  private MainController_IF mc;
+
   @Override
   public void setMainController(MainController_IF m) {
-    // TODO Auto-generated method stub
-
+    mc = m;
   }
 
   @Override
@@ -34,8 +36,12 @@ public class Trans_confirmController implements Nakyma_IF{
 
   @Override
   public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
-    // TODO Auto-generated method stub
+    this.vaihtaja = vaihtaja;
+    vaihtaja.rekisteröiNakymaKontrolleri(this, "confirm_tab");
+  }
 
+  public void back_to() {
+    vaihtaja.asetaUudeksiNaytoksi("Trans_SelectProduct", null,null);
   }
 
 }

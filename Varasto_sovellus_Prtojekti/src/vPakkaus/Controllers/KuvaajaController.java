@@ -1,8 +1,14 @@
 package vPakkaus.Controllers;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+
 public class KuvaajaController implements Nakyma_IF{
 
-
+  @FXML
+  private LineChart<String,Number> linechart;
   private MainController_IF mc;
   private NayttojenVaihtaja_IF vaihtaja;
   @Override
@@ -32,6 +38,17 @@ public class KuvaajaController implements Nakyma_IF{
   @Override
   public void esiValmistelut() {
     // TODO Auto-generated method stub
+
+  }
+
+  public void kuvaaja(ActionEvent event){
+    linechart.getData().clear();
+    //TESTI LISÄYTS KUVAAJAAN
+    XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+    series.getData().add(new XYChart.Data<String,Number>("Tammikuu",1));
+    series.getData().add(new XYChart.Data<String,Number>("Helmikuu",2));
+    series.getData().add(new XYChart.Data<String,Number>("Maaliskuu",3));
+    linechart.getData().add(series);
 
   }
   public void back(){//Button Callback funktio

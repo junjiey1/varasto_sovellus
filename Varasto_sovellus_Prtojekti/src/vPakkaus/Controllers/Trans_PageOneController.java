@@ -146,6 +146,7 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
     return namelabel.getText();
   }
 
+
   private String getDate(){
     return datelabel.getText();
   }

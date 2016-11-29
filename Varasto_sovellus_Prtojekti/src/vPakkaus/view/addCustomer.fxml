@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.AsiakasControlleri">
    <children>
-      <GridPane hgap="15.0" layoutX="14.0" layoutY="14.0" prefHeight="297.0" prefWidth="641.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
+      <GridPane hgap="15.0" layoutX="14.0" layoutY="14.0" prefHeight="297.0" prefWidth="641.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="51.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -129,7 +129,7 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Clear all" GridPane.columnIndex="2" onAction="#resetoi" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Button mnemonicParsing="false" onAction="#resetoi" text="Clear all" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font size="13.0" />
                </font>

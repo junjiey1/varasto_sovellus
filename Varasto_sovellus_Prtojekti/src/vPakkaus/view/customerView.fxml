@@ -61,6 +61,9 @@
             <Font size="13.0" />
          </font>
       </TextField>
-      <Button layoutX="116.0" layoutY="436.0" mnemonicParsing="false" onAction="#back" prefHeight="31.0" prefWidth="126.0" text="Back" />
+      <Button layoutX="116.0" layoutY="436.0" mnemonicParsing="false" onAction="#back" prefHeight="31.0" prefWidth="126.0" text="Back">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
    </children>
 </AnchorPane>

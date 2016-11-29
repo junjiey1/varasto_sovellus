@@ -37,7 +37,6 @@ public class KuvaajaController implements Nakyma_IF{
 
   @Override
   public void esiValmistelut() {
-    // TODO Auto-generated method stub
 
   }
 

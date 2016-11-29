@@ -1,9 +1,37 @@
 package vPakkaus.Controllers;
 
-public class Trans_confirmController implements Nakyma_IF{
+import javafx.fxml.FXML;
+import javafx.scene.control.TableView;
+import vPakkaus.DAO_Objekti;
 
+public class Trans_confirmController implements LahetysInformationProvider_IF{
+
+  @FXML
+  private TableView<DAO_Objekti> confirmTable;
   private NayttojenVaihtaja_IF vaihtaja;
   private MainController_IF mc;
+  private LahetysRakentaja_IF rakentaja;
+  private TaulukkoFactory_IF tehdas;
+
+  public Trans_confirmController(){
+   tehdas = TaulukkoFactory.getInstance();
+  }
+
+  public void initialize(){
+    confirmTable.getColumns().addAll(tehdas.buildHelperTable(null).getColumns());
+  }
+
+  private void resetTables(TableView<DAO_Objekti> taulukko) { //
+    int length = taulukko.getItems().size(); // Hae taulun rivien määrä
+    if (length > 0) {// Jos on rivejä
+      for (; 0 < length;) {// Poistetaan yksi kerrallaan
+        System.out.println("Deleting");
+        taulukko.getItems().remove(0);
+        length--;
+      }
+    }
+    taulukko.refresh(); // Varmuuden vuoksi päivitetään TableView
+  }
 
   @Override
   public void setMainController(MainController_IF m) {
@@ -12,26 +40,27 @@ public class Trans_confirmController implements Nakyma_IF{
 
   @Override
   public void paivita(Object data) {
-    // TODO Auto-generated method stub
+  }
+
+  private void setLabel(String s){
 
   }
 
   @Override
   public void resetoi() {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void virheIlmoitus(Object viesti) {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void esiValmistelut() {
-    // TODO Auto-generated method stub
-
+    resetTables(confirmTable);
+    confirmTable.getItems().addAll(rakentaja.getTuotteet());
+    confirmTable.refresh();
   }
 
   @Override
@@ -42,6 +71,11 @@ public class Trans_confirmController implements Nakyma_IF{
 
   public void back_to() {
     vaihtaja.asetaUudeksiNaytoksi("Trans_SelectProduct", null,null);
+  }
+
+  @Override
+  public void setLahetyksenRakentaja(LahetysRakentaja_IF rakentaja) {
+    this.rakentaja = rakentaja;
   }
 
 }

@@ -17,13 +17,13 @@ public class AsiakasViewController implements Nakyma_IF{
 	@FXML
 	private TextField searchCustomer;
 	private Taulukko_IF taulukko;
-	private TaulukkoFactory tehdas;
+	private TaulukkoFactory_IF tehdas;
 	private MainController_IF mc;
 	private NayttojenVaihtaja_IF v;
 
 
 	public AsiakasViewController(){
-		tehdas = new TaulukkoFactory();
+		tehdas = TaulukkoFactory.getInstance();
 		mc=null;
 		v=null;
 	}

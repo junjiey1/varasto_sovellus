@@ -3,12 +3,15 @@ package vPakkaus.Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import vPakkaus.DAO_Objekti;
+import vPakkaus.Tuotejoukko;
 
-public class Trans_MainController implements Nakyma_IF, NayttojenVaihtaja_IF{
+public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
 
   @FXML
   protected Tab selectProduct;
@@ -19,14 +22,20 @@ public class Trans_MainController implements Nakyma_IF, NayttojenVaihtaja_IF{
   @FXML
   protected TabPane trans_tabPane;
   @FXML
-  private Trans_PageOneController tab_1Controller;
+  private LahetysInformationProvider_IF tab_1Controller;
   @FXML
-  private Trans_SelectProducts tab_2Controller;
+  private LahetysInformationProvider_IF tab_2Controller;
   @FXML
-  private Trans_confirmController tab_3Controller;
+  private LahetysInformationProvider_IF tab_3Controller;
   protected Tab activeTab;
   private MainController_IF mc;
   private NayttojenVaihtaja_IF vaihtaja;
+
+  //Muuttujat joita käytetään lähetyksessä
+  private String customer;
+  private String date;
+  private ArrayList<Tuotejoukko> MuuttuneetTuoterivit;
+  private ObservableList<DAO_Objekti> valitutTuotteet;
 
   public void iniatilize(){
 
@@ -46,19 +55,16 @@ public class Trans_MainController implements Nakyma_IF, NayttojenVaihtaja_IF{
 
   @Override
   public void paivita(Object data) {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void resetoi() {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void virheIlmoitus(Object viesti) {
-    // TODO Auto-generated method stub
 
   }
 
@@ -77,6 +83,9 @@ public class Trans_MainController implements Nakyma_IF, NayttojenVaihtaja_IF{
     tab_1Controller.setNaytonVaihtaja(this);
     tab_2Controller.setNaytonVaihtaja(this);
     tab_3Controller.setNaytonVaihtaja(this);
+    tab_1Controller.setLahetyksenRakentaja(this);
+    tab_2Controller.setLahetyksenRakentaja(this);
+    tab_3Controller.setLahetyksenRakentaja(this);
     mc.asetaAktiiviseksiNaytoksi(tab_1Controller);
   }
 
@@ -102,6 +111,7 @@ public class Trans_MainController implements Nakyma_IF, NayttojenVaihtaja_IF{
       page_1.setDisable(true);
     }else if(nimi.equals("confirm_tab")){
       mc.asetaAktiiviseksiNaytoksi(tab_3Controller);
+      tab_3Controller.paivita(preData);
       confirm.setDisable(false);
       activeTab = confirm;
       trans_tabPane.getSelectionModel().select(2);
@@ -123,8 +133,47 @@ public class Trans_MainController implements Nakyma_IF, NayttojenVaihtaja_IF{
 
   @Override
   public Nakyma_IF haeKontrolleri(String nimi) {
-    // TODO Auto-generated method stub
     return null;
+  }
+
+  @Override
+  public void setAsiakasnimi(String data) {
+    customer = data;
+  }
+
+  @Override
+  public void setDate(String date) {
+    this.date = date;
+  }
+
+  @Override
+  public String getDate() {
+    return date;
+  }
+
+  @Override
+  public String getAsiakasnimi() {
+    return customer;
+  }
+
+  @Override
+  public void setMuutetutTuoterivit(ArrayList<Tuotejoukko> list) {
+    MuuttuneetTuoterivit = list;
+  }
+
+  @Override
+  public void tallennaMuutetutTuoterivit() {
+    //mc->malli->tietokanta
+  }
+
+  @Override
+  public void setTuotteet(ObservableList<DAO_Objekti> list) {
+    valitutTuotteet = list;
+  }
+
+  @Override
+  public ObservableList<DAO_Objekti> getTuotteet() {
+    return valitutTuotteet;
   }
 
 }

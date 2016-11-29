@@ -20,6 +20,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TaulukkoFactory implements TaulukkoFactory_IF{
 
+  private TaulukkoFactory(){}
+
+  private static class Holder{
+    private static final TaulukkoFactory_IF INSTANCE = new TaulukkoFactory();
+  }
+
+  public static TaulukkoFactory_IF getInstance(){
+    return Holder.INSTANCE;
+  }
+
 	@Override
 	public Taulukko_IF annaTaulukko(DAO_Objekti obj, ArrayList<DAO_Objekti> lista) {
 		if(obj instanceof Product)

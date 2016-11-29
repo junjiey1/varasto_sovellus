@@ -70,9 +70,11 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		anchorMap.put("customer",tehdas.annaNakyma("view/addCustomer.fxml", this));
 		anchorMap.put("customerview",tehdas.annaNakyma("view/customerView.fxml", this));
 		anchorMap.put("ManagementMainMenu",tehdas.annaNakyma("view/WarehouseManagement_MainMenu.fxml", this));
-		anchorMap.put("Transmission",tehdas.annaNakyma("view/Transmission.fxml", this));
-		anchorMap.put("Trans_SelectProduct",tehdas.annaNakyma("view/Trans_SelectProduct.fxml", this));
-		anchorMap.put("Trans_confirm",tehdas.annaNakyma("view/Trans_confirm.fxml", this));
+		//anchorMap.put("Transmission",tehdas.annaNakyma("view/Transmission.fxml", this));
+		anchorMap.put("Test1",tehdas.annaNakyma("view/Trans_Main.fxml", this));
+		//anchorMap.put("Trans_SelectProduct",tehdas.annaNakyma("view/Trans_selectCustomer.fxml", (NayttojenVaihtaja_IF) luodutNakymaKontrollerit.get("Test1")));
+		//anchorMap.put("Trans_SelectProduct",tehdas.annaNakyma("view/Trans_SelectProduct.fxml", (NayttojenVaihtaja_IF) luodutNakymaKontrollerit.get("Test1")));
+		//anchorMap.put("Trans_confirm",tehdas.annaNakyma("view/Trans_confirm.fxml", (NayttojenVaihtaja_IF) luodutNakymaKontrollerit.get("Test1")));
     anchorMap.put("Graphs",tehdas.annaNakyma("view/GraphView.fxml", this));
 	}
 
@@ -86,7 +88,8 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		sceneMap.put("customer", new Scene(anchorMap.get("customer")));
 		sceneMap.put("customerview", new Scene(anchorMap.get("customerview")));
 		sceneMap.put("ManagementMainMenu", new Scene(anchorMap.get("ManagementMainMenu")));
-		sceneMap.put("Transmission", new Scene(anchorMap.get("Transmission")));
+		//sceneMap.put("Transmission", new Scene(anchorMap.get("Transmission")));
+		sceneMap.put("Test1", new Scene(anchorMap.get("Test1")));
 		sceneMap.put("Graphs", new Scene(anchorMap.get("Graphs")));
 //		sceneMap.put("Trans_selectProduct", new Scene(anchorMap.get("Trans_selectProduct")));
 //		sceneMap.put("Trans_confirm", new Scene(anchorMap.get("Trans_confirm")));

@@ -80,7 +80,7 @@ public class KuvaajaController implements Nakyma_IF {
   @Override
   public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
     this.vaihtaja = vaihtaja;
-    vaihtaja.rekisteröiNakymaKontrolleri(this, "Trans_SelectProduct");
+    vaihtaja.rekisteröiNakymaKontrolleri(this, "Kuvaaja_Controller");
   }
 
 }

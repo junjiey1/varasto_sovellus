@@ -29,12 +29,6 @@ public class Trans_PageOneController implements Nakyma_IF{
   @FXML
   private TextField namefield;
   @FXML
-  private Tab selectProduct;
-  @FXML
-  private Tab confirm;
-  @FXML
-  private Tab page_1;
-  @FXML
   private Button next;
   @FXML
   private Button selectBtn;
@@ -44,8 +38,6 @@ public class Trans_PageOneController implements Nakyma_IF{
   private Label namelabel;
   @FXML
   private TableView<DAO_Objekti> asiakasTaulukko;
-  @FXML
-  private TabPane trans_tabPane;
   private Taulukko_IF taulukko;
   private TaulukkoFactory tehdas;
   private Tab activeTab;
@@ -142,39 +134,27 @@ public class Trans_PageOneController implements Nakyma_IF{
 
   }
 
-
-  public void back(){//Button Callback funktio
-    vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
-
-
-    resetoi();
-
-  }
-
-  public void next(){
-    if(date.getValue()==null || asiakasTaulukko.getSelectionModel().getSelectedItem()==null && selected==false){
-      virheIlmoitus("Kenttä ei voi olla tyhjä");
-
-
-    }else{
-
-      selectProduct.setDisable(false);
-      activeTab = selectProduct;
-      activeTab.setContent(vaihtaja.getAnchorPane("Trans_SelectProduct"));
-      trans_tabPane.getSelectionModel().select(1);
-      page_1.setDisable(true);
-    }
-
-
-
-  }
-
-
   @Override
   public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
-
     this.vaihtaja = vaihtaja;
     vaihtaja.rekisteröiNakymaKontrolleri(this, "Transmission");
+  }
+
+
+
+  public void back_to() {
+    vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
+    resetoi();
+  }
+
+
+
+  public void next_confirm() {
+    if(date.getValue()==null || asiakasTaulukko.getSelectionModel().getSelectedItem()==null && selected==false){
+      virheIlmoitus("Kenttä ei voi olla tyhjä");
+    }else{
+      vaihtaja.asetaUudeksiNaytoksi("Trans_SelectProduct", null, null);
+    }
   }
 
 }

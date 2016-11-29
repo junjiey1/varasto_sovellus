@@ -45,7 +45,6 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 	  joukko_taulukko.getColumns().add(sijainti);
 	  joukko_taulukko.getColumns().add(maara);
 	  for(DAO_Objekti dao : lista){
-	    System.out.println("item");
       nimi.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("tuotteenNimi"));
       sijainti.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("hyllynNimi"));
       maara.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Integer>("maara"));

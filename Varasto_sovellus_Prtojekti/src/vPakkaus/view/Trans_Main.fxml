@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="534.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="vPakkaus.Controllers.Trans_MainController">
+	<children>
+		<TabPane fx:id="trans_tabPane" prefHeight="560.0" prefWidth="815.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="249.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<tabs>
+				<Tab fx:id="page_1" text="Select customer and date">
+					<content>
+						<fx:include fx:id="tab_1" source="Trans_selectCustomer.fxml" />
+					</content>
+				</Tab>
+				<Tab fx:id="selectProduct" text="Select product">
+		               <content>
+		                  <fx:include fx:id="tab_2" source="Trans_SelectProduct.fxml" />
+		               </content>
+		        </Tab>
+		            <Tab fx:id="confirm" text="confirm"> <!--  disable="true" -->
+		               <content>
+		                  <fx:include fx:id="tab_3" source="Trans_confirm.fxml" />
+		               </content>
+		        </Tab>
+	        </tabs>
+        </TabPane>
+	</children>
+</AnchorPane>
+

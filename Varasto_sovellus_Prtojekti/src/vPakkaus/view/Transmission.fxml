@@ -20,9 +20,9 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <DatePicker fx:id="date" layoutX="29.0" layoutY="61.0" prefHeight="31.0" prefWidth="188.0" />
-                        <Label layoutX="31.0" layoutY="26.0" prefHeight="35.0" prefWidth="69.0" text="Date:" />
-                        <Label layoutX="29.0" layoutY="92.0" prefHeight="34.0" prefWidth="125.0" text="Customer's name:" />
+                        <DatePicker fx:id="date" layoutX="29.0" layoutY="61.0" prefHeight="31.0" />
+                        <Label layoutX="31.0" layoutY="26.0" prefHeight="35.0" text="Date:" />
+                        <Label layoutX="29.0" layoutY="92.0" prefHeight="34.0" text="Customer's name:" />
                         <TextField fx:id="namefield" layoutX="30.0" layoutY="126.0" />
                         <TableView fx:id="asiakasTaulukko" layoutX="352.0" layoutY="44.0" prefHeight="414.0" prefWidth="411.0">
                            <columnResizePolicy>
@@ -50,7 +50,7 @@
                               <Label text="Selected name:" />
                            </children>
                         </GridPane>
-                        <Button fx:id="selectBtn" layoutX="32.0" layoutY="181.0" mnemonicParsing="false" onAction="#valittuAsiakas" prefHeight="31.0" prefWidth="68.0" text="Select" />
+                        <Button fx:id="selectBtn" layoutX="32.0" layoutY="181.0" minWidth="60.0" mnemonicParsing="false" onAction="#valittuAsiakas" prefHeight="31.0" text="Select" />
                      </children>
                   </AnchorPane>
             </content>

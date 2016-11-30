@@ -62,8 +62,8 @@
                   </ImageView>
                </graphic>
             </Tab>
-            <Tab fx:id="tab4" closable="false" disable="true" onSelectionChanged="#tabChoose" text="COMING SOON" />
-            <Tab fx:id="tab5" closable="false" disable="true" onSelectionChanged="#tabChoose" text="COMING SOON" />
+            <Tab fx:id="tab4" closable="false" disable="true" onSelectionChanged="#tabChoose" text="BUY DLC 1" />
+            <Tab fx:id="tab5" closable="false" disable="true" onSelectionChanged="#tabChoose" text="BUY DLC 2" />
         </tabs>
       </TabPane>
    </children>

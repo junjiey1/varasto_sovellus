@@ -55,6 +55,7 @@ public class AddProductController implements Nakyma_IF {
 	private boolean lisataanManuaalisesti;
 
 	public AddProductController(){
+	  hm = new HashMap<String, String>();
 		pMinTemp=pMaxTemp=null;
 		lisataanManuaalisesti = false;
 		errorLog="";
@@ -100,15 +101,22 @@ public class AddProductController implements Nakyma_IF {
 	/**
 	 * Poista valittu teksti tiedosto.
 	 */
-	public void removeProduct() {
-		productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
+	public void removeProduct() {	  
+	  String Fname = null;
+	  
+	  Fname = productTextFiles.get(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
+	  
+	  System.out.println(Fname);
+	  productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
+	  hm.remove(Fname);
 	}
 
-	/**
+	/**ww
 	 * Poista kaikki teksti tiedostot
 	 */
 	public void removeAllProducts() {
 		productTextFiles.clear();
+		hm.clear();
 	}
 
 	/**
@@ -122,7 +130,7 @@ public class AddProductController implements Nakyma_IF {
 			readFromFile(hm.get(s));
 		}
 	}
-
+	
 	private boolean validoiTekstikentanMuuttujat(){
 	   try {
 	      pName = productName.getText();
@@ -178,7 +186,7 @@ public class AddProductController implements Nakyma_IF {
 	 */
 	@FXML
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
-		hm = new HashMap<String, String>();
+		
 		Dragboard db = event.getDragboard();
 
 		int index = 0;
@@ -207,7 +215,7 @@ public class AddProductController implements Nakyma_IF {
 				path = path.substring(1, path.length() - 1);
 				index = path.lastIndexOf("\\");
 				fileName = path.substring(index + 1, path.length());
-				productTextFiles.add(fileName);
+				productTextFiles.add(fileName);				
 				hm.put(new String(fileName), new String(path));
 				productList.setItems(productTextFiles);
 			}

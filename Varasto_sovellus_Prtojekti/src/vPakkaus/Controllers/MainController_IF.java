@@ -1,5 +1,7 @@
 package vPakkaus.Controllers;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import vPakkaus.Asiakas;
@@ -22,4 +24,5 @@ public interface MainController_IF {
 	public void logOut();
 	public void updateAsiakas(Asiakas a);
 	public void haeTuotejoukot(String nimi);
+	public boolean luoUusiLahetys(LocalDate pvm, String osoite, int asiakasID, ArrayList<Tuotejoukko> tjk);
 }

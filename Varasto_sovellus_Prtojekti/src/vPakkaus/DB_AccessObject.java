@@ -187,14 +187,16 @@ public class DB_AccessObject {
 
   }
 
-  public boolean luoVarastoliikenne(Varastoliikenne vl, ArrayList<Varastoliikennerivi> vlrlist) {
+  public boolean luoVarastoliikenne(Varastoliikenne vl, ArrayList<Tuotejoukko> tjklist) {
     createVarastoliikenne(vl);
     int id = getVarastoliikenne_autoinc() - 1;
-    for (Varastoliikennerivi vlr : vlrlist) {
+    for (Tuotejoukko tjk : tjklist) {
+      Varastoliikennerivi vlr = new Varastoliikennerivi(tjk.getProduct().getID(), id, tjk.getMaara());
       System.out.println("IDIDID: " + (id));
-      vlr.setVarastoliikenneID(id);
-
+      //vlr.setVarastoliikenneID(id);
       CreateVarastoliikennerivi(vlr);
+      if(errorMsg != null) //Error viesti ei ole tyhjä eli virhe tapahtunut
+        return false;
     }
     return true;
   }

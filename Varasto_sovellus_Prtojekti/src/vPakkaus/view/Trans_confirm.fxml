@@ -17,9 +17,9 @@
             <Label fx:id="dateLabel" layoutX="41.0" layoutY="100.0" text="Selected date:" />
             <Label fx:id="customerNameLabel" layoutX="41.0" layoutY="130.0" text="Selected date:" />
             <Label fx:id="osoiteLabel" layoutX="41.0" layoutY="160.0" text="Selected date:" />
-            <Button layoutX="691.0" layoutY="489.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="110.0" text="Confirm" />
+            <Button layoutX="691.0" layoutY="489.0" mnemonicParsing="false" onAction="#finalConfirmation" prefHeight="31.0" prefWidth="110.0" text="Confirm" />
             <Button layoutX="14.0" layoutY="489.0" mnemonicParsing="false" onAction="#back_to" text="Back" />
-            <Button layoutX="71.0" layoutY="489.0" mnemonicParsing="false" text="Cancel" />
+            <Button layoutX="71.0" layoutY="489.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
          </children>
       </AnchorPane>
    </children>

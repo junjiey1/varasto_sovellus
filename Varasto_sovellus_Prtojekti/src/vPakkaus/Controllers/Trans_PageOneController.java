@@ -100,8 +100,9 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
   public void resetoi() {
     resetoiTaulukko();
     date.getEditor().clear(); //tyhjentä valittu päivä
-    namelabel.setText(null);
-    datelabel.setText(null);
+    namelabel.setText("");
+    datelabel.setText("");
+    namefield.setText("");
     rakentaja.setAsiakas(null);
     rakentaja.setDate(null);
   }
@@ -149,10 +150,6 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
     vaihtaja.rekisteröiNakymaKontrolleri(this, "Transmission");
   }
 
-  private String getDate(){
-    return datelabel.getText();
-  }
-
   public void back_to() {
     vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
     resetoi();
@@ -163,7 +160,7 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
       virheIlmoitus("Et ole valinnut asiakasta tai päivämäärä!\nTarkista sivun vasemmasta alanurkasta näkyykö asiakas ja päivämäärä.");
     }else{
       rakentaja.setAsiakas(selectedAsiakas);
-      rakentaja.setDate(getDate());
+      rakentaja.setDate(date.getValue());
       vaihtaja.asetaUudeksiNaytoksi("Trans_SelectProduct", null, null);
     }
   }

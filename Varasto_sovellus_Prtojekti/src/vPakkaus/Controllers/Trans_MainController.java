@@ -1,6 +1,8 @@
 package vPakkaus.Controllers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -30,16 +32,18 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   private LahetysInformationProvider_IF tab_3Controller;
   private MainController_IF mc;
   private NayttojenVaihtaja_IF vaihtaja;
+  private boolean allSet;
 
   //Muuttujat joita käytetään lähetyksessä
   private Asiakas customer;
-  private String date;
+  private LocalDate date;
   private ArrayList<Tuotejoukko> muuttuneetTuoterivit;
   private ObservableList<DAO_Objekti> valitutTuotteet;
 
   public Trans_MainController(){
     mc=null;
     vaihtaja=null;
+    allSet=false;
   }
 
   public void iniatilize(){
@@ -75,22 +79,26 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
 
   @Override
   public void esiValmistelut() {
+    if(!allSet){
+      System.out.println("Asetetaan....");
+      tab_1Controller.setMainController(mc);
+      tab_2Controller.setMainController(mc);
+      tab_3Controller.setMainController(mc);
+      vaihtaja.rekisteröiNakymaKontrolleri(tab_1Controller, "Transmission");
+      vaihtaja.rekisteröiNakymaKontrolleri(tab_2Controller, "Trans_SelectProduct");
+      vaihtaja.rekisteröiNakymaKontrolleri(tab_3Controller, "lol");
+      tab_1Controller.setNaytonVaihtaja(this);
+      tab_2Controller.setNaytonVaihtaja(this);
+      tab_3Controller.setNaytonVaihtaja(this);
+      tab_1Controller.setLahetyksenRakentaja(this);
+      tab_2Controller.setLahetyksenRakentaja(this);
+      tab_3Controller.setLahetyksenRakentaja(this);
+      allSet=true;
+    }
     trans_tabPane.getSelectionModel().select(0);
+    page_1.setDisable(false);
     selectProduct.setDisable(true);
     confirm.setDisable(true);
-    System.out.println("Asetetaan....");
-    tab_1Controller.setMainController(mc);
-    tab_2Controller.setMainController(mc);
-    tab_3Controller.setMainController(mc);
-    vaihtaja.rekisteröiNakymaKontrolleri(tab_1Controller, "Transmission");
-    vaihtaja.rekisteröiNakymaKontrolleri(tab_2Controller, "Trans_SelectProduct");
-    vaihtaja.rekisteröiNakymaKontrolleri(tab_3Controller, "lol");
-    tab_1Controller.setNaytonVaihtaja(this);
-    tab_2Controller.setNaytonVaihtaja(this);
-    tab_3Controller.setNaytonVaihtaja(this);
-    tab_1Controller.setLahetyksenRakentaja(this);
-    tab_2Controller.setLahetyksenRakentaja(this);
-    tab_3Controller.setLahetyksenRakentaja(this);
     mc.asetaAktiiviseksiNaytoksi(tab_1Controller);
   }
 
@@ -115,12 +123,15 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
       confirm.setDisable(true);
     }else if(nimi.equals("confirm_tab")){
       mc.asetaAktiiviseksiNaytoksi(tab_3Controller);
-      tab_3Controller.paivita(preData);
       confirm.setDisable(false);
       trans_tabPane.getSelectionModel().select(2);
       selectProduct.setDisable(true);
-    }else
+    }else{
+      tab_1Controller.resetoi();
+      tab_2Controller.resetoi();
+      tab_3Controller.resetoi();
       vaihtaja.asetaUudeksiNaytoksi(nimi, otsikko, preData);
+    }
   }
 
   @Override
@@ -145,12 +156,12 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   }
 
   @Override
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
   @Override
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
@@ -165,7 +176,10 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   }
 
   @Override
-  public void tallennaMuutetutTuoterivit() {
+  public void tallennaUusiLahetys() {
+    ArrayList<Tuotejoukko> tjklist = new ArrayList<Tuotejoukko>();
+    tjklist.addAll((Collection<? extends Tuotejoukko>) valitutTuotteet);
+    mc.luoUusiLahetys(date, customer.getOsoit(), customer.getID(), tjklist);
     //mc->malli->tietokanta
   }
 

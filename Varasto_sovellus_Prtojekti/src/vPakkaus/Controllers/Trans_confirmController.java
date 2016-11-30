@@ -1,9 +1,15 @@
 package vPakkaus.Controllers;
 
+import java.util.Optional;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import vPakkaus.DAO_Objekti;
 
 public class Trans_confirmController implements LahetysInformationProvider_IF{
@@ -29,6 +35,20 @@ public class Trans_confirmController implements LahetysInformationProvider_IF{
     confirmTable.getColumns().addAll(tehdas.buildHelperTable(null).getColumns());
   }
 
+  public void finalConfirmation(){
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("CONFIRM");
+    alert.setHeaderText("Olet tallentamassa uutta lähetystä tietokantaan\njatketaanko");
+    alert.setContentText("Jatketaanko?");
+    ButtonType buttonTypeOne = new ButtonType("Kyllä");
+    ButtonType buttonTypeTwo = new ButtonType("Ei", ButtonData.CANCEL_CLOSE);
+    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == buttonTypeOne){
+      rakentaja.tallennaUusiLahetys();
+    }
+  }
+
   private void resetTables(TableView<DAO_Objekti> taulukko) { //
     int length = taulukko.getItems().size(); // Hae taulun rivien määrä
     if (length > 0) {// Jos on rivejä
@@ -48,20 +68,23 @@ public class Trans_confirmController implements LahetysInformationProvider_IF{
 
   @Override
   public void paivita(Object data) {
-  }
-
-  private void setLabel(String s){
-
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Ilmoitus");
+    alert.setContentText(data.toString());
+    alert.showAndWait();
   }
 
   @Override
   public void resetoi() {
-
+    resetTables(confirmTable);
   }
 
   @Override
   public void virheIlmoitus(Object viesti) {
-
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setContentText(viesti.toString());
+    alert.showAndWait();
   }
 
   @Override
@@ -78,6 +101,10 @@ public class Trans_confirmController implements LahetysInformationProvider_IF{
   public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
     this.vaihtaja = vaihtaja;
     vaihtaja.rekisteröiNakymaKontrolleri(this, "confirm_tab");
+  }
+
+  public void cancel(){
+    vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
   }
 
   public void back_to() {

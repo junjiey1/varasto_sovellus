@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
 import vPakkaus.Tuotejoukko;
 
@@ -27,15 +28,19 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   private LahetysInformationProvider_IF tab_2Controller;
   @FXML
   private LahetysInformationProvider_IF tab_3Controller;
-  protected Tab activeTab;
   private MainController_IF mc;
   private NayttojenVaihtaja_IF vaihtaja;
 
   //Muuttujat joita käytetään lähetyksessä
-  private String customer;
+  private Asiakas customer;
   private String date;
-  private ArrayList<Tuotejoukko> MuuttuneetTuoterivit;
+  private ArrayList<Tuotejoukko> muuttuneetTuoterivit;
   private ObservableList<DAO_Objekti> valitutTuotteet;
+
+  public Trans_MainController(){
+    mc=null;
+    vaihtaja=null;
+  }
 
   public void iniatilize(){
 
@@ -100,20 +105,18 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
     if(nimi.equals("Transmission")){
       mc.asetaAktiiviseksiNaytoksi(tab_1Controller);
       page_1.setDisable(false);
-      activeTab = page_1;
       trans_tabPane.getSelectionModel().select(0);
       selectProduct.setDisable(true);
     }else if(nimi.equals("Trans_SelectProduct")){
       mc.asetaAktiiviseksiNaytoksi(tab_2Controller);
       selectProduct.setDisable(false);
-      activeTab = selectProduct;
       trans_tabPane.getSelectionModel().select(1);
       page_1.setDisable(true);
+      confirm.setDisable(true);
     }else if(nimi.equals("confirm_tab")){
       mc.asetaAktiiviseksiNaytoksi(tab_3Controller);
       tab_3Controller.paivita(preData);
       confirm.setDisable(false);
-      activeTab = confirm;
       trans_tabPane.getSelectionModel().select(2);
       selectProduct.setDisable(true);
     }else
@@ -137,7 +140,7 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   }
 
   @Override
-  public void setAsiakasnimi(String data) {
+  public void setAsiakas(Asiakas data) {
     customer = data;
   }
 
@@ -152,13 +155,13 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   }
 
   @Override
-  public String getAsiakasnimi() {
+  public Asiakas getAsiakas() {
     return customer;
   }
 
   @Override
   public void setMuutetutTuoterivit(ArrayList<Tuotejoukko> list) {
-    MuuttuneetTuoterivit = list;
+    muuttuneetTuoterivit = list;
   }
 
   @Override

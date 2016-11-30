@@ -1,13 +1,21 @@
 package vPakkaus.Controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import vPakkaus.DAO_Objekti;
 
 public class Trans_confirmController implements LahetysInformationProvider_IF{
 
   @FXML
   private TableView<DAO_Objekti> confirmTable;
+  @FXML
+  private Label dateLabel;
+  @FXML
+  private Label customerNameLabel;
+  @FXML
+  private Label osoiteLabel;
   private NayttojenVaihtaja_IF vaihtaja;
   private MainController_IF mc;
   private LahetysRakentaja_IF rakentaja;
@@ -61,6 +69,9 @@ public class Trans_confirmController implements LahetysInformationProvider_IF{
     resetTables(confirmTable);
     confirmTable.getItems().addAll(rakentaja.getTuotteet());
     confirmTable.refresh();
+    customerNameLabel.setText("Customer name : " + rakentaja.getAsiakas().getNimi());
+    osoiteLabel.setText("Address information : " + rakentaja.getAsiakas().getKaupun() + " " + rakentaja.getAsiakas().getOsoit() + " " + rakentaja.getAsiakas().getPosnumero());
+    dateLabel.setText("Date for shipment : " + rakentaja.getDate());
   }
 
   @Override

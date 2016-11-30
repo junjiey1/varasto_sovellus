@@ -9,11 +9,8 @@
 
 <AnchorPane prefHeight="534.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.Trans_SelectProducts">
    <children>
-      <AnchorPane layoutX="-57.0" layoutY="-234.0" prefHeight="534.0" prefWidth="815.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Button layoutX="30.0" layoutY="473.0" mnemonicParsing="false" onAction="#back_to" text="Back" />
-            <Button layoutX="749.0" layoutY="473.0" mnemonicParsing="false" onAction="#next_confirm" text="Next" />
-         </children></AnchorPane>
+      <Button layoutX="30.0" layoutY="473.0" mnemonicParsing="false" onAction="#back_to" text="Back" />
+      <Button layoutX="749.0" layoutY="473.0" mnemonicParsing="false" onAction="#next_confirm" text="Next" />
       <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
             <TableView fx:id="tuoteTaulukko" layoutX="213.0" layoutY="37.0" prefHeight="412.0" prefWidth="242.0">
@@ -26,7 +23,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="addButton" onAction="#lisaaTuotteitaLahetykseen" layoutX="472.0" layoutY="245.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="53.0" text="&gt;&gt;" />
+            <Button fx:id="addButton" layoutX="472.0" layoutY="245.0" mnemonicParsing="false" onAction="#lisaaTuotteitaLahetykseen" prefHeight="31.0" prefWidth="53.0" text="&gt;&gt;" />
             <TableView fx:id="lahetysTuotteet" layoutX="542.0" layoutY="37.0" prefHeight="413.0" prefWidth="246.0">
                <columns>
                </columns>

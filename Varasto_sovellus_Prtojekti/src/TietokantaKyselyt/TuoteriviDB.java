@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vPakkaus.DB_AccessObject;
 import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
@@ -22,11 +23,13 @@ public class TuoteriviDB {
   private ResultSet rs = null;
   private ProductDB productdb = null;
   private HyllyDB hyllydb = null;
+  private DB_AccessObject db = null;
 
-  public TuoteriviDB(Connection conn, ProductDB productdb, HyllyDB hyllydb) {
+  public TuoteriviDB(Connection conn, ProductDB productdb, HyllyDB hyllydb, DB_AccessObject db) {
     this.conn = conn;
     this.hyllydb = hyllydb;
     this.productdb = productdb;
+    this.db = db;
     // TODO Auto-generated constructor stub
   }
 

@@ -178,7 +178,10 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   @Override
   public void tallennaUusiLahetys() {
     ArrayList<Tuotejoukko> tjklist = new ArrayList<Tuotejoukko>();
-    tjklist.addAll((Collection<? extends Tuotejoukko>) valitutTuotteet);
+    for(DAO_Objekti dao : valitutTuotteet){
+      tjklist.add((Tuotejoukko) dao);
+    }
+    //tjklist.addAll((Collection<? extends Tuotejoukko>) valitutTuotteet);
     mc.luoUusiLahetys(date, customer.getOsoit(), customer.getID(), tjklist);
     //mc->malli->tietokanta
   }

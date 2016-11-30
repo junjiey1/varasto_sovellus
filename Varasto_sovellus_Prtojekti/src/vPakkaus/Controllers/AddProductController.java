@@ -105,7 +105,6 @@ public class AddProductController implements Nakyma_IF {
 	  String Fname = null;
 	  
 	  Fname = productTextFiles.get(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
-	  
 	  System.out.println(Fname);
 	  productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
 	  hm.remove(Fname);

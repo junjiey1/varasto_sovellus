@@ -31,7 +31,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="label1" text="Product name">
+            <Label fx:id="label1" text="Product name" GridPane.columnSpan="2">
                <font>
                   <Font name="System Italic" size="13.0" />
                </font>

@@ -1,6 +1,7 @@
 package vPakkaus;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,8 @@ import TietokantaKyselyt.HyllyDB;
 import TietokantaKyselyt.ProductDB;
 import TietokantaKyselyt.TuoteriviDB;
 import TietokantaKyselyt.UsersDB;
+import TietokantaKyselyt.VarastoliikenneDB;
+import TietokantaKyselyt.VarastoliikenneriviDB;
 import TietokantaKyselyt.LampotilaDB;
 
 /**
@@ -29,6 +32,8 @@ public class DB_AccessObject {
   private ProductDB productdb;
   private TuoteriviDB tuoterividb;
   private HyllyDB hyllydb;
+  private VarastoliikenneDB varastoliikennedb;
+  private VarastoliikenneriviDB vrividb;
 
   /**
    * Luodaan yhteys virtuaalikoneeseen ja tietokantaan.
@@ -62,7 +67,9 @@ public class DB_AccessObject {
         lampotiladb = new LampotilaDB(conn);
         asiakasdb = new AsiakasDB(conn);
         productdb = new ProductDB(conn, lampotiladb, this);
-        tuoterividb = new TuoteriviDB(conn, productdb, hyllydb);
+        tuoterividb = new TuoteriviDB(conn, productdb, hyllydb, this);
+        varastoliikennedb = new VarastoliikenneDB(conn, asiakasdb, usersdb, this);
+        vrividb = new VarastoliikenneriviDB(conn, productdb, varastoliikennedb, this);
       }
     } catch (SQLException e) {
       // TODO Auto-generated catch block
@@ -177,6 +184,31 @@ public class DB_AccessObject {
     if (onkoVirheitä.contains(false))
       return false;
     return true;
+
+  }
+
+  public boolean luoVarastoliikenne(Varastoliikenne vl, ArrayList<Varastoliikennerivi> vlrlist) {
+    createVarastoliikenne(vl);
+    int id = getVarastoliikenne_autoinc() - 1;
+    for (Varastoliikennerivi vlr : vlrlist) {
+      System.out.println("IDIDID: " + (id));
+      vlr.setVarastoliikenneID(id);
+
+      CreateVarastoliikennerivi(vlr);
+    }
+    return true;
+  }
+
+  public int getVarastoliikenne_autoinc() {
+    return varastoliikennedb.autoincrement();
+  }
+
+  public boolean createVarastoliikenne(Varastoliikenne vl) {
+    return varastoliikennedb.createVarastoliikenne(vl);
+  }
+
+  public boolean CreateVarastoliikennerivi(Varastoliikennerivi vlr) {
+    return vrividb.CreateVarastoliikennerivi(vlr);
 
   }
 

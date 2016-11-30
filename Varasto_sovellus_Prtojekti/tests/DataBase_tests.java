@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -19,6 +20,8 @@ import vPakkaus.DB_AccessObject;
 import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
+import vPakkaus.Varastoliikenne;
+import vPakkaus.Varastoliikennerivi;
 
 public class DataBase_tests {
 
@@ -135,13 +138,26 @@ public class DataBase_tests {
   // }
 
   @Test
+  public void Varastoliikenne_luonti() {
+    System.out.println("\nTest : Varastoliikenne_luonti\n");
+    Varastoliikenne vl = new Varastoliikenne(1, new Date(2016-1900, 10-1, 10), "osoite", 6, 11);
+    ArrayList<Varastoliikennerivi> lista = new ArrayList();
+    Varastoliikennerivi vlr = new Varastoliikennerivi(536, 2);
+    Varastoliikennerivi vlr1 = new Varastoliikennerivi(537, 4);
+    lista.add(vlr);
+    lista.add(vlr1);
+    boolean res = db.luoVarastoliikenne(vl, lista);
+    assertEquals("Toimii!", res, true);
+  }
+
+  @Test
   public void MahtuukoTuotteetHyllyyn_test() {
     System.out.println("\nTest : MahtuukoTuotteetHyllyyn_test\n");
     Hyllypaikka hp = db.haeHylly("hylly_test_1");
     Product p1 = db.findProduct("test_item_1");
 
-    double tilavuus = hp.getKorkeus()*hp.getLeveys()*hp.getPituus();
-    System.out.print(p1.getProduct_volume()*125 +"="+ tilavuus);
+    double tilavuus = hp.getKorkeus() * hp.getLeveys() * hp.getPituus();
+    System.out.print(p1.getProduct_volume() * 125 + "=" + tilavuus);
     Tuotejoukko tj1 = new Tuotejoukko(p1, hp, 124);
     Tuotejoukko tj2 = new Tuotejoukko(p1, hp, 126);
     boolean result = db.mahtuukoTuotteetHyllyyn(tj1);

@@ -21,7 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
 
-public class Trans_PageOneController implements Nakyma_IF{
+public class Trans_PageOneController implements LahetysInformationProvider_IF{
   private MainController_IF mc;
   private NayttojenVaihtaja_IF vaihtaja;
   @FXML
@@ -39,13 +39,13 @@ public class Trans_PageOneController implements Nakyma_IF{
   @FXML
   private TableView<DAO_Objekti> asiakasTaulukko;
   private Taulukko_IF taulukko;
-  private TaulukkoFactory tehdas;
-  private Tab activeTab;
+  private LahetysRakentaja_IF rakentaja;
+  private TaulukkoFactory_IF tehdas;
   private boolean selected;
 
 
   public Trans_PageOneController(){
-    tehdas = new TaulukkoFactory();
+    tehdas = TaulukkoFactory.getInstance();
     mc=null;
     vaihtaja=null;
   }
@@ -140,21 +140,36 @@ public class Trans_PageOneController implements Nakyma_IF{
     vaihtaja.rekisteröiNakymaKontrolleri(this, "Transmission");
   }
 
+  private String getSelectedCustomerName(){
+    if(namelabel.getText()==null)
+      return "undefined";
+    return namelabel.getText();
+  }
 
+
+  private String getDate(){
+    return datelabel.getText();
+  }
 
   public void back_to() {
     vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
     resetoi();
   }
 
-
-
   public void next_confirm() {
     if(date.getValue()==null || asiakasTaulukko.getSelectionModel().getSelectedItem()==null && selected==false){
       virheIlmoitus("Kenttä ei voi olla tyhjä");
     }else{
+      rakentaja.setAsiakasnimi(getSelectedCustomerName());
+      rakentaja.setDate(getDate());
       vaihtaja.asetaUudeksiNaytoksi("Trans_SelectProduct", null, null);
     }
+  }
+
+
+  @Override
+  public void setLahetyksenRakentaja(LahetysRakentaja_IF rakentaja) {
+    this.rakentaja = rakentaja;
   }
 
 }

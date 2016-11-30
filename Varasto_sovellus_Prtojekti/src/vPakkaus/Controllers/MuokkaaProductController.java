@@ -47,7 +47,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 	private ArrayList<DAO_Objekti> p;
 	boolean hae;
 	private NayttojenVaihtaja_IF vaihtaja;
-	private TaulukkoFactory tehdas;
+	private TaulukkoFactory_IF tehdas;
 	private Taulukko_IF taulukko;
 
 
@@ -65,7 +65,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 		tuoteButton.setStyle("-fx-font: 13 arial; -fx-base: #F75757;");
 		switchMode();
 		tuoteTable.setEditable(true);
-		tehdas = new TaulukkoFactory();
+		tehdas = TaulukkoFactory.getInstance();
 	}
 
 	public void reset() {

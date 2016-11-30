@@ -14,7 +14,7 @@ public class KuvaajaController implements Nakyma_IF {
   private CategoryAxis xAxis;
   @FXML
   private NumberAxis yAxis;
-  
+
   private MainController_IF mc;
   private NayttojenVaihtaja_IF vaihtaja;
 
@@ -40,11 +40,10 @@ public class KuvaajaController implements Nakyma_IF {
 
   @Override
   public void esiValmistelut() {
-    // TODO Auto-generated method stub
   }
 
   public void kuvaaja() {
-    xAxis.setLabel("Month");  
+    xAxis.setLabel("Month");
 
     linechart.toFront();
     linechart.getData().clear();
@@ -55,8 +54,8 @@ public class KuvaajaController implements Nakyma_IF {
     // series.getData().add(new XYChart.Data<String,Number>("Maaliskuu",3));
 
     series.setName("Gross Profit");
-    
-    
+
+
     series.getData().add(new XYChart.Data("Jan", 23));
     series.getData().add(new XYChart.Data("Feb", 14));
     series.getData().add(new XYChart.Data("Mar", 15));
@@ -69,7 +68,7 @@ public class KuvaajaController implements Nakyma_IF {
     series.getData().add(new XYChart.Data("Oct", 17));
     series.getData().add(new XYChart.Data("Nov", 29));
     series.getData().add(new XYChart.Data("Dec", 25));
-    
+
     linechart.getData().add(series);
   }
 

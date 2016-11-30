@@ -15,7 +15,7 @@ import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
 
-public class Trans_SelectProducts implements Nakyma_IF{
+public class Trans_SelectProducts implements LahetysInformationProvider_IF{
 
   @FXML
   private TableView<DAO_Objekti> tuoteTaulukko;
@@ -30,14 +30,15 @@ public class Trans_SelectProducts implements Nakyma_IF{
 
   private Taulukko_IF taulukko;
   private MainController_IF mc;
-  private TaulukkoFactory tehdas;
+  private TaulukkoFactory_IF tehdas;
   private NayttojenVaihtaja_IF vaihtaja;
   private ArrayList<Tuotejoukko> paivitettavatJoukot;
+  private LahetysRakentaja_IF rakentaja;
 
   public Trans_SelectProducts(){
     mc = null;
     vaihtaja = null;
-    tehdas = new TaulukkoFactory();
+    tehdas = TaulukkoFactory.getInstance();
     paivitettavatJoukot = new ArrayList<Tuotejoukko>();
   }
 
@@ -182,13 +183,19 @@ public class Trans_SelectProducts implements Nakyma_IF{
   }
 
   public void next_confirm(){
-    vaihtaja.asetaUudeksiNaytoksi("confirm_tab", null, null);
+    rakentaja.setMuutetutTuoterivit(paivitettavatJoukot);
+    rakentaja.setTuotteet(lahetysTuotteet.getItems());
+    vaihtaja.asetaUudeksiNaytoksi("confirm_tab", null, lahetysTuotteet);
   }
-
 
   @Override
   public void setNaytonVaihtaja(NayttojenVaihtaja_IF vaihtaja) {
     this.vaihtaja = vaihtaja;
     vaihtaja.rekisteröiNakymaKontrolleri(this, "Trans_SelectProduct");
+  }
+
+  @Override
+  public void setLahetyksenRakentaja(LahetysRakentaja_IF rakentaja) {
+    this.rakentaja = rakentaja;
   }
 }

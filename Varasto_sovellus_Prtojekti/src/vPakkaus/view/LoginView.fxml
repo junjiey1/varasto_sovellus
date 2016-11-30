@@ -81,5 +81,5 @@
             </ImageView>
          </children>
       </GridPane>
-   </children>
+	</children>
 </AnchorPane>

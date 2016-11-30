@@ -189,8 +189,11 @@ public class DB_AccessObject {
 
   public boolean luoVarastoliikenne(Varastoliikenne vl, ArrayList<Varastoliikennerivi> vlrlist) {
     createVarastoliikenne(vl);
+    int id = getVarastoliikenne_autoinc() - 1;
     for (Varastoliikennerivi vlr : vlrlist) {
-      vlr.setRiviID(getVarastoliikenne_autoinc()-1);
+      System.out.println("IDIDID: " + (id));
+      vlr.setVarastoliikenneID(id);
+
       CreateVarastoliikennerivi(vlr);
     }
     return true;
@@ -204,8 +207,8 @@ public class DB_AccessObject {
     return varastoliikennedb.createVarastoliikenne(vl);
   }
 
-  public boolean CreateVarastoliikennerivi(Varastoliikennerivi vr) {
-    return vrividb.CreateVarastoliikennerivi(vr);
+  public boolean CreateVarastoliikennerivi(Varastoliikennerivi vlr) {
+    return vrividb.CreateVarastoliikennerivi(vlr);
 
   }
 

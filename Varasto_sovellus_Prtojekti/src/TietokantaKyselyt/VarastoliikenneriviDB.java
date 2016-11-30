@@ -32,7 +32,7 @@ public class VarastoliikenneriviDB {
 
     try {
       ps = conn.prepareStatement(
-          "INSERT INTO tuote(tuoteID, varastoliikenneID, maara)" + "VALUES (?,?,?);");
+          "INSERT INTO varastoliikennerivi(tuoteID, varastoliikenneID, maara)" + "VALUES (?,?,?);");
       // haetaan tuotteen id tietokannasta
 
       ps.setInt(1, vr.getTuoteID());

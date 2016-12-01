@@ -207,7 +207,6 @@ public class TuoteriviDB {
    */
 
   public boolean muokkaaTuoteriviä(Tuotejoukko tuotejoukko) {
-    boolean error = false;
 
     try {
       ps = conn.prepareStatement(
@@ -222,10 +221,10 @@ public class TuoteriviDB {
 
     } catch (SQLException e) {
       e.printStackTrace();
-      error = true;
+      return false;
     }
 
-    return error;
+    return true;
   }
 
   public boolean deleteTuoterivi(Tuotejoukko tj) {

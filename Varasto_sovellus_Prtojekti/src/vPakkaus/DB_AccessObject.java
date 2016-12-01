@@ -188,13 +188,17 @@ public class DB_AccessObject {
   }
 
   public boolean luoVarastoliikenne(Varastoliikenne vl, ArrayList<Varastoliikennerivi> vlrlist) {
-    createVarastoliikenne(vl);
+    ArrayList<Boolean> errors = new ArrayList();
+    errors.add(createVarastoliikenne(vl));
     int id = getVarastoliikenne_autoinc() - 1;
     for (Varastoliikennerivi vlr : vlrlist) {
       System.out.println("IDIDID: " + (id));
       vlr.setVarastoliikenneID(id);
 
       CreateVarastoliikennerivi(vlr);
+    }
+    if (errors.contains(false)) {
+      return false;
     }
     return true;
   }

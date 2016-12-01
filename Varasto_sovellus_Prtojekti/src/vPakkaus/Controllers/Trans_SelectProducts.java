@@ -158,11 +158,11 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
 
   @Override
   public void resetoi() {
-    System.out.println("Reset");
     paivitettavatJoukot = new ArrayList<Tuotejoukko>(); //Luodaan uusi päivitettavat lista
     resetTables(tuoteTaulukko);
     resetTables(lahetysTuotteet);
     maara.setText("");
+    tuoteNimi.setText("");
   }
 
   @Override

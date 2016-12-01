@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MainPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MainPageController">
    <children>
       <TabPane minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="40.0" tabMinHeight="30.0" tabMinWidth="124.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
         <tabs>
@@ -62,8 +62,8 @@
                   </ImageView>
                </graphic>
             </Tab>
-            <Tab fx:id="tab4" closable="false" disable="true" onSelectionChanged="#tabChoose" text="COMING SOON" />
-            <Tab fx:id="tab5" closable="false" disable="true" onSelectionChanged="#tabChoose" text="COMING SOON" />
+            <Tab fx:id="tab4" closable="false" disable="true" onSelectionChanged="#tabChoose" text="BUY DLC 1" />
+            <Tab fx:id="tab5" closable="false" disable="true" onSelectionChanged="#tabChoose" text="BUY DLC 2" />
         </tabs>
       </TabPane>
    </children>

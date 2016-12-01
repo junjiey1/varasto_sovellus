@@ -42,12 +42,13 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
   private LahetysRakentaja_IF rakentaja;
   private TaulukkoFactory_IF tehdas;
   private boolean selected;
-
+  private Asiakas selectedAsiakas;
 
   public Trans_PageOneController(){
     tehdas = TaulukkoFactory.getInstance();
     mc=null;
     vaihtaja=null;
+    selectedAsiakas=null;
   }
 
 
@@ -58,7 +59,7 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
 
   @Override
   public void paivita(Object data) {
-    resetoi();
+    resetoiTaulukko();
     if(luoUusiTaulukko((ArrayList<DAO_Objekti>)data)){
       täytäTaulukko();
     }else
@@ -83,9 +84,7 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
     asiakasTaulukko.refresh();
   }
 
-
-  @Override
-  public void resetoi() {
+  private void resetoiTaulukko(){
     int length = asiakasTaulukko.getItems().size(); // Hae taulun rivien määrä
     if (length > 0) {// Jos on rivejä
       for (; 0 < length;) {// Poistetaan yksi kerrallaan
@@ -94,25 +93,35 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
       }
     }
     asiakasTaulukko.refresh(); // Varmuuden vuoksi päivitetään TableView
-    date.getEditor().clear(); //tyhjentä valittu päivä
-    namelabel.setText(null);
-    datelabel.setText(null);
+  }
 
+
+  @Override
+  public void resetoi() {
+    resetoiTaulukko();
+    date.getEditor().clear(); //tyhjentä valittu päivä
+    namelabel.setText("");
+    datelabel.setText("");
+    namefield.setText("");
+    rakentaja.setAsiakas(null);
+    rakentaja.setDate(null);
   }
 
   public void valittuAsiakas(){
     selected=false;
     if(asiakasTaulukko.getSelectionModel().getSelectedItem()!=null){
       Asiakas a = (Asiakas)asiakasTaulukko.getSelectionModel().getSelectedItem();
-      namelabel.setText(a.getNimi());
+      selectedAsiakas = a;
+      namelabel.setText(a.getNimi() + " " + a.getOsoit());
       selected=true;
-    }else
+    }else{
+      selectedAsiakas = null;
       virheIlmoitus("Et ole valinnut tarkasteltavaa asiakasta taulukosta");
       selected=false;
+    }
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
     if (date.getValue() != null) {
-      //String dateFormat = date.get;
       datelabel.setText(formatter.format(date.getValue()));
     } else {
       datelabel.setText("");
@@ -128,9 +137,10 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
     alert.showAndWait();
   }
 
+
+
   @Override
   public void esiValmistelut() {
-    // TODO Auto-generated method stub
 
   }
 
@@ -140,32 +150,20 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
     vaihtaja.rekisteröiNakymaKontrolleri(this, "Transmission");
   }
 
-  private String getSelectedCustomerName(){
-    if(namelabel.getText()==null)
-      return "undefined";
-    return namelabel.getText();
-  }
-
-
-  private String getDate(){
-    return datelabel.getText();
-  }
-
   public void back_to() {
     vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
     resetoi();
   }
 
   public void next_confirm() {
-    if(date.getValue()==null || asiakasTaulukko.getSelectionModel().getSelectedItem()==null && selected==false){
-      virheIlmoitus("Kenttä ei voi olla tyhjä");
+    if(datelabel.getText().equals("") || selectedAsiakas==null){
+      virheIlmoitus("Et ole valinnut asiakasta tai päivämäärä!\nTarkista sivun vasemmasta alanurkasta näkyykö asiakas ja päivämäärä.");
     }else{
-      rakentaja.setAsiakasnimi(getSelectedCustomerName());
-      rakentaja.setDate(getDate());
+      rakentaja.setAsiakas(selectedAsiakas);
+      rakentaja.setDate(date.getValue());
       vaihtaja.asetaUudeksiNaytoksi("Trans_SelectProduct", null, null);
     }
   }
-
 
   @Override
   public void setLahetyksenRakentaja(LahetysRakentaja_IF rakentaja) {

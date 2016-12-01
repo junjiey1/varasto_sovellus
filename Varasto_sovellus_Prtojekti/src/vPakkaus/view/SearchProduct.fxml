@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="460.0" minWidth="700.0" prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MuokkaaProductController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="460.0" minWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.MuokkaaProductController">
    <children>
       <GridPane layoutX="14.0" layoutY="23.0" prefHeight="233.0" prefWidth="283.0" AnchorPane.bottomAnchor="204.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="23.0">
          <columnConstraints>
@@ -31,7 +31,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="label1" text="Product name">
+            <Label fx:id="label1" text="Product name" GridPane.columnSpan="2">
                <font>
                   <Font name="System Italic" size="13.0" />
                </font>
@@ -83,7 +83,7 @@
             <Line endX="100.0" startX="-180.0" GridPane.columnSpan="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Label layoutX="307.0" layoutY="6.0" text="Details:" AnchorPane.leftAnchor="307.0" AnchorPane.rightAnchor="345.0" AnchorPane.topAnchor="6.0">
+      <Label layoutX="307.0" layoutY="6.0" text="Details:" AnchorPane.leftAnchor="307.0" AnchorPane.topAnchor="6.0">
          <font>
             <Font size="13.0" />
          </font></Label>

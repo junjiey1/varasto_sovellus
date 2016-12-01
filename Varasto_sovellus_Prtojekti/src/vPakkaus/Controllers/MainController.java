@@ -1,5 +1,7 @@
 package vPakkaus.Controllers;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import vPakkaus.Asiakas;
@@ -7,6 +9,7 @@ import vPakkaus.DB_AccessObject;
 import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
+import vPakkaus.Varastoliikenne;
 
 /**
  * Ohjelman pääkontrolleri. Vastaa tiedon välityksestä Näytön ja mallin välillä
@@ -214,5 +217,15 @@ public class MainController implements MainController_IF{
     ArrayList<Tuotejoukko> res = db.haeTuotteenKaikkiTuoterivit(p);
     checkForErrorMessage();
     naytto.paivita(res);
+  }
+
+  @Override
+  public boolean luoUusiLahetys(LocalDate pvm, String osoite, int asiakasID, ArrayList<Tuotejoukko> tjklist) {
+    Varastoliikenne vl = new Varastoliikenne(1, Date.valueOf(pvm), osoite, userID, asiakasID);
+    boolean allGood = db.luoVarastoliikenne(vl, tjklist);
+    checkForErrorMessage();
+    if(allGood)
+      naytto.paivita("Uusi lähetys lisättiin onnistuneesti!");
+    return allGood;
   }
 }

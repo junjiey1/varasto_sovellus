@@ -15,7 +15,7 @@
    <children>
       <TabPane minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="40.0" tabMinHeight="30.0" tabMinWidth="124.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
         <tabs>
-          <Tab fx:id="homeTab" closable="false" text="MAIN">
+          <Tab fx:id="homeTab" closable="false" text="  MAIN">
                <content>
                   <AnchorPane>
                      <children>
@@ -24,7 +24,14 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="logout" layoutX="21.0" layoutY="102.0" mnemonicParsing="false" onAction="#logOut" text="LOG OUT" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="102.0" />
+                        <Button fx:id="logout" layoutX="23.0" layoutY="104.0" mnemonicParsing="false" onAction="#logOut" text="LOG OUT" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="103.0">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/logOut.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
                         <Button fx:id="chooselanguage" layoutX="21.0" layoutY="190.0" mnemonicParsing="false" onAction="#changeLan" text="Choose language" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="190.0" />
                         <ImageView fitHeight="318.0" fitWidth="388.0" layoutX="299.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="12.0">
                            <image>
@@ -48,11 +55,25 @@
                      </padding>
                   </AnchorPane>
                </content>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/main.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Tab>
-          <Tab fx:id="addProductTab" closable="false" onSelectionChanged="#tabChoose" text="ADD PRODUCT" />
+          <Tab fx:id="addProductTab" closable="false" onSelectionChanged="#tabChoose" text="ADD PRODUCT">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/addProduct.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Tab>
             <Tab fx:id="tab3" closable="false" onSelectionChanged="#tabChoose" text="SEARCH">
                <graphic>
-                  <ImageView fitHeight="27.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/search.png" />
                      </image>

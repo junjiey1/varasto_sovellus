@@ -76,6 +76,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		//anchorMap.put("Trans_SelectProduct",tehdas.annaNakyma("view/Trans_SelectProduct.fxml", (NayttojenVaihtaja_IF) luodutNakymaKontrollerit.get("Test1")));
 		//anchorMap.put("Trans_confirm",tehdas.annaNakyma("view/Trans_confirm.fxml", (NayttojenVaihtaja_IF) luodutNakymaKontrollerit.get("Test1")));
     anchorMap.put("Graphs",tehdas.annaNakyma("view/GraphView.fxml", this));
+    anchorMap.put("ShipmentTab",tehdas.annaNakyma("view/shipmentsView.fxml", this));
 	}
 
 	/**

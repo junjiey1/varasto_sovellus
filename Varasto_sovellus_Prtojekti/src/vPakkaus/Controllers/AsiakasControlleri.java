@@ -19,7 +19,7 @@ public class AsiakasControlleri implements Nakyma_IF {
 			contactPersonFname, contactPersonLname, contactPersonEmail, contactPersonPhone;
 
 	private String Customer_Name, Customer_Street, Customer_City,
-			  ContactP_Email, ContactP_Phone, postalNumber;
+			  ContactP_Email, ContactP_Phone, postalNumber, ContactP_F_Name, ContactP_L_Name;
 
 	private MainController_IF mc;
 	private NayttojenVaihtaja_IF vaihtaja;
@@ -130,47 +130,52 @@ public class AsiakasControlleri implements Nakyma_IF {
 	 * @return false, jos tekstikentät väärin täytetty
 	 * */
 	private boolean parseData(){
-		boolean allGood = true;
-
+	  
 		if (customerName.getText().isEmpty()){
-			allGood = false;
 			showError("Customer name field", "is empty");
+			return false;
 		}else{
 			Customer_Name = customerName.getText();
 		}
-		if(customerPostalCode.getText().isEmpty()){
-			showError("Postal number field", "is empty");
-			return false;
-		}else
-			postalNumber = customerPostalCode.getText();
-
+		
 		if (customerStreet.getText().isEmpty()){
-			allGood = false;
 			showError("Customer street address field", "is empty");
+			return false;
 		}else{
 			Customer_Street = customerStreet.getText();
 		}
+		
+		if(customerPostalCode.getText().isEmpty()){
+      showError("Postal number field", "is empty");
+      return false;
+    }else{
+      postalNumber = customerPostalCode.getText();
+    }
+		
 		if (customerCity.getText().isEmpty()){
-			allGood = false;
 			showError("Customer city field", "is empty");
+			return false;
 		}else{
 			Customer_City = customerCity.getText();
 		}
-//		if (contactPersonFname.getText().isEmpty()){
-//			allGood = false;
-//			showError("Contact person first name field", "is empty");
-//		}else{
-//			ContactP_F_Name = contactPersonFname.getText();
-//		}
-//		if (contactPersonLname.getText().isEmpty()){
-//			allGood = false;
-//			showError("Contact person last name field", "is empty");
-//		}else{
-//			ContactP_L_Name = contactPersonLname.getText();
-//		}
+		
+		if (contactPersonFname.getText().isEmpty()){
+			showError("Contact person first name field", "is empty");
+			return false;
+		}else{
+			ContactP_F_Name = contactPersonFname.getText();
+		}
+		
+		if (contactPersonLname.getText().isEmpty()){
+			showError("Contact person last name field", "is empty");
+			return false;
+		}else{
+			ContactP_L_Name = contactPersonLname.getText();
+		}
+		
 		if (contactPersonEmail.getText().isEmpty()){
-			allGood = false;
 			showError("Contact person email field", "is empty");
+			return false;
 		}else{
 			if (contactPersonEmail.getText().contains("@") &&
 				contactPersonEmail.getText().contains(".") &&
@@ -178,24 +183,25 @@ public class AsiakasControlleri implements Nakyma_IF {
 
 				ContactP_Email = contactPersonEmail.getText();
 			}else{
-				allGood = false;
 				showError("Contact person email", "should be in following format: example@exa.com");
+				return false;
 			}
 		}
+		
 		if (contactPersonPhone.getText().isEmpty()){
-			allGood = false;
 			showError("Contact person phone field", "is empty");
+			return false;
 		}else{
 			if(contactPersonPhone.getText().replaceAll(" ", "").length()<13){
-				allGood = false;
 				showError("Contact person phone number", "should be in following format: +123 12 345 6789");
+				return false;
 			}else{
 				ContactP_Phone = contactPersonPhone.getText();
 				Customer_Name = customerName.getText();
 			}
 		}
 
-		return allGood;
+		return true;
 	}
 
 

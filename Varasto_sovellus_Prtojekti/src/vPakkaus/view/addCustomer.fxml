@@ -41,7 +41,7 @@
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Label text="Name *" GridPane.rowIndex="1">
+            <Label text="Name" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -51,7 +51,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label text="Street address *" GridPane.rowIndex="2">
+            <Label text="Street address" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font>
@@ -74,7 +74,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label text="City *" GridPane.rowIndex="4">
+            <Label text="City" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
                </font>
@@ -89,7 +89,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label text="First name *" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label text="First name" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -99,7 +99,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label text="Last name *" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Label text="Last name" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font>
@@ -109,7 +109,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label text="Email *" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Label text="Email" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
                   <Font size="14.0" />
                </font>
@@ -119,7 +119,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label text="Mobile phone *" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Label text="Mobile phone" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
                </font>
@@ -134,12 +134,12 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Label text="* marked fields are required" GridPane.columnSpan="2" GridPane.rowIndex="5">
+            <Label text="All fields are required" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#back" prefHeight="29.0" prefWidth="47.0" text="Back" GridPane.rowIndex="6">
+            <Button minHeight="30.0" minWidth="45.0" mnemonicParsing="false" onAction="#back" text="Back" GridPane.rowIndex="6">
                <font>
                   <Font size="13.0" />
                </font>

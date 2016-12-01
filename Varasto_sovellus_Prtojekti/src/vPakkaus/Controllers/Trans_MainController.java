@@ -181,9 +181,12 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
     for(DAO_Objekti dao : valitutTuotteet){
       tjklist.add((Tuotejoukko) dao);
     }
-    //tjklist.addAll((Collection<? extends Tuotejoukko>) valitutTuotteet);
+    for(Tuotejoukko tjk : muuttuneetTuoterivit){
+      mc.paivitaTuoteRivi(tjk);
+    }
+    tab_2Controller.resetoi();
+    tab_3Controller.resetoi();
     mc.luoUusiLahetys(date, customer.getOsoit(), customer.getID(), tjklist);
-    //mc->malli->tietokanta
   }
 
   @Override

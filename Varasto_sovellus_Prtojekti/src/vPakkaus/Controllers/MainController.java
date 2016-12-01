@@ -228,4 +228,16 @@ public class MainController implements MainController_IF{
       naytto.paivita("Uusi lähetys lisättiin onnistuneesti!");
     return allGood;
   }
+
+  @Override
+  public void paivitaTuoteRivi(Tuotejoukko tjk) {
+    db.muokkaaTuoteriviä(tjk);
+    checkForErrorMessage();
+    int uusiMaara = db.tuotteidenMaaraHyllyssa(tjk.getTuotteenNimi(), tjk.getHyllynNimi());
+    if(uusiMaara==0){
+      db.deleteTuoterivi(tjk);
+      System.out.println("Poistetaan tuoterivi");
+    }
+    checkForErrorMessage();
+  }
 }

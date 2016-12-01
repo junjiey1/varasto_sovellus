@@ -151,7 +151,7 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
   }
 
   public void back_to() {
-    vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
+    vaihtaja.asetaUudeksiNaytoksi("mainpage", "ManagementMainMenu",3);
     resetoi();
   }
 

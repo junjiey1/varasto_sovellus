@@ -11,9 +11,10 @@ import vPakkaus.Tuotejoukko;
 
 public interface MainController_IF {
 	public void asetaAktiiviseksiNaytoksi(Nakyma_IF naytto);
-	boolean logIn(String username, String password);
-	boolean addProduct(Tuotejoukko joukko);
-	ArrayList<Product> haeTuote(String nimi);
+	public boolean logIn(String username, String password);
+	public boolean addProduct(Tuotejoukko joukko);
+	public void paivitaTuoteRivi(Tuotejoukko tjk);
+	public ArrayList<Product> haeTuote(String nimi);
 	public int getID();
 	public String getName();
 	public boolean paivitaTuotteet(ArrayList<Product> products);

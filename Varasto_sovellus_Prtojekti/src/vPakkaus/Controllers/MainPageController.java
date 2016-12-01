@@ -66,6 +66,7 @@ public class MainPageController implements Nakyma_IF{
 		}
 		if (tab4.isSelected()) {
 			activeTab = tab4;
+			activeTab.setContent(vaihtaja.getAnchorPane("ShipmentTab"));
 		}
 		if (tab5.isSelected()) {
 			activeTab = tab5;

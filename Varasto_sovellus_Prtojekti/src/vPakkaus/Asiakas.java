@@ -112,4 +112,10 @@ public class Asiakas implements DAO_Objekti{
 		return null;
 	}
 
+  @Override
+  public String toString() {
+    return "Asiakas [nimi=" + nimi + ", osoit=" + osoit + ", kaupun=" + kaupun + ", emai=" + emai
+        + ", numero=" + numero + ", posnumero=" + posnumero + ", ID=" + ID + "]";
+  }
+
 }

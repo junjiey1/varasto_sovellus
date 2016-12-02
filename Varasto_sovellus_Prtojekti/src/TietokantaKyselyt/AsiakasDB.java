@@ -174,15 +174,15 @@ public class AsiakasDB {
 
   public boolean deleteAsiakas(Asiakas a) {
     try {
-      ps = conn.prepareStatement("DELETE FROM asiakas WHERE asiakasnumero = ?");
-      ps.setInt(1, a.getID());
+      ps = conn.prepareStatement("DELETE FROM asiakas WHERE nimi = ?");
+      ps.setString(1, a.getNimi());
       ps.executeUpdate();
       ps.close();
-      return true;
     } catch (SQLException e) {
       e.printStackTrace();
       return false;
     }
+    return true;
   }
 
 }

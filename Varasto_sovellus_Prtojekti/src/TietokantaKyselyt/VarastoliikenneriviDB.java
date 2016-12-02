@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import vPakkaus.DB_AccessObject;
+import vPakkaus.Product;
 import vPakkaus.Varastoliikenne;
 import vPakkaus.Varastoliikennerivi;
 
@@ -29,7 +30,7 @@ public class VarastoliikenneriviDB {
   }
 
   public boolean CreateVarastoliikennerivi(Varastoliikennerivi vr) {
-
+    System.out.println(vr.getTuoteID() + " " + vr.getVarastoliikenneID() + " " + vr.getMaara());
     try {
       ps = conn.prepareStatement(
           "INSERT INTO varastoliikennerivi(tuoteID, varastoliikenneID, maara)" + "VALUES (?,?,?);");
@@ -85,6 +86,19 @@ public class VarastoliikenneriviDB {
       }
     }
     return vlr;
+  }
+
+  public boolean deleteVarastoliikennerivit(Product p) {
+    try {
+      ps = conn.prepareStatement("DELETE FROM varastoliikennerivi WHERE tuoteID = ?");
+      ps.setInt(1, p.getID());
+      ps.executeUpdate();
+      ps.close();
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
 }

@@ -188,17 +188,26 @@ public class DB_AccessObject {
   }
 
   public boolean luoVarastoliikenne(Varastoliikenne vl, ArrayList<Tuotejoukko> tjklist) {
-    createVarastoliikenne(vl);
+    ArrayList<Boolean> errors = new ArrayList();
+    errors.add(createVarastoliikenne(vl));
     int id = getVarastoliikenne_autoinc() - 1;
     for (Tuotejoukko tjk : tjklist) {
-      Varastoliikennerivi vlr = new Varastoliikennerivi(tjk.getProduct().getID(), id, tjk.getMaara());
+      Varastoliikennerivi vlr = new Varastoliikennerivi(tjk.getProduct().getID(), id,
+          tjk.getMaara());
       System.out.println("IDIDID: " + (id));
-      //vlr.setVarastoliikenneID(id);
+      // vlr.setVarastoliikenneID(id);
       CreateVarastoliikennerivi(vlr);
-      if(errorMsg != null) //Error viesti ei ole tyhjä eli virhe tapahtunut
+      if (errorMsg != null) // Error viesti ei ole tyhjä eli virhe tapahtunut
         return false;
     }
+    if (errors.contains(false)) {
+      return false;
+    }
     return true;
+  }
+
+  public boolean deleteVarastoliikennerivit(Product p) {
+    return vrividb.deleteVarastoliikennerivit(p);
   }
 
   public int getVarastoliikenne_autoinc() {
@@ -371,8 +380,11 @@ public class DB_AccessObject {
     ArrayList<Tuotejoukko> hyllyntuotejoukot = haeHyllynTuotejoukot(joukko.getHylly().getNimi());
 
     for (Tuotejoukko t : hyllyntuotejoukot) {
-      käytetty_tilavuus += käytetty_tilavuus + t.getMaara() * t.getProduct().getProduct_volume();
-      käytetty_paino += käytetty_paino + t.getMaara() * t.getProduct().getProduct_weight();
+      System.out.println("tj nimi = "+t.getProduct().getProduct_name());
+      System.out.println("tj paino = " +t.getProduct().getProduct_weight()*t.getMaara());
+      System.out.println("tj tilavuus = " +t.getProduct().getProduct_volume()*t.getMaara());
+      käytetty_tilavuus = käytetty_tilavuus + t.getMaara() * t.getProduct().getProduct_volume();
+      käytetty_paino = käytetty_paino + t.getMaara() * t.getProduct().getProduct_weight();
     }
     System.out.println("hyllyn_tilavuus =" + hyllyn_tilavuus + " vaadittu_tilavuus ="
         + vaadittu_tilavuus + " käytetty_tilavuus =" + käytetty_tilavuus);

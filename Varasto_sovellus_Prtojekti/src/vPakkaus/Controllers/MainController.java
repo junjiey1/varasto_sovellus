@@ -3,6 +3,7 @@ package vPakkaus.Controllers;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import vPakkaus.Asiakas;
 import vPakkaus.DB_AccessObject;
@@ -181,6 +182,22 @@ public class MainController implements MainController_IF{
 	}
 
 	@Override
+  public Asiakas haeAsiakas(Object criteria) {
+	  Asiakas res=null;
+	  if(criteria instanceof Integer){
+	    res = db.haeAsiakas(((Integer) criteria).intValue());
+	  }else if(criteria instanceof String){
+	    res = db.haeAsiakas(criteria.toString());
+	  }else{
+	    System.out.println("Criteria not supported");
+	  }
+	  checkForErrorMessage();
+	  if(res==null)
+	    return new Asiakas("", "", "", "", "", "");
+	  return res;
+  }
+
+	@Override
 	public void haeAsiakkaat(String nimi) {
 		ArrayList<Asiakas> lista = db.haeAsiakkaat(nimi);
 		checkForErrorMessage();
@@ -239,5 +256,11 @@ public class MainController implements MainController_IF{
       System.out.println("Poistetaan tuoterivi");
     }
     checkForErrorMessage();
+  }
+
+  @Override
+  public List<Varastoliikenne> haeLahetykset(int id) {
+    List res = db.haeVarastoliikenteenRivit(id);
+    return res;
   }
 }

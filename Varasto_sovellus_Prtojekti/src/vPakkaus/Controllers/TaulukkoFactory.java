@@ -69,14 +69,16 @@ public class TaulukkoFactory implements TaulukkoFactory_IF{
 		TableView<DAO_Objekti> asiakas_taulukko = new TableView<DAO_Objekti>();
 		TableColumn<DAO_Objekti, String> t1 = new TableColumn<DAO_Objekti, String>();//Nimi
 		TableColumn<DAO_Objekti, String> t2 = new TableColumn<DAO_Objekti, String>();//Osoite
+		TableColumn<DAO_Objekti, Integer> t3 = new TableColumn<DAO_Objekti, Integer>();//asiakasnumero
 		t1.setText("Nimi");
 		t2.setText("Osoite");
+		t3.setText("Asiakasnumero");
 		asiakas_taulukko.getColumns().add(t1);
 		asiakas_taulukko.getColumns().add(t2);
-		for(int i = 0; i<lista.size();i++){
-			t1.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("nimi"));
-			t2.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("osoit"));
-		}
+		asiakas_taulukko.getColumns().add(t3);
+		t1.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("nimi"));
+		t2.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, String>("osoit"));
+		t3.setCellValueFactory(new PropertyValueFactory<DAO_Objekti, Integer>("ID"));
 		asiakas_taulukko.getItems().addAll(lista);
 		return new AsiakasTaulukko(asiakas_taulukko);
 	}

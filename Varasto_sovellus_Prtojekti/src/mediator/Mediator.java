@@ -52,10 +52,10 @@ public class Mediator {
       for (Hyppy hy : h.getHypyt()) {
         double yhtpisteet = sih.laskeHypynPisteet(hy.getPisteet(), hy.getLength(), tuomarit.size());
         Tulosrivi tr = new Tulosrivi(h, yhtpisteet);
-        tulostaulu.setTulos(tr);
+        tulostaulu.addTulos(tr);
       }
     }
-    tulostaulu.haeTulokset();
+    tulostaulu.printTulokset();
   }
 
 }

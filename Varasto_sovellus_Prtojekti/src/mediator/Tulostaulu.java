@@ -17,7 +17,7 @@ public class Tulostaulu {
     return tulokset;
   }
 
-  public void setTulos(Tulosrivi tulos) {
+  public void addTulos(Tulosrivi tulos) {
     this.tulokset.add(tulos);
   }
 
@@ -25,7 +25,7 @@ public class Tulostaulu {
     mediator.näytäTulostaulu();
   }
 
-  public void haeTulokset() {
+  public void printTulokset() {
     System.out.println("Tulostaulu:");
     Collections.sort(tulokset, new Comparator<Tulosrivi>() {
       public int compare(Tulosrivi o1, Tulosrivi o2) {

@@ -123,6 +123,100 @@ public class DataBase_tests {
     assertEquals("Hyllypaikan poistaminen tietokannasta onnistui!", res, true);
   }
 
+  @Test
+  public void Hae_hyllypaikka() {
+    System.out.println("\nTest : Hae_hyllypaikka\n");
+    Hyllypaikka hyllypaikka = new Hyllypaikka("hylly_test_1_1", 10.0, 10.0, 10.0, 5, 200);
+    db.createHyllypaikka(hyllypaikka);
+    Hyllypaikka h = db.haeHylly("hylly_test_1_1");
+    assertEquals("Hyllypaikan hakeminen onnistui!", hyllypaikka.toString(), h.toString());
+  }
+
+  @Test
+  public void HaeTuotteenHyllypaikat() {
+    System.out.println("\nTest : HaeTuotteenHyllypaikat()\n");
+    Product tp1 = new Product("test_item_99", 1.0, 2.0, 2.0, 2.0, 2.0f);
+    ;
+    Hyllypaikka hyllypaikka1 = new Hyllypaikka("hylly_test_98", 10.0, 10.0, 10.0, 5, 200);
+    Hyllypaikka hyllypaikka2 = new Hyllypaikka("hylly_test_99", 10.0, 10.0, 10.0, 5, 200);
+    db.createHyllypaikka(hyllypaikka1);
+    db.createHyllypaikka(hyllypaikka2);
+
+    Tuotejoukko joukko_1 = new Tuotejoukko(tp1, hyllypaikka1, 2);
+    Tuotejoukko joukko_2 = new Tuotejoukko(tp1, hyllypaikka2, 2);
+    db.lisaa(joukko_1);
+    db.lisaa(joukko_2);
+
+    ArrayList<Hyllypaikka> list = db.HaeTuotteenHyllypaikat(tp1);
+    assertEquals("Hyllypaikkojen hakeminen onnistui!", 2, list.size());
+
+    Product tp2 = db.findProduct("test_item_99");
+    Tuotejoukko joukko_3 = new Tuotejoukko(tp2, hyllypaikka1, 2);
+    Tuotejoukko joukko_4 = new Tuotejoukko(tp2, hyllypaikka2, 2);
+
+    db.deleteTuoterivi(joukko_3);
+    db.deleteTuoterivi(joukko_4);
+    db.deleteProduct(tp2);
+    db.deleteHyllypaikka(hyllypaikka1);
+    db.deleteHyllypaikka(hyllypaikka2);
+
+  }
+
+  @Test
+  public void add_and_delete_Product() {
+    System.out.println("\nTest : add_and_delete_Product()\n");
+    Product p = new Product("test_item_99", 1.0, 2.0, 2.0, 2.0, 2.0f);
+    boolean res = db.addProduct(p);
+    assertEquals("Tuotteen lisääminen onnistui!", true, res);
+    res = db.deleteProduct(p);
+    assertEquals("Tuotteen lisääminen onnistui!", true, res);
+  }
+
+//  @Test
+//  public void update_Product() {
+//    System.out.println("\nTest : update_Product()\n");
+//    Product p1 = new Product("test_item_101", 1.0, 2.0, 2.0, 2.0, 2.0f);
+//    Product p2 = new Product("test_item_100", 1.0, 2.0, 2.0, 2.0, 2.0f);
+//    db.addProduct(p1);
+//    db.addProduct(p2);
+//    p1.setProduct_weight(20.0);
+//    p2.setProduct_weight(20.0);
+//    ArrayList<Product> list = new ArrayList();
+//    list.add(p1);
+//    list.add(p2);
+//    boolean res = db.updateProducts(list);
+//    ArrayList<Product> list1 = db.findProducts("test_item_10");
+//    for (int i = 0; i < list.size(); i++) {
+//      assertEquals("juuh", 20.0, list1.get(i).getProduct_weight());
+//    }
+//
+//    db.deleteProduct(p1);
+//    db.deleteProduct(p2);
+
+//  }
+
+  // @Test
+  // public void add_and_delete_Temperature() {
+  //
+  // System.out.println("\nTest : addTemperature()\n");
+  // Product p = new Product("test_item_33", 4.0, 4.0, 4.0, 4.0, 2.0f);
+  //
+  // boolean res = db.addTemperatures(p);
+  // assertEquals("Lampotilojen lisays tuotteelle onnistui!", res, true);
+  // res = db.deleteLampotila(p);
+  // assertEquals("Tuotteen lampotilojen poistaminen onnistui!", res, true);
+  // }
+
+  @Test
+  public void PaivitaHyllypaikka() {
+    System.out.println("\nTest : PaivitaHyllypaikka()\n");
+    Hyllypaikka h = db.haeHylly("hylly_test_1");
+    h.setMax_paino(300);
+    db.paivitaHylly(h);
+    Hyllypaikka h1 = db.haeHylly("hylly_test_1");
+    assertEquals(0.01, 300.0, h1.getMax_paino());
+  }
+
   // @Test
   // public void Lisaa_Tuote_tableen_lampotilojen_kanssa() {
   // System.out.println("\nTest : Lisaa_Tuote_tableen_lampotilojen_kanssa\n");
@@ -180,13 +274,19 @@ public class DataBase_tests {
 
   }
 
+  @Test
   public void haeAsiakkaat() {
     System.out.println("\nTest : haeAsiakkaat()\n");
     Asiakas a1 = new Asiakas("Seppo oy1", "Kuskinkatu 3 a 14", "Helsinki", "Sepi@Sepi.fi",
         "0440330990", "00770");
     Asiakas a2 = new Asiakas("Seppo oy2", "Kuskinkatu 3 a 14", "Helsinki", "Sepi@Sepi.fi",
         "0440330990", "00770");
-    ArrayList<Asiakas> asiakkaat = db.haeAsiakkaat("seppo oy");
+    db.addAsiakas(a1);
+    db.addAsiakas(a2);
+    ArrayList<Asiakas> asiakkaat = db.haeAsiakkaat("seppo");
+    for (Asiakas a : asiakkaat) {
+      a.toString();
+    }
     int maara = asiakkaat.size();
     assertEquals("Asiakkaiden haku toimii!", 2, maara);
     db.deleteAsiakas(a1);

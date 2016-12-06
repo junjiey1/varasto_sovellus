@@ -80,4 +80,10 @@ public class Hyllypaikka implements DAO_Objekti{
 	public Object haeMuuttuja(String muuttujanNimi) {
 		return null;
 	}
+
+  @Override
+  public String toString() {
+    return "Hyllypaikka [nimi=" + nimi + ", leveys=" + leveys + ", korkeus=" + korkeus
+        + ", max_paino=" + max_paino + ", lämpötila=" + lämpötila + ", pituus=" + pituus + "]";
+  }
 }

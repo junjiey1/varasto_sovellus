@@ -104,7 +104,7 @@ public class Trans_confirmController implements LahetysInformationProvider_IF{
   }
 
   public void cancel(){
-    vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
+    vaihtaja.asetaUudeksiNaytoksi("mainpage", "ManagementMainMenu",3);
   }
 
   public void back_to() {

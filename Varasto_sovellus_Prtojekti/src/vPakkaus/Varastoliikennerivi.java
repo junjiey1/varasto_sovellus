@@ -3,6 +3,7 @@ package vPakkaus;
 public class Varastoliikennerivi {
 
   int tuoteID, varastoliikenneID, maara, riviID;
+  private Tuotejoukko tjk;
 
   public Varastoliikennerivi(int tuoteID, int varastoliikenneID, int maara) {
     this.tuoteID = tuoteID;
@@ -48,6 +49,14 @@ public class Varastoliikennerivi {
 
   public void setRiviID(int riviID) {
     this.riviID = riviID;
+  }
+
+  public void setTuotejoukko(Tuotejoukko tjk){
+    this.tjk=tjk;
+  }
+
+  public Tuotejoukko getTuotejoukko(){
+    return tjk;
   }
 
 }

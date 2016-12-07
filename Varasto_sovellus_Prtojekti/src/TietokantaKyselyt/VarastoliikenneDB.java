@@ -5,7 +5,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import vPakkaus.Asiakas;
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
 import vPakkaus.Varastoliikenne;
@@ -72,7 +75,7 @@ public class VarastoliikenneDB {
         String osoite = rs.getString("toimitusosoite");
         int userid = rs.getInt("tyontekijaID");
         int asiakasid = rs.getInt("asiakasnumero");
-        vl = new Varastoliikenne(tyyppi, pvm, osoite, userid, asiakasid);
+        vl = new Varastoliikenne(tyyppi, pvm, osoite, userid, asiakasid, id);
         vl.setVarastoliikenneID(id);
       }
     } catch (SQLException e) {
@@ -88,6 +91,44 @@ public class VarastoliikenneDB {
       }
     }
     return vl;
+  }
+
+  public List<Varastoliikenne> findVarastoliikenneRivit(int customerID) {
+    List<Varastoliikenne> res = new ArrayList<Varastoliikenne>();
+    try {
+      Asiakas asiakas = db.haeAsiakas(customerID);
+      ps = conn.prepareStatement(
+          "select varastoliikenne.varastoliikenneID, varastoliikenne.tyyppi, varastoliikenne.pvm, varastoliikenne.toimitusosoite, varastoliikenne.tyontekijaID, varastoliikenne.asiakasnumero from varastoliikenne where asiakasnumero = ?;");
+
+      // Asetetaan argumentit sql-kyselyyn
+      ps.setInt(1, customerID);
+      rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
+      // tietokanta rivi
+
+      while (rs.next()) {
+        int id = rs.getInt("varastoliikenneID");
+        int tyyppi = rs.getInt("tyyppi");
+        Date pvm = rs.getDate("pvm");
+        String osoite = rs.getString("toimitusosoite");
+        int userid = rs.getInt("tyontekijaID");
+        int asiakasid = rs.getInt("asiakasnumero");
+        Varastoliikenne vl = new Varastoliikenne(tyyppi, pvm, osoite, userid, asiakasid, id);
+        vl.setAsiakas(asiakas);
+        res.add(vl);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      db.setErrorMsg(e.getMessage());
+    } finally {
+      try {
+        ps.close();
+        rs.close();
+      } catch (SQLException e) {
+        db.setErrorMsg(e.getMessage());
+        e.printStackTrace();
+      }
+    }
+    return res;
   }
 
   public int autoincrement() {

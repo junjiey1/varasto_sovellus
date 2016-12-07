@@ -163,6 +163,8 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
     resetTables(lahetysTuotteet);
     maara.setText("");
     tuoteNimi.setText("");
+    lahetysTuotteet.getItems().clear();
+    tuoteTaulukko.getItems().clear();
   }
 
   @Override
@@ -175,7 +177,10 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
 
   @Override
   public void esiValmistelut() {
-
+    if(rakentaja.getTuotteet()!=null && !rakentaja.getTuotteet().isEmpty()){
+      lahetysTuotteet.getItems().clear();
+      lahetysTuotteet.getItems().addAll(rakentaja.getTuotteet());
+    }
   }
 
   public void back_to(){

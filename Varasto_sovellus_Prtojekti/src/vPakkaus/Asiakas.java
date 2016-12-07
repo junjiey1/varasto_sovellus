@@ -26,8 +26,6 @@ public class Asiakas implements DAO_Objekti{
 		this.nimi = nimi;
 	}
 
-
-
 	public String getOsoit() {
 		return osoit;
 	}

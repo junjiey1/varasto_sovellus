@@ -238,7 +238,6 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
           virheIlmoitus("Rivillä : " + fileRow + " Tuotteen " + pName + " muuttujissa havaittiin virhe!");
         else
           noErrorsEncountered = mc.addProduct(rakennaTuotejoukko());
-      
         fileRow++;
       }
       

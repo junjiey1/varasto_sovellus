@@ -1,32 +1,32 @@
 package vPakkaus.Controllers;
 
 import java.util.ArrayList;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
 import vPakkaus.DAO_Objekti;
-import vPakkaus.Hyllypaikka;
-import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
 
 public class Trans_SelectProducts implements LahetysInformationProvider_IF{
 
   @FXML
-  private TableView<DAO_Objekti> tuoteTaulukko;
+  private TableView<DAO_Objekti> tuoteTaulukko, lahetysTuotteet;
   @FXML
-  private TableView<DAO_Objekti> lahetysTuotteet;
+  private Button hae, addButton, resetButton;
   @FXML
-  private Button hae, addButton;
+  private TextField tuoteNimi, maara;
   @FXML
-  private TextField tuoteNimi;
+  private CheckBox addFromTextFile;
   @FXML
-  private TextField maara;
+  private TableView<?> TextFilesTable;
+  @FXML
+  private Label pNameLabel;
 
   private Taulukko_IF taulukko;
   private MainController_IF mc;
@@ -203,4 +203,34 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
   public void setLahetyksenRakentaja(LahetysRakentaja_IF rakentaja) {
     this.rakentaja = rakentaja;
   }
+  
+  
+  //ON DRAG DETECTED
+  @FXML
+  void dropTextFiles(DragEvent event) {
+    
+  }
+  
+  //TOGGLE SWITCH
+  public void addTextFiles(){
+    if (addFromTextFile.isSelected()){
+      TextFilesTable.toFront();
+      pNameLabel.setVisible(false);
+      tuoteNimi.setVisible(false);
+      hae.toBack();
+      resetButton.toBack();
+      maara.setVisible(false);
+      
+    }else{
+      
+      TextFilesTable.toBack();
+      pNameLabel.setVisible(true);
+      tuoteNimi.setVisible(true);
+      hae.toFront();
+      resetButton.toFront();
+      maara.setVisible(true);
+    }
+  }
+  
+  
 }

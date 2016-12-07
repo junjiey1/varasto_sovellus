@@ -32,7 +32,9 @@
       </TableView>
       <Button fx:id="addButton" alignment="CENTER" layoutX="483.0" layoutY="252.0" mnemonicParsing="false" onAction="#lisaaTuotteitaLahetykseen" prefHeight="31.0" prefWidth="53.0" text="&gt;&gt;" AnchorPane.leftAnchor="483.0" AnchorPane.rightAnchor="279.0" />
       <TextField fx:id="tuoteNimi" layoutX="27.0" layoutY="152.0" />
-      <Label layoutX="27.0" layoutY="126.0" minWidth="90.0" text="Product name:" />
+      <Label fx:id="pNameLabel" layoutX="27.0" layoutY="126.0" minWidth="90.0" text="Product name:" />
+      <Button fx:id="Delete" layoutX="134.0" layoutY="212.0" minWidth="65.0" mnemonicParsing="false" onAction="#haeTuotteRyhmia" text="Delete" />
+      <Button fx:id="Clear" layoutX="134.0" layoutY="261.0" minWidth="65.0" mnemonicParsing="false" onAction="#resetoi" text="Clear" />
       <Button fx:id="hae" layoutX="134.0" layoutY="212.0" minWidth="65.0" mnemonicParsing="false" onAction="#haeTuotteRyhmia" text="Search" />
       <Button fx:id="resetButton" layoutX="134.0" layoutY="261.0" minWidth="65.0" mnemonicParsing="false" onAction="#resetoi" text="Reset" />
       <TableView fx:id="lahetysTuotteet" layoutX="557.0" layoutY="18.0" prefHeight="412.0" prefWidth="242.0" AnchorPane.bottomAnchor="108.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="14.0" />

@@ -5,11 +5,12 @@
  ******************************************************************************/
 .root {
 	/* Swatch Colors - Blue*/
-	-swatch-100: #BBDEFB;
+	/*-swatch-100: #BBDEFB;
 	-swatch-200: #90CAF9;
 	-swatch-300: #64BEF6;
 	-swatch-400: #42A5F5;
 	-swatch-500: #2196F3;
+	*/
 	-fx-text-base-color: rgb(100.0, 100.0, 100.0);
 	/* Text defaults */
 	-fx-font-family: 'Roboto Medium';
@@ -43,7 +44,7 @@
 	-fx-padding:0;
 }
 .check-box:selected>*.box{
-	-fx-background-color: derive(-swatch-500, 0.54);
+	-fx-background-color: derive(#2196F3, 0.54);
 }
 
 .check-box:disabled>*.box{
@@ -60,7 +61,7 @@
 }
 
 .check-box:selected>*.box>*.mark {
-	-fx-background-color: -swatch-500;
+	-fx-background-color: #2196F3;
 	-fx-shape: "M 10,5 c 5.79899,0 10.5,4.701 10.5,10.5 0,5.799 -4.70101,10.5 -10.5,10.5 -5.79899,0 -10.5,-4.701 -10.5,-10.5 0,-5.799 4.70101,-10.5 10.5,-10.5 z m -29.455078,10.6875 0,0.1348 -0.08984,0 0,-0.1348 z";
 }
 

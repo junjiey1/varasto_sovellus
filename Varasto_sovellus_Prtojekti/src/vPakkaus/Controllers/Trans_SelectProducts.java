@@ -45,7 +45,7 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
   private ArrayList<Tuotejoukko> paivitettavatJoukot;
   private LahetysRakentaja_IF rakentaja;
   private TreeMap<String, String> tmap;
-  
+
   private ObservableList<String> productTextFiles = FXCollections.observableArrayList();
 
   boolean noErrorsEncountered;
@@ -225,7 +225,7 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
   public void setLahetyksenRakentaja(LahetysRakentaja_IF rakentaja) {
     this.rakentaja = rakentaja;
   }
-  
+
   public void parseTextFiles() throws FileNotFoundException{
     noErrorsEncountered = true;
     for (String s : productTextFiles) {
@@ -237,21 +237,21 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
         if(!validoiListanMuuttujat(oneRowOfData))
           virheIlmoitus("Rivillä : " + fileRow + " Tuotteen " + pName + " muuttujissa havaittiin virhe!");
         else
-          noErrorsEncountered = mc.addProduct(rakennaTuotejoukko());
+          //noErrorsEncountered = mc.addProduct(rakennaTuotejoukko());
         fileRow++;
       }
-      
-      
-      
-      
+
+
+
+
     }
-    
-    
-    
-    
+
+
+
+
     tmap.clear();
   }
-  
+
   private boolean validoiListanMuuttujat(String[] rowOfData){
     try{
       pName = oneRowOfData[0];
@@ -262,10 +262,10 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
       return false;
     }
   }
-  
 
-  
-  
+
+
+
 
   //ON DRAG DETECTED
   @FXML
@@ -307,9 +307,9 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
     event.consume();
     db = null;
   }
-  
-  
-  
+
+
+
   //TOGGLE SWITCH
   public void addTextFiles(){
     if (addFromTextFile.isSelected()){
@@ -319,9 +319,9 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
       hae.toBack();
       resetButton.toBack();
       maara.setVisible(false);
-      
+
     }else{
-      
+
       TextFilesTable.toBack();
       pNameLabel.setVisible(true);
       tuoteNimi.setVisible(true);
@@ -330,20 +330,20 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
       maara.setVisible(true);
     }
   }
-  
-  
-  
-  public void removeTextFile() {   
+
+
+
+  public void removeTextFile() {
     String Fname = null;
     Fname = productTextFiles.get(productTextFiles.indexOf(TextFilesTable.getSelectionModel().getSelectedItem()));
     productTextFiles.remove(productTextFiles.indexOf(TextFilesTable.getSelectionModel().getSelectedItem()));
     tmap.remove(Fname);
   }
-  
+
   public void removeAllTextFiles() {
     productTextFiles.clear();
     tmap.clear();
   }
-  
-  
+
+
 }

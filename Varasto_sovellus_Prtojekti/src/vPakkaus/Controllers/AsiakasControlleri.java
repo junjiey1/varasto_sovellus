@@ -76,7 +76,8 @@ public class AsiakasControlleri implements Nakyma_IF {
 
 	@Override
 	public void esiValmistelut() {
-		resetoi();
+	  if(!muokataanOlemassaOlevaa)
+	    resetoi();
 	}
 
 	@Override
@@ -130,49 +131,49 @@ public class AsiakasControlleri implements Nakyma_IF {
 	 * @return false, jos tekstikentät väärin täytetty
 	 * */
 	private boolean parseData(){
-	  
+
 		if (customerName.getText().isEmpty()){
 			showError("Customer name field", "is empty");
 			return false;
 		}else{
 			Customer_Name = customerName.getText();
 		}
-		
+
 		if (customerStreet.getText().isEmpty()){
 			showError("Customer street address field", "is empty");
 			return false;
 		}else{
 			Customer_Street = customerStreet.getText();
 		}
-		
+
 		if(customerPostalCode.getText().isEmpty()){
       showError("Postal number field", "is empty");
       return false;
     }else{
       postalNumber = customerPostalCode.getText();
     }
-		
+
 		if (customerCity.getText().isEmpty()){
 			showError("Customer city field", "is empty");
 			return false;
 		}else{
 			Customer_City = customerCity.getText();
 		}
-		
+
 		if (contactPersonFname.getText().isEmpty()){
 			showError("Contact person first name field", "is empty");
 			return false;
 		}else{
 			ContactP_F_Name = contactPersonFname.getText();
 		}
-		
+
 		if (contactPersonLname.getText().isEmpty()){
 			showError("Contact person last name field", "is empty");
 			return false;
 		}else{
 			ContactP_L_Name = contactPersonLname.getText();
 		}
-		
+
 		if (contactPersonEmail.getText().isEmpty()){
 			showError("Contact person email field", "is empty");
 			return false;
@@ -187,7 +188,7 @@ public class AsiakasControlleri implements Nakyma_IF {
 				return false;
 			}
 		}
-		
+
 		if (contactPersonPhone.getText().isEmpty()){
 			showError("Contact person phone field", "is empty");
 			return false;

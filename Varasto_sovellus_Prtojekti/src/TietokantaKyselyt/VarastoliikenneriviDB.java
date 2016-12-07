@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
+import vPakkaus.Tuotejoukko;
 import vPakkaus.Varastoliikenne;
 import vPakkaus.Varastoliikennerivi;
 
@@ -86,6 +87,36 @@ public class VarastoliikenneriviDB {
       }
     }
     return vlr;
+  }
+
+  public Varastoliikenne findVarastoliikennerivit(Varastoliikenne vl){
+    try {
+      ps = conn.prepareStatement(
+          "select rivi_ID, tuoteID, maara from varastoliikennerivi where varastoliikenneID = ?;");
+
+      ps.setInt(1, vl.getVarastoliikenneID());
+      rs = ps.executeQuery();
+
+      while (rs.next()) {
+        int tuoteID = rs.getInt("tuoteID");
+        int maara = rs.getInt("maara");
+        Varastoliikennerivi vlr = new Varastoliikennerivi(tuoteID, vl.getVarastoliikenneID(), maara);
+        vlr.setTuotejoukko(new Tuotejoukko(productdb.findProductWithID(tuoteID), null, maara));
+        vl.addTuotejoukko(vlr);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      db.setErrorMsg(e.getMessage());
+    } finally {
+      try {
+        ps.close();
+        rs.close();
+      } catch (SQLException e) {
+        db.setErrorMsg(e.getMessage());
+        e.printStackTrace();
+      }
+    }
+    return vl;
   }
 
   public boolean deleteVarastoliikennerivit(Product p) {

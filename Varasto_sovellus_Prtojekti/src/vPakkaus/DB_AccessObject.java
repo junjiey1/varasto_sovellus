@@ -511,7 +511,11 @@ public class DB_AccessObject {
   }
 
   public List<Varastoliikenne> haeVarastoliikenteenRivit(int customerID){
-    return varastoliikennedb.findVarastoliikenneRivit(customerID);
+    List<Varastoliikenne> res = new ArrayList<Varastoliikenne>();
+    for(Varastoliikenne vl : varastoliikennedb.findVarastoliikenneRivit(customerID)){
+       res.add(vrividb.findVarastoliikennerivit(vl));
+    }
+    return res;
   }
 
   // /**

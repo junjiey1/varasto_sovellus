@@ -126,9 +126,9 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 			System.out.println("Nakymaa nimella " + nimi + " ei ole ladattu!!!");
 		else{
 			if(luodutNakymaKontrollerit.containsKey(nimi)){
+			  if(preData!=null)
+          luodutNakymaKontrollerit.get(nimi).paivita(preData);
 				mc.asetaAktiiviseksiNaytoksi(luodutNakymaKontrollerit.get(nimi));
-				if(preData!=null)
-					luodutNakymaKontrollerit.get(nimi).paivita(preData);
 			}
 			mainStage.setScene(scene);
 			mainStage.setTitle(otsikko);

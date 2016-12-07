@@ -55,7 +55,7 @@ public class shipmentModifyController implements Nakyma_IF ,Initializable{
 
   @Override
   public void resetoi() {
-
+    data.clear();
   }
 
   @Override
@@ -65,11 +65,11 @@ public class shipmentModifyController implements Nakyma_IF ,Initializable{
 
   @Override
   public void esiValmistelut() {
-    System.out.println("hei");
-    Varastoliikenne vl = new Varastoliikenne(1, new Date(10, 200, 1000), "test222", 2, 1);
-    vl.setAsiakas(mc.haeAsiakas(11));
-    data.add(vl);
-    ShipmentTable.getItems().setAll(data);
+//    System.out.println("hei");
+//    Varastoliikenne vl = new Varastoliikenne(1, new Date(10, 200, 1000), "test222", 2, 1, -1);
+//    vl.setAsiakas(mc.haeAsiakas(11));
+//    data.add(vl);
+//    ShipmentTable.getItems().setAll(data);
   }
 
   @Override
@@ -84,7 +84,8 @@ public class shipmentModifyController implements Nakyma_IF ,Initializable{
   }
 
   public void modify(){
-
+    vaihtaja.asetaUudeksiNaytoksi("Test1", "Modifying shipment " + ShipmentTable.getSelectionModel().getSelectedItem().getVarastoliikenneID(),
+        ShipmentTable.getSelectionModel().getSelectedItem());
   }
 
   public void delete(){
@@ -99,13 +100,7 @@ public class shipmentModifyController implements Nakyma_IF ,Initializable{
     column1.setCellValueFactory(new PropertyValueFactory<Varastoliikenne, String>("asiakkaanNimi"));
     column2.setCellValueFactory(new PropertyValueFactory<Varastoliikenne, String>("osoite"));
     column3.setCellValueFactory(new PropertyValueFactory<Varastoliikenne, Date>("pvm"));
-    //Varastoliikenne vl = new Varastoliikenne(1, new Date(10, 200, 1000), "test", 2, 1);
-    //vl.setAsiakas(mc.haeAsiakas(11));
-    //vl.setAsiakkaanNimi("testasiakas");
-    //data.add(vl);
-
-    //ShipmentTable.getItems().setAll(data);
-    //ShipmentTable.refresh();
+    column4.setCellValueFactory(new PropertyValueFactory<Varastoliikenne, Integer>("varastoliikenneID"));
   }
 
 

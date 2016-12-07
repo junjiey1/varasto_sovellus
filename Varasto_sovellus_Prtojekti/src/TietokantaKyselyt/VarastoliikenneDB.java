@@ -75,7 +75,7 @@ public class VarastoliikenneDB {
         String osoite = rs.getString("toimitusosoite");
         int userid = rs.getInt("tyontekijaID");
         int asiakasid = rs.getInt("asiakasnumero");
-        vl = new Varastoliikenne(tyyppi, pvm, osoite, userid, asiakasid);
+        vl = new Varastoliikenne(tyyppi, pvm, osoite, userid, asiakasid, id);
         vl.setVarastoliikenneID(id);
       }
     } catch (SQLException e) {
@@ -112,7 +112,7 @@ public class VarastoliikenneDB {
         String osoite = rs.getString("toimitusosoite");
         int userid = rs.getInt("tyontekijaID");
         int asiakasid = rs.getInt("asiakasnumero");
-        Varastoliikenne vl = new Varastoliikenne(tyyppi, pvm, osoite, userid, asiakasid);
+        Varastoliikenne vl = new Varastoliikenne(tyyppi, pvm, osoite, userid, asiakasid, id);
         vl.setAsiakas(asiakas);
         res.add(vl);
       }

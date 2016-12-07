@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
@@ -13,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
 import vPakkaus.Tuotejoukko;
+import vPakkaus.Varastoliikenne;
+import vPakkaus.Varastoliikennerivi;
 
 public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
 
@@ -37,24 +40,15 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   //Muuttujat joita käytetään lähetyksessä
   private Asiakas customer;
   private LocalDate date;
+  private Varastoliikenne vl;
   private ArrayList<Tuotejoukko> muuttuneetTuoterivit;
-  private ObservableList<DAO_Objekti> valitutTuotteet;
+  private ObservableList<DAO_Objekti> valitutTuotteet
+  = FXCollections.observableArrayList();
 
   public Trans_MainController(){
     mc=null;
     vaihtaja=null;
     allSet=false;
-  }
-
-  public void iniatilize(){
-
-  }
-
-  public void back_to(){
-
-  }
-  public void next_confirm(){
-
   }
 
   @Override
@@ -64,12 +58,28 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
 
   @Override
   public void paivita(Object data) {
-
+    if(data instanceof Varastoliikenne){
+      customer = ((Varastoliikenne) data).getAsiakas();
+      date = ((Varastoliikenne) data).getPvm().toLocalDate();
+      vl = (Varastoliikenne)data;
+      if(!vl.isEmpty()){
+        for(Varastoliikennerivi vlr : vl.getRivit()){
+          valitutTuotteet.add((Tuotejoukko)vlr.getTuotejoukko());
+        }
+      }
+    }
   }
 
   @Override
   public void resetoi() {
-
+    tab_1Controller.resetoi();
+    tab_2Controller.resetoi();
+    tab_3Controller.resetoi();
+    customer = null;
+    date = null;
+    vl=null;
+    valitutTuotteet.clear();
+    //muuttuneetTuoterivit.clear();
   }
 
   @Override
@@ -127,9 +137,7 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
       trans_tabPane.getSelectionModel().select(2);
       selectProduct.setDisable(true);
     }else{
-      tab_1Controller.resetoi();
-      tab_2Controller.resetoi();
-      tab_3Controller.resetoi();
+      resetoi();
       vaihtaja.asetaUudeksiNaytoksi(nimi, otsikko, preData);
     }
   }
@@ -191,7 +199,8 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
 
   @Override
   public void setTuotteet(ObservableList<DAO_Objekti> list) {
-    valitutTuotteet = list;
+    valitutTuotteet.clear();
+    valitutTuotteet.addAll(list);
   }
 
   @Override

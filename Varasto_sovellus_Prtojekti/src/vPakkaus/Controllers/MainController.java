@@ -238,7 +238,7 @@ public class MainController implements MainController_IF{
 
   @Override
   public boolean luoUusiLahetys(LocalDate pvm, String osoite, int asiakasID, ArrayList<Tuotejoukko> tjklist) {
-    Varastoliikenne vl = new Varastoliikenne(1, Date.valueOf(pvm), osoite, userID, asiakasID);
+    Varastoliikenne vl = new Varastoliikenne(1, Date.valueOf(pvm), osoite, userID, asiakasID,-1);
     boolean allGood = db.luoVarastoliikenne(vl, tjklist);
     checkForErrorMessage();
     if(allGood)

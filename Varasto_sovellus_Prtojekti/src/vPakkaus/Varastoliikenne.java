@@ -1,6 +1,8 @@
 package vPakkaus;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Varastoliikenne {
 
@@ -8,15 +10,16 @@ public class Varastoliikenne {
   private int userID, asiaksID, tyyppi, varastoliikenneID;
   private Date pvm;
   private Asiakas asiakas;
+  private List<Varastoliikennerivi> lahetysTuotteet;
 
-  public Varastoliikenne(int tyyppi, Date pvm, String osoite, int userID, int asiaksID) {
+  public Varastoliikenne(int tyyppi, Date pvm, String osoite, int userID, int asiaksID, int varastoliikenneID) {
     this.osoite = osoite;
     this.userID = userID;
     this.asiaksID = asiaksID;
     this.tyyppi = tyyppi;
     this.pvm = pvm;
+    this.varastoliikenneID = varastoliikenneID;
     asiakas = new Asiakas("not defined", "not defined", "not defined", "not defined", "not defined", "not defined");
-    //asiakkaanNimi="not defined";
   }
 
   public String getOsoite() {
@@ -81,5 +84,20 @@ public class Varastoliikenne {
     this.asiakas = asiakas;
   }
 
+  public void addTuotejoukko(Varastoliikennerivi vlr){
+    if(lahetysTuotteet==null)
+      lahetysTuotteet = new ArrayList<Varastoliikennerivi>();
+    lahetysTuotteet.add(vlr);
+  }
+
+  public List<Varastoliikennerivi> getRivit(){
+    return lahetysTuotteet;
+  }
+
+  public boolean isEmpty(){
+    if(lahetysTuotteet==null || lahetysTuotteet.isEmpty())
+      return true;
+    return false;
+  }
 
 }

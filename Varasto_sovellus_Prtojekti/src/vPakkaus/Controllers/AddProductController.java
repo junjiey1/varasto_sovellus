@@ -37,10 +37,10 @@ public class AddProductController implements Nakyma_IF {
 	private TextField productName, quantity, price, weight, volume, whLocation, length, width, height, minTempT, maxTempT;
 	@FXML
 	private ListView<String> productList;
-    @FXML
-    private Label minTempL, maxTempL;
+  @FXML
+  private Label minTempL, maxTempL;
 
-    private NayttojenVaihtaja_IF vaihtaja;
+  private NayttojenVaihtaja_IF vaihtaja;
 	private MainController_IF mc;
 	boolean allGood, noErrorsEncountered;
 
@@ -241,7 +241,7 @@ public class AddProductController implements Nakyma_IF {
 	public void readFromFile(String name) throws FileNotFoundException {
 		noErrorsEncountered = true;
 		lisataanManuaalisesti = true;
-		file = new File(name); //Ei pysty lukemaan kahta eri tiedostoa joiden nimet eroavat. Antaa null pointer exception
+		file = new File(name); //Ei pysty lukemaan kahta eri tiedostoa joiden nimet eroavat. Antaa null pointer exception, EI ANNA ENÄÄ :P
 		input = new Scanner(file);
 		fileRow=1;
 		while (input.hasNext()) {

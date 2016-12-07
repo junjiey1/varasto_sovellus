@@ -30,4 +30,5 @@ public interface MainController_IF {
 	public void haeTuotejoukot(String nimi);
 	public boolean luoUusiLahetys(LocalDate pvm, String osoite, int asiakasID, ArrayList<Tuotejoukko> tjk);
 	public List<Varastoliikenne> haeLahetykset(int id);
+	public void deleteLahetys(int id);
 }

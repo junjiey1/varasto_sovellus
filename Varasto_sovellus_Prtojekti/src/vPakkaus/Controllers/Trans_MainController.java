@@ -36,6 +36,7 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   private MainController_IF mc;
   private NayttojenVaihtaja_IF vaihtaja;
   private boolean allSet;
+  private boolean modifyingExisting;
 
   //Muuttujat joita käytetään lähetyksessä
   private Asiakas customer;
@@ -49,6 +50,7 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
     mc=null;
     vaihtaja=null;
     allSet=false;
+    modifyingExisting = false;
   }
 
   @Override
@@ -59,6 +61,7 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   @Override
   public void paivita(Object data) {
     if(data instanceof Varastoliikenne){
+      modifyingExisting = true;
       customer = ((Varastoliikenne) data).getAsiakas();
       date = ((Varastoliikenne) data).getPvm().toLocalDate();
       vl = (Varastoliikenne)data;
@@ -79,6 +82,7 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
     date = null;
     vl=null;
     valitutTuotteet.clear();
+    modifyingExisting = false;
     //muuttuneetTuoterivit.clear();
   }
 
@@ -206,6 +210,10 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
   @Override
   public ObservableList<DAO_Objekti> getTuotteet() {
     return valitutTuotteet;
+  }
+
+  public boolean modifyingExcisting(){
+    return modifyingExisting;
   }
 
 }

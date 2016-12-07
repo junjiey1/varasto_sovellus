@@ -18,4 +18,5 @@ public interface LahetysRakentaja_IF extends NayttojenVaihtaja_IF{
   public void tallennaUusiLahetys();
   public void setTuotteet(ObservableList<DAO_Objekti> list);
   public ObservableList<DAO_Objekti> getTuotteet();
+  public boolean modifyingExcisting();
 }

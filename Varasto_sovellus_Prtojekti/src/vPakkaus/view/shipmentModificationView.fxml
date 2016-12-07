@@ -19,7 +19,7 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <Button fx:id="delete" layoutX="44.0" layoutY="90.0" minWidth="60.0" mnemonicParsing="false" text="Delete">
+      <Button fx:id="delete" layoutX="44.0" layoutY="90.0" minWidth="60.0" mnemonicParsing="false" onAction="#delete" text="Delete">
          <font>
             <Font size="13.0" />
          </font>

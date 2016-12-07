@@ -162,8 +162,12 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
   }
 
   public void back_to() {
-    vaihtaja.asetaUudeksiNaytoksi("mainpage", "ManagementMainMenu",3);
     resetoi();
+    if(rakentaja.modifyingExcisting()){
+      vaihtaja.asetaUudeksiNaytoksi("ShipmentModification", "SHIPMENT Modification", null);
+      return;
+    }
+    vaihtaja.asetaUudeksiNaytoksi("mainpage", "ManagementMainMenu",3);
   }
 
   public void next_confirm() {

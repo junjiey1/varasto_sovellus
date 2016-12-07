@@ -8,10 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import vPakkaus.DAO_Objekti;
 import vPakkaus.Varastoliikenne;
@@ -50,7 +52,7 @@ public class shipmentModifyController implements Nakyma_IF ,Initializable{
 
   @Override
   public void paivita(Object data) {
-
+    System.out.println(data.toString());
   }
 
   @Override
@@ -60,7 +62,10 @@ public class shipmentModifyController implements Nakyma_IF ,Initializable{
 
   @Override
   public void virheIlmoitus(Object viesti) {
-    mc.haeAsiakas(Integer.parseInt(customerIDField.getText()));
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setContentText(viesti.toString());
+    alert.showAndWait();
   }
 
   @Override
@@ -79,16 +84,35 @@ public class shipmentModifyController implements Nakyma_IF ,Initializable{
   }
 
   public void search(){
-    data.addAll(mc.haeLahetykset(Integer.parseInt(customerIDField.getText())));
+    int asiakasNumero=0;
+    try{
+      asiakasNumero = Integer.parseInt(customerIDField.getText());
+    }catch(NumberFormatException e){
+      virheIlmoitus("Väärä syöte asiakasnumero kentässä!");
+      return;
+    }
+    data.clear();
+    data.addAll(mc.haeLahetykset(asiakasNumero));
     ShipmentTable.getItems().setAll(data);
   }
 
   public void modify(){
-    vaihtaja.asetaUudeksiNaytoksi("Test1", "Modifying shipment " + ShipmentTable.getSelectionModel().getSelectedItem().getVarastoliikenneID(),
-        ShipmentTable.getSelectionModel().getSelectedItem());
+    Varastoliikenne selected = ShipmentTable.getSelectionModel().getSelectedItem();
+    if(selected == null){
+      virheIlmoitus("Et ole valinnut varastoliikennettä taulukosta");
+      return;
+    }
+    vaihtaja.asetaUudeksiNaytoksi("Test1", "Modifying shipment " + selected.getVarastoliikenneID(),
+        selected);
   }
 
   public void delete(){
+    Varastoliikenne selected = ShipmentTable.getSelectionModel().getSelectedItem();
+    if(selected == null){
+      virheIlmoitus("Et ole valinnut varastoliikennettä taulukosta");
+      return;
+    }
+    mc.deleteLahetys(selected.getVarastoliikenneID());
   }
 
   public void backTo(){

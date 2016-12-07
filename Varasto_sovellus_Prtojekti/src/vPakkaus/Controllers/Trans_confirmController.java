@@ -104,6 +104,10 @@ public class Trans_confirmController implements LahetysInformationProvider_IF{
   }
 
   public void cancel(){
+    if(rakentaja.modifyingExcisting()){
+      vaihtaja.asetaUudeksiNaytoksi("ShipmentModification", "SHIPMENT Modification", null);
+      return;
+    }
     vaihtaja.asetaUudeksiNaytoksi("mainpage", "ManagementMainMenu",3);
   }
 

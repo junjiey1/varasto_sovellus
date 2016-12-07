@@ -263,4 +263,14 @@ public class MainController implements MainController_IF{
     List res = db.haeVarastoliikenteenRivit(id);
     return res;
   }
+
+  @Override
+  public void deleteLahetys(int id) {
+    boolean res = db.deleteLahetys(id);
+    checkForErrorMessage();
+    if(!res)
+      naytto.virheIlmoitus("Lähetyksen poisto epäonnistui");
+    else
+      naytto.paivita("Poisto onnistui!");
+  }
 }

@@ -157,4 +157,19 @@ public class VarastoliikenneDB {
     return id;
   }
 
+  public boolean deleteVarastoliikenne(int id){
+    try {
+      ps = conn.prepareStatement(
+          "DELETE FROM varastoliikenne WHERE varastoliikenneID = ?");
+      ps.setInt(1, id);
+      ps.executeUpdate();
+      ps.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      db.setErrorMsg(e.getMessage());
+      return false;
+    }
+    return true;
+  }
+
 }

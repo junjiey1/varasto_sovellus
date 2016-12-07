@@ -518,6 +518,12 @@ public class DB_AccessObject {
     return res;
   }
 
+  public boolean deleteLahetys(int id){
+    if(!vrividb.deleteRivitByID(id))
+      return false;
+    return varastoliikennedb.deleteVarastoliikenne(id);
+  }
+
   // /**
   // * Sulje tietokanta yhteys.
   // *

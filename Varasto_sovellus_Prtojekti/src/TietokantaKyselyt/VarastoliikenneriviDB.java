@@ -132,4 +132,17 @@ public class VarastoliikenneriviDB {
     }
   }
 
+  public boolean deleteRivitByID(int id){
+    try {
+      ps = conn.prepareStatement("DELETE FROM varastoliikennerivi WHERE varastoliikenneID = ?");
+      ps.setInt(1, id);
+      ps.executeUpdate();
+      ps.close();
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
 }

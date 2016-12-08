@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
 
@@ -111,7 +113,12 @@ public class AsiakasViewController implements Nakyma_IF{
 
 	@Override
 	public void virheIlmoitus(Object viesti) {
-		JOptionPane.showMessageDialog(null, viesti.toString(), null, JOptionPane.ERROR_MESSAGE);
+		//JOptionPane.showMessageDialog(null, viesti.toString(), null, JOptionPane.ERROR_MESSAGE);
+    Alert info = new Alert(AlertType.INFORMATION);
+    info.setTitle("Virhe ilmoitus");
+    info.setHeaderText("Virhe");
+    info.setContentText(viesti.toString());
+    info.showAndWait();
 	}
 
 	@Override

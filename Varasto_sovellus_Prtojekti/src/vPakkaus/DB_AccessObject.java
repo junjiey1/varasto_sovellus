@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import TietokantaKyselyt.AsiakasDB;
 import TietokantaKyselyt.HyllyDB;
@@ -65,7 +66,7 @@ public class DB_AccessObject {
         usersdb = new UsersDB(conn);
         hyllydb = new HyllyDB(conn, this);
         lampotiladb = new LampotilaDB(conn);
-        asiakasdb = new AsiakasDB(conn);
+        asiakasdb = new AsiakasDB(conn,this);
         productdb = new ProductDB(conn, lampotiladb, this);
         tuoterividb = new TuoteriviDB(conn, productdb, hyllydb, this);
         varastoliikennedb = new VarastoliikenneDB(conn, asiakasdb, usersdb, this);
@@ -478,7 +479,11 @@ public class DB_AccessObject {
   }
 
   public Asiakas haeAsiakas(String nimi) {
-    return asiakasdb.haeAsiakas(nimi);
+    return asiakasdb.haeAsiakasNimella(nimi);
+  }
+
+  public Asiakas haeAsiakas(int ID) {
+    return asiakasdb.haeAsiakasNumerolla(ID);
   }
 
   public boolean deleteHyllypaikka(Hyllypaikka h) {
@@ -503,6 +508,20 @@ public class DB_AccessObject {
 
   public ArrayList<Tuotejoukko> haeTuotteenKaikkiTuoterivit(Product p) {
     return tuoterividb.haeTuotteenKaikkiTuoterivit(p);
+  }
+
+  public List<Varastoliikenne> haeVarastoliikenteenRivit(int customerID){
+    List<Varastoliikenne> res = new ArrayList<Varastoliikenne>();
+    for(Varastoliikenne vl : varastoliikennedb.findVarastoliikenneRivit(customerID)){
+       res.add(vrividb.findVarastoliikennerivit(vl));
+    }
+    return res;
+  }
+
+  public boolean deleteLahetys(int id){
+    if(!vrividb.deleteRivitByID(id))
+      return false;
+    return varastoliikennedb.deleteVarastoliikenne(id);
   }
 
   // /**

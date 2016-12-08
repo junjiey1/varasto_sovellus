@@ -77,6 +77,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		//anchorMap.put("Trans_confirm",tehdas.annaNakyma("view/Trans_confirm.fxml", (NayttojenVaihtaja_IF) luodutNakymaKontrollerit.get("Test1")));
     anchorMap.put("Graphs",tehdas.annaNakyma("view/GraphView.fxml", this));
     anchorMap.put("ShipmentTab",tehdas.annaNakyma("view/shipmentsView.fxml", this));
+    anchorMap.put("ShipmentModification",tehdas.annaNakyma("view/shipmentModificationView.fxml", this));
 	}
 
 	/**
@@ -92,6 +93,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		//sceneMap.put("Transmission", new Scene(anchorMap.get("Transmission")));
 		sceneMap.put("Test1", new Scene(anchorMap.get("Test1")));
 		sceneMap.put("Graphs", new Scene(anchorMap.get("Graphs")));
+		sceneMap.put("ShipmentModification", new Scene(anchorMap.get("ShipmentModification")));
 //		sceneMap.put("Trans_selectProduct", new Scene(anchorMap.get("Trans_selectProduct")));
 //		sceneMap.put("Trans_confirm", new Scene(anchorMap.get("Trans_confirm")));
 	}
@@ -124,9 +126,9 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 			System.out.println("Nakymaa nimella " + nimi + " ei ole ladattu!!!");
 		else{
 			if(luodutNakymaKontrollerit.containsKey(nimi)){
+			  if(preData!=null)
+          luodutNakymaKontrollerit.get(nimi).paivita(preData);
 				mc.asetaAktiiviseksiNaytoksi(luodutNakymaKontrollerit.get(nimi));
-				if(preData!=null)
-					luodutNakymaKontrollerit.get(nimi).paivita(preData);
 			}
 			mainStage.setScene(scene);
 			mainStage.setTitle(otsikko);

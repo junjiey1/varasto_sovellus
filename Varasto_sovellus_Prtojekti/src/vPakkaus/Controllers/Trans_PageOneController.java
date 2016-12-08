@@ -120,13 +120,17 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
       selected=false;
     }
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+    formatDate();
+
+  }
+
+  private void formatDate(){
     if (date.getValue() != null) {
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
       datelabel.setText(formatter.format(date.getValue()));
     } else {
       datelabel.setText("");
     }
-
   }
 
   @Override
@@ -141,6 +145,13 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
 
   @Override
   public void esiValmistelut() {
+    if(rakentaja.getDate()!=null && rakentaja.getAsiakas()!=null){
+      date.setValue(rakentaja.getDate());
+      formatDate();
+      namelabel.setText(rakentaja.getAsiakas().getNimi());
+      namefield.setText(rakentaja.getAsiakas().getNimi());
+      selectedAsiakas = rakentaja.getAsiakas();
+    }
 
   }
 
@@ -151,8 +162,12 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
   }
 
   public void back_to() {
-    vaihtaja.asetaUudeksiNaytoksi("ManagementMainMenu", "ManagementMainMenu",null);
     resetoi();
+    if(rakentaja.modifyingExcisting()){
+      vaihtaja.asetaUudeksiNaytoksi("ShipmentModification", "SHIPMENT Modification", null);
+      return;
+    }
+    vaihtaja.asetaUudeksiNaytoksi("mainpage", "ManagementMainMenu",3);
   }
 
   public void next_confirm() {

@@ -3,6 +3,7 @@ package vPakkaus.Controllers;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import vPakkaus.Asiakas;
 import vPakkaus.DB_AccessObject;
@@ -181,6 +182,22 @@ public class MainController implements MainController_IF{
 	}
 
 	@Override
+  public Asiakas haeAsiakas(Object criteria) {
+	  Asiakas res=null;
+	  if(criteria instanceof Integer){
+	    res = db.haeAsiakas(((Integer) criteria).intValue());
+	  }else if(criteria instanceof String){
+	    res = db.haeAsiakas(criteria.toString());
+	  }else{
+	    System.out.println("Criteria not supported");
+	  }
+	  checkForErrorMessage();
+	  if(res==null)
+	    return new Asiakas("", "", "", "", "", "");
+	  return res;
+  }
+
+	@Override
 	public void haeAsiakkaat(String nimi) {
 		ArrayList<Asiakas> lista = db.haeAsiakkaat(nimi);
 		checkForErrorMessage();
@@ -221,11 +238,39 @@ public class MainController implements MainController_IF{
 
   @Override
   public boolean luoUusiLahetys(LocalDate pvm, String osoite, int asiakasID, ArrayList<Tuotejoukko> tjklist) {
-    Varastoliikenne vl = new Varastoliikenne(1, Date.valueOf(pvm), osoite, userID, asiakasID);
+    Varastoliikenne vl = new Varastoliikenne(1, Date.valueOf(pvm), osoite, userID, asiakasID,-1);
     boolean allGood = db.luoVarastoliikenne(vl, tjklist);
     checkForErrorMessage();
     if(allGood)
       naytto.paivita("Uusi lähetys lisättiin onnistuneesti!");
     return allGood;
+  }
+
+  @Override
+  public void paivitaTuoteRivi(Tuotejoukko tjk) {
+    db.muokkaaTuoteriviä(tjk);
+    checkForErrorMessage();
+    int uusiMaara = db.tuotteidenMaaraHyllyssa(tjk.getTuotteenNimi(), tjk.getHyllynNimi());
+    if(uusiMaara==0){
+      db.deleteTuoterivi(tjk);
+      System.out.println("Poistetaan tuoterivi");
+    }
+    checkForErrorMessage();
+  }
+
+  @Override
+  public List<Varastoliikenne> haeLahetykset(int id) {
+    List res = db.haeVarastoliikenteenRivit(id);
+    return res;
+  }
+
+  @Override
+  public void deleteLahetys(int id) {
+    boolean res = db.deleteLahetys(id);
+    checkForErrorMessage();
+    if(!res)
+      naytto.virheIlmoitus("Lähetyksen poisto epäonnistui");
+    else
+      naytto.paivita("Poisto onnistui!");
   }
 }

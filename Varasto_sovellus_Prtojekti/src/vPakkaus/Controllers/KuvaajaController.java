@@ -16,7 +16,7 @@ import javafx.collections.ObservableList;
 public class KuvaajaController implements Nakyma_IF {
 
   @FXML
-  private LineChart<String, Number> linechart;
+  private LineChart<String, Integer> linechart;
   @FXML
   private CategoryAxis xAxis;
   @FXML
@@ -70,7 +70,7 @@ public class KuvaajaController implements Nakyma_IF {
       linechart.toFront();
       linechart.getData().clear();
       // TESTI LISÄYTS KUVAAJAAN
-      XYChart.Series series = new XYChart.Series();
+      XYChart.Series<String, Integer> series = new XYChart.Series<String, Integer>();
       // series.getData().add(new XYChart.Data<String,Number>("Tammikuu",1));
       // series.getData().add(new XYChart.Data<String,Number>("Helmikuu",2));
       // series.getData().add(new XYChart.Data<String,Number>("Maaliskuu",3));
@@ -78,18 +78,18 @@ public class KuvaajaController implements Nakyma_IF {
       series.setName("Gross Profit");
 
 
-      series.getData().add(new XYChart.Data("Jan", 23));
-      series.getData().add(new XYChart.Data("Feb", 14));
-      series.getData().add(new XYChart.Data("Mar", 15));
-      series.getData().add(new XYChart.Data("Apr", 24));
-      series.getData().add(new XYChart.Data("May", 34));
-      series.getData().add(new XYChart.Data("Jun", 36));
-      series.getData().add(new XYChart.Data("Jul", 22));
-      series.getData().add(new XYChart.Data("Aug", 45));
-      series.getData().add(new XYChart.Data("Sep", 43));
-      series.getData().add(new XYChart.Data("Oct", 17));
-      series.getData().add(new XYChart.Data("Nov", 29));
-      series.getData().add(new XYChart.Data("Dec", 25));
+      series.getData().add(new XYChart.Data<String, Integer>("Jan", 23));
+      series.getData().add(new XYChart.Data<String, Integer>("Feb", 14));
+      series.getData().add(new XYChart.Data<String, Integer>("Mar", 15));
+      series.getData().add(new XYChart.Data<String, Integer>("Apr", 24));
+      series.getData().add(new XYChart.Data<String, Integer>("May", 34));
+      series.getData().add(new XYChart.Data<String, Integer>("Jun", 36));
+      series.getData().add(new XYChart.Data<String, Integer>("Jul", 22));
+      series.getData().add(new XYChart.Data<String, Integer>("Aug", 45));
+      series.getData().add(new XYChart.Data<String, Integer>("Sep", 43));
+      series.getData().add(new XYChart.Data<String, Integer>("Oct", 17));
+      series.getData().add(new XYChart.Data<String, Integer>("Nov", 29));
+      series.getData().add(new XYChart.Data<String, Integer>("Dec", 25));
 
       linechart.getData().add(series);
     }

@@ -55,7 +55,7 @@ public class AddProductController implements Nakyma_IF {
 	private Integer pMinTemp, pMaxTemp;
 	private float pPrice;
 	private boolean lisataanManuaalisesti;
-	
+
 	private TreeMap<String, String> tmap;
 
 	public AddProductController(){
@@ -94,9 +94,15 @@ public class AddProductController implements Nakyma_IF {
 			noErrorsEncountered = mc.addProduct(joukko);
 			if (!noErrorsEncountered) {
 				virheIlmoitus("Tuotteiden muuttujissa havaittiin virhe!\nTarkista asettamiesi muuttujien arvot...");
-			} else
-				JOptionPane.showMessageDialog(null, "uusi tuote lisättiin onnistuneesti", "Lisäys onnistui",
-						JOptionPane.INFORMATION_MESSAGE);
+			} else{
+//				JOptionPane.showMessageDialog(null, "uusi tuote lisättiin onnistuneesti", "Lisäys onnistui",
+//						JOptionPane.INFORMATION_MESSAGE);
+			  Alert info = new Alert(AlertType.INFORMATION);
+        info.setTitle("Lisääminen onnistuu");
+        info.setHeaderText("Tuote lisääminen");
+        info.setContentText("Uusi tuote lisättiin onnistuneesti");
+        info.showAndWait();
+			}
 		} else {
 		  virheIlmoitus("Tuotteiden muuttujissa havaittiin virhe!\nTarkista asettamiesi muuttujien arvot...");
 		}
@@ -105,7 +111,7 @@ public class AddProductController implements Nakyma_IF {
 	/**
 	 * Poista valittu teksti tiedosto.
 	 */
-	public void removeProduct() {	  
+	public void removeProduct() {
 	  String Fname = null;
 	  Fname = productTextFiles.get(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
 	  productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
@@ -135,7 +141,7 @@ public class AddProductController implements Nakyma_IF {
 		}
 		tmap.clear();
 	}
-	
+
 	private boolean validoiTekstikentanMuuttujat(){
 	   try {
 	      pName = productName.getText();
@@ -191,7 +197,7 @@ public class AddProductController implements Nakyma_IF {
 	 */
 	@FXML
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
-		
+
 		Dragboard db = event.getDragboard();
 
 		int index = 0;

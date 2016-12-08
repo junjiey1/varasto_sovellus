@@ -49,7 +49,7 @@
                   <Insets bottom="10.0" />
                </GridPane.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#etsiAsiakasta" text="Search" GridPane.rowIndex="2">
+            <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#etsiAsiakasta" text="Search" GridPane.rowIndex="2">
                <font>
                   <Font size="13.0" />
                </font>
@@ -93,7 +93,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button minWidth="130.0" mnemonicParsing="false" onAction="#vaihdaAsiakkaanTarkasteluun" text="View information">
+            <Button fx:id="viewBtn" minWidth="130.0" mnemonicParsing="false" onAction="#vaihdaAsiakkaanTarkasteluun" text="View information">
                <font>
                   <Font size="13.0" />
                </font>

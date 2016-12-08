@@ -86,7 +86,7 @@
             <Label text="HEIGHT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button defaultButton="true" layoutX="369.0" layoutY="356.0" mnemonicParsing="false" onAction="#addProductManually" prefHeight="30.0" text="ADD NEW PRODUCT" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="369.0" AnchorPane.rightAnchor="204.0" />
+      <Button fx:id="addProductBtn" defaultButton="true" layoutX="369.0" layoutY="356.0" mnemonicParsing="false" onAction="#addProductManually" prefHeight="30.0" text="ADD NEW PRODUCT" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="369.0" AnchorPane.rightAnchor="204.0" />
       <ListView fx:id="productList" layoutX="18.0" layoutY="125.0" onDragEntered="#handleFilesDragDropped" prefHeight="310.0" prefWidth="203.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="125.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="102.0" prefHeight="17.0" prefWidth="203.0" text="Drag text files here" AnchorPane.leftAnchor="18.0" />
       <Button layoutX="231.0" layoutY="216.0" minWidth="70.0" mnemonicParsing="false" onAction="#addAllFromFile" prefHeight="30.0" text="ADD ALL" AnchorPane.leftAnchor="231.0" />

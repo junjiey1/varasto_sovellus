@@ -234,10 +234,12 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
       fileRow=1;
       while (input.hasNext()) {
         oneRowOfData = input.nextLine().split(",");
-        if(!validoiListanMuuttujat(oneRowOfData))
+        if(!validoiListanMuuttujat(oneRowOfData)){
           virheIlmoitus("Rivillä : " + fileRow + " Tuotteen " + pName + " muuttujissa havaittiin virhe!");
-        else
-          //noErrorsEncountered = mc.addProduct(rakennaTuotejoukko());
+          return;
+        }else{
+
+        }
         fileRow++;
       }
 

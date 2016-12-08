@@ -138,12 +138,13 @@ public class TuoteriviDB {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+      db.setErrorMsg(e.getMessage());
     } finally {
       try {
         ps.close();
         rs.close();
       } catch (SQLException e) {
-        // TODO Auto-generated catch block
+        db.setErrorMsg(e.getMessage());
         e.printStackTrace();
       }
     }

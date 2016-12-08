@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import vPakkaus.LanguageUtil;
@@ -26,6 +27,8 @@ import vPakkaus.LanguageUtil;
 public class MainPageController implements Nakyma_IF{
 
 
+  @FXML
+  private TabPane tabPane;
   @FXML
   private Tab homeTab;
 	@FXML
@@ -146,7 +149,8 @@ public class MainPageController implements Nakyma_IF{
 
 	@Override
 	public void paivita(Object data) {
-
+	  if(data instanceof Integer)
+	    tabPane.getSelectionModel().select(((Integer) data).intValue());
 	}
 
 

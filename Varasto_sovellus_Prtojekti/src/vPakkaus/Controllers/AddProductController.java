@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.TreeMap;
+
 import javax.swing.JOptionPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,10 +37,10 @@ public class AddProductController implements Nakyma_IF {
 	private TextField productName, quantity, price, weight, volume, whLocation, length, width, height, minTempT, maxTempT;
 	@FXML
 	private ListView<String> productList;
-    @FXML
-    private Label minTempL, maxTempL;
+  @FXML
+  private Label minTempL, maxTempL;
 
-    private NayttojenVaihtaja_IF vaihtaja;
+  private NayttojenVaihtaja_IF vaihtaja;
 	private MainController_IF mc;
 	boolean allGood, noErrorsEncountered;
 
@@ -51,11 +54,12 @@ public class AddProductController implements Nakyma_IF {
 	private int pQuantity, fileRow;
 	private Integer pMinTemp, pMaxTemp;
 	private float pPrice;
-	private HashMap<String, String> hm;
 	private boolean lisataanManuaalisesti;
 
+	private TreeMap<String, String> tmap;
+
 	public AddProductController(){
-	  hm = new HashMap<String, String>();
+	  tmap = new TreeMap<String, String>();
 		pMinTemp=pMaxTemp=null;
 		lisataanManuaalisesti = false;
 		errorLog="";
@@ -90,9 +94,15 @@ public class AddProductController implements Nakyma_IF {
 			noErrorsEncountered = mc.addProduct(joukko);
 			if (!noErrorsEncountered) {
 				virheIlmoitus("Tuotteiden muuttujissa havaittiin virhe!\nTarkista asettamiesi muuttujien arvot...");
-			} else
-				JOptionPane.showMessageDialog(null, "uusi tuote lisättiin onnistuneesti", "Lisäys onnistui",
-						JOptionPane.INFORMATION_MESSAGE);
+			} else{
+//				JOptionPane.showMessageDialog(null, "uusi tuote lisättiin onnistuneesti", "Lisäys onnistui",
+//						JOptionPane.INFORMATION_MESSAGE);
+			  Alert info = new Alert(AlertType.INFORMATION);
+        info.setTitle("Lisääminen onnistuu");
+        info.setHeaderText("Tuote lisääminen");
+        info.setContentText("Uusi tuote lisättiin onnistuneesti");
+        info.showAndWait();
+			}
 		} else {
 		  virheIlmoitus("Tuotteiden muuttujissa havaittiin virhe!\nTarkista asettamiesi muuttujien arvot...");
 		}
@@ -101,13 +111,14 @@ public class AddProductController implements Nakyma_IF {
 	/**
 	 * Poista valittu teksti tiedosto.
 	 */
-	public void removeProduct() {	  
+	public void removeProduct() {
 	  String Fname = null;
-	  
 	  Fname = productTextFiles.get(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
-	  System.out.println(Fname);
 	  productTextFiles.remove(productTextFiles.indexOf(productList.getSelectionModel().getSelectedItem()));
-	  hm.remove(Fname);
+//	  for(Map.Entry<String, String> entry : tmap.entrySet()){
+//	    System.out.println(entry.getKey()+"    "+ entry.getValue());
+//	  }
+	  tmap.remove(Fname);
 	}
 
 	/**ww
@@ -115,7 +126,7 @@ public class AddProductController implements Nakyma_IF {
 	 */
 	public void removeAllProducts() {
 		productTextFiles.clear();
-		hm.clear();
+		tmap.clear();
 	}
 
 	/**
@@ -126,10 +137,11 @@ public class AddProductController implements Nakyma_IF {
 	 */
 	public void addAllFromFile() throws FileNotFoundException {
 		for (String s : productTextFiles) {
-			readFromFile(hm.get(s));
+			readFromFile(tmap.get(s));
 		}
+		tmap.clear();
 	}
-	
+
 	private boolean validoiTekstikentanMuuttujat(){
 	   try {
 	      pName = productName.getText();
@@ -185,7 +197,7 @@ public class AddProductController implements Nakyma_IF {
 	 */
 	@FXML
 	public void handleFilesDragDropped(DragEvent event) throws FileNotFoundException {
-		
+
 		Dragboard db = event.getDragboard();
 
 		int index = 0;
@@ -204,7 +216,7 @@ public class AddProductController implements Nakyma_IF {
 					path = oneRowOfData[i];
 					index = path.lastIndexOf("\\");
 					fileName = path.substring(index + 1, path.length());
-					hm.put(new String(fileName), new String(path));
+					tmap.put(new String(fileName), new String(path));
 					productTextFiles.add(fileName);
 					productList.setItems(productTextFiles);
 				}
@@ -214,8 +226,8 @@ public class AddProductController implements Nakyma_IF {
 				path = path.substring(1, path.length() - 1);
 				index = path.lastIndexOf("\\");
 				fileName = path.substring(index + 1, path.length());
-				productTextFiles.add(fileName);				
-				hm.put(new String(fileName), new String(path));
+				productTextFiles.add(fileName);
+				tmap.put(new String(fileName), new String(path));
 				productList.setItems(productTextFiles);
 			}
 			db.clear();
@@ -235,7 +247,7 @@ public class AddProductController implements Nakyma_IF {
 	public void readFromFile(String name) throws FileNotFoundException {
 		noErrorsEncountered = true;
 		lisataanManuaalisesti = true;
-		file = new File(name); //Ei pysty lukemaan kahta eri tiedostoa joiden nimet eroavat. Antaa null pointer exception
+		file = new File(name); //Ei pysty lukemaan kahta eri tiedostoa joiden nimet eroavat. Antaa null pointer exception, EI ANNA ENÄÄ :P
 		input = new Scanner(file);
 		fileRow=1;
 		while (input.hasNext()) {

@@ -239,7 +239,7 @@ public class DataBase_tests {
   @Test
   public void Varastoliikenne_luonti() {
     System.out.println("\nTest : Varastoliikenne_luonti\n");
-    Varastoliikenne vl = new Varastoliikenne(1, new Date(2016 - 1900, 10 - 1, 10), "osoite", 6, 11);
+    Varastoliikenne vl = new Varastoliikenne(1, new Date(2016 - 1900, 10 - 1, 10), "osoite", 6, 11,-1);
     ArrayList<Tuotejoukko> lista = new ArrayList();
 
     Hyllypaikka hp = db.haeHylly("hylly_test_1");

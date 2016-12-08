@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vPakkaus.Asiakas;
+import vPakkaus.DB_AccessObject;
 import vPakkaus.Product;
 
 /**
@@ -19,10 +20,11 @@ public class AsiakasDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
+	private DB_AccessObject db;
 
-	public AsiakasDB(Connection conn) {
-		// TODO Auto-generated constructor stub
+	public AsiakasDB(Connection conn, DB_AccessObject db) {
 		this.conn = conn;
+		this.db=db;
 	}
 
 	/**
@@ -81,6 +83,7 @@ public class AsiakasDB {
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			db.setErrorMsg(e.getMessage());
 			return false;
 		}
 		return true;
@@ -95,35 +98,64 @@ public class AsiakasDB {
 	 * @return Asiakkaan tiedot (Asiakas)
 	 */
 
-	public Asiakas haeAsiakas(String nimi) {
+	public Asiakas haeAsiakasNimella(String nimi) {
 		Asiakas asiakas = null;
 		try {
 			ps = conn.prepareStatement("SELECT asiakasnumero, nimi,"
 					+ "osoite, postinumero, kaupunki, email, puhelinnumero " + "FROM asiakas WHERE nimi = ?");
 			ps.setString(1, nimi);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				String name = rs.getString("nimi");
-				String osoite = rs.getString("osoite");
-				String post = rs.getString("postinumero");
-				String kaupunki = rs.getString("kaupunki");
-				String email = rs.getString("email");
-				String puhelin = rs.getString("puhelinnumero");
-				asiakas = new Asiakas(name, osoite, kaupunki, email, puhelin, post);
-				asiakas.setID(rs.getInt("asiakasnumero"));
-			}
-			rs = ps.executeQuery();
+			asiakas = luoAsiakas();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			db.setErrorMsg(e.getMessage());
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				db.setErrorMsg(e.getMessage());
 			}
 		}
 		return asiakas;
+	}
+
+	public Asiakas haeAsiakasNumerolla(int ID){
+	  Asiakas asiakas = null;
+    try {
+      ps = conn.prepareStatement("SELECT asiakasnumero, nimi,"
+          + "osoite, postinumero, kaupunki, email, puhelinnumero " + "FROM asiakas WHERE asiakasnumero = ?");
+      ps.setInt(1, ID);
+      asiakas = luoAsiakas();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      db.setErrorMsg(e.getMessage());
+    } finally {
+      try {
+        rs.close();
+        ps.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+        db.setErrorMsg(e.getMessage());
+      }
+    }
+    return asiakas;
+	}
+
+	private Asiakas luoAsiakas() throws SQLException{
+	  rs = ps.executeQuery();
+    while (rs.next()) {
+      String name = rs.getString("nimi");
+      String osoite = rs.getString("osoite");
+      String post = rs.getString("postinumero");
+      String kaupunki = rs.getString("kaupunki");
+      String email = rs.getString("email");
+      String puhelin = rs.getString("puhelinnumero");
+      Asiakas asiakas = new Asiakas(name, osoite, kaupunki, email, puhelin, post);
+      asiakas.setID(rs.getInt("asiakasnumero"));
+      return asiakas;
+    }
+    return null;
 	}
 
 	/**

@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 
 import javafx.scene.Parent;
+import javafx.scene.input.KeyCode;
 import vPakkaus.MainLaunch;
 
 public class AddAsiakasTest extends GuiTest{
@@ -24,8 +25,8 @@ public class AddAsiakasTest extends GuiTest{
 
   @Test
   public void lisaaAsiakas(){
-    String sJava="\\U+0040\\";
-    click("#customerName").type("TestFx");
+
+    click("#customerName").type("TestFx2");
     click("#save");
     click("OK");
     click("#customerStreet").type("koulu");
@@ -46,10 +47,10 @@ public class AddAsiakasTest extends GuiTest{
     click("#contactPersonEmail").type("Tes");
     click("#save");
     click("OK");
-    doubleClick("#contactPersonEmail").type("Tesmail.com");
+    click("#contactPersonEmail").press(KeyCode.CONTROL).press(KeyCode.ALT).press(KeyCode.DIGIT2).release(KeyCode.DIGIT2).release(KeyCode.ALT).release(KeyCode.CONTROL).type("mail.com");
     click("#save");
     click("OK");
-    click("#contactPersonPhone").type("+359 12 354 4564");
+    click("#contactPersonPhone").press(KeyCode.PLUS).release(KeyCode.PLUS).type("359 12 354 4564");
     click("#save");
     click("OK");
   }

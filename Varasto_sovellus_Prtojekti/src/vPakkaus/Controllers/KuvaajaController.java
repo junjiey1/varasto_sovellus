@@ -99,7 +99,7 @@ public class KuvaajaController implements Nakyma_IF {
 
   public void load_pie(ActionEvent event){
 
-
+    
     pie.setOnAction(new EventHandler<ActionEvent>(){
 
      @Override

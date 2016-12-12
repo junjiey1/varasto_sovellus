@@ -2,7 +2,9 @@ package vPakkaus.Controllers;
 
 import javax.swing.JOptionPane;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import vPakkaus.Asiakas;
 
 /**
@@ -50,9 +52,15 @@ public class AsiakasControlleri implements Nakyma_IF {
 			contactPersonFname.setText("");
 			contactPersonEmail.setText(a.getEmai());
 			contactPersonPhone.setText(a.getNumero());
-		}else
-			JOptionPane.showMessageDialog(null, data.toString(), "ILMOITUS",
-					JOptionPane.INFORMATION_MESSAGE);
+		}else{
+//			JOptionPane.showMessageDialog(null, data.toString(), "ILMOITUS",
+//					JOptionPane.INFORMATION_MESSAGE);
+		  Alert info = new Alert(AlertType.INFORMATION);
+	    info.setTitle("Virhe ilmoitus");
+	    info.setHeaderText("Virhe");
+	    info.setContentText(data.toString());
+	    info.showAndWait();
+		}
 	}
 
 	@Override
@@ -213,8 +221,13 @@ public class AsiakasControlleri implements Nakyma_IF {
 	 * Private funktio, joka näyttää virheviestin käyttäjälle
 	 */
 	private void showError(String element, String msg){
-		JOptionPane.showMessageDialog(null, element +" "+msg, element,
-				JOptionPane.INFORMATION_MESSAGE);
+//		JOptionPane.showMessageDialog(null, element +" "+msg, element,
+//				JOptionPane.INFORMATION_MESSAGE);
+    Alert error = new Alert(AlertType.ERROR);
+    error.setTitle("Virhe ilmoitus");
+    error.setHeaderText("Virhe");
+    error.setContentText(element +" "+msg);
+    error.showAndWait();
 	}
 
 }

@@ -6,7 +6,7 @@ import org.loadui.testfx.GuiTest;
 import javafx.scene.Parent;
 import vPakkaus.MainLaunch;
 
-public class AsiakasPage extends GuiTest{
+public class AsiakasViewPage extends GuiTest{
 
   @Test
   public void search(){

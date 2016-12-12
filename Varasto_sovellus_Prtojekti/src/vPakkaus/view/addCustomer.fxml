@@ -124,7 +124,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#saveChanges" text="Save information" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Button fx:id="save" mnemonicParsing="false" onAction="#saveChanges" text="Save information" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font size="13.0" />
                </font>

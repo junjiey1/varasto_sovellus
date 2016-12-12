@@ -1,5 +1,6 @@
 package vPakkaus.Controllers;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,6 +65,7 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
       modifyingExisting = true;
       customer = ((Varastoliikenne) data).getAsiakas();
       date = ((Varastoliikenne) data).getPvm().toLocalDate();
+      System.out.println(customer.getNimi() + " " + date.toString());
       vl = (Varastoliikenne)data;
       if(!vl.isEmpty()){
         for(Varastoliikennerivi vlr : vl.getRivit()){
@@ -100,7 +102,7 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
       tab_3Controller.setMainController(mc);
       vaihtaja.rekisteröiNakymaKontrolleri(tab_1Controller, "Transmission");
       vaihtaja.rekisteröiNakymaKontrolleri(tab_2Controller, "Trans_SelectProduct");
-      vaihtaja.rekisteröiNakymaKontrolleri(tab_3Controller, "lol");
+      vaihtaja.rekisteröiNakymaKontrolleri(tab_3Controller, "Trans_confirm");
       tab_1Controller.setNaytonVaihtaja(this);
       tab_2Controller.setNaytonVaihtaja(this);
       tab_3Controller.setNaytonVaihtaja(this);
@@ -196,9 +198,20 @@ public class Trans_MainController implements Nakyma_IF, LahetysRakentaja_IF{
     for(Tuotejoukko tjk : muuttuneetTuoterivit){
       mc.paivitaTuoteRivi(tjk);
     }
-    tab_2Controller.resetoi();
-    tab_3Controller.resetoi();
-    mc.luoUusiLahetys(date, customer.getOsoit(), customer.getID(), tjklist);
+    if(modifyingExisting){
+      if(!(vl.getRivit()==null))
+        vl.getRivit().clear();
+      for(Tuotejoukko tjk : tjklist){
+        vl.addTuotejoukko(new Varastoliikennerivi(tjk.getProduct().getID(), vl.getVarastoliikenneID(), tjk.getMaara()));
+      }
+      vl.setAsiakas(customer);
+      vl.setPvm(Date.valueOf(date));
+      mc.paivitaLahetys(vl);
+    }else{
+      //tab_2Controller.resetoi();
+      //tab_3Controller.resetoi();
+      mc.luoUusiLahetys(date, customer.getOsoit(), customer.getID(), tjklist);
+    }
   }
 
   @Override

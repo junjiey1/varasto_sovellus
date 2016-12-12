@@ -32,9 +32,7 @@
             <TableColumn fx:id="column4" maxWidth="215.0" prefWidth="78.5" text="Shipment ID" />
         </columns>
       </TableView>
-      <TextField fx:id="dateField" layoutX="44.0" layoutY="145.0" prefHeight="25.0" prefWidth="83.0" />
-      <TextField fx:id="customerIDField" layoutX="45.0" layoutY="175.0" prefHeight="25.0" prefWidth="83.0" />
-      <TextField fx:id="userIDField" layoutX="45.0" layoutY="206.0" prefHeight="25.0" prefWidth="83.0" />
+      <TextField fx:id="customerIDField" layoutX="45.0" layoutY="175.0" promptText="Asiakasnumero" prefHeight="25.0" prefWidth="83.0" />
       <Button fx:id="search" layoutX="78.0" layoutY="271.0" onAction="#search" mnemonicParsing="false" text="Search" />
    </children>
 </AnchorPane>

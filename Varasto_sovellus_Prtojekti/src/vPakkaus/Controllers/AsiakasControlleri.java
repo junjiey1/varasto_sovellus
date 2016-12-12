@@ -90,6 +90,7 @@ public class AsiakasControlleri implements Nakyma_IF {
 	 * Back napin callback-funktio, joka asettaa uuden näkymän
 	 * */
 	public void back(){//Button Callback funktio
+	  resetoi();
 		vaihtaja.asetaUudeksiNaytoksi("customerview", "Asiakkaat",null);
 	}
 

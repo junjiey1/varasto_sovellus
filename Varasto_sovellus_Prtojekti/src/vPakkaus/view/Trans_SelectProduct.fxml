@@ -39,6 +39,6 @@
       <Button fx:id="hae" layoutX="134.0" layoutY="212.0" minWidth="65.0" mnemonicParsing="false" onAction="#haeTuotteRyhmia" text="Search" />
       <Button fx:id="resetButton" layoutX="134.0" layoutY="261.0" minWidth="65.0" mnemonicParsing="false" onAction="#resetoi" text="Reset" />
       <TableView fx:id="lahetysTuotteet" layoutX="557.0" layoutY="18.0" prefHeight="412.0" prefWidth="242.0" AnchorPane.bottomAnchor="108.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="14.0" />
-      <Button layoutX="470.0" layoutY="55.0" minWidth="65.0" mnemonicParsing="false" text="Delete -&gt;" />
+      <Button layoutX="470.0" layoutY="55.0" minWidth="65.0" mnemonicParsing="false" onAction="#deleteSelectedProduct" text="Delete -&gt;" />
    </children>
 </AnchorPane>

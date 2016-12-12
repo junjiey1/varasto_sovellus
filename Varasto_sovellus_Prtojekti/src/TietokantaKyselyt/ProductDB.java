@@ -270,6 +270,9 @@ public class ProductDB {
 				e.printStackTrace();
 			}
 		}
+		if(product==null){
+		  db.setErrorMsg("Tuotetta nimellä " + nimi + " ei löydy");
+		}
 		return product;
 	}
 

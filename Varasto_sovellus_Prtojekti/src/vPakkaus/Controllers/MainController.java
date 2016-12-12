@@ -273,4 +273,24 @@ public class MainController implements MainController_IF{
     else
       naytto.paivita("Poisto onnistui!");
   }
+
+  @Override
+  public void haeTuotejoukkoHyllysta(String hyllynTunnus, String tuotteenNimi) {
+    Tuotejoukko tj = db.haeTuotejoukkoHyllysta(hyllynTunnus, tuotteenNimi);
+    checkForErrorMessage();
+    if(tj==null)
+      return;
+    naytto.paivita(tj);
+  }
+
+  @Override
+  public boolean paivitaLahetys(Varastoliikenne vl) {
+    if(!db.tallennaMuokattuLahetys(vl, userID)){
+      checkForErrorMessage();
+      naytto.paivita("EI voitu paivittaa lähetystä");
+      return false;
+    }
+    naytto.paivita("Päivitys onnistui!");
+    return true;
+  }
 }

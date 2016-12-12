@@ -172,4 +172,23 @@ public class VarastoliikenneDB {
     return true;
   }
 
+  public boolean paivitaVarastoliikenne(Varastoliikenne vl, int tyontekijaID){
+    try {
+      ps = conn.prepareStatement(
+          "UPDATE varastoliikenne SET pvm = ?, toimitusosoite = ?, tyontekijaID = ?, asiakasnumero = ? WHERE varastoliikenneID = ?");
+      ps.setDate(1, vl.getPvm());
+      ps.setString(2, vl.getOsoite());
+      ps.setInt(3, tyontekijaID);
+      ps.setInt(4, vl.getAsiaksID());
+      ps.setInt(5, vl.getVarastoliikenneID());
+      ps.executeUpdate();
+      ps.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      db.setErrorMsg(e.getMessage());
+      return false;
+    }
+    return true;
+  }
+
 }

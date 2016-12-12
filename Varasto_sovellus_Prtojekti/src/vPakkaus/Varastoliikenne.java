@@ -82,6 +82,7 @@ public class Varastoliikenne {
 
   public void setAsiakas(Asiakas asiakas) {
     this.asiakas = asiakas;
+    asiaksID = asiakas.getID();
   }
 
   public void addTuotejoukko(Varastoliikennerivi vlr){

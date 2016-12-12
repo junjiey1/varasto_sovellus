@@ -63,7 +63,8 @@ public class HyllyDB {
 				e.printStackTrace();
 			}
 		}
-
+		if(hyl == null)
+		  db.setErrorMsg("Hyllypaikkaa tunnuksella " + tunnus + " ei löydy!");
 		return hyl;
 	}
 

@@ -524,6 +524,35 @@ public class DB_AccessObject {
     return varastoliikennedb.deleteVarastoliikenne(id);
   }
 
+  public boolean tallennaMuokattuLahetys(Varastoliikenne vl, int id){
+    System.out.println(vl.getVarastoliikenneID());
+    for(Varastoliikennerivi vlr : vl.getRivit()){
+      System.out.println(vlr.getTuoteID() + " " + vlr.getMaara() + " " + vlr.getVarastoliikenneID());
+    }
+    if(!varastoliikennedb.paivitaVarastoliikenne(vl, id)){ //Päivitä yleiset tiedot
+      return false;
+    }
+    vrividb.deleteRivitByID(vl.getVarastoliikenneID());//Poistetaan vanhat rivit
+    for(Varastoliikennerivi vlr : vl.getRivit()){
+      if(!vrividb.CreateVarastoliikennerivi(vlr)){ //luodaan uusilla tuoteriveillä
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public Tuotejoukko haeTuotejoukkoHyllysta(String hyllynNimi, String tuotteenNimi){
+    Tuotejoukko tj = null;
+    Product tuote = productdb.findProduct(tuotteenNimi);
+    if(tuote==null)
+      return tj;
+    Hyllypaikka hyllypaikka = hyllydb.haeHylly(hyllynNimi);
+    if(hyllypaikka==null)
+      return tj;
+    tj = tuoterividb.haeTuotejoukko(hyllypaikka, tuote);
+    return tj;
+  }
+
   // /**
   // * Sulje tietokanta yhteys.
   // *

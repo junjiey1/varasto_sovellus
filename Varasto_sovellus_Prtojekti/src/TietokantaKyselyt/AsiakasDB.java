@@ -116,6 +116,9 @@ public class AsiakasDB {
 				db.setErrorMsg(e.getMessage());
 			}
 		}
+		if(asiakas==null){
+		  db.setErrorMsg("Asiakasta nimellä " + nimi + " ei löydy!");
+		}
 		return asiakas;
 	}
 

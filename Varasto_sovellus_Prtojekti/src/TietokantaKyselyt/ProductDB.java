@@ -155,7 +155,7 @@ public class ProductDB {
 	 * @return Onnistuminen/epäonnistuminen (Boolean)
 	 */
 
-	public boolean addProductToTuoteTable(Product product) {
+	public boolean addProduct(Product product) {
 		int lampotila_boolean = 0;
 		if (product.getMax_temperature() != null && product.getMin_temperature() != null)
 			lampotila_boolean = 1;

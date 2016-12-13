@@ -15,6 +15,7 @@ import vPakkaus.Product;
  *
  */
 
+
 public class AsiakasDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;

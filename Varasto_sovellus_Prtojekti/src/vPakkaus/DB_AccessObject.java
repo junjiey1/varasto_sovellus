@@ -169,7 +169,7 @@ public class DB_AccessObject {
       Product product = findProduct(joukko.getProduct().getProduct_name());
       // Jos kyseistä tuotetta ei ole vielä olemassa ollenkaan
       if (product == null) {
-        if (!addProductToTuoteTable(joukko.getProduct())) // Jos tuotteen lisäyksessä tapahtui virhe
+        if (!addProduct(joukko.getProduct())) // Jos tuotteen lisäyksessä tapahtui virhe
           return false;
         joukko.getProduct().setID(findProduct(joukko.getProduct().getProduct_name()).getID());
         if (joukko.getProduct().getMax_temperature() != null
@@ -407,8 +407,8 @@ public class DB_AccessObject {
     return productdb.findProductWithID(id);
   }
 
-  public boolean addProductToTuoteTable(Product product) {
-    return productdb.addProductToTuoteTable(product);
+  public boolean addProduct(Product product) {
+    return productdb.addProduct(product);
   }
 
   public ArrayList<Tuotejoukko> haeHyllynTuotejoukot(String hyllynimi) {

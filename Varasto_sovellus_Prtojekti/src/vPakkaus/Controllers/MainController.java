@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import vPakkaus.Asiakas;
 import vPakkaus.DB_AccessObject;
@@ -292,5 +293,14 @@ public class MainController implements MainController_IF{
     }
     naytto.paivita("Päivitys onnistui!");
     return true;
+  }
+
+  @Override
+  public TreeMap<Date, Integer> haeTietoja(Date d1, Date d2, int numero) {
+    TreeMap<Date, Integer> res = db.haeTietoja(d1, d2, numero);
+    checkForErrorMessage();
+    if(res.isEmpty())
+      System.out.println("tyhjä");
+    return res;
   }
 }

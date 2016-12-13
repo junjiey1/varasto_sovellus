@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import TietokantaKyselyt.AsiakasDB;
 import TietokantaKyselyt.HyllyDB;
@@ -551,6 +552,10 @@ public class DB_AccessObject {
       return tj;
     tj = tuoterividb.haeTuotejoukko(hyllypaikka, tuote);
     return tj;
+  }
+
+  public TreeMap<Date, Integer> haeTietoja(Date d1, Date d2, int numero){
+    return varastoliikennedb.haeTiedot(d1, d2, numero);
   }
 
   // /**

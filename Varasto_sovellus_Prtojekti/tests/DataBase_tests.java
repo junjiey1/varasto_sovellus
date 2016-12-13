@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -50,10 +51,12 @@ public class DataBase_tests {
     Product tp1 = new Product("test_item_1", 1.0, 2.0, 2.0, 2.0, 2.0f);
     tp1.setMax_temperature(10);
     tp1.setMin_temperature(0);
+    tp1.setTemp(true);
 
     Product tp2 = new Product("test_item_2", 4.0, 4.0, 4.0, 4.0, 2.0f);
     tp2.setMax_temperature(10);
     tp2.setMin_temperature(0);
+    tp2.setTemp(true);
 
     Hyllypaikka hyllypaikka = new Hyllypaikka("hylly_test_1", 10.0, 10.0, 10.0, 5, 200);
     db.createHyllypaikka(hyllypaikka);
@@ -274,6 +277,138 @@ public class DataBase_tests {
   }
 
   @Test
+  public void Create_Tuoterivi() {
+
+    System.out.println("\nTest : Create_Tuoterivi()\n");
+    Product p = db.findProduct("test_item_1");
+    Hyllypaikka h = db.haeHylly("hylly_test_1");
+    Tuotejoukko tj = new Tuotejoukko(p, h, 3);
+    boolean res = db.addProductToTuoteriviTable(tj);
+    assertEquals("Create_Tuoterivi() onnistuu", true, res);
+    db.deleteTuoterivi(tj);
+
+  }
+
+  @Test
+  public void haeHyllynTuotejoukot() {
+
+    System.out.println("\nTest : haeHyllynTuotejoukot()\n");
+    ArrayList<Tuotejoukko> tjt = db.haeHyllynTuotejoukot("hylly_test_1");
+    assertEquals("haeHyllynTuotejoukot() onnistuu", 2, tjt.size());
+  }
+
+  @Test
+  public void haeTuotteenKaikkiTuoterivit() {
+
+    System.out.println("\nTest : haeHyllynTuotejoukot()\n");
+    Product p = db.findProduct("test_item_1");
+    ArrayList<Tuotejoukko> tjt = db.haeTuotteenKaikkiTuoterivit(p);
+    assertEquals("haeTuotteenKaikkiTuoterivit() onnistuu", 1, tjt.size());
+  }
+
+  @Test
+  public void muokkaaTuoteriviä() {
+
+    System.out.println("\nTest : muokkaaTuoteriviä()\n");
+    Product p = db.findProduct("test_item_1");
+    ArrayList<Tuotejoukko> tjt = db.haeTuotteenKaikkiTuoterivit(p);
+    Tuotejoukko tj1 = tjt.get(0);
+    tj1.setMaara(5);
+    db.muokkaaTuoteriviä(tj1);
+    ArrayList<Tuotejoukko> tjt2 = db.haeTuotteenKaikkiTuoterivit(p);
+    assertEquals("muokkaaTuoteriviä() onnistuu", 5, tjt2.get(0).getMaara());
+    db.deleteTuoterivi(tjt2.get(0));
+  }
+
+  @Test
+  public void haeTuotejoukko() {
+
+    System.out.println("\nTest : haeTuotejoukko()\n");
+    Product p = db.findProduct("test_item_1");
+    Hyllypaikka h = db.haeHylly("hylly_test_1");
+    Tuotejoukko tj = db.haeTuotejoukkoHyllysta(h.getNimi(), p.getProduct_name());
+    assertEquals("haeTuotejoukko() onnistuu", 3, tj.getMaara());
+  }
+
+  @Test
+  public void deleteTuoterivi() {
+
+    System.out.println("\nTest : deleteTuoterivi()\n");
+    Tuotejoukko tj = db.haeTuotejoukkoHyllysta("hylly_test_1", "test_item_1");
+    boolean res = db.deleteTuoterivi(tj);
+    assertEquals("deleteTuoterivi onnistuu", true, res);
+  }
+
+  @Test
+  public void create_and_delete_Varastoliikenne() {
+
+    System.out.println("\nTest : create_and_delete_Varastoliikenne()\n");
+    Varastoliikenne vl = new Varastoliikenne(1, new Date(10, 10, 2016 - 1900), "Keijokuja 1", 6,
+        258);
+    boolean res = db.createVarastoliikenne(vl);
+    assertEquals("createVarastoliikenne onnistuu", true, res);
+    int ai = db.getVarastoliikenne_autoinc();
+    res = db.deleteLahetys(ai - 1);
+    assertEquals("deleteVarastoliikenne onnistuu", true, res);
+
+  }
+
+  @Test
+  public void findVarastoliikenne() {
+
+    System.out.println("\nTest : findVarastoliikenne()\n");
+    Varastoliikenne vl = new Varastoliikenne(1, new Date(10, 10, 2016 - 1900), "Keijokuja 1", 6,
+        258);
+    db.createVarastoliikenne(vl);
+    int ai = db.getVarastoliikenne_autoinc();
+    Varastoliikenne vl1 = db.findVarastoliikenne(ai - 1);
+    assertEquals("findVarastoliikenne onnistuu", 258, vl1.getAsiaksID());
+    db.deleteLahetys(ai - 1);
+
+  }
+
+  @Test
+  public void Create_and_delete_Varastoliikennerivi() {
+
+    System.out.println("\nTest : CreateVarastoliikennerivi()\n");
+    Product p = db.findProduct("test_item_1");
+    Varastoliikenne vl = new Varastoliikenne(1, new Date(10, 10, 2016 - 1900), "Keijokuja 1", 6,
+        258);
+    db.createVarastoliikenne(vl);
+    int ai = db.getVarastoliikenne_autoinc();
+    vl.setVarastoliikenneID(ai - 1);
+    Varastoliikennerivi vr = new Varastoliikennerivi(p.getID(), vl.getVarastoliikenneID(), 2);
+    boolean res = db.CreateVarastoliikennerivi(vr);
+    assertEquals("CreateVarastoliikennerivi onnistuu", true, res);
+    db.deleteVarastoliikennerivit(p);
+    db.deleteLahetys(ai - 1);
+
+  }
+
+  @Test
+  public void findVarastoliikennerivit() {
+
+    System.out.println("\nTest : findVarastoliikennerivit()\n");
+
+    Product p = db.findProduct("test_item_1");
+    Varastoliikenne vl = new Varastoliikenne(1, new Date(10, 10, 2016 - 1900), "Keijokuja 1", 6,
+        258);
+    db.createVarastoliikenne(vl);
+    int ai = db.getVarastoliikenne_autoinc();
+    vl.setVarastoliikenneID(ai - 1);
+    Varastoliikennerivi vr = new Varastoliikennerivi(p.getID(), vl.getVarastoliikenneID(), 2);
+    db.CreateVarastoliikennerivi(vr);
+
+    Varastoliikenne vl1 = db.findVarastoliikennerivit(vl);
+
+    assertEquals("findVarastoliikennerivit", 1, vl1.getRivit().size());
+    db.deleteVarastoliikennerivit(p);
+    db.deleteLahetys(ai - 1);
+    db.deleteRivitByID(vl1.getVarastoliikenneID());
+
+  }
+
+  @Test
   public void PaivitaHyllypaikka() {
     System.out.println("\nTest : PaivitaHyllypaikka()\n");
     Hyllypaikka h = db.haeHylly("hylly_test_1");
@@ -282,6 +417,77 @@ public class DataBase_tests {
     Hyllypaikka h1 = db.haeHylly("hylly_test_1");
     assertEquals(0.01, 300.0, h1.getMax_paino());
   }
+
+  @Test
+  public void NewProductInformationValidation() {
+    System.out.println("\nTest : NewProductInformationValidation()\n");
+    Product tp1_id = db.findProduct("test_item_1");
+    Product tp1 = new Product("test_item_1", 1.0, 10.0, 2.0, 2.0, 2.0f);
+    tp1.setID(tp1_id.getID());
+    tp1.setMax_temperature(10);
+    tp1.setMin_temperature(0);
+    tp1.setTemp(true);
+
+    Product tp2_id = db.findProduct("test_item_2");
+    Product tp2 = new Product("test_item_2", 4.0, 10.0, 4.0, 4.0, 2.0f);
+    tp2.setID(tp2_id.getID());
+    tp2.setMax_temperature(10);
+    tp2.setMin_temperature(0);
+    tp2.setTemp(true);
+
+    ArrayList<Product> products = new ArrayList();
+    products.add(tp1);
+    products.add(tp2);
+
+    boolean res = db.NewProductInformationValidation(products);
+    assertEquals("NewProductInformationValidation onnistuu", true, res);
+
+    products.clear();
+    tp2.setProduct_weight(100000.0);
+    products.add(tp2);
+
+    res = db.NewProductInformationValidation(products);
+    assertEquals("NewProductInformationValidation ei mahdu", false, res);
+}
+
+  @Test
+  public void lisaa_fails() {
+    System.out.println("\nTest : lisaa()\n");
+
+    Product tp1 = new Product("test_item_3", 10000.0, 100000.0, 2.0, 2.0, 2.0f);
+    tp1.setMax_temperature(10);
+    tp1.setMin_temperature(0);
+    tp1.setTemp(true);
+
+    Hyllypaikka hyllypaikka = db.haeHylly("hylly_test_1");
+
+    Tuotejoukko joukko_1 = new Tuotejoukko(tp1, hyllypaikka, 3);
+    boolean res = db.lisaa(joukko_1);
+
+    assertEquals("lisaa, paino ylittyy", false, res);
+
+    db.deleteVarastoliikennerivit(tp1);
+    db.deleteLampotila(tp1);
+    db.deleteTuoterivi(joukko_1);
+    db.deleteProduct(tp1);
+
+    Product tp2 = new Product("test_item_3", 1.0, 2.0, 2.0, 2.0, 2.0f);
+    tp2.setMax_temperature(100);
+    tp2.setMin_temperature(80);
+    tp2.setTemp(true);
+
+    Tuotejoukko joukko_2 = new Tuotejoukko(tp2, hyllypaikka, 3);
+    res = db.lisaa(joukko_2);
+
+    assertEquals("lisaa, lampotila ei sopiva", false, res);
+
+    db.deleteVarastoliikennerivit(tp2);
+    db.deleteLampotila(tp2);
+    db.deleteTuoterivi(joukko_2);
+    db.deleteProduct(tp2);
+
+}
+
 
   // @Test
   // public void Lisaa_Tuote_tableen_lampotilojen_kanssa() {
@@ -300,27 +506,6 @@ public class DataBase_tests {
   // Hyllypaikka hyllypaikka = new Hyllypaikka("a-3", 100, 100, 100, -5, 2000);
   // boolean result = db.CreateHyllypaikka(hyllypaikka);
   // assertEquals("Hyllypaikan luominen onnistui", result, true);
-  // }
-
-  // @Test
-  // public void Varastoliikenne_luonti() {
-  // System.out.println("\nTest : Varastoliikenne_luonti\n");
-  // Varastoliikenne vl = new Varastoliikenne(1, new Date(2016 - 1900, 10 - 1, 10), "osoite", 6, 11,
-  // -1);
-  // ArrayList<Tuotejoukko> lista = new ArrayList();
-  //
-  // Hyllypaikka hp = db.haeHylly("hylly_test_1");
-  // Product p1 = db.findProduct("test_item_1");
-  // Product p2 = db.findProduct("test_item_2");
-  // Tuotejoukko tj1 = new Tuotejoukko(p1, hp, 1);
-  // Tuotejoukko tj2 = new Tuotejoukko(p2, hp, 2);
-  //
-  // lista.add(tj1);
-  // lista.add(tj2);
-  //
-  // boolean res = db.luoVarastoliikenne(vl, lista);
-  // assertEquals("Varastoliikenteen luonti onnistui!", true, res);
-  //
   // }
 
   @Test
@@ -361,7 +546,7 @@ public class DataBase_tests {
   }
 
   @Test
-  public void AddAndDeleteAsiakas() {
+  public void addAndDeleteAsiakas() {
     System.out.println("\nTest : AddAndDeleteAsiakas()\n");
 
     Asiakas a = new Asiakas("Seppo oy", "Kuskinkatu 3 a 14", "Helsinki", "Sepi@Sepi.fi",

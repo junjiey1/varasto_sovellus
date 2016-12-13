@@ -59,12 +59,25 @@ public class KuvaajaController implements Nakyma_IF {
   public void esiValmistelut() {
   }
 
-  public void load_line() {
+  public void show_line(ActionEvent event){
 
-   lineChart.setOnAction(new EventHandler<ActionEvent>(){
+  lineChart.setOnAction(new EventHandler<ActionEvent>(){
 
     @Override
     public void handle(ActionEvent arg0) {
+      // TODO Auto-generated method stub
+      pieChart.setVisible(false);
+      linechart.setVisible(true);
+    }
+
+   });
+  }
+  public void load_line() {
+
+  // lineChart.setOnAction(new EventHandler<ActionEvent>(){
+
+    //@Override
+   // public void handle(ActionEvent arg0) {
       // TODO Auto-generated method stub
       pieChart.setVisible(false);
       linechart.setVisible(true);
@@ -90,18 +103,29 @@ public class KuvaajaController implements Nakyma_IF {
 
 
       linechart.getData().add(series);
-    }
+   // }
 
-   });
+  // });
   }
 
-  public void load_pie(ActionEvent event){
-
-
+  public void show_pie(ActionEvent event){
     pie.setOnAction(new EventHandler<ActionEvent>(){
 
-     @Override
-     public void handle(ActionEvent arg0) {
+      @Override
+      public void handle(ActionEvent arg0) {
+        linechart.setVisible(false);
+        pieChart.setVisible(true);
+      }
+
+     });
+  }
+  public void load_pie(){
+
+
+   // pie.setOnAction(new EventHandler<ActionEvent>(){
+
+    // @Override
+    // public void handle(ActionEvent arg0) {
        linechart.setVisible(false);
        pieChart.setVisible(true);
 
@@ -112,9 +136,9 @@ public class KuvaajaController implements Nakyma_IF {
         new PieChart.Data("TestiTuote4", 60)
         );
     pieChart.setData(list);
-     }
+   //  }
 
-    });
+   // });
 
   }
 

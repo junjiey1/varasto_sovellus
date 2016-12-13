@@ -93,10 +93,8 @@ public class AddProductController implements Nakyma_IF {
 			Tuotejoukko joukko = rakennaTuotejoukko();
 			noErrorsEncountered = mc.addProduct(joukko);
 			if (!noErrorsEncountered) {
-				virheIlmoitus("Tuotteiden muuttujissa havaittiin virhe!\nTarkista asettamiesi muuttujien arvot...");
+				virheIlmoitus("Virhe tuotetta lisättäessä...");
 			} else{
-//				JOptionPane.showMessageDialog(null, "uusi tuote lisättiin onnistuneesti", "Lisäys onnistui",
-//						JOptionPane.INFORMATION_MESSAGE);
 			  Alert info = new Alert(AlertType.INFORMATION);
         info.setTitle("Lisääminen onnistuu");
         info.setHeaderText("Tuote lisääminen");

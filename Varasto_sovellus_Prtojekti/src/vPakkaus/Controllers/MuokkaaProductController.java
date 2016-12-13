@@ -91,6 +91,9 @@ public class MuokkaaProductController implements Nakyma_IF {
 			return false;
 		tuoteTable.getColumns().clear();
 		taulukko = tehdas.annaTaulukko(p.get(0), p);
+		if(taulukko==null || taulukko.getTaulukko().getItems().isEmpty()){
+		  return false;
+		}
 		tuoteTable.getColumns().addAll(taulukko.getTaulukko().getColumns());
 		return true;
 	}
@@ -106,7 +109,7 @@ public class MuokkaaProductController implements Nakyma_IF {
 			if(luoUusiTaulukko()){
 				täytäTaulukko();
 			}else{
-				virheIlmoitus("Annetulla hakusanalla ei löytynyt tuotteita");
+				//virheIlmoitus("Annetulla hakusanalla ei löytynyt tuotteita");
 				return;
 			}
 		} else {

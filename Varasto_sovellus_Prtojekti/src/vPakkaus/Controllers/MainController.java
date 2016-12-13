@@ -79,7 +79,8 @@ public class MainController implements MainController_IF{
 	public boolean addProduct(Tuotejoukko joukko) {
 		System.out.println(joukko.getProduct().toString());
 		boolean res = db.lisaa(joukko);
-		checkForErrorMessage();
+		if(!res)
+		  checkForErrorMessage();
 		return res;
 	}
 
@@ -93,6 +94,8 @@ public class MainController implements MainController_IF{
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
 		checkForErrorMessage();
+		if(res.isEmpty())
+		  naytto.virheIlmoitus("Tuotteita sanalla : " + nimi + " ei löydy");
 		return res;
 	}
 
@@ -121,6 +124,7 @@ public class MainController implements MainController_IF{
 	public boolean paivitaTuotteet(ArrayList<Product> products){
 
 		boolean res = db.NewProductInformationValidation(products);
+		System.out.println("Tulos " + res);
 		checkForErrorMessage();
 
 		return res;
@@ -279,8 +283,11 @@ public class MainController implements MainController_IF{
   public void haeTuotejoukkoHyllysta(String hyllynTunnus, String tuotteenNimi) {
     Tuotejoukko tj = db.haeTuotejoukkoHyllysta(hyllynTunnus, tuotteenNimi);
     checkForErrorMessage();
-    if(tj==null)
+    if(tj==null){
+      System.out.println("joo");
+      naytto.virheIlmoitus("Tuotetta " + tuotteenNimi + " ei ole hyllyssä " + hyllynTunnus);
       return;
+    }
     naytto.paivita(tj);
   }
 
@@ -296,8 +303,13 @@ public class MainController implements MainController_IF{
   }
 
   @Override
-  public TreeMap<Date, Integer> haeTietoja(Date d1, Date d2, int numero) {
-    TreeMap<Date, Integer> res = db.haeTietoja(d1, d2, numero);
+  public TreeMap<Date, Integer> haeTietoja(Date d1, Date d2, String nimi) {
+    Product p = db.findProduct(nimi);
+    checkForErrorMessage();
+    if(p==null){
+      return null;
+    }
+    TreeMap<Date, Integer> res = db.haeTietoja(d1, d2, p.getID());
     checkForErrorMessage();
     if(res.isEmpty())
       System.out.println("tyhjä");

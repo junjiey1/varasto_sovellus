@@ -263,6 +263,7 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
     tuoteNimi.setText("");
     lahetysTuotteet.getItems().clear();
     tuoteTaulukko.getItems().clear();
+    removeAllTextFiles();
   }
 
   @Override
@@ -320,7 +321,11 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
           virheIlmoitus("Rivillä : " + fileRow + " Tuotteen " + pName + " muuttujissa havaittiin virhe!");
           noErrorsEncountered = false;
         }else{
+          System.out.println(pName + " " + pShelf + " " + pQuantity);
           mc.haeTuotejoukkoHyllysta(pShelf, pName);
+          if(!errorLog.equals("")){
+            noErrorsEncountered = false;
+          }
         }
         if(!noErrorsEncountered){ //Virhe havaittu ei voida lisätä tiedoston arvoja ja samasta tiedostosta valmiiksi lisätyt arvot poistetaan
           break;

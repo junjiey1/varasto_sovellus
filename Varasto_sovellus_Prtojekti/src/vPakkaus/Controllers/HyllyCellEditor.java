@@ -27,9 +27,12 @@ public class HyllyCellEditor extends EditingCell{
           case 1:
             System.out.println("yrittää");
             int newLampotila = Integer.parseInt(s);
-            muokattava.setLämpötila(newLampotila);
-            setValChanged(true);
-            break;
+            if(newLampotila != muokattava.getLämpötila()){
+              muokattava.setLämpötila(newLampotila);
+              setValChanged(true);
+              paivitaSolu(newLampotila, getIndex());
+              break;
+            }
 
           case 3:
             Double d = Double.parseDouble(s);

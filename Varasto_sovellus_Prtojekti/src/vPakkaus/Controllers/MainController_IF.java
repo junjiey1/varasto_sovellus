@@ -34,5 +34,5 @@ public interface MainController_IF {
 	public boolean paivitaLahetys(Varastoliikenne vl);
 	public List<Varastoliikenne> haeLahetykset(int id);
 	public void deleteLahetys(int id);
-	public TreeMap<Date, Integer> haeTietoja(Date d1, Date d2, int numero);
+	public TreeMap<Date, Integer> haeTietoja(Date d1, Date d2, String tuotteenNimi);
 }

@@ -353,7 +353,8 @@ public class DB_AccessObject {
     } else {
       updateProducts(products);
     }
-
+    if(!(errorMsg == null))
+      return false;
     return true;
   }
 

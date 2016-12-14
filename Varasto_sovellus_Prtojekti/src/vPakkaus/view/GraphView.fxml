@@ -19,7 +19,7 @@
 
 <AnchorPane prefHeight="560.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.KuvaajaController">
    <children>
-      <GridPane layoutX="37.0" layoutY="47.0" prefWidth="174.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="47.0">
+      <GridPane layoutX="20.0" layoutY="47.0" prefHeight="483.0" prefWidth="176.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="47.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
          </columnConstraints>

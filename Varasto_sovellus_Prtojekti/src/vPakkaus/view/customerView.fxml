@@ -57,30 +57,6 @@
                   <Insets bottom="10.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Advanced search" GridPane.rowIndex="3">
-               <font>
-                  <Font size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="10.0" />
-               </GridPane.margin>
-            </Button>
-            <TextField fx:id="searchCustomer1" promptText="Customer ID" GridPane.rowIndex="4">
-               <font>
-                  <Font size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="10.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="searchCustomer11" promptText="Customer ID" GridPane.rowIndex="5">
-               <font>
-                  <Font size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="10.0" />
-               </GridPane.margin>
-            </TextField>
          </children>
       </GridPane>
       <GridPane layoutX="116.0" layoutY="352.0" AnchorPane.bottomAnchor="195.0" AnchorPane.leftAnchor="116.0">

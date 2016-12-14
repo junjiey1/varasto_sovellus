@@ -56,8 +56,8 @@ public class AsiakasControlleri implements Nakyma_IF {
 //			JOptionPane.showMessageDialog(null, data.toString(), "ILMOITUS",
 //					JOptionPane.INFORMATION_MESSAGE);
 		  Alert info = new Alert(AlertType.INFORMATION);
-	    info.setTitle("Virhe ilmoitus");
-	    info.setHeaderText("Virhe");
+	    info.setTitle("Ilmoitus");
+	    info.setHeaderText("Asiakas lisääminen");
 	    info.setContentText(data.toString());
 	    info.showAndWait();
 		}

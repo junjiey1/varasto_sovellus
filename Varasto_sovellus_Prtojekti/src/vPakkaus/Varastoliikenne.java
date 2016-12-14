@@ -22,6 +22,15 @@ public class Varastoliikenne {
     asiakas = new Asiakas("not defined", "not defined", "not defined", "not defined", "not defined", "not defined");
   }
 
+  public Varastoliikenne(int tyyppi, Date pvm, String osoite, int userID, int asiaksID) {
+    this.osoite = osoite;
+    this.userID = userID;
+    this.asiaksID = asiaksID;
+    this.tyyppi = tyyppi;
+    this.pvm = pvm;
+    asiakas = new Asiakas("not defined", "not defined", "not defined", "not defined", "not defined", "not defined");
+  }
+
   public String getOsoite() {
     if(asiakas.getOsoit().equals("not defined"))
       return osoite;

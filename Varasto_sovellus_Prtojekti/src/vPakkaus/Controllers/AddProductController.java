@@ -23,6 +23,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.layout.Region;
 import vPakkaus.Hyllypaikka;
+import vPakkaus.LanguageUtil;
 import vPakkaus.Product;
 import vPakkaus.Tuotejoukko;
 
@@ -38,7 +39,8 @@ public class AddProductController implements Nakyma_IF {
 	@FXML
 	private ListView<String> productList;
   @FXML
-  private Label minTempL, maxTempL;
+  private Label minTempL, maxTempL, productNameLbl, quantityLbl, weightLbl, volumeLbl, priceLbl, whLocationLbl, lengthLbl, widthLbl, heightLbl, dragTextFilesHereLbl, addProductsAutomaticallyLbl, addProductsManuallyLbl;
+  
 
   private NayttojenVaihtaja_IF vaihtaja;
 	private MainController_IF mc;
@@ -373,7 +375,20 @@ public class AddProductController implements Nakyma_IF {
 
 	@Override
 	public void esiValmistelut() {
-	  productName.setPromptText("Tuotteen nimi");
+	  productName.setPromptText(LanguageUtil.getMessageFromResource("productName"));
+	  productNameLbl.setText(LanguageUtil.getMessageFromResource("productNameLbl"));
+	  quantityLbl.setText(LanguageUtil.getMessageFromResource("quantityLbl"));
+	  weightLbl.setText(LanguageUtil.getMessageFromResource("weightLbl"));
+	  volumeLbl.setText(LanguageUtil.getMessageFromResource("volumeLbl"));
+	  priceLbl.setText(LanguageUtil.getMessageFromResource("priceLbl"));
+	  whLocationLbl.setText(LanguageUtil.getMessageFromResource("whLocationLbl"));
+	  lengthLbl.setText(LanguageUtil.getMessageFromResource("lengthLbl"));
+	  widthLbl.setText(LanguageUtil.getMessageFromResource("widthLbl"));
+	  heightLbl.setText(LanguageUtil.getMessageFromResource("heightLbl"));
+	  dragTextFilesHereLbl.setText(LanguageUtil.getMessageFromResource("dragTextFilesHereLbl"));
+	  addProductsAutomaticallyLbl.setText(LanguageUtil.getMessageFromResource("addProductsAutomaticallyLbl"));
+	  addProductsManuallyLbl.setText(LanguageUtil.getMessageFromResource("addProductsManuallyLbl"));
+
 	}
 
 }

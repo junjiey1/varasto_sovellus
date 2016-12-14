@@ -138,12 +138,13 @@ public class TuoteriviDB {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+      db.setErrorMsg(e.getMessage());
     } finally {
       try {
         ps.close();
         rs.close();
       } catch (SQLException e) {
-        // TODO Auto-generated catch block
+        db.setErrorMsg(e.getMessage());
         e.printStackTrace();
       }
     }
@@ -182,12 +183,12 @@ public class TuoteriviDB {
 
     } catch (SQLException e) {
       e.printStackTrace();
+      db.setErrorMsg(e.getMessage());
     } finally {
       try {
         ps.close();
         rs.close();
       } catch (SQLException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     }
@@ -239,6 +240,34 @@ public class TuoteriviDB {
       e.printStackTrace();
       return false;
     }
+  }
+
+  public Tuotejoukko haeTuotejoukko(Hyllypaikka hylly, Product tuote){
+    Tuotejoukko tj = null;
+    try {
+      ps = conn.prepareStatement(
+          "SELECT tuoterivi.riviID, tuoterivi.tuoteID, tuoterivi.maara, tuoterivi.hyllypaikka FROM tuoterivi WHERE tuoterivi.tuoteID=? AND tuoterivi.hyllypaikka=?;");
+      ps.setInt(1, tuote.getID());
+      ps.setString(2, hylly.getNimi());
+
+      rs = ps.executeQuery();
+      while (rs.next()) {
+        int maara = rs.getInt("maara");
+        tj = new Tuotejoukko(tuote, hylly, maara);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      db.setErrorMsg(e.getMessage());
+    } finally {
+      try {
+        ps.close();
+        rs.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    return tj;
   }
 
 }

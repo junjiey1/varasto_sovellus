@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import vPakkaus.Asiakas;
 import vPakkaus.DB_AccessObject;
@@ -78,7 +79,8 @@ public class MainController implements MainController_IF{
 	public boolean addProduct(Tuotejoukko joukko) {
 		System.out.println(joukko.getProduct().toString());
 		boolean res = db.lisaa(joukko);
-		checkForErrorMessage();
+		if(!res)
+		  checkForErrorMessage();
 		return res;
 	}
 
@@ -92,6 +94,8 @@ public class MainController implements MainController_IF{
 		ArrayList<Product> res = null;
 		res = db.findProducts(nimi);
 		checkForErrorMessage();
+		if(res.isEmpty())
+		  naytto.virheIlmoitus("Tuotteita sanalla : " + nimi + " ei löydy");
 		return res;
 	}
 
@@ -120,6 +124,7 @@ public class MainController implements MainController_IF{
 	public boolean paivitaTuotteet(ArrayList<Product> products){
 
 		boolean res = db.NewProductInformationValidation(products);
+		System.out.println("Tulos " + res);
 		checkForErrorMessage();
 
 		return res;
@@ -272,5 +277,42 @@ public class MainController implements MainController_IF{
       naytto.virheIlmoitus("Lähetyksen poisto epäonnistui");
     else
       naytto.paivita("Poisto onnistui!");
+  }
+
+  @Override
+  public void haeTuotejoukkoHyllysta(String hyllynTunnus, String tuotteenNimi) {
+    Tuotejoukko tj = db.haeTuotejoukkoHyllysta(hyllynTunnus, tuotteenNimi);
+    checkForErrorMessage();
+    if(tj==null){
+      System.out.println("joo");
+      naytto.virheIlmoitus("Tuotetta " + tuotteenNimi + " ei ole hyllyssä " + hyllynTunnus);
+      return;
+    }
+    naytto.paivita(tj);
+  }
+
+  @Override
+  public boolean paivitaLahetys(Varastoliikenne vl) {
+    if(!db.tallennaMuokattuLahetys(vl, userID)){
+      checkForErrorMessage();
+      naytto.paivita("EI voitu paivittaa lähetystä");
+      return false;
+    }
+    naytto.paivita("Päivitys onnistui!");
+    return true;
+  }
+
+  @Override
+  public TreeMap<Date, Integer> haeTietoja(Date d1, Date d2, String nimi) {
+    Product p = db.findProduct(nimi);
+    checkForErrorMessage();
+    if(p==null){
+      return null;
+    }
+    TreeMap<Date, Integer> res = db.haeTietoja(d1, d2, p.getID());
+    checkForErrorMessage();
+    if(res.isEmpty())
+      System.out.println("tyhjä");
+    return res;
   }
 }

@@ -20,7 +20,7 @@ public class LanguageUtil {
 
   public static String getMessageFromResource(String key){
     if(messages==null)
-      return null;
+      return "!!! String with a key " + key + " doesn't exist !!!";
     return messages.getString(key);
   }
 

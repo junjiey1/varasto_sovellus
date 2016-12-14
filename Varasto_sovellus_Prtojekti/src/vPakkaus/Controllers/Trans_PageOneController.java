@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
+import vPakkaus.LanguageUtil;
 
 public class Trans_PageOneController implements LahetysInformationProvider_IF{
   private MainController_IF mc;
@@ -41,7 +42,6 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
   private Taulukko_IF taulukko;
   private LahetysRakentaja_IF rakentaja;
   private TaulukkoFactory_IF tehdas;
-  private boolean selected;
   private Asiakas selectedAsiakas;
 
   public Trans_PageOneController(){
@@ -108,16 +108,17 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
   }
 
   public void valittuAsiakas(){
-    selected=false;
     if(asiakasTaulukko.getSelectionModel().getSelectedItem()!=null){
       Asiakas a = (Asiakas)asiakasTaulukko.getSelectionModel().getSelectedItem();
       selectedAsiakas = a;
       namelabel.setText(a.getNimi() + " " + a.getOsoit());
-      selected=true;
     }else{
-      selectedAsiakas = null;
-      virheIlmoitus("Et ole valinnut tarkasteltavaa asiakasta taulukosta");
-      selected=false;
+      if(rakentaja.modifyingExcisting()){ //Muokataan olemassaolevaa lähetystä ja käyttäjä ei valinnut uutta asiakasta
+
+      }else{
+        selectedAsiakas = null;
+        virheIlmoitus("Et ole valinnut tarkasteltavaa asiakasta taulukosta");
+      }
     }
 
     formatDate();
@@ -126,7 +127,7 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
 
   private void formatDate(){
     if (date.getValue() != null) {
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
       datelabel.setText(formatter.format(date.getValue()));
     } else {
       datelabel.setText("");
@@ -141,11 +142,10 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
     alert.showAndWait();
   }
 
-
-
   @Override
   public void esiValmistelut() {
-    if(rakentaja.getDate()!=null && rakentaja.getAsiakas()!=null){
+    if(rakentaja.modifyingExcisting()){
+      date.setValue(null);
       date.setValue(rakentaja.getDate());
       formatDate();
       namelabel.setText(rakentaja.getAsiakas().getNimi());
@@ -167,13 +167,14 @@ public class Trans_PageOneController implements LahetysInformationProvider_IF{
       vaihtaja.asetaUudeksiNaytoksi("ShipmentModification", "SHIPMENT Modification", null);
       return;
     }
-    vaihtaja.asetaUudeksiNaytoksi("mainpage", "ManagementMainMenu",3);
+    vaihtaja.asetaUudeksiNaytoksi("mainpage", LanguageUtil.getMessageFromResource("program_name"),3);
   }
 
   public void next_confirm() {
-    if(datelabel.getText().equals("") || selectedAsiakas==null){
+    if((datelabel.getText().equals("") || selectedAsiakas==null) && !rakentaja.modifyingExcisting()){
       virheIlmoitus("Et ole valinnut asiakasta tai päivämäärä!\nTarkista sivun vasemmasta alanurkasta näkyykö asiakas ja päivämäärä.");
     }else{
+      System.out.println(date.getValue().toString());
       rakentaja.setAsiakas(selectedAsiakas);
       rakentaja.setDate(date.getValue());
       vaihtaja.asetaUudeksiNaytoksi("Trans_SelectProduct", null, null);

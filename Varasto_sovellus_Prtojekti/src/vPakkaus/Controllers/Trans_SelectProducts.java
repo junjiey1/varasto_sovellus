@@ -3,6 +3,8 @@ package vPakkaus.Controllers;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.TreeMap;
 import javafx.collections.FXCollections;
@@ -11,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -45,13 +48,15 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
   private ArrayList<Tuotejoukko> paivitettavatJoukot;
   private LahetysRakentaja_IF rakentaja;
   private TreeMap<String, String> tmap;
-
+  private List<Tuotejoukko> productCache;
+  private List<Integer> maaraCache;
   private ObservableList<String> productTextFiles = FXCollections.observableArrayList();
 
-  boolean noErrorsEncountered;
-  int pQuantity, fileRow;
-  String path, fileName, pName, pShelf;
-  String[] oneRowOfData;
+  private boolean noErrorsEncountered;
+  private boolean addingFromFile;
+  private int pQuantity, fileRow;
+  private String path, fileName, pName, pShelf, errorLog;
+  private String[] oneRowOfData;
 
   public Trans_SelectProducts(){
     tmap = new TreeMap<String, String>();
@@ -59,6 +64,10 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
     vaihtaja = null;
     tehdas = TaulukkoFactory.getInstance();
     paivitettavatJoukot = new ArrayList<Tuotejoukko>();
+    productCache = new ArrayList<Tuotejoukko>();
+    maaraCache = new ArrayList<Integer>();
+    addingFromFile = false;
+    errorLog = "";
   }
 
   public void initialize(){
@@ -123,32 +132,68 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
       }
       dao.setMaara(dao.getMaara()-arvo);
       tuoteTaulukko.refresh();
-      int i=0;
-      boolean found = false;
-      for(DAO_Objekti item : lahetysTuotteet.getItems()){//Yritetään löytää lähetystaulukosta tuote jolla sama nimi
-        Tuotejoukko t = (Tuotejoukko)item;
-        if(t.getTuotteenNimi().equals(dao.getTuotteenNimi())){ //tuotteilla sama nimi
-          i = lahetysTuotteet.getItems().indexOf(t);//lähetystuote taulukon indeksi talteen
-          found = true;//merkataan löydetyksi
-        }
-      }
-      if(found){
-        Tuotejoukko dao2 = (Tuotejoukko)lahetysTuotteet.getItems().get(i);//Haetaan saadulla indeksillä
-        dao2.setMaara(dao2.getMaara() + arvo); //asetetaan uusi määrä
-      }
-      else{//Tuotetta ei löydy lähetys taulukosta
-        Tuotejoukko newLahetysProduct = new Tuotejoukko(dao.getProduct(), dao.getHylly(), arvo); //Uusi tuotejoukko olio
-        lahetysTuotteet.getItems().add(newLahetysProduct);//lisätään tauluun
-      }
-      lahetysTuotteet.refresh();//päivitetään
-      addToPaivitettaviin(dao);
+      updateLahetysTaulukko(dao, arvo);
+//      int i=0;
+//      boolean found = false;
+//      for(DAO_Objekti item : lahetysTuotteet.getItems()){//Yritetään löytää lähetystaulukosta tuote jolla sama nimi
+//        Tuotejoukko t = (Tuotejoukko)item;
+//        if(t.getTuotteenNimi().equals(dao.getTuotteenNimi())){ //tuotteilla sama nimi
+//          i = lahetysTuotteet.getItems().indexOf(t);//lähetystuote taulukon indeksi talteen
+//          found = true;//merkataan löydetyksi
+//        }
+//      }
+//      if(found){
+//        Tuotejoukko dao2 = (Tuotejoukko)lahetysTuotteet.getItems().get(i);//Haetaan saadulla indeksillä
+//        dao2.setMaara(dao2.getMaara() + arvo); //asetetaan uusi määrä
+//      }
+//      else{//Tuotetta ei löydy lähetys taulukosta
+//        Tuotejoukko newLahetysProduct = new Tuotejoukko(dao.getProduct(), dao.getHylly(), arvo); //Uusi tuotejoukko olio
+//        lahetysTuotteet.getItems().add(newLahetysProduct);//lisätään tauluun
+//      }
+//      lahetysTuotteet.refresh();//päivitetään
+//      addToPaivitettaviin(dao);
+//    }
     }
   }
+
+  private void updateLahetysTaulukko(Tuotejoukko dao, int maara){
+    int i=0;
+    boolean found = false;
+    for(DAO_Objekti item : lahetysTuotteet.getItems()){//Yritetään löytää lähetystaulukosta tuote jolla sama nimi
+      Tuotejoukko t = (Tuotejoukko)item;
+      if(t.getTuotteenNimi().equals(dao.getTuotteenNimi())){ //tuotteilla sama nimi
+        i = lahetysTuotteet.getItems().indexOf(t);//lähetystuote taulukon indeksi talteen
+        found = true;//merkataan löydetyksi
+      }
+    }
+    if(found){
+      Tuotejoukko dao2 = (Tuotejoukko)lahetysTuotteet.getItems().get(i);//Haetaan saadulla indeksillä
+      dao2.setMaara(dao2.getMaara() + maara); //asetetaan uusi määrä
+    }
+    else{//Tuotetta ei löydy lähetys taulukosta
+      Tuotejoukko newLahetysProduct = new Tuotejoukko(dao.getProduct(), dao.getHylly(), maara); //Uusi tuotejoukko olio
+      lahetysTuotteet.getItems().add(newLahetysProduct);//lisätään tauluun
+    }
+    lahetysTuotteet.refresh();//päivitetään
+    addToPaivitettaviin(dao);
+  }
+
   private void addToPaivitettaviin(Tuotejoukko dao){
-    if(!paivitettavatJoukot.contains(dao))
+    int i = -1;
+    for(Tuotejoukko tj : paivitettavatJoukot){
+      if(tj.getProduct().getProduct_name().equals(dao.getProduct().getProduct_name()) && tj.getHylly().getNimi().equals(dao.getHylly().getNimi())){
+        i = paivitettavatJoukot.indexOf(tj);
+      }
+    }
+    System.out.println(i);
+    if(i<0)
       paivitettavatJoukot.add(dao);
+    else{
+      paivitettavatJoukot.remove(i);
+      paivitettavatJoukot.add(i, dao);
+    }
     for(Tuotejoukko ttt : paivitettavatJoukot){
-      System.out.println(ttt.getTuotteenNimi() + " " + ttt.getHyllynNimi() + ttt.getMaara());
+      System.out.println("paivitettavat : " + ttt.getTuotteenNimi() + " " + ttt.getHyllynNimi() + ttt.getMaara());
     }
   }
 
@@ -157,8 +202,39 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
     mc=m;
   }
 
+  private void processUpdate(Tuotejoukko tj){
+    if(tj.getMaara()<pQuantity && !(tj.getMaara()>0)){
+      System.out.println("liikaa");
+      noErrorsEncountered = false;
+      virheIlmoitus("Tuotteen määrä ei riitä : " + tj.getMaara() + " ja haluat siirtää : " + pQuantity);
+      return;
+    }
+    if(paivitettavatJoukot.size()>0){
+      for(int i = 0; i<paivitettavatJoukot.size();i++){
+        if(paivitettavatJoukot.get(i).getTuotteenNimi().equals(tj.getTuotteenNimi())){
+          if(paivitettavatJoukot.get(i).getHyllynNimi().equals(tj.getHyllynNimi())){
+            if(paivitettavatJoukot.get(i).getMaara()<pQuantity){
+              virheIlmoitus("Tuotteen määrä hyllyssä " + paivitettavatJoukot.get(i).getHyllynNimi() + " ei riitä : " + paivitettavatJoukot.get(i).getMaara() + " ja haluat siirtää : " + pQuantity);
+              noErrorsEncountered = false;
+              return;
+            }
+            tj.setMaara(paivitettavatJoukot.get(i).getMaara());
+          }
+        }
+      }
+    }
+    tj.setMaara(tj.getMaara()-pQuantity);
+    maaraCache.add(pQuantity);
+    productCache.add(tj);
+  }
+
   @Override
   public void paivita(Object data) {
+    if(addingFromFile){
+      if(data instanceof Tuotejoukko)
+        processUpdate((Tuotejoukko)data);
+      return;
+    }
     resetTables(tuoteTaulukko);
     ArrayList<DAO_Objekti> list = new ArrayList<DAO_Objekti>();
     list.addAll((ArrayList<DAO_Objekti>)data);
@@ -187,10 +263,16 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
     tuoteNimi.setText("");
     lahetysTuotteet.getItems().clear();
     tuoteTaulukko.getItems().clear();
+    removeAllTextFiles();
   }
 
   @Override
   public void virheIlmoitus(Object viesti) {
+    if(addingFromFile){
+      noErrorsEncountered=false;
+      errorLog = errorLog.concat("Virhe Tiedostossa " + file.getName() +  " rivillä " + (fileRow+1) + " : " + viesti.toString() + "\n");
+      return;
+    }
     Alert alert = new Alert(AlertType.ERROR);
     alert.setTitle("Error");
     alert.setContentText(viesti.toString());
@@ -228,31 +310,78 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
 
   public void parseTextFiles() throws FileNotFoundException{
     noErrorsEncountered = true;
+    addingFromFile = true;
     for (String s : productTextFiles) {
       file = new File(tmap.get(s));
       input = new Scanner(file);
-      fileRow=1;
+      fileRow=0; //Sama kuin index eroaa tosin, että uudesta tiedostosta lukiessa se alustetaan alkuarvoonsa.
       while (input.hasNext()) {
         oneRowOfData = input.nextLine().split(",");
-        if(!validoiListanMuuttujat(oneRowOfData))
+        if(!validoiListanMuuttujat(oneRowOfData)){
           virheIlmoitus("Rivillä : " + fileRow + " Tuotteen " + pName + " muuttujissa havaittiin virhe!");
-        else
-          //noErrorsEncountered = mc.addProduct(rakennaTuotejoukko());
+          noErrorsEncountered = false;
+        }else{
+          System.out.println(pName + " " + pShelf + " " + pQuantity);
+          mc.haeTuotejoukkoHyllysta(pShelf, pName);
+          if(!errorLog.equals("")){
+            noErrorsEncountered = false;
+          }
+        }
+        if(!noErrorsEncountered){ //Virhe havaittu ei voida lisätä tiedoston arvoja ja samasta tiedostosta valmiiksi lisätyt arvot poistetaan
+          break;
+        }
         fileRow++;
+      }//while loop end
+
+      if(noErrorsEncountered){ //Jos ei tapahtunut virheitä aseta tiedot taulukkoon
+        for(int i = 0; i<productCache.size(); i++){
+          updateLahetysTaulukko(productCache.get(i), maaraCache.get(i));
+        }
       }
+      maaraCache.clear(); //tyhjennä cache
+      productCache.clear(); //tyhjennä cache
+      noErrorsEncountered = true; //boolean alkutilaan
+    }
+    addingFromFile = false;
 
-
-
-
+    boolean err;
+    String text;
+    if(!errorLog.equals("")){
+      text = "Joitakin tuotteita ei voitu lisätä!";
+      err = true;
+    }else{
+      text = "Tuotteet lisättiin onnistuneesti!";
+      err = false;
     }
 
+    if(showInfoToUser(text, err)){ //jos errorLogi ei ole tyhjä niin lisäys operaation yhteydessä tapahtui virhe
+      errorLog = "Seuraavia tuotteita ei voitu lisätä tiedostosta" + fileName + ":\n".concat(errorLog);
+      virheIlmoitus(errorLog);
+    }
+    errorLog="";
+  }
 
-
-
-    tmap.clear();
+  private boolean showInfoToUser(String text, boolean errorOccured){
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("TIEDOTE");
+    alert.setContentText(text);
+    ButtonType buttonTypeOne = ButtonType.OK;
+    alert.getButtonTypes().setAll(buttonTypeOne);
+    if(errorOccured){
+      ButtonType buttonTypeTwo = new ButtonType("Virheiden lisätiedot");
+      alert.getButtonTypes().add(buttonTypeTwo);
+      Optional<ButtonType> result = alert.showAndWait();
+      if (result.get() == buttonTypeTwo){
+        return true;
+      }
+    }
+    else
+      alert.showAndWait();
+    return false;
   }
 
   private boolean validoiListanMuuttujat(String[] rowOfData){
+    System.out.println(oneRowOfData[0] + " " + oneRowOfData[1] + " " + oneRowOfData[2]);
     try{
       pName = oneRowOfData[0];
       pShelf = oneRowOfData[1];
@@ -335,14 +464,35 @@ public class Trans_SelectProducts implements LahetysInformationProvider_IF{
 
   public void removeTextFile() {
     String Fname = null;
-    Fname = productTextFiles.get(productTextFiles.indexOf(TextFilesTable.getSelectionModel().getSelectedItem()));
-    productTextFiles.remove(productTextFiles.indexOf(TextFilesTable.getSelectionModel().getSelectedItem()));
-    tmap.remove(Fname);
+    try{
+      Fname = productTextFiles.get(productTextFiles.indexOf(TextFilesTable.getSelectionModel().getSelectedItem()));
+      productTextFiles.remove(productTextFiles.indexOf(TextFilesTable.getSelectionModel().getSelectedItem()));
+      tmap.remove(Fname);
+    }catch(ArrayIndexOutOfBoundsException e){
+      virheIlmoitus("Valitse taulukosta pudotettu tekstitiedosto ja paina delete poistaaksesi tekstitiedoston");
+    }
   }
 
   public void removeAllTextFiles() {
     productTextFiles.clear();
     tmap.clear();
+  }
+
+  public void deleteSelectedProduct(){
+    Tuotejoukko tj = (Tuotejoukko)lahetysTuotteet.getSelectionModel().getSelectedItem();
+    if(tj==null){
+      virheIlmoitus("Valitse Tuote lähetys taulukosta");
+      return;
+    }
+    lahetysTuotteet.getItems().remove(tj);
+    List<Tuotejoukko> toBeDeleted = new ArrayList<Tuotejoukko>();
+    for(int i = 0; i<paivitettavatJoukot.size();i++){
+      if(tj.getProduct().getProduct_name().equals(paivitettavatJoukot.get(i).getProduct().getProduct_name()))
+        toBeDeleted.add(paivitettavatJoukot.get(i));
+    }
+    for(Tuotejoukko tj2 : toBeDeleted){
+      paivitettavatJoukot.remove(tj2);
+    }
   }
 
 

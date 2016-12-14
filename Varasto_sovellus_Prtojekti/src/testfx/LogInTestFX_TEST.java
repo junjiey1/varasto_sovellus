@@ -8,6 +8,8 @@ import org.loadui.testfx.GuiTest;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import vPakkaus.MainLaunch;
 
 public class LogInTestFX_TEST extends GuiTest{
@@ -23,6 +25,8 @@ public class LogInTestFX_TEST extends GuiTest{
 		click("#showpword");
 		click("#loginButton");
 	}
+
+
 
 	@Test
 	public void loginVaarillaTunnuksillaPitaaEpaonnistua() {

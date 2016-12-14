@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import TietokantaKyselyt.AsiakasDB;
 import TietokantaKyselyt.HyllyDB;
@@ -168,7 +169,7 @@ public class DB_AccessObject {
       Product product = findProduct(joukko.getProduct().getProduct_name());
       // Jos kyseistä tuotetta ei ole vielä olemassa ollenkaan
       if (product == null) {
-        if (!addProductToTuoteTable(joukko.getProduct())) // Jos tuotteen lisäyksessä tapahtui virhe
+        if (!addProduct(joukko.getProduct())) // Jos tuotteen lisäyksessä tapahtui virhe
           return false;
         joukko.getProduct().setID(findProduct(joukko.getProduct().getProduct_name()).getID());
         if (joukko.getProduct().getMax_temperature() != null
@@ -406,8 +407,8 @@ public class DB_AccessObject {
     return productdb.findProductWithID(id);
   }
 
-  public boolean addProductToTuoteTable(Product product) {
-    return productdb.addProductToTuoteTable(product);
+  public boolean addProduct(Product product) {
+    return productdb.addProduct(product);
   }
 
   public ArrayList<Tuotejoukko> haeHyllynTuotejoukot(String hyllynimi) {
@@ -518,10 +519,55 @@ public class DB_AccessObject {
     return res;
   }
 
+  public Varastoliikenne findVarastoliikennerivit(Varastoliikenne vl) {
+    return vrividb.findVarastoliikennerivit(vl);
+  }
+
+  public void deleteRivitByID(int id) {
+    vrividb.deleteRivitByID(id);
+  }
+
+  public Varastoliikenne findVarastoliikenne(int varastoliikenneid) {
+    return varastoliikennedb.findVarastoliikenne(varastoliikenneid);
+  }
+
   public boolean deleteLahetys(int id){
     if(!vrividb.deleteRivitByID(id))
       return false;
     return varastoliikennedb.deleteVarastoliikenne(id);
+  }
+
+  public boolean tallennaMuokattuLahetys(Varastoliikenne vl, int id){
+    System.out.println(vl.getVarastoliikenneID());
+    for(Varastoliikennerivi vlr : vl.getRivit()){
+      System.out.println(vlr.getTuoteID() + " " + vlr.getMaara() + " " + vlr.getVarastoliikenneID());
+    }
+    if(!varastoliikennedb.paivitaVarastoliikenne(vl, id)){ //Päivitä yleiset tiedot
+      return false;
+    }
+    vrividb.deleteRivitByID(vl.getVarastoliikenneID());//Poistetaan vanhat rivit
+    for(Varastoliikennerivi vlr : vl.getRivit()){
+      if(!vrividb.CreateVarastoliikennerivi(vlr)){ //luodaan uusilla tuoteriveillä
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public Tuotejoukko haeTuotejoukkoHyllysta(String hyllynNimi, String tuotteenNimi){
+    Tuotejoukko tj = null;
+    Product tuote = productdb.findProduct(tuotteenNimi);
+    if(tuote==null)
+      return tj;
+    Hyllypaikka hyllypaikka = hyllydb.haeHylly(hyllynNimi);
+    if(hyllypaikka==null)
+      return tj;
+    tj = tuoterividb.haeTuotejoukko(hyllypaikka, tuote);
+    return tj;
+  }
+
+  public TreeMap<Date, Integer> haeTietoja(Date d1, Date d2, int numero){
+    return varastoliikennedb.haeTiedot(d1, d2, numero);
   }
 
   // /**
@@ -536,145 +582,5 @@ public class DB_AccessObject {
     conn.close();
   }
 
-  //
-  //
-  // /**
-  // * Tavaran tiedon postaminen.
-  // *
-  // * @param id Tavaran ID
-  // * @return Palauta booleana, onko poistaminen onnistunut.
-  // */
-  //
-  // public boolean deleteProduct(int id){
-  // boolean error = true;
-  // ps = null;
-  // try {
-  // ps = conn.prepareStatement("DELETE FROM hyllypaikka WHERE tuoteID = ?");
-  // ps.setInt(1, id);
-  // ps.executeUpdate();
-  // ps = conn.prepareStatement("DELETE FROM varasto WHERE tuoteID = ?");
-  // ps.setInt(1, id);
-  // ps.executeUpdate();
-  // ps = conn.prepareStatement("DELETE FROM tuote WHERE tuoteID = ?");
-  // ps.setInt(1, id);
-  // ps.executeUpdate();
-  // } catch (SQLException e) {
-  // // TODO Auto-generated catch block
-  // error = false;
-  // e.printStackTrace();
-  // }
-  // return error;
-  // }
-  //
-  // /**
-  // * Poistaa kaikkien taulujen sisällöt joilla on viitteitä tuote tauluun
-  // sekä poistaa tuotetaulun rivit.
-  // * Käytetään vain testailussa.
-  // */
-  //
-  // public void dropTuotteet(){
-  // ps = null;
-  // try {
-  // ps = conn.prepareStatement("DELETE FROM hyllypaikka");
-  // ps.executeUpdate();
-  // ps = conn.prepareStatement("DELETE FROM varasto");
-  // ps.executeUpdate();
-  // ps = conn.prepareStatement("DELETE FROM tuote");
-  // ps.executeUpdate();
-  // } catch (SQLException e) {
-  // // TODO Auto-generated catch block
-  // e.printStackTrace();
-  // }
-  //
-  // }
 
-  //
-  // /**
-  // * Lisaa tavaralle hyllypaikka tietokantaan.
-  // *
-  // * @param hyllypaikka varaston hyllypaikat
-  // * @param id tavaran ID
-  // * @return Palauta booleana, onko lisaaminen onnistunut
-  // */
-  // public boolean addProductLocation(String hyllypaikka, int id){
-  // boolean error = true;
-  //
-  // try {
-  // ps = conn.prepareStatement("INSERT INTO hyllypaikka(tunnus, tuoteID)" +
-  // "VALUES (?,?);");
-  //
-  // ps.setString(1, hyllypaikka);
-  // ps.setInt(2, id);
-  //
-  // ps.executeUpdate();
-  // ps.close();
-  //
-  // } catch (SQLException e) {
-  // System.out.println("Lisäys epäonnistui hyllypaikkataulukkoon!");
-  // e.printStackTrace();
-  // error = false;
-  // }
-  // return error;
-  // }
-  //
-  // /**
-  // * Lisaa tietokantaan tuotteelle oikean varaston.
-  // *
-  // * @param maara Tavaran maara
-  // * @param id Tavaran ID
-  // * @return Palauta booleana, onko lisaaminen onnistunut
-  // */
-  // public boolean addProductToWarehouse(int maara, int id) {
-  // boolean error = true;
-  // try {
-  // ps= conn.prepareStatement("INSERT INTO varasto(varastoID, maara,
-  // tuoteID)" + "VALUES (?,?,?);");
-  //
-  // int varastoID = 1;
-  // ps.setInt(1, varastoID);
-  // ps.setInt(2, maara);
-  // ps.setInt(3, id);
-  //
-  // ps.executeUpdate();
-  // ps.close();
-  //
-  // } catch (SQLException e) {
-  // System.out.println("Lisäys epäonnistui varastotaulukkoon!");
-  // e.printStackTrace();
-  // error = false;
-  // }
-  // return error;
-  // }
-  //
-  //
-  //
-  // /**
-  // *Hakee tavaran ID:n nimen perusteella.
-  // *
-  // * @param nimi Tavaran nimi
-  // * @return Tavaran ID
-  // */
-  //
-  // public int getProductID(String nimi) {
-  // Integer id = null;
-  //
-  // try {
-  // ps = conn.prepareStatement("SELECT tuoteID FROM tuote WHERE nimi = ?");
-  //
-  // // Asetetaan argumentit sql-kyselyyn
-  // ps.setString(1, nimi);
-  // rs = ps.executeQuery();// Hae annetulla käyttäjänimellä
-  // // tietokanta rivi
-  //
-  // while (rs.next()) {
-  // id = rs.getInt("tuoteID");
-  // }
-  //
-  // } catch (SQLException e) {
-  // e.printStackTrace();
-  // }
-  // return id;
-  // }
-
-  //
 }

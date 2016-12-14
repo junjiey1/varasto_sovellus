@@ -36,6 +36,8 @@ public class LampotilaDB {
 		// Tarvitaan tuotteen ID jotta voidaan lisätä arvoja Lämpötila
 		// taulukkoon
 		System.out.println("ID " + product.getID());
+		System.out.println("lampomax " + product.getMax_temperature());
+		System.out.println("lampomin " + product.getMin_temperature());
 		try {
 			ps = conn.prepareStatement("INSERT INTO lampotila(tuoteID, lampotila_max, lampotila_min) VALUES (?,?,?);");
 			// haetaan tuotteen id tietokannasta

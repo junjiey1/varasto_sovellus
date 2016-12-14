@@ -15,6 +15,7 @@ import vPakkaus.Product;
  *
  */
 
+
 public class AsiakasDB {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
@@ -115,6 +116,9 @@ public class AsiakasDB {
 				e.printStackTrace();
 				db.setErrorMsg(e.getMessage());
 			}
+		}
+		if(asiakas==null){
+		  db.setErrorMsg("Asiakasta nimellä " + nimi + " ei löydy!");
 		}
 		return asiakas;
 	}

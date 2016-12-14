@@ -93,9 +93,7 @@ public class LoginController implements Nakyma_IF {
 			passwordTxt.setText(visiblePasswordTxt.getText());
 		}
 		if (mc.logIn(uname, pword)) {
-			vaihtaja.asetaUudeksiNaytoksi("mainpage", "VarastoSovellus", null);
-			//MainLaunch.windowDestroyer();
-			//MainLaunch.windowConstructor("view/MainPageView.fxml", "VarastoSovellus 1.03", null);
+			vaihtaja.asetaUudeksiNaytoksi("mainpage", LanguageUtil.getMessageFromResource("program_name"), null);
 		} else {
 			incorrectLabel.setVisible(true);
 			passwordTxt.setText("");

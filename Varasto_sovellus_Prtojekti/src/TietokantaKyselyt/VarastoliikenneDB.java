@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import vPakkaus.Asiakas;
 import vPakkaus.DB_AccessObject;
@@ -170,6 +171,51 @@ public class VarastoliikenneDB {
       return false;
     }
     return true;
+  }
+
+  public boolean paivitaVarastoliikenne(Varastoliikenne vl, int tyontekijaID){
+    try {
+      ps = conn.prepareStatement(
+          "UPDATE varastoliikenne SET pvm = ?, toimitusosoite = ?, tyontekijaID = ?, asiakasnumero = ? WHERE varastoliikenneID = ?");
+      ps.setDate(1, vl.getPvm());
+      ps.setString(2, vl.getOsoite());
+      ps.setInt(3, tyontekijaID);
+      ps.setInt(4, vl.getAsiaksID());
+      ps.setInt(5, vl.getVarastoliikenneID());
+      ps.executeUpdate();
+      ps.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      db.setErrorMsg(e.getMessage());
+      return false;
+    }
+    return true;
+  }
+
+  public TreeMap<Date, Integer> haeTiedot(Date date1 , Date date2, int TuoteID){
+    TreeMap<Date, Integer> res = new TreeMap<Date, Integer>();
+    try {
+      ps = conn.prepareStatement("Select varastoliikenne.pvm , varastoliikennerivi.maara from varastoliikenne, varastoliikennerivi where varastoliikennerivi.varastoliikenneID = varastoliikenne.varastoliikenneID AND varastoliikenne.pvm BETWEEN ? AND ? AND varastoliikennerivi.tuoteID=?;");
+      ps.setDate(1, date1);
+      ps.setDate(2, date2);
+      ps.setInt(3, TuoteID);
+      rs = ps.executeQuery();
+      while(rs.next()){
+        res.put(rs.getDate("varastoliikenne.pvm"), rs.getInt("varastoliikennerivi.maara"));
+      }
+    }catch(SQLException e){
+      db.setErrorMsg(e.getMessage());
+      e.printStackTrace();
+    } finally {
+      try {
+        ps.close();
+        rs.close();
+      } catch (SQLException e) {
+        db.setErrorMsg(e.getMessage());
+        e.printStackTrace();
+      }
+    }
+    return res;
   }
 
 }

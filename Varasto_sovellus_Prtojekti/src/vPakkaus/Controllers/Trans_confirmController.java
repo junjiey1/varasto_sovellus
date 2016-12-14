@@ -9,8 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import vPakkaus.DAO_Objekti;
+import vPakkaus.LanguageUtil;
 
 public class Trans_confirmController implements LahetysInformationProvider_IF{
 
@@ -22,6 +24,8 @@ public class Trans_confirmController implements LahetysInformationProvider_IF{
   private Label customerNameLabel;
   @FXML
   private Label osoiteLabel;
+  @FXML
+  private Button confirmButton;
   private NayttojenVaihtaja_IF vaihtaja;
   private MainController_IF mc;
   private LahetysRakentaja_IF rakentaja;
@@ -38,7 +42,10 @@ public class Trans_confirmController implements LahetysInformationProvider_IF{
   public void finalConfirmation(){
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("CONFIRM");
-    alert.setHeaderText("Olet tallentamassa uutta lähetystä tietokantaan\njatketaanko");
+    if(rakentaja.modifyingExcisting())
+      alert.setHeaderText("Olet tallentamassa muokattua lähetystä tietokantaan\njatketaanko?");
+    else
+      alert.setHeaderText("Olet tallentamassa uutta lähetystä tietokantaan\njatketaanko?");
     alert.setContentText("Jatketaanko?");
     ButtonType buttonTypeOne = new ButtonType("Kyllä");
     ButtonType buttonTypeTwo = new ButtonType("Ei", ButtonData.CANCEL_CLOSE);
@@ -108,7 +115,7 @@ public class Trans_confirmController implements LahetysInformationProvider_IF{
       vaihtaja.asetaUudeksiNaytoksi("ShipmentModification", "SHIPMENT Modification", null);
       return;
     }
-    vaihtaja.asetaUudeksiNaytoksi("mainpage", "ManagementMainMenu",3);
+    vaihtaja.asetaUudeksiNaytoksi("mainpage", LanguageUtil.getMessageFromResource("program_name"),3);
   }
 
   public void back_to() {

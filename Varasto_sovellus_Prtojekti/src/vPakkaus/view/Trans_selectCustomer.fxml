@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="534.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vPakkaus.Controllers.Trans_PageOneController">
+	<children>
+      <GridPane layoutX="14.0" layoutY="44.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="44.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <DatePicker fx:id="date" prefHeight="31.0" GridPane.rowIndex="1" />
+            <Label text="Date:" />
+            <Label text="Customer's name:" GridPane.rowIndex="2" />
+            <TextField fx:id="namefield" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#etsiAsiakasta" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#valittuAsiakas" text="Select" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <TableView fx:id="asiakasTaulukko" layoutX="352.0" layoutY="44.0" prefHeight="414.0" prefWidth="411.0" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="352.0" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="44.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button fx:id="next" layoutX="737.0" layoutY="467.0" mnemonicParsing="false" onAction="#next_confirm" text="Next" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="37.0" />
+      <Button layoutX="14.0" layoutY="467.0" mnemonicParsing="false" onAction="#back_to" text="Back" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="14.0" />
+      <GridPane layoutX="14.0" layoutY="296.0" prefHeight="148.0" prefWidth="325.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="296.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="326.0" minWidth="10.0" prefWidth="326.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="0.0" prefWidth="0.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="namelabel" prefHeight="21.0" prefWidth="246.0" GridPane.rowIndex="1" />
+            <Label text="Selected date:" GridPane.rowIndex="2" />
+            <Label fx:id="datelabel" prefHeight="21.0" prefWidth="244.0" GridPane.rowIndex="3" />
+            <Label text="Selected name:" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

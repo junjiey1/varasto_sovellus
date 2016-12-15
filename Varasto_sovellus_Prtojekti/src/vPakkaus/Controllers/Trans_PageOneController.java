@@ -22,6 +22,9 @@ import vPakkaus.Asiakas;
 import vPakkaus.DAO_Objekti;
 import vPakkaus.LanguageUtil;
 
+/**
+ * Luokka, joka vastaa lähetyksen päivämäärän ja asiakkaan valinnasta. Välittää saadut arvot takaisin LähetysRakentajalle
+ */
 public class Trans_PageOneController implements LahetysInformationProvider_IF{
   private MainController_IF mc;
   private NayttojenVaihtaja_IF vaihtaja;

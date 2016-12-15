@@ -7,11 +7,16 @@ import org.loadui.testfx.GuiTest;
 import javafx.scene.Parent;
 import vPakkaus.MainLaunch;
 
-
+/**
+ * Testi luokka, missa testataan tuotteiden haku.
+ * @author benyi
+ *
+ */
 public class SearchTest extends GuiTest{
 
-
-
+/**
+ * Testataan teitteiden etsiminen
+ */
 	@Test
 	public void search(){
 		click("#productName").type("a");
@@ -22,23 +27,29 @@ public class SearchTest extends GuiTest{
 		click("#searchbtn");
 		click("OK");
 	}
-
+/**
+ * Testataan tuotteiden muokkaaminen, kun tuote on haettu.
+ *
+ */
 	@Test
 	public void modify(){
 		click("#productName").type("Maito");
 		click("#searchbtn");
 		click("#tuoteTable");
-		doubleClick("Maito2");
-		doubleClick("Maito2").type("Maito3");
+		doubleClick("Maito3");
+		//Huom. klikkattava tuote taytyy vaihtaa, kun kerran on muokannut tuote nimi aikasemmassa testissa.
+		doubleClick("Maito3").type("Maito3");
 		click("#paivita");
 		click("Ei");
-		click("OK");
 		click("#paivita");
 		click("Kyllä");
 		click("OK");
 
 	}
 
+	/**
+	 * Testataan Clear- toiminta
+	 */
 	@Test
 	public void clear(){
 		click("#productName").type("a");
@@ -48,7 +59,9 @@ public class SearchTest extends GuiTest{
 		click("#tyhjenta");
 	}
 
-
+	/**
+	 * getRootNode, joka  palauttaa testauttavan luokan
+	 */
 	@Override
 	protected Parent getRootNode() {
 

@@ -22,6 +22,9 @@ import java.util.TreeMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Kuvaaja näkymän kontrolleri. Vastaa kuvaajien piirtämisestä ja kuvaajan piirtämiseen vaadittavan datan hakemisesta.
+ */
 public class KuvaajaController implements Nakyma_IF {
 
   @FXML

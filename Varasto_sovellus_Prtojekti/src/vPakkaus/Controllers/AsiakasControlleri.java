@@ -53,11 +53,12 @@ public class AsiakasControlleri implements Nakyma_IF {
 			contactPersonEmail.setText(a.getEmai());
 			contactPersonPhone.setText(a.getNumero());
 		}else{
-//			JOptionPane.showMessageDialog(null, data.toString(), "ILMOITUS",
-//					JOptionPane.INFORMATION_MESSAGE);
 		  Alert info = new Alert(AlertType.INFORMATION);
-	    info.setTitle("Virhe ilmoitus");
-	    info.setHeaderText("Virhe");
+	    info.setTitle("Ilmoitus");
+	    if(muokataanOlemassaOlevaa)
+	      info.setHeaderText("Asiakkaan " + customerName.getText() + " muokkaus");
+	    else
+	      info.setHeaderText("Asiakas lisääminen");
 	    info.setContentText(data.toString());
 	    info.showAndWait();
 		}

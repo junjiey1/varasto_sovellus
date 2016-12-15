@@ -206,7 +206,14 @@ public class VarastoliikenneDB {
       ps.setInt(3, TuoteID);
       rs = ps.executeQuery();
       while(rs.next()){
-        res.put(rs.getDate("varastoliikenne.pvm"), rs.getInt("varastoliikennerivi.maara"));
+        System.out.println( rs.getDate("varastoliikenne.pvm").toString() + " " + rs.getInt("varastoliikennerivi.maara"));
+        if(res.containsKey(rs.getDate("varastoliikenne.pvm"))){
+          int maara = res.get(rs.getDate("varastoliikenne.pvm"));
+          System.out.println("määrä " + maara + " " + rs.getInt("varastoliikennerivi.maara"));
+          maara+=rs.getInt("varastoliikennerivi.maara");
+          res.put(rs.getDate("varastoliikenne.pvm"), maara);
+        }else
+          res.put(rs.getDate("varastoliikenne.pvm"), rs.getInt("varastoliikennerivi.maara"));
       }
     }catch(SQLException e){
       db.setErrorMsg(e.getMessage());

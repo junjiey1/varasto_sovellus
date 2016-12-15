@@ -124,7 +124,6 @@ public class MainController implements MainController_IF{
 	public boolean paivitaTuotteet(ArrayList<Product> products){
 
 		boolean res = db.NewProductInformationValidation(products);
-		System.out.println("Tulos " + res);
 		checkForErrorMessage();
 
 		return res;
@@ -182,7 +181,7 @@ public class MainController implements MainController_IF{
 	@Override
 	public void asetaAktiiviseksiNaytoksi(Nakyma_IF naytto) {
 		this.naytto = naytto;
-		System.out.println(naytto.toString());
+		//System.out.println(naytto.toString());
 		naytto.esiValmistelut();
 	}
 
@@ -284,7 +283,6 @@ public class MainController implements MainController_IF{
     Tuotejoukko tj = db.haeTuotejoukkoHyllysta(hyllynTunnus, tuotteenNimi);
     checkForErrorMessage();
     if(tj==null){
-      System.out.println("joo");
       naytto.virheIlmoitus("Tuotetta " + tuotteenNimi + " ei ole hyllyssä " + hyllynTunnus);
       return;
     }

@@ -71,16 +71,6 @@ public class Hyllypaikka implements DAO_Objekti{
 		this.max_paino = max_paino;
 	}
 
-	@Override
-	public boolean paivitaMuuttuja(String muuttujanNimi) {
-		return false;
-	}
-
-	@Override
-	public Object haeMuuttuja(String muuttujanNimi) {
-		return null;
-	}
-
   @Override
   public String toString() {
     return "Hyllypaikka [nimi=" + nimi + ", leveys=" + leveys + ", korkeus=" + korkeus

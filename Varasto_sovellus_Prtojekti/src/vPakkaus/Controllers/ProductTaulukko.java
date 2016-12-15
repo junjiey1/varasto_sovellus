@@ -88,18 +88,8 @@ public class ProductTaulukko implements Taulukko_IF{
 			return false;
 	}
 
-	@Override
-	public void addTableView(TableView table) {
-		taulukko = table;
-	}
-
 	public TableView<DAO_Objekti> getTaulukko() {
 		return taulukko;
-	}
-
-	@Override
-	public DAO_Objekti getObject(int index) {
-		return paivitettavatTuotteet[index];
 	}
 
 }

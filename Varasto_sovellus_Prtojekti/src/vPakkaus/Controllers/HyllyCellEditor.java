@@ -3,6 +3,9 @@ package vPakkaus.Controllers;
 import vPakkaus.Hyllypaikka;
 import vPakkaus.Product;
 
+/**
+ * Luokka vastaa hyllypaikka taulukon suoran muokkauksen hallinnasta.
+ */
 public class HyllyCellEditor extends EditingCell{
 
   private Hyllypaikka[] paivitettavatHyllyt;

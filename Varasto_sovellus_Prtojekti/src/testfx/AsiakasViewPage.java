@@ -5,9 +5,15 @@ import org.loadui.testfx.GuiTest;
 
 import javafx.scene.Parent;
 import vPakkaus.MainLaunch;
-
+/**
+ * Testi luokka, missa testataan asiakkaiden etsiminen
+ * @author benyi
+ *
+ */
 public class AsiakasViewPage extends GuiTest{
-
+/**
+ * Asiakkaiden etsiminen
+ */
   @Test
   public void search(){
     click("#searchCustomer");
@@ -17,7 +23,9 @@ public class AsiakasViewPage extends GuiTest{
     click("#searchBtn");
     doubleClick("test2");
   }
-
+/**
+ * Asiakkaiden valitseminen listalta.
+ */
   @Test
   public void view(){
     click("#searchCustomer");
@@ -29,6 +37,9 @@ public class AsiakasViewPage extends GuiTest{
     click("#viewBtn");
   }
 
+ /**
+  * getRootNode, joka  palauttaa testauttavan luokan 
+  */
   @Override
   protected Parent getRootNode() {
     MainLaunch m = new MainLaunch();

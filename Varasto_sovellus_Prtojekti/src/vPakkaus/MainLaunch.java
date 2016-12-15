@@ -70,11 +70,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 		anchorMap.put("customer",tehdas.annaNakyma("view/addCustomer.fxml", this));
 		anchorMap.put("customerview",tehdas.annaNakyma("view/customerView.fxml", this));
 		anchorMap.put("ManagementMainMenu",tehdas.annaNakyma("view/WarehouseManagement_MainMenu.fxml", this));
-		//anchorMap.put("Transmission",tehdas.annaNakyma("view/Transmission.fxml", this));
 		anchorMap.put("Test1",tehdas.annaNakyma("view/Trans_Main.fxml", this));
-		//anchorMap.put("Trans_SelectProduct",tehdas.annaNakyma("view/Trans_selectCustomer.fxml", (NayttojenVaihtaja_IF) luodutNakymaKontrollerit.get("Test1")));
-		//anchorMap.put("Trans_SelectProduct",tehdas.annaNakyma("view/Trans_SelectProduct.fxml", (NayttojenVaihtaja_IF) luodutNakymaKontrollerit.get("Test1")));
-		//anchorMap.put("Trans_confirm",tehdas.annaNakyma("view/Trans_confirm.fxml", (NayttojenVaihtaja_IF) luodutNakymaKontrollerit.get("Test1")));
     anchorMap.put("Graphs",tehdas.annaNakyma("view/GraphView.fxml", this));
     anchorMap.put("ShipmentTab",tehdas.annaNakyma("view/shipmentsView.fxml", this));
     anchorMap.put("ShipmentModification",tehdas.annaNakyma("view/shipmentModificationView.fxml", this));
@@ -167,6 +163,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	 * Tätä funktioita kutsutaan vain TestFx-testeissä.
 	 */
 	public void testFX_Esivalmistelut(){
+	  LanguageUtil.buildResourceBundleFromLanguageSettingsPropertiesFile();
 		anchorMap = new HashMap<String, AnchorPane>(); //Tänne tallenetaan fxml tiedoista luodut Anchorpanet
 		sceneMap = new HashMap<String, Scene>(); //Tänne tallennetaan jokainen Scene-olio
 		luodutNakymaKontrollerit = new HashMap<String, Nakyma_IF>(); //Tänne jokainen FXML näkymä-luokan kontrolleri instanssi

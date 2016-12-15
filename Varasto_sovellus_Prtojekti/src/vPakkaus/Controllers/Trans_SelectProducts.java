@@ -24,6 +24,9 @@ import javafx.scene.input.Dragboard;
 import vPakkaus.DAO_Objekti;
 import vPakkaus.Tuotejoukko;
 
+/**
+ * Luokka, joka vastaa lähetysten tuotteiden valinnasta. Välittää valitut tuotteet ja tuoterivit joita pitää päivittää Lähetyksenrakentajalle
+ */
 public class Trans_SelectProducts implements LahetysInformationProvider_IF{
 
   @FXML

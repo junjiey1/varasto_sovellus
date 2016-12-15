@@ -66,9 +66,8 @@ public class LoginController implements Nakyma_IF {
 
 		if (allGood) {
 			uname = usernameTxt.getText();
-			pword = passwordTxt.getText();
 
-			checkUnamePword(uname, pword);
+			checkUnamePword(uname);
 		}
 	}
 
@@ -88,10 +87,12 @@ public class LoginController implements Nakyma_IF {
 		}
 	}
 
-	public void checkUnamePword(String uname, String pword) throws IOException {
-		if (showpword.isSelected()) {
+	public void checkUnamePword(String uname) throws IOException {
+	  if (showpword.isSelected()) {
 			passwordTxt.setText(visiblePasswordTxt.getText());
 		}
+	  pword = passwordTxt.getText();
+		System.out.println(uname + " " + pword);
 		if (mc.logIn(uname, pword)) {
 			vaihtaja.asetaUudeksiNaytoksi("mainpage", LanguageUtil.getMessageFromResource("program_name"), null);
 		} else {
@@ -99,6 +100,7 @@ public class LoginController implements Nakyma_IF {
 			passwordTxt.setText("");
 			usernameTxt.requestFocus();
 		}
+		pword="";
 	}
 
 	@Override
@@ -127,6 +129,9 @@ public class LoginController implements Nakyma_IF {
 		passwordTxt.setText("");
 		passwordTxt.setPromptText(LanguageUtil.getMessageFromResource("password"));
 		usernameTxt.setText("");
+		visiblePasswordTxt.setText("");
+		showpword.selectedProperty().set(false);
+		showpword();
 		usernameTxt.setPromptText(LanguageUtil.getMessageFromResource("username"));
 		incorrectLabel.setText(LanguageUtil.getMessageFromResource("wrongvalidations"));
 		loginButton.setText(LanguageUtil.getMessageFromResource("login"));

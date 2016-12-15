@@ -13,11 +13,6 @@ public class TuoteJoukkoTable implements Taulukko_IF{
   }
 
   @Override
-  public void addTableView(TableView table) {
-
-  }
-
-  @Override
   public TableView<DAO_Objekti> getTaulukko() {
     return taulukkoTuoteRyhmille;
   }
@@ -25,11 +20,6 @@ public class TuoteJoukkoTable implements Taulukko_IF{
   @Override
   public boolean paivitaTietokantaan(MainController_IF mc, Nakyma_IF nakyma) {
     return false;
-  }
-
-  @Override
-  public DAO_Objekti getObject(int index) {
-    return taulukkoTuoteRyhmille.getItems().get(index);
   }
 
 }

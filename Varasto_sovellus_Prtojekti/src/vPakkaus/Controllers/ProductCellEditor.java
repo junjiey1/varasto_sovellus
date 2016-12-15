@@ -2,6 +2,9 @@ package vPakkaus.Controllers;
 
 import vPakkaus.Product;
 
+/**
+ * Tuote taulukon solujen muokkaukseen erikoistunut-luokka
+ */
 public class ProductCellEditor extends EditingCell{
 
 	private Product[] paivitettavatTuotteet;

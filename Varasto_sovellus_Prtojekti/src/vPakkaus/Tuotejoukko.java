@@ -54,17 +54,5 @@ public class Tuotejoukko implements DAO_Objekti{
 		this.maara = maara;
 	}
 
-	@Override
-	public boolean paivitaMuuttuja(String muuttujanNimi) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Object haeMuuttuja(String muuttujanNimi) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 }

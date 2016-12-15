@@ -24,12 +24,6 @@ public class HyllyTaulukko implements Taulukko_IF{
   }
 
   @Override
-  public void addTableView(TableView table) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
   public TableView<DAO_Objekti> getTaulukko() {
     return hyllyTaulu;
   }
@@ -52,12 +46,6 @@ public class HyllyTaulukko implements Taulukko_IF{
       }
     }
     return true; //päästään tänne jos kaikki ok
-  }
-
-  @Override
-  public DAO_Objekti getObject(int index) {
-    // TODO Auto-generated method stub
-    return null;
   }
 
 }

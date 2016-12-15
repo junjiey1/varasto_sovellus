@@ -12,11 +12,6 @@ public class AsiakasTaulukko implements Taulukko_IF{
 	}
 
 	@Override
-	public void addTableView(TableView table) {
-
-	}
-
-	@Override
 	public TableView<DAO_Objekti> getTaulukko() {
 		return table;
 	}
@@ -24,11 +19,6 @@ public class AsiakasTaulukko implements Taulukko_IF{
 	@Override
 	public boolean paivitaTietokantaan(MainController_IF mc, Nakyma_IF nakyma) {
 		return false;
-	}
-
-	@Override
-	public DAO_Objekti getObject(int index) {
-		return table.getItems().get(index);
 	}
 
 }

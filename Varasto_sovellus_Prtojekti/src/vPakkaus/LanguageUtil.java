@@ -7,10 +7,27 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+/**
+ *Luokka, joka vastaa ohjelman lokalisoinnista.
+ *Kaikki metodit staattisia ja instanssia tästä luokasta ei voi luoda
+ * */
+
 public class LanguageUtil {
+  /**
+   *Muuttuja jossa säilytetään properties tiedostosta luettuja avain arvo pareja
+   **/
   private static ResourceBundle messages=null;
+  /**
+   *String-muuttuja jossa säilytetään käytettyä maata esim. US, FI, AR
+   **/
   private static String country;
+  /**
+   *Muuttuja jossa säilytetään käytettyä kieltä esim. en, es tai fi
+   **/
   private static String language;
+
+  private LanguageUtil(){}
+
 
   public static void setMessagesResource(ResourceBundle resource){
     messages = resource;
@@ -18,12 +35,20 @@ public class LanguageUtil {
     language = messages.getLocale().getLanguage();
   }
 
+  /**
+   *Hakee annetulla avainarvolla messages muuttujasta arvon jos avaimen arvolla ei löydy mitään palauttaa oletus string.
+   *@param String key
+   *@return String value
+   * */
   public static String getMessageFromResource(String key){
-    if(messages==null)
+    if(messages==null || !(messages.containsKey(key)))
       return "!!! String with a key " + key + " doesn't exist !!!";
     return messages.getString(key);
   }
 
+  /**
+   *Metodi, joka hakee kieliasetus tiedostosta määritellyn kielen ja lataa vastaavan kieli properties tiedoston
+   */
   public static void buildResourceBundleFromLanguageSettingsPropertiesFile(){
     FileInputStream in=null;
     try {

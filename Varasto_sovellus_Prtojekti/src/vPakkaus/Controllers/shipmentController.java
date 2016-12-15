@@ -1,5 +1,8 @@
 package vPakkaus.Controllers;
 
+/**
+ *Erittäin yksinkertainen Ikkunan-kontrolleri. Halitsee ikkunaa jossa vain kaksi nappia
+ */
 public class shipmentController implements Nakyma_IF{
 
   private NayttojenVaihtaja_IF vaihtaja;

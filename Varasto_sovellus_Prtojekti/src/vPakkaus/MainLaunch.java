@@ -163,6 +163,7 @@ public class MainLaunch extends Application implements NayttojenVaihtaja_IF{
 	 * Tätä funktioita kutsutaan vain TestFx-testeissä.
 	 */
 	public void testFX_Esivalmistelut(){
+	  LanguageUtil.buildResourceBundleFromLanguageSettingsPropertiesFile();
 		anchorMap = new HashMap<String, AnchorPane>(); //Tänne tallenetaan fxml tiedoista luodut Anchorpanet
 		sceneMap = new HashMap<String, Scene>(); //Tänne tallennetaan jokainen Scene-olio
 		luodutNakymaKontrollerit = new HashMap<String, Nakyma_IF>(); //Tänne jokainen FXML näkymä-luokan kontrolleri instanssi

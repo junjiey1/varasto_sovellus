@@ -188,6 +188,15 @@ public class DB_AccessObject {
     return true;
 
   }
+  
+  /**
+   * Luodaan uusi varastoliikenne tietokantaan.
+   *
+   * @param Varastoliikenne, ArrayList<Tuotejoukko>
+   *         
+   *
+   * @return Onnistuu (true)/Ei Onnistu (false) (Boolean)
+   */
 
   public boolean luoVarastoliikenne(Varastoliikenne vl, ArrayList<Tuotejoukko> tjklist) {
     ArrayList<Boolean> errors = new ArrayList();
@@ -259,6 +268,15 @@ public class DB_AccessObject {
     }
     return lampotila;
   }
+  
+  /**
+   * Haetaan hyllyn käytetty tilavuus.
+   *
+   * @param String hyllyn nimi
+   *          String hyllyn nimi.
+   *
+   * @return käytetty tilavuus (Double)
+   */
 
   public Double haeHyllynKäytettyTilavuus(String hyllynimi) {
     double käytettytilavuus = 0;
@@ -270,6 +288,15 @@ public class DB_AccessObject {
 
     return käytettytilavuus;
   }
+  
+  /**
+   * Haetaan hyllyn käytetty paino.
+   *
+   * @param String hyllyn nimi
+   *          String hyllyn nimi.
+   *
+   * @return käytetty paino (Double)
+   */
 
   public Double haeHyllynKäytettyPaino(String hyllynimi) {
     double käytettypaino = 0;
@@ -281,6 +308,15 @@ public class DB_AccessObject {
 
     return käytettypaino;
   }
+  
+  /**
+   * Metodi tarkastaa, että tuotteen tila-, paino- ja lämpötilavaatimukset täsmäävät hyllyn vaatimusten kanssa mikäli tuotteiden tietoja muokataan.
+   *
+   * @param ArrayList<Product> products
+   *          ArrayList, joka sisältää muokattavat tuotteet uusilla tiedoilla
+   *
+   * @return true/false (Boolean), mikäli onnistuu tai ei onnistu 
+   */
 
   public Boolean NewProductInformationValidation(ArrayList<Product> products) {
     ArrayList<Boolean> booleans = new ArrayList();

@@ -44,6 +44,13 @@ public class DataBase_tests {
     db = new DB_AccessObject();
   }
 
+  /**
+   * Luodaan tietokantaan testi-itemeitä, joilla saadaan kätevästi suoritettua testit ilman, että
+   * jokaisessa testissä suoritetaan tavaroiden luonti erikseen.
+   *
+   *
+   */
+
   @Before
   public void Luo_testi_itemit() {
     System.out.println("\n Luodaan test itemit \n");
@@ -67,6 +74,12 @@ public class DataBase_tests {
     db.lisaa(joukko_2);
 
   }
+
+  /**
+   * Poistetaan mahdollisesti muokatut testi-itemit käytön jälkeen.
+   *
+   *
+   */
 
   @After
   public void Poista_testi_itemit() {
@@ -113,6 +126,14 @@ public class DataBase_tests {
     assertEquals("LogIn_AidotTunnukset() testi EPÄONNISTUI!", result, 1);
   }
 
+  /**
+   * Hyllypaikan luominen ja poistaminen.
+   *
+   * @result Luodaan uusi hyllypaikka db.createHyllypaikka-metodilla, jos hyllypaikkaa ei ole jo
+   *         olemassa (db.haeHylly ei palauta hyllypaikka). Lopuksi poistetaan luotu hyllypaikka
+   *         db.deleteHyllypaikka(hyllypaikka)-metodilla.
+   */
+
   @Test
   public void Create_and_Delete_hyllypaikka_sb() {
     boolean res;
@@ -126,6 +147,14 @@ public class DataBase_tests {
     assertEquals("Hyllypaikan poistaminen tietokannasta onnistui!", res, true);
   }
 
+  /**
+   * Hyllypaikan hakeminen.
+   *
+   * @result Haetaan luotu hyllypaikka "hylly_test_1_1", db.haeHylly()-metodilla.
+   *
+   *
+   */
+
   @Test
   public void Hae_hyllypaikka() {
     System.out.println("\nTest : Hae_hyllypaikka\n");
@@ -134,6 +163,16 @@ public class DataBase_tests {
     Hyllypaikka h = db.haeHylly("hylly_test_1_1");
     assertEquals("Hyllypaikan hakeminen onnistui!", hyllypaikka.toString(), h.toString());
   }
+
+  /**
+   * Haetaan kaikki hyllypaikat, josta löytyy tiettyä tuotetta.
+   *
+   * @result Luodaan kaksi eri hyllypaikkaa db.createHyllypaikka()-metodilla. Lisätään testi product
+   *         tp1 hyllyihin db.lisaa()-metodilla. Lopuksi haetaan tuotteen hyllypaikat
+   *         db.haeTuotteenHyllypaikat()-metodilla. Metodi palauttaa kaksi eri hyllypaikkaa.
+   *
+   *
+   */
 
   @Test
   public void HaeTuotteenHyllypaikat() {
@@ -165,6 +204,15 @@ public class DataBase_tests {
 
   }
 
+  /**
+   * Tuotteen luomisen ja poistamisen testaus.
+   *
+   * @result Luodaan tuote db.addProduct() -metodilla ja poistetaan db.deleteProduct()-metodilla();
+   *         Boolean true = metodi onnistui.
+   *
+   *
+   */
+
   @Test
   public void add_and_delete_Product() {
     System.out.println("\nTest : add_and_delete_Product()\n");
@@ -174,6 +222,15 @@ public class DataBase_tests {
     res = db.deleteProduct(p);
     assertEquals("Tuotteen lisääminen onnistui!", true, res);
   }
+
+  /**
+   * Päivitetään uotteen tietoja.
+   *
+   * @result Päivitetään tuotteen arvoja db.updateProducts()-metodilla ja haetaan tuotetietokannasta
+   *         db.findProducts()-metodilla ja tarkastetaan, että paino on muuttunut.
+   *
+   *
+   */
 
   @Test
   public void update_Product() {
@@ -200,6 +257,15 @@ public class DataBase_tests {
 
   }
 
+  /**
+   * Haetaan kaikki hyllypaikan tuotteet.
+   *
+   * @result db.haeHyllypaikanTuotteet(hyllypaikka)-metodi palauttaa lista tuotteista, jotka
+   *         sijaitsevat hyllypaikssa.
+   *
+   *
+   */
+
   @Test
   public void hae_hyllypaikan_tuotteet() {
     System.out.println("\nTest : hae_hyllypaikan_tuotteet()\n");
@@ -207,6 +273,14 @@ public class DataBase_tests {
     assertEquals("Tuotteiden hakeminen hyllypaikasta onnistui!", tuotteet.get(0), "test_item_1");
     assertEquals("Tuotteiden hakeminen hyllypaikasta onnistui!", tuotteet.get(1), "test_item_2");
   }
+
+  /**
+   * Haetaan tuote tuotenimen perusteella.
+   *
+   * @result db.findProduct(tuotteen nimi) -metodi palauttaa tuotteen annetun nimen perusteella.
+   *
+   *
+   */
 
   @Test
   public void hae_tuote() {
@@ -216,6 +290,15 @@ public class DataBase_tests {
     assertEquals("Tuotteiden hakeminen hyllypaikasta onnistui!", p1.getProduct_name(),
         p.getProduct_name());
   }
+
+  /**
+   * Testataan lämpötilan lisäämistä ja poistamista tuotteelle.
+   *
+   * @result db.addProduct(p) = luodaan testituote. boolean res = db.addTemperatures(p) = asetettaan
+   *         tuotteelle lämpötila. boolean res = db.deleteLampotila(p) = poistetaan tuotteen
+   *         lämpötila vaatimukset.
+   *
+   */
 
   @Test
   public void add_and_delete_Temperature() {
@@ -235,6 +318,15 @@ public class DataBase_tests {
     assertEquals("Tuotteen lampotilojen lisaaminen ja poistaminen onnistui!", true, res);
     db.deleteProduct(p);
   }
+
+  /**
+   * Tarkistetaan voiko tuotteet sijaita lämpötilavaatimuksiensa mukaan hyllypaikassa.
+   *
+   * @result db.haeHyllynTuotejoukot("hylly_test_1") = haetaan hyllyn kaikki tuotejoukot
+   *         db.checkLampotila(joukot.get(0)) = tarkistetaan voiko tuotteen sijaita
+   *         lämpötilavaatimusten mukaan hyllypaikassa.
+   *
+   */
 
   @Test
   public void check_Temperature() {
@@ -258,6 +350,16 @@ public class DataBase_tests {
         Double.valueOf(pro.getMin_temperature()));
   }
 
+  /**
+   * Tarkistetaan onko tuotteelle asetettu lämpötila booleania. lämpötila boolean kertoo sen onko
+   * tuotteella lämpötila vaatimuksia.
+   *
+   * @result db.checkIfTuoteIDExcistInLampoTila(p.getID()) = kertoo löytyykö tuotteelle lämpötila
+   *         booleania, true = löytyy.
+   *
+   *
+   */
+
   @Test
   public void checkLampotilaBoolean() {
 
@@ -268,6 +370,14 @@ public class DataBase_tests {
 
   }
 
+  /**
+   * Haetaan tuotteen määrä tietystä hyllystä.
+   *
+   * @result db.tuotteidenMaaraHyllyssa(tuotteen nimi, hyllypaikka) = palauttaa tuotteen määrän
+   *         kyseisessä hyllypaikassa. "test_item_1" -tuotetta on "hylly_test_1" - hyllyssä 3kpl.
+   *
+   */
+
   @Test
   public void Tuotteen_Maara_Hyllyssa() {
 
@@ -275,6 +385,15 @@ public class DataBase_tests {
     int maara = db.tuotteidenMaaraHyllyssa("test_item_1", "hylly_test_1");
     assertEquals("Tuotteen_Maara_Hyllyssa()", 3, maara);
   }
+
+  /**
+   * Luodaan uusi tuoterivi tietokantaan.
+   *
+   * @result db.addProductToTuoteriviTable(tuotejoukko) = lisää uuden tuoterivin tietokantaan,
+   *         palauttaa boolean arvon true, jos lisäys onnistui.
+   *
+   *
+   */
 
   @Test
   public void Create_Tuoterivi() {
@@ -289,6 +408,15 @@ public class DataBase_tests {
 
   }
 
+  /**
+   * Haetaan hyllypaikan kaikki Tuotejoukot.
+   *
+   * @result db.haeHyllynTuotejoukot("hylly_test_1") palauttaa kaikki tuotejoukot kyseisestä
+   *         hyllypaikasta.
+   *
+   *
+   */
+
   @Test
   public void haeHyllynTuotejoukot() {
 
@@ -296,6 +424,14 @@ public class DataBase_tests {
     ArrayList<Tuotejoukko> tjt = db.haeHyllynTuotejoukot("hylly_test_1");
     assertEquals("haeHyllynTuotejoukot() onnistuu", 2, tjt.size());
   }
+
+  /**
+   * Haetaan tietyn tuotteen kaikki tuoterivit.
+   *
+   * @result db.haeTuotteenKaikkiTuoterivit(p) palauttaa kaikki tietyn tuotteen tuoterivit.
+   *
+   *
+   */
 
   @Test
   public void haeTuotteenKaikkiTuoterivit() {
@@ -305,6 +441,15 @@ public class DataBase_tests {
     ArrayList<Tuotejoukko> tjt = db.haeTuotteenKaikkiTuoterivit(p);
     assertEquals("haeTuotteenKaikkiTuoterivit() onnistuu", 1, tjt.size());
   }
+
+  /**
+   * Muokataan tuoteriviä.
+   *
+   * @result haetaan ensin tuotteen tuoterivit komennolla b.haeTuotteenKaikkiTuoterivit(p);
+   *         Muokataan yhtä tuoteriviä metodilla db.muokkaaTuoteriviä(tj1). Lopuksi tarkistetaan,
+   *         että määrä on muuttunur tietokantaan.
+   *
+   */
 
   @Test
   public void muokkaaTuoteriviä() {
@@ -320,6 +465,15 @@ public class DataBase_tests {
     db.deleteTuoterivi(tjt2.get(0));
   }
 
+  /**
+   * Haetaan yksittäinen tuotejoukko.
+   *
+   * @result db.haeTuotejoukkoHyllysta(h.getNimi(), p.getProduct_name()), hakee tuotejoukon hyllyn
+   *         ja tuotteen nimien perusteella.
+   *
+   *
+   */
+
   @Test
   public void haeTuotejoukko() {
 
@@ -330,6 +484,14 @@ public class DataBase_tests {
     assertEquals("haeTuotejoukko() onnistuu", 3, tj.getMaara());
   }
 
+  /**
+   * Poistetaan tuoterivi.
+   *
+   * @result db.deleteTuoterivi(tj) poistaa yksittäisen tuotejoukon.
+   *
+   *
+   */
+
   @Test
   public void deleteTuoterivi() {
 
@@ -338,6 +500,15 @@ public class DataBase_tests {
     boolean res = db.deleteTuoterivi(tj);
     assertEquals("deleteTuoterivi onnistuu", true, res);
   }
+
+  /**
+   * Luodaan ja poistetaan varastoliikenne.
+   *
+   * @result db.createVarastoliikenne(vl) luo uuden varastoliikenteen.
+   *         db.getVarastoliikenne_autoinc() haetaan varastoliikenteen autoincrement tietokannasta.
+   *         db.deleteLahetys(ai - 1) poistetaan varastoliikenne autoincrementin avulla.
+   *
+   */
 
   @Test
   public void create_and_delete_Varastoliikenne() {
@@ -353,6 +524,15 @@ public class DataBase_tests {
 
   }
 
+  /**
+   * Etsitään varastoliikenne.
+   *
+   * @result db.findVarastoliikenne(ai - 1) etsitään varastoliikenne varastoliikenne idn
+   *         perusteella.
+   *
+   *
+   */
+
   @Test
   public void findVarastoliikenne() {
 
@@ -366,6 +546,15 @@ public class DataBase_tests {
     db.deleteLahetys(ai - 1);
 
   }
+
+  /**
+   * Luodaan ja poistetaan varastoliikennerivi.
+   *
+   * @result db.CreateVarastoliikennerivi(vr) luodaan uusi varastoliikenne rivi, boolean true =
+   *         onnistui;
+   *
+   *
+   */
 
   @Test
   public void Create_and_delete_Varastoliikennerivi() {
@@ -418,6 +607,17 @@ public class DataBase_tests {
     assertEquals(0.01, 300.0, h1.getMax_paino());
   }
 
+  /**
+   * Tarkistetaan mikäli tuotteen tietoja muokataan hyllypaikassa, että ne vielä mahtuvat uusilla
+   * tiedoilla hyllypaikkaan.
+   *
+   * @result db.NewProductInformationValidation(products) = tarkistaa kaikkien sille annettujen
+   *         tuotteiden tilavuuden, painonen ja lämpötilojen muutokset kaikissa hyllypaikoissa,
+   *         jossa tuote sijaitsee.
+   *
+   *
+   */
+
   @Test
   public void NewProductInformationValidation() {
     System.out.println("\nTest : NewProductInformationValidation()\n");
@@ -448,7 +648,16 @@ public class DataBase_tests {
 
     res = db.NewProductInformationValidation(products);
     assertEquals("NewProductInformationValidation ei mahdu", false, res);
-}
+  }
+
+  /**
+   * Tarkistetaan mikäli tuotteen tietoja muokataan hyllypaikassa, että ne vielä mahtuvat uusilla
+   * tiedoilla hyllypaikkaan.
+   *
+   * @result db.lisaa(joukko_1) lisaa uuden tuotteen tietokantaan. Lisays epaonnistuu, kun tilavuus, paino tai lampotila eivat tasmaa hyllyn kanssa.
+   *
+   *
+   */
 
   @Test
   public void lisaa_fails() {
@@ -486,27 +695,7 @@ public class DataBase_tests {
     db.deleteTuoterivi(joukko_2);
     db.deleteProduct(tp2);
 
-}
-
-
-  // @Test
-  // public void Lisaa_Tuote_tableen_lampotilojen_kanssa() {
-  // System.out.println("\nTest : Lisaa_Tuote_tableen_lampotilojen_kanssa\n");
-  // Product product = new Product("Kakka", 1.0, 2.0, 3.0, 4.0, 5.0f);
-  // product.setID(537);
-  // product.setMax_temperature(10);
-  // product.setMin_temperature(-12);
-  // boolean result = db.addProductToTuoteTable(product);
-  // assertEquals("Lisaaminen tuotetauluun", result, true);
-  // }
-
-  // @Test
-  // public void createHyllypaikka() {
-  // System.out.println("\nTest : createHyllypaikka\n");
-  // Hyllypaikka hyllypaikka = new Hyllypaikka("a-3", 100, 100, 100, -5, 2000);
-  // boolean result = db.CreateHyllypaikka(hyllypaikka);
-  // assertEquals("Hyllypaikan luominen onnistui", result, true);
-  // }
+  }
 
   @Test
   public void MahtuukoTuotteetHyllyyn_test() {
@@ -520,10 +709,6 @@ public class DataBase_tests {
     assertEquals("Tuotteet mahtuvat hyllyyn", true, result);
     result = db.mahtuukoTuotteetHyllyyn(tj2);
     assertEquals("Tuotteet eivät mahdu hyllyyn!", false, result);
-  }
-
-  public void haeHylly() {
-
   }
 
   @Test
@@ -576,126 +761,5 @@ public class DataBase_tests {
     res = db.deleteAsiakas(a1);
     assertEquals("Asiakas poistettu onnistuneesti!", true, res);
   }
-
-  // @Test
-  // public void Lisaa_tuote() {
-  //
-  // System.out.println("\nTest : Lisaa_Tuote\n");
-  // Product product = new Product("testi_tuote_121", 1.0, 1.0, 1.0, 1.0, 1.0f);
-  // product.setMax_temperature(10);
-  // product.setMin_temperature(0);
-  // Hyllypaikka hyllypaikka = new Hyllypaikka("hylly_test_121", 10.0, 10.0, 10.0, 5, 200);
-  // Tuotejoukko joukko = new Tuotejoukko(product, hyllypaikka, 2);
-  // boolean result = db.lisaa(joukko);
-  // assertEquals("Tavaran lisaaminen onnistui!", true, result);
-  // product = db.findProduct("testi_tuote_121");
-  // joukko = new Tuotejoukko(product, hyllypaikka, 2);
-  //
-  // db.deleteLampotila(product);
-  // db.deleteTuoterivi(joukko);
-  // db.deleteHyllypaikka(hyllypaikka);
-  //
-  // }
-
-  // @Test
-  // public void hae_hyllyn_tuotejoukot() {
-  // ArrayList <Tuotejoukko> tj = db.haeHyllynTuotejoukot("a-1");
-  // for (Tuotejoukko t : tj) {
-  // System.out.println(t.getProduct().getProduct_name());
-  // }
-  // assertEquals("Tavaran lisaaminen onnistui!", tj, true);
-  // }
-
-  // @Test
-  // public void Etsi_Tavara() {
-  // System.out.println("\nTest : Etsi_Tavara()");
-  // System.out.println("Test : Lisätään tavara etsintää varten");
-  // boolean result = db.Lisaa("TEST-ITEM", 1.2, 3.6, "testipaikka", 2.2f, 1);
-  // assertEquals("Tavaran lisääminen ONNISTUI!", result, true);
-  //
-  // Product product = db.findProduct("TEST-ITEM");
-  // Product product_test = new Product("TEST-ITEM", "testipaikka", 1.2, 3.6, 2.2f, 1);
-  // product_test.setID(product.getID());
-  // assertEquals("Tavaran etsiminen ONNISTUI!", product.toString(), product_test.toString());
-  // }
-  //
-  // @Test
-  // public void Etsi_Tavarat() {
-  // System.out.println("\nTest : Etsi_Tavarat()");
-  // System.out.println("Test : Lisätään tavarat etsintää varten");
-  // boolean result = db.Lisaa("TEST-ITEM1", 1.2, 3.6, "testipaikka", 2.2f, 1);
-  // assertEquals("Tavaran lisääminen ONNISTUI!", result, true);
-  // result = db.Lisaa("TEST-ITEM2", 1.2, 3.6, "testipaikka", 2.2f, 1);
-  // assertEquals("Tavaran lisääminen ONNISTUI!", result, true);
-  //
-  // ArrayList<Product> productlist_handmade = new ArrayList();
-  // ArrayList<Product> productlist = db.findProducts("TES");
-  //
-  // Product product_test1 = new Product("TEST-ITEM1", "testipaikka", 1.2, 3.6, 2.2f, 1);
-  // Product product_test2 = new Product("TEST-ITEM2", "testipaikka", 1.2, 3.6, 2.2f, 1);
-  //
-  // productlist_handmade.add(product_test1);
-  // productlist_handmade.add(product_test2);
-  //
-  // int i = 0;
-  // for (Product p : productlist) {
-  // productlist_handmade.get(i).setID(p.getID());
-  // System.out.println(p.toString());
-  // System.out.println("equals");
-  // System.out.println(productlist_handmade.get(i).toString());
-  // System.out.println(" ");
-  // assertEquals("Tavaroiden haku ONNISTUI!", p.toString(),
-  // productlist_handmade.get(i).toString());
-  // i++;
-  // }
-  // }
-  //
-  // @Test
-  // public void Poista_tavara() {
-  //
-  // System.out.println("Test : Poista_tavara");
-  // System.out.println("Lisätään tavara");
-  // boolean result = db.Lisaa("TEST-ITEM", 1.2, 3.6, "testipaikka", 2.2f, 1);
-  // assertEquals("Tavaran lisääminen ONNISTUI!", result, true);
-  //
-  // System.out.println("Etsitään tavara");
-  // Product product = db.findProduct("TEST-ITEM");
-  // assertEquals("Tavaran haku ONNISTUI!", product.getProduct_name() , "TEST-ITEM");
-  //
-  // System.out.println("Poistetaan tavara "+product.getProduct_name() +" "+ product.getID());
-  // result = db.deleteProduct(product.getID());
-  // db.deleteProduct(product.getID());
-  // assertEquals("Tavaran poisto ONNISTUI!", result , true);
-  //
-  // System.out.println("Etsitään tavara");
-  // product = db.findProduct("TEST-ITEM");
-  // assertEquals("Tavaran haku ONNISTUI!", product , null);
-  //
-  // }
-  //
-  // @Test
-  // public void Tavaran_Lisääminen_Oikeilla_Parametreilla() {
-  // System.out.println("\nTest : Tavaran_Lisääminen_Oikeilla_Parametreilla()");
-  // boolean result = db.Lisaa("JUNIT-TEST-ITEM_JENKINS", 1.2, 3.6, "JUNIT", 2.2f, 1);
-  // assertEquals("Tavaran lisääminen EPÄONNISTUI!", result, true);
-  // result = db.Lisaa("JUNIT-TEST-ITEM_JENKINS", 1.2, 3.6, "JUNIT", 2.2f, 1);
-  // assertEquals("Duplicate tuote lisättiin tietokantaan eli testi EPÄONNISTUI!", result, false);
-  // }
-  //
-  //
-  // @Test
-  // public void Tavaran_Etsiminen() {
-  // System.out.println("\nTavaran etsiminen");
-  // System.out.println("\nTest : Tavaran_Lisääminen_Oikeilla_Parametreilla()");
-  // boolean result = db.Lisaa("TEST-ITEM", 1.2, 3.6, "JUNIT_ETSI", 2.2f, 1);
-  // assertEquals("Tavaran lisääminen EPÄONNISTUI!", result, true);
-  // Product p = db.findProduct("TEST-ITEM");
-  // assertEquals("Tavaran lisääminen EPÄONNISTUI!", 2.2f, p.getProduct_price(), 0.0);
-  // assertEquals("Tavaran lisääminen EPÄONNISTUI!", 1.2, p.getProduct_weight(), 0.0);
-  // assertEquals("Tavaran lisääminen EPÄONNISTUI!", p.getProduct_name(), "TEST-ITEM");
-  // }
-  //
-
-  // Testimetodin nimi voi olla mitä tahansa, edessä annotaatio @Test
 
 }

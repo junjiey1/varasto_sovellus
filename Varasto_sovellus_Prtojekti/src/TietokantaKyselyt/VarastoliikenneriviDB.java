@@ -14,6 +14,11 @@ import vPakkaus.Varastoliikennerivi;
 
 public class VarastoliikenneriviDB {
 
+  /**
+   * Luokka vastaa varastoliikennerivi tietokantataulun kyselyistä.
+   *
+   */
+
   private Connection conn = null;
   private PreparedStatement ps = null;
   private ResultSet rs = null;

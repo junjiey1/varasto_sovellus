@@ -6,9 +6,15 @@ import org.loadui.testfx.GuiTest;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
 import vPakkaus.MainLaunch;
-
+/**
+ * Testi luokka, missa testataan asiakkaiden lisaaminen
+ * @author benyi
+ *
+ */
 public class AddAsiakasTest extends GuiTest{
-
+  /**
+   * Tarkistetaan, etta kaikki tekstikentat loytyvat
+   */
   @Test
   public void fieldTest(){
     click("#customerName");
@@ -22,11 +28,14 @@ public class AddAsiakasTest extends GuiTest{
     click("#save");
     click("OK");
   }
-
+  /**
+   * Testataan, etta asiakas lisaaminen onnistuu
+   *
+   */
   @Test
   public void lisaaAsiakas(){
-
-    click("#customerName").type("TestFx2");
+    //HUOM. kayttaja nimi piti joka kertaa keksia uuden, kun kerran on tallennettu.
+    click("#customerName").type("TestFxx");
     click("#save");
     click("OK");
     click("#customerStreet").type("koulu");
@@ -54,6 +63,9 @@ public class AddAsiakasTest extends GuiTest{
     click("#save");
     click("OK");
   }
+  /**
+   * getRootNode, joka  palauttaa testauttavan luokan
+   */
   @Override
   protected Parent getRootNode() {
 

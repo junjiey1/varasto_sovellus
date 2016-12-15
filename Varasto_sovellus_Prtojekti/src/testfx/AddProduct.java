@@ -5,13 +5,19 @@ import org.loadui.testfx.GuiTest;
 
 import javafx.scene.Parent;
 import vPakkaus.MainLaunch;
-
+/**
+ * Testi luokka, missa testataan tavaran lisaaminen nakyma toimintoja
+ *
+ * @author benyi
+ */
 public class AddProduct extends GuiTest {
-
+/**
+ * Tavaran lisaaminen onnistuusti
+ */
   @Test
   public void addProduct() {
     click("#addProductTab");
-    click("#productName").type("testFx1");
+    click("#productName").type("testFx11");
     click("#length").type("3");
     click("#width").type("2");
     click("#height").type("4");
@@ -23,7 +29,9 @@ public class AddProduct extends GuiTest {
     click("#addProductBtn");
     click("OK");
   }
-
+/**
+ * Tavaran lisaaminen epaonnistuu
+ */
   @Test
   public void failaddProduct() {
     click("#addProductTab");
@@ -40,7 +48,9 @@ public class AddProduct extends GuiTest {
     click("OK");
 
   }
-
+  /**
+   * getRootNode, joka  palauttaa testauttavan luokan
+   */
 	@Override
 	protected Parent getRootNode() {
 

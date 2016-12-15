@@ -36,9 +36,9 @@ public class SearchTest extends GuiTest{
 		click("#productName").type("Maito");
 		click("#searchbtn");
 		click("#tuoteTable");
-		doubleClick("Maito2");
+		doubleClick("Maito3");
 		//Huom. klikkattava tuote taytyy vaihtaa, kun kerran on muokannut tuote nimi aikasemmassa testissa.
-		doubleClick("Maito3").type("Maito2");
+		doubleClick("Maito3").type("Maito3");
 		click("#paivita");
 		click("Ei");
 		click("#paivita");
